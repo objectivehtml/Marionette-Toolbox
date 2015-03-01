@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../vendor.css">
+		<link rel="stylesheet" href="../marionette.toolbox.css">
+
+		<script src="../vendor.js"></script>
+		<script src="../marionette.toolbox.js"></script>	
+	</head>
+	<body>
+		<div class="app-wrapper"></div>
+		
+		<script type="text/javascript">
+			var App = new Backbone.Marionette.Application();
+
+			App.addRegions({
+				content: $('.app-wrapper')
+			});
+
+			App.addInitializer(function() {
+				
+				var view = new Toolbox.Views.RangeSlider({
+					start: [25, 50],
+					margin: 10
+				});
+
+				App.content.show(view);
+			});
+
+			App.start();
+
+		</script>
+		
+	</body>
+</html>

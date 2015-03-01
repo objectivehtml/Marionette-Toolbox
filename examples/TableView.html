@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../vendor.css">
+		<link rel="stylesheet" href="../marionette.toolbox.css">
+
+		<script src="../vendor.js"></script>
+		<script src="../marionette.toolbox.js"></script>	
+	</head>
+	<body>
+		<div class="app-wrapper"></div>
+		
+		<script type="text/javascript">
+			var App = new Backbone.Marionette.Application();
+
+			App.addRegions({
+				content: $('.app-wrapper')
+			});
+
+			App.addInitializer(function() {
+				
+				var collection = new Backbone.Collection([{
+					name: 'Joe Smith',
+					created_at: '2015-01-01 05:30:00'
+				},{
+					name: 'Jane Doe',
+					created_at: '2015-02-02 12:25:40'
+				},{
+					name: 'Joe Smith',
+					created_at: '2015-01-01 05:30:00'
+				}]);
+
+				var view = new Toolbox.Views.TableView({
+					collection: collection,
+					columns: [{
+						name: 'Name',
+						id: 'name'
+					},{
+						name: 'Created At',
+						id: 'created_at'
+					}]
+				});
+
+				App.content.show(view);
+
+			});
+
+			App.start();
+
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,6 @@
+{{#not divider}}
+	<a href="{{#if ../href}}{{../../href}}{{/if}}{{#not ../href}}#{{/not}}" data-page="{{../page}}">{{../page}}</a>
+{{/not}}
+{{#if divider}}
+	<a>&hellip;</a>
+{{/if}}

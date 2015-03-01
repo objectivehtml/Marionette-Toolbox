@@ -1,0 +1,61 @@
+.notifications {
+	position: fixed;
+	top: 70px;
+	right: 1em;
+	z-index: 2500;
+	font-size: 14px;
+}
+.notification {
+	position: relative;
+	left: 110%;
+	box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+	background: black;
+	background: rgba(0, 0, 0, .8);
+	width: 330px;
+	padding: 5px 15px;
+	color: white;
+	margin-bottom: 10px;
+  	-webkit-transition:all .5s ease-in-out;
+  	-moz-transition:all .5s ease-in-out;
+  	-o-transition:all .5s ease-in-out;
+  	transition:all .5s ease-in-out;
+  	border: none;
+  	border-radius: 0;
+}
+.notification.alert,
+.notification.error {
+	background: rgb(228, 25, 72);
+}
+.notification.warning {
+	background: rgb(251, 163, 64);
+}
+.notification.success {
+	background: rgb(43, 196, 161);
+}
+.notification .icon,
+.notification .icon:hover {
+	float: left;
+	padding: 15px 0;
+	font-size: 26px;
+	color: white;
+}
+.notification .close {
+	position: absolute;
+	color: white;
+	top: 10px;
+	right: 10px;
+	font-size: 14px;
+}
+.notification.visible {
+	left: 0;
+}
+.notification h3 {
+	color: white;
+	margin-bottom: 5px;
+	margin-top: 0;
+}
+.notification p {
+	margin-bottom: 10px;
+	line-height: 20px;
+	font-size: 15px;
+}
