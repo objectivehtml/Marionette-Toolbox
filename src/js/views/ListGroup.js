@@ -12,9 +12,7 @@
 
 	Toolbox.Views.NoListGroupItem = Toolbox.Views.ItemView.extend({
 
-		template: Toolbox.Template('no-list-group-item'),
-
-		tagName: 'li'
+		template: Toolbox.Template('no-list-group-item')
 
 	});
 

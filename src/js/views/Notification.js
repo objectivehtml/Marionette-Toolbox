@@ -51,9 +51,9 @@
 
 		model: false,
 
-		events: {
-			'click': 'onClick',
-			'click .close': 'onCloseClick'
+		triggers: {
+			'click': 'click',
+			'click .close': 'close:click'
 		},
 
 		initialize: function() {
@@ -71,18 +71,14 @@
 			}
 		},
 
-		onClick: function(e) {
+		onClick: function() {
 			if(this.getOption('closeOnClick')) {
 				this.hide();
 			}
-
-			this.triggerMethod('click');
 		},
 
-		onCloseClick: function(e) {
+		onCloseClick: function() {
 			this.hide();
-
-			e.preventDefault();
 		},
 
 		isVisible: function() {

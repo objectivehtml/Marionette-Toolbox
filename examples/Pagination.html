@@ -1,11 +1,13 @@
+<!DOCTYPE html>
+
 <html>
 	<head>
-		<link rel="stylesheet" href="../vendor.css">
 		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
 		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
 		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
+		<link rel="stylesheet" href="../vendor.css">
 		<link rel="stylesheet" href="../marionette.toolbox.css">
-
+		
 		<script src="../vendor.js"></script>
 		<script src="../marionette.toolbox.js"></script>	
 	</head>
@@ -22,15 +24,19 @@
 			App.addInitializer(function() {
 				
 				var view = new Toolbox.Views.Pagination({
-					page: 5,
-					totalPages: 30,
+					page: 1,
+					totalPages: 20,
 					showPages: 6,
 					paginationClassName: 'pagination-lg'
 				});
 
-				view.on('paginate', function(view) {
-					console.log(view);
+				view.on('paginate', function(page, view) {
+					console.log(page, view);
 				});
+
+				setTimeout(function() {
+					view.setPaginationLinks(10, 100);
+				}, 1000);
 
 				App.content.show(view);
 

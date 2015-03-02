@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
+		<link rel="stylesheet" href="../vendor.css">
+		<link rel="stylesheet" href="../marionette.toolbox.css">
+
+		<script src="../vendor.js"></script>
+		<script src="../marionette.toolbox.js"></script>	
+	</head>
+	<body>
+		<div class="app-wrapper"></div>
+		
+		<script id="form-template" type="text/x-handlebars-template">
+
+			<div class="form-group">
+				<label for="first">First Name</label>
+				<input type="text" name="firstName" id="firstName" value="{{firstName}}" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label for="last">Last Name</label>
+				<input type="text" name="lastName" id="lastName" value="{{lastName}}" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="text" name="email" id="email" value="{{email}}" class="form-control" />
+			</div>
+
+			<footer>
+				<button class="btn btn-primary">Update Profile</button>
+				<a href="#" class="cancel"><i class="fa fa-times-circle"></i> Cancel</a>
+			</footer>
+
+		</script>
+
+		<script type="text/javascript">
+			var App = new Backbone.Marionette.Application();
+
+			App.addRegions({
+				content: $('.app-wrapper')
+			});
+
+			App.addInitializer(function() {
+				
+				var source = $("#form-template").html();
+				
+				var View = Toolbox.Views.BaseForm.extend({
+
+					template: Handlebars.compile(source)
+
+				});
+
+				var User = Backbone.Model.extend({
+					
+					url: 'http://api.wedo.dev/auth/user',
+
+					rest: {
+						'read': ':uid',
+						'create': '',
+						'update': ':uid',
+						'delete': ':uid'
+					},
+
+					sync: function(method, model, options) {
+						options = options || {};
+						method  = method.toLowerCase();
+
+						if(method == 'update' && this.forcePost) {
+							method = arguments[0] = 'create';
+						}
+
+						var rest = this.rest[method];
+
+						var append = null, uid = model.get('uid');
+
+						model.set('id', model.get('uid'));
+						
+						append = rest.replace(/\:uid/, (uid ? uid : ''));
+
+						options.url = this.getUrl(method, append);
+						
+						options.beforeSend = function(xhr) {
+							xhr.setRequestHeader('X-Auth-Token', '89ac9e68-d09c-42e4-9acb-52423b28f4f7');
+						};
+
+						if ( method === 'delete' ) {
+					        options.data = JSON.stringify(this.toJSON());
+					        options.contentType = 'applicaton/json';
+					    }
+
+						return Backbone.sync.apply(this, arguments);
+					},
+
+					getUrl: function(method, append) {
+						if(!method) {
+							method = 'read';
+						}
+
+						var url = this.url;
+
+						if(_.isObject(url)) {
+							if(url[method]) {
+								url = url[method];
+							}
+						}
+
+						return url;
+					},
+
+					parse: function(data, options) {
+						if(data.success) {
+							if(data.response.id) {
+								data.response.id = data.response.id;
+							}
+
+							this.set(data.response);
+						}
+					}
+
+				});
+
+				var model = new User();
+
+				var view = new View({
+					model: model
+				});
+
+				var activity = new Toolbox.Views.ActivityIndicator({
+					indicator: 'medium'
+				});
+
+				App.content.show(activity);
+
+				model.fetch({
+					success: function() {
+						App.content.show(view);
+					}
+				});
+
+			});
+
+			App.start();
+
+		</script>
+		
+	</body>
+</html>

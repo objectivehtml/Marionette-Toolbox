@@ -42,10 +42,10 @@
 			nextClassName: 'next',
 
 			// (bool) Include the page totals between the pager buttons
-			includePageTotals: false,
+			includePageTotals: true,
 
 			// (bool) Align pager buttson to left and right edge
-			snapToEdges: false,
+			snapToEdges: true,
 
 			// (int) The current page number
 			page: 1,
@@ -74,6 +74,8 @@
             	'prevLabel',
             	'nextLabel'
             ];
+
+            console.log(this.getOption('snapToEdges'));
 
             if(!this.model) {
                 this.model = new Backbone.Model();

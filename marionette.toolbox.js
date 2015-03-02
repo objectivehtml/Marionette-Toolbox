@@ -39,6 +39,17 @@ function program5(depth0,data,depth1) {
   return buffer;
   });
 
+templates['form-error'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  if (helper = helpers.error) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.error); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  return escapeExpression(stack1);
+  });
+
 templates['breadcrumb'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -294,6 +305,27 @@ function program6(depth0,data,depth1) {
   return buffer;
   });
 
+templates['no-ordered-list-item'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "";
+
+
+  return buffer;
+  });
+
+templates['ordered-list-item'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var stack1, helper, functionType="function";
+
+
+  if (helper = helpers.content) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.content); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  if(stack1 || stack1 === 0) { return stack1; }
+  else { return ''; }
+  });
+
 templates['pager'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -308,42 +340,48 @@ function program1(depth0,data,depth1) {
 function program3(depth0,data,depth1) {
   
   var buffer = "", stack1;
-  buffer += "\n			<li class=\"page-totals\">Page "
+  buffer += "\n		<li class=\"page-totals\">Page "
     + escapeExpression(((stack1 = (depth1 && depth1.page)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " of "
-    + escapeExpression(((stack1 = (depth1 && depth1.totalPages)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</li>\n		";
+    + " of ";
+  stack1 = helpers['if'].call(depth0, (depth1 && depth1.totalPages), {hash:{},inverse:self.noop,fn:self.programWithDepth(4, program4, data, depth1),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "</li>\n	";
   return buffer;
   }
+function program4(depth0,data,depth2) {
+  
+  var stack1;
+  return escapeExpression(((stack1 = (depth2 && depth2.totalPages)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
+  }
 
-function program5(depth0,data,depth1) {
+function program6(depth0,data,depth1) {
   
   var stack1;
   return escapeExpression(((stack1 = (depth1 && depth1.nextClassName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
   }
 
-  buffer += "<nav>\n	<ul class=\"";
+  buffer += "<ul class=\"";
   if (helper = helpers.pagerClassName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.pagerClassName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">\n		<li class=\"";
+    + "\">\n	<li class=\"";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.snapToEdges), {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\"><a href=\"#\" class=\"prev-page\"><i class=\"fa fa-long-arrow-left\" aria-hidden=\"true\"></i> ";
   if (helper = helpers.prevLabel) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.prevLabel); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</a></li>\n		";
+    + "</a></li>\n	";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.includePageTotals), {hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n		<li class=\"";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.snapToEdges), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data});
+  buffer += "\n	<li class=\"";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.snapToEdges), {hash:{},inverse:self.noop,fn:self.programWithDepth(6, program6, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\"><a href=\"#\" class=\"next-page\">";
   if (helper = helpers.nextLabel) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.nextLabel); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + " <i class=\"fa fa-long-arrow-right\" aria-hidden=\"true\"></i></a></li>\n	</ul>\n</nav>";
+    + " <i class=\"fa fa-long-arrow-right\" aria-hidden=\"true\"></i></a></li>\n</ul>";
   return buffer;
   });
 
@@ -442,6 +480,29 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<div class=\"slider\"></div>";
   });
 
+templates['table-activity-indicator-row'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data,depth1) {
+  
+  var buffer = "", stack1;
+  buffer += "style=\"height:"
+    + escapeExpression(((stack1 = (depth1 && depth1.height)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "px\"";
+  return buffer;
+  }
+
+  buffer += "<td class=\"activity-indicator-row\" colspan=\""
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.columns)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.height), {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += ">\n\n	<div class=\"activity-indicator-dimmer\">\n		\n		<span class=\"activity-indicator\"></span>\n\n	</div>\n\n</td>";
+  return buffer;
+  });
+
 templates['table-no-items'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -458,6 +519,38 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
+templates['table-view-footer'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+
+function program1(depth0,data,depth1) {
+  
+  var stack1;
+  return escapeExpression(((stack1 = (depth1 && depth1.totalPages)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
+  }
+
+function program3(depth0,data,depth1) {
+  
+  var stack1;
+  return escapeExpression(((stack1 = (depth1 && depth1.page)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
+  }
+
+  buffer += "<td colspan=\""
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.columns)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" class=\"page-totals\">\n    Page ";
+  if (helper = helpers.page) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.page); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " of ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.totalPages), {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  stack1 = (helper = helpers.not || (depth0 && depth0.not),options={hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data},helper ? helper.call(depth0, (depth0 && depth0.totalPages), options) : helperMissing.call(depth0, "not", (depth0 && depth0.totalPages), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</td>";
+  return buffer;
+  });
+
 templates['table-view-group'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -465,26 +558,39 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 function program1(depth0,data,depth1) {
   
-  var buffer = "", stack1, helper, options;
-  buffer += "\n							<th scope=\"col\" ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.width), {hash:{},inverse:self.noop,fn:self.programWithDepth(2, program2, data, depth0),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " class=\"";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.className), {hash:{},inverse:self.noop,fn:self.programWithDepth(4, program4, data, depth0),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " ";
-  stack1 = (helper = helpers.is || (depth0 && depth0.is),options={hash:{},inverse:self.noop,fn:self.programWithDepth(6, program6, data, depth1),data:data},helper ? helper.call(depth0, (depth0 && depth0.id), (depth1 && depth1.order), options) : helperMissing.call(depth0, "is", (depth0 && depth0.id), (depth1 && depth1.order), options));
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\">\n								";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.id), {hash:{},inverse:self.noop,fn:self.programWithDepth(8, program8, data, depth0),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n								";
-  stack1 = (helper = helpers.not || (depth0 && depth0.not),options={hash:{},inverse:self.noop,fn:self.programWithDepth(10, program10, data, depth0),data:data},helper ? helper.call(depth0, (depth0 && depth0.id), options) : helperMissing.call(depth0, "not", (depth0 && depth0.id), options));
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n							</th>\n						";
+  var buffer = "", stack1;
+  buffer += "\n	<"
+    + escapeExpression(((stack1 = (depth1 && depth1.headerTag)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " class=\"table-header\">"
+    + escapeExpression(((stack1 = (depth1 && depth1.header)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</"
+    + escapeExpression(((stack1 = (depth1 && depth1.headerTag)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + ">\n";
   return buffer;
   }
-function program2(depth0,data,depth1) {
+
+function program3(depth0,data,depth1) {
+  
+  var buffer = "", stack1, helper, options;
+  buffer += "\n			<th scope=\"col\" ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.width), {hash:{},inverse:self.noop,fn:self.programWithDepth(4, program4, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " class=\"";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.className), {hash:{},inverse:self.noop,fn:self.programWithDepth(6, program6, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " ";
+  stack1 = (helper = helpers.is || (depth0 && depth0.is),options={hash:{},inverse:self.noop,fn:self.programWithDepth(8, program8, data, depth1),data:data},helper ? helper.call(depth0, (depth0 && depth0.id), (depth1 && depth1.order), options) : helperMissing.call(depth0, "is", (depth0 && depth0.id), (depth1 && depth1.order), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\">\n				";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.id), {hash:{},inverse:self.noop,fn:self.programWithDepth(10, program10, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n				";
+  stack1 = (helper = helpers.not || (depth0 && depth0.not),options={hash:{},inverse:self.noop,fn:self.programWithDepth(12, program12, data, depth0),data:data},helper ? helper.call(depth0, (depth0 && depth0.id), options) : helperMissing.call(depth0, "not", (depth0 && depth0.id), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n			</th>\n		";
+  return buffer;
+  }
+function program4(depth0,data,depth1) {
   
   var buffer = "", stack1;
   buffer += "width=\""
@@ -493,13 +599,13 @@ function program2(depth0,data,depth1) {
   return buffer;
   }
 
-function program4(depth0,data,depth1) {
+function program6(depth0,data,depth1) {
   
   var stack1;
   return escapeExpression(((stack1 = (depth1 && depth1.className)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
   }
 
-function program6(depth0,data,depth2) {
+function program8(depth0,data,depth2) {
   
   var buffer = "", stack1;
   buffer += "sort-"
@@ -507,99 +613,96 @@ function program6(depth0,data,depth2) {
   return buffer;
   }
 
-function program8(depth0,data,depth1) {
+function program10(depth0,data,depth1) {
   
   var buffer = "", stack1;
-  buffer += "\n									<a href=\"#\" data-id=\""
+  buffer += "\n					<a href=\"#\" data-id=\""
     + escapeExpression(((stack1 = (depth1 && depth1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" class=\"sort\">";
   stack1 = ((stack1 = (depth1 && depth1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</a>\n									<i class=\"fa fa-sort-asc\"></i>\n									<i class=\"fa fa-sort-desc\"></i>\n								";
-  return buffer;
-  }
-
-function program10(depth0,data,depth1) {
-  
-  var buffer = "", stack1;
-  buffer += "\n									";
-  stack1 = ((stack1 = (depth1 && depth1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1);
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n								";
+  buffer += "</a>\n					<i class=\"sort-icon asc fa fa-sort-asc\"></i>\n					<i class=\"sort-icon desc fa fa-sort-desc\"></i>\n				";
   return buffer;
   }
 
 function program12(depth0,data,depth1) {
   
   var buffer = "", stack1;
-  buffer += "\n						";
-  stack1 = helpers['if'].call(depth0, (depth1 && depth1.paginate), {hash:{},inverse:self.noop,fn:self.programWithDepth(13, program13, data, depth1),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n					";
+  stack1 = ((stack1 = (depth1 && depth1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n				";
   return buffer;
   }
-function program13(depth0,data,depth2) {
-  
-  var buffer = "", stack1, helper, options;
-  buffer += "\n						<tfoot>\n							<tr>\n								<td colspan=\""
-    + escapeExpression(((stack1 = ((stack1 = (depth2 && depth2.columns)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">\n									<div class=\"pagination text-center\">\n										<a href=\"#\" class=\"left\"><i class=\"fa fa-long-arrow-left\"></i> Prev Page</a>\n										<span class=\"page-number\">Page ";
-  stack1 = (helper = helpers.is || (depth2 && depth2.is),options={hash:{},inverse:self.noop,fn:self.programWithDepth(14, program14, data, depth2),data:data},helper ? helper.call(depth0, (depth2 && depth2.lastPage), ">", "0", options) : helperMissing.call(depth0, "is", (depth2 && depth2.lastPage), ">", "0", options));
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " ";
-  stack1 = (helper = helpers.is || (depth2 && depth2.is),options={hash:{},inverse:self.noop,fn:self.program(16, program16, data),data:data},helper ? helper.call(depth0, (depth2 && depth2.lastPage), "==", "0", options) : helperMissing.call(depth0, "is", (depth2 && depth2.lastPage), "==", "0", options));
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " of "
-    + escapeExpression(((stack1 = (depth2 && depth2.lastPage)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n										<a href=\"#\" class=\"right\">Next Page <i class=\"fa fa-long-arrow-right\"></i></a>\n									</div>\n								</td>\n							</tr>\n						</tfoot>\n						";
-  return buffer;
-  }
-function program14(depth0,data,depth3) {
-  
-  var stack1;
-  return escapeExpression(((stack1 = (depth3 && depth3.currentPage)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
-  }
 
-function program16(depth0,data) {
-  
-  
-  return "0";
-  }
-
-  buffer += "<div class=\"row\">\n	\n	<div class=\"small-12 columns\">\n		\n		<div class=\"table-page-header\"></div>\n\n		<div class=\"box\">\n			\n			<div class=\"box-inner\">\n\n				<table>\n					<thead>\n						<tr>\n						";
-  options={hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data}
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.header), {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n<table class=\"";
+  if (helper = helpers.tableClassName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.tableClassName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">\n	<thead>\n		<tr>\n		";
+  options={hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data}
   if (helper = helpers.columns) { stack1 = helper.call(depth0, options); }
   else { helper = (depth0 && depth0.columns); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
-  if (!helpers.columns) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data}); }
+  if (!helpers.columns) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data}); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n						</tr>\n					</thead>\n					<tbody></tbody>\n					";
-  stack1 = (helper = helpers.not || (depth0 && depth0.not),options={hash:{},inverse:self.noop,fn:self.programWithDepth(12, program12, data, depth0),data:data},helper ? helper.call(depth0, (depth0 && depth0.isLoading), options) : helperMissing.call(depth0, "not", (depth0 && depth0.isLoading), options));
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n				</table>\n\n			</div>\n			\n		</div>\n\n		<div class=\"table-page-footer\"></div>\n\n	</div>\n</div>";
+  buffer += "\n		</tr>\n	</thead>\n	<tbody></tbody>\n	<tfoot></tfoot>\n</table>\n\n<div class=\"pagination\"></div>";
   return buffer;
+  });
+
+templates['table-view-pagination'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<div></div>";
   });
 
 templates['table-view-row'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+  var stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
 
-function program1(depth0,data) {
+function program1(depth0,data,depth1) {
   
-  var buffer = "", stack1, helper;
+  var buffer = "", stack1, helper, options;
   buffer += "\n	<td data-id=\"";
-  if (helper = helpers.property) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.property); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">";
-  if (helper = helpers.value) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.value); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
+    + "\">"
+    + escapeExpression((helper = helpers.propertyOf || (depth1 && depth1.propertyOf),options={hash:{},data:data},helper ? helper.call(depth0, depth1, (depth0 && depth0.id), options) : helperMissing.call(depth0, "propertyOf", depth1, (depth0 && depth0.id), options)))
     + "</td>\n";
   return buffer;
   }
 
-  stack1 = (helper = helpers.eachProperty || (depth0 && depth0.eachProperty),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, depth0, options) : helperMissing.call(depth0, "eachProperty", depth0, options));
+  options={hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data}
+  if (helper = helpers.columns) { stack1 = helper.call(depth0, options); }
+  else { helper = (depth0 && depth0.columns); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
+  if (!helpers.columns) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data}); }
+  if(stack1 || stack1 === 0) { return stack1; }
+  else { return ''; }
+  });
+
+templates['no-unordered-list-item'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "";
+
+
+  return buffer;
+  });
+
+templates['unordered-list-item'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var stack1, helper, functionType="function";
+
+
+  if (helper = helpers.content) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.content); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   });
@@ -762,6 +865,26 @@ function program1(depth0,data) {
 
     Handlebars.registerHelper('undefined', function(value, options) {
     	return _.isUndefined(value) ? true : false;
+    });
+
+}));
+
+(function (root, factory) {
+    if (typeof exports === 'object') {
+        module.exports = factory(require('handlebars'));
+    } else if (typeof define === 'function' && define.amd) {
+        define(['handlebars'], factory);
+    } else {
+        root.HandlebarsHelpersRegistry = factory(root.Handlebars);
+    }
+}(this, function (Handlebars) {
+
+    Handlebars.registerHelper('propertyOf', function(object, prop) {
+        if(object.hasOwnProperty(prop)) {
+            return object[prop];
+        }
+
+        return null;
     });
 
 }));
@@ -1026,6 +1149,414 @@ function program1(depth0,data) {
             // start if options.autoStart is true
             if(this.getOption('autoStart')) {
                 this.start();
+            }
+        }
+
+    });
+
+    return Toolbox;
+
+}));
+(function (root, factory) {
+    if (typeof exports === 'object') {
+        module.exports = factory(require('toolbox'));
+    } else if (typeof define === 'function' && define.amd) {
+        define(['toolbox'], factory);
+    } else {
+        root.Toolbox = factory(root.Toolbox);
+    }
+}(this, function (Toolbox) {
+
+    'use strict';
+
+    Toolbox.Views.BlockFormError = Toolbox.Views.ItemView.extend({
+
+        template: Toolbox.Template('form-error'),
+
+        tagName: 'span',
+
+        className: 'help-block'
+
+    });
+
+    Toolbox.Views.InlineFormError = Toolbox.Views.BlockFormError.extend({
+
+        className: 'help-inline'
+
+    });
+
+    Toolbox.Views.BaseForm = Toolbox.Views.LayoutView.extend({
+        
+        tagName: 'form',
+
+        triggers: {
+            'submit': 'submit',
+            'click .cancel': 'cancel'
+        },
+
+        isSubmitting: false,
+
+        options: {
+            // (object) The error view object
+            errorView: false,
+
+            // (object) The error view options object
+            errorViewOptions: false,
+
+            // (object) The global error view object
+            globalErrorsView: false,
+
+            // (object) The global error view options object
+            globalErrorsOptions: false,
+
+            // (bool) Show global errors after form submits
+            showGlobalErrors: false,
+
+            // (bool) Show notifications after form submits
+            showNotifications: true,
+
+            // (object) The notification view object
+            notificationView: false,
+
+            // (object) The notification view options object
+            notificationViewOptions: false,
+
+            // (string) The form group class name
+            formGroupClassName: 'form-group',
+
+            // (string) The has error class name
+            hasErrorClassName: 'has-error',
+
+            // (bool) Add the has error classes to fields
+            addHasErrorClass: true,
+
+            // (bool) Add the inline form errors
+            showInlineErrors: true,
+
+            // (string) The redirect url. False if no redirect
+            redirect: false,
+
+            // (object) The success message object
+            successMessage: false,
+
+            // (object) The default success message object
+            defaultSuccessMessage: {
+                icon: 'fa fa-check',
+                type: 'success',
+                title: 'Success!',
+                message: 'The form was successfully submitted.'
+            },
+
+            // (object) The errpr message object
+            errorMessage: false,
+
+            // (object) The default success message object
+            defaultErrorMessage: {
+                icon: 'fa fa-warning',
+                type: 'alert',
+                title: 'Success!',
+                message: 'The form could not be submitted.'
+            }
+        },
+        
+        _serializedForm: false,
+
+        _errorViews: [],
+
+        getFormData: function() {            
+            var data = {};
+
+            this.$el.find('input, select, textarea').each(function() {
+                var name = $(this).attr('name');
+
+                if(name) {
+                    if($(this).is(':radio') || $(this).is(':checkbox')) {
+                        if($(this).is(':checked')) {
+                            data[name] = $(this).val();
+                        }
+                        else {
+                            data[name] = 0;
+                        }
+                    }
+                    else {
+                        data[name] = $(this).val();
+                    }
+                }
+            });
+
+            return data;
+        },
+
+        showActivityIndicator: function() {
+            this.$indicator = $('<div class="form-indicator"></div>');
+
+            if(this.$el.find('footer').length) {
+                this.$el.find('footer').append(this.$indicator);
+            }
+            else {
+                this.$el.append(this.$indicator);
+            }
+
+            this.indicator = new Backbone.Marionette.Region({
+                el: this.$indicator
+            });         
+
+            var indicator = new Toolbox.Views.ActivityIndicator({
+                indicator: 'small'
+            });
+
+            this.indicator.show(indicator);
+        },
+        
+        removeErrors: function() {
+            if(this.$errors) {
+                _.each(this.$errors, function($error) {
+                    $error.parents('.has-error').removeClass('has-error').find('.error').remove();
+                });
+            }
+        },
+
+        serialize: function() {
+            return JSON.stringify(this.getFormData());
+        },
+
+        hasFormChanged: function() {
+            if(!this._serializedForm) {
+                return false;
+            }
+
+            return this._serializedForm !== this.serialize();
+        },
+
+        createGlobalErrorsRegion: function() {
+            var View = this.getOption('globalErrorsView');
+
+            if(!View) {
+                View = Toolbox.Views.UnorderedList;
+            }
+
+            this.$globalErrors = $('<div class="global-errors"></div>');
+
+            this.$el.prepend(this.$globalErrors);
+
+            this.globalErrors = new Backbone.Marionette.Region({
+                el: this.$globalErrors
+            });
+
+            var errorsView = new View(_.extend(this.getOption('globalErrorsOptions')));
+
+            this.globalErrors.show(errorsView);
+        },
+
+        createNotification: function(notice) {
+            var View = this.getOption('notificationView');
+
+            if(!View) {
+                View = Toolbox.Views.Notification;
+            }
+
+            var view = new View(_.extend({
+                type: notice.type ? notice.type : 'alert',
+                title: notice.title ? notice.title : false,
+                message: notice.message ? notice.message : false,
+                icon: notice.icon ? notice.icon : false
+            }, this.getOption('notificationViewOptions')));
+
+            return view;
+        },
+
+        createError: function(field, error) {
+            var View = this.getOption('errorView');
+
+            if(!View) {
+                View = Toolbox.Views.BlockFormError;
+            }
+
+            var model = new Backbone.Model({
+                field: field,
+                error: error
+            });
+
+            var view = new View(_.extend({
+                model: model
+            }, this.getOption('errorViewOptions')));
+
+            return view;
+        },
+
+        getInputFieldParent: function(field) {
+            return this.getInputField(field).parents('.' + this.getOption('formGroupClassName'));
+        },
+
+        getInputField: function(field) {
+            return this.$el.find('[name="'+field+'"]');
+        },
+
+        setInputField: function(field, value) {
+            this.getInputField(field).val(value);
+        },
+
+        addHasErrorClassToField: function(field) {
+           this.getInputFieldParent(field).addClass(this.getOption('hasErrorClassName'));
+        },
+
+        removeHasErrorClassFromField: function(field) {
+           this.getInputFieldParent(field).removeClass(this.getOption('hasErrorClassName'));
+        },
+
+        removeGlobalErrors: function() {
+            if(this.globalErrors && this.globalErrors.currentView) {
+                this.globalErrors.currentView.collection.reset();
+            }
+        },
+
+        focusOnFirstError: function() {
+            var selector = 'div.'+this.getOption('hasErrorClassName')+':first';
+
+            this.$el.find(selector)
+                .find('input, select, textarea')
+                .focus();
+        },
+
+        appendErrorViewToGlobal: function(errorView) {
+            var error = errorView.model.get('error');
+
+            this.globalErrors.currentView.collection.add({
+                content: error
+            });
+        },
+
+        appendErrorViewToField: function(errorView) {
+            errorView.render();
+
+            this.getInputFieldParent(errorView.model.get('field'))
+                .append(errorView.$el);
+        },
+
+        hideErrors: function() {
+            var t = this;
+
+            if(this.getOption('showGlobalErrors') === true) {
+                this.removeGlobalErrors();
+            }
+
+            _.each(this._errorViews, function(view) {
+                var field = view.model.get('field');
+
+                if(t.getOption('addHasErrorClass') === true) {
+                    t.removeHasErrorClassFromField(field);
+                }
+
+                if(t.getOption('showInlineErrors') === true) {
+                    view.$el.remove();
+                }
+            });
+        },
+
+        showError: function(field, error) {
+            var errorView = this.createError(field, error);
+
+            if(this.getOption('showGlobalErrors') === true) {
+                this.appendErrorViewToGlobal(errorView);
+            }
+
+            if(this.getOption('addHasErrorClass') === true) {
+                this.addHasErrorClassToField(field);
+            }   
+
+            if(this.getOption('showInlineErrors') === true) {
+                this.appendErrorViewToField(errorView);
+            }
+
+            this._errorViews.push(errorView);
+        },
+
+        showErrors: function(errors) {
+            var t = this;
+
+            _.each(errors, function(error, field) {
+                t.showError(field, error);
+            });
+
+            this.focusOnFirstError();
+        },
+
+        hideActivityIndicator: function() {
+            this.indicator.empty();
+        },
+
+        getErrorsFromResponse: function(response) {
+            return response.responseJSON.errors;
+        },
+
+        redirect: function() {
+            window.location = this.getOption('redirect');
+        },
+
+        onRender: function() {
+            this._serializedForm = this.serialize();
+
+            if(this.getOption('showGlobalErrors')) {
+                this.createGlobalErrorsRegion();        
+            }
+        },
+
+        onSubmitSuccess: function() {
+            if(this.hasFormChanged()) {
+                this.triggerMethod('form:changed');
+                this._serializedForm = this.serialize();
+            }
+
+            if(this.getOption('showNotifications')) {
+                var notification = this.createNotification(_.extend(
+                    this.getOption('defaultSuccessMessage'),
+                    this.getOption('successMessage')
+                ));
+
+                notification.show();
+            }
+
+            if(this.getOption('redirect')) {
+                this.redirect();
+            }
+        },
+
+        onSubmitComplete: function(status, model, response) {
+            this.isSubmitting = false;
+            this.hideErrors();
+            this.hideActivityIndicator();
+        },
+
+        onSubmitError: function(model, response) {
+            if(this.getOption('showNotifications')) {
+                var notification = this.createNotification(_.extend(
+                    this.getOption('defaultErrorMessage'),
+                    this.getOption('errorMessage')
+                ));
+
+                notification.show();
+            }
+
+            this.showErrors(this.getErrorsFromResponse(response));
+        },
+
+        onSubmit: function() {
+            var t = this;
+
+            if(!this.isSubmitting) {
+                this.isSubmitting = true;
+                this.showActivityIndicator();
+
+                this.model.save(this.getFormData(), {
+                    success: function(model, response) {
+                        t.triggerMethod('submit:complete', true, model, response);
+                        t.triggerMethod('submit:success', model, response);
+                    },
+                    error: function(model, response) {
+                        t.triggerMethod('submit:complete', false, model, response);
+                        t.triggerMethod('submit:error', model, response);
+                    }
+                });
             }
         }
 
@@ -1517,9 +2048,7 @@ function program1(depth0,data) {
 
 	Toolbox.Views.NoListGroupItem = Toolbox.Views.ItemView.extend({
 
-		template: Toolbox.Template('no-list-group-item'),
-
-		tagName: 'li'
+		template: Toolbox.Template('no-list-group-item')
 
 	});
 
@@ -1624,9 +2153,9 @@ function program1(depth0,data) {
 
 		model: false,
 
-		events: {
-			'click': 'onClick',
-			'click .close': 'onCloseClick'
+		triggers: {
+			'click': 'click',
+			'click .close': 'close:click'
 		},
 
 		initialize: function() {
@@ -1644,18 +2173,14 @@ function program1(depth0,data) {
 			}
 		},
 
-		onClick: function(e) {
+		onClick: function() {
 			if(this.getOption('closeOnClick')) {
 				this.hide();
 			}
-
-			this.triggerMethod('click');
 		},
 
-		onCloseClick: function(e) {
+		onCloseClick: function() {
 			this.hide();
-
-			e.preventDefault();
 		},
 
 		isVisible: function() {
@@ -1727,6 +2252,59 @@ function program1(depth0,data) {
 
     'use strict';
 
+	Toolbox.Views.NoOrderedListItem = Toolbox.Views.ItemView.extend({
+
+		template: Toolbox.Template('no-ordered-list-item'),
+
+		tagName: 'li'
+
+	});
+
+	Toolbox.Views.OrderedListItem = Toolbox.Views.ItemView.extend({
+
+		template: Toolbox.Template('ordered-list-item'),
+
+		className: 'ordered-list-item',
+
+		tagName: 'li',
+
+		triggers: {
+			'click': 'click'
+		}
+
+	});
+
+	Toolbox.Views.OrderedList = Toolbox.Views.CollectionView.extend({
+
+		childView: Toolbox.Views.OrderedListItem,
+
+		className: 'ordered-list',
+
+		tagName: 'ol',
+
+		childEvents: {
+			'click': function(view) {
+				this.triggerMethod('item:click', view);
+			}
+		}
+
+	});
+
+    return Toolbox;
+
+}));
+(function (root, factory) {
+    if (typeof exports === 'object') {
+        module.exports = factory(require('toolbox'));
+    } else if (typeof define === 'function' && define.amd) {
+        define(['toolbox'], factory);
+    } else {
+        root.Toolbox = factory(root.Toolbox);
+    }
+}(this, function (Toolbox) {
+
+    'use strict';
+
 	Toolbox.Views.Pager = Toolbox.Views.ItemView.extend({
 
 		template: Toolbox.Template('pager'),
@@ -1759,10 +2337,10 @@ function program1(depth0,data) {
 			nextClassName: 'next',
 
 			// (bool) Include the page totals between the pager buttons
-			includePageTotals: false,
+			includePageTotals: true,
 
 			// (bool) Align pager buttson to left and right edge
-			snapToEdges: false,
+			snapToEdges: true,
 
 			// (int) The current page number
 			page: 1,
@@ -1791,6 +2369,8 @@ function program1(depth0,data) {
             	'prevLabel',
             	'nextLabel'
             ];
+
+            console.log(this.getOption('snapToEdges'));
 
             if(!this.model) {
                 this.model = new Backbone.Model();
@@ -1937,6 +2517,8 @@ function program1(depth0,data) {
 			paginationClassName: 'pagination',
 			activeClassName: 'active',
 			disabledClassName: 'disabled',
+			totalPages: 1,
+			showPages: 6,
 			page: 1
 		},
 
@@ -1971,25 +2553,25 @@ function program1(depth0,data) {
 
 			var currentPage = this.getOption('page');
 			var totalPages = this.getOption('totalPages');
-			var pagesToShow = this.getOption('showPages');
+			var showPages = this.getOption('showPages');
 
-			if(pagesToShow % 2) {
-				pagesToShow++; // must be an even number
+			if(showPages % 2) {
+				showPages++; // must be an even number
 			}
 
-			var startPage = (currentPage < 5) ? 1 : currentPage - (pagesToShow / 2);
-			var endPage = pagesToShow + startPage;
+			var startPage = (currentPage < showPages) ? 1 : currentPage - (showPages / 2);
+
+			var endPage = showPages + startPage;
 			
 			endPage = (totalPages < endPage) ? totalPages : endPage;
 			
-			var diff = startPage - endPage + pagesToShow;
+			var diff = startPage - endPage + showPages;
 			
 			startPage -= (startPage - diff > 0) ? diff : 0;
 			
-			var display = [];
-
 			if (startPage > 1) {
 				this.collection.add({page: 1});
+
 				if(startPage > 2) {
 					this.collection.add({divider: true});
 				}
@@ -2052,14 +2634,49 @@ function program1(depth0,data) {
 			this.prevPage();
 		},
 
-		setActivePage: function(page) {
+		setShowPages: function(showPages) {
+			this.options.showPages = showPages;
+			this.model.set('showPages', showPages);
+		},
+
+		getShowPages: function() {
+			return this.getOption('showPages');
+		},
+
+		setTotalPages: function(totalPages) {
+			this.options.totalPages = totalPages;
+			this.model.set('totalPages', totalPages);
+		},
+
+		getTotalPages: function() {
+			return this.getOption('getTotalPages');
+		},
+
+		setPage: function(page) {
 			this.options.page = page;
+			this.model.set('page', page);
+		},
+
+		getPage: function() {
+			return this.getOption('page');
+		},
+
+		setPaginationLinks: function(page, totalPages) {
+			this.setPage(page);
+			this.setTotalPages(totalPages);
 			this.render();
+		},
 
-			var query = this.collection.where({page: page});
+		setActivePage: function(page) {
+			if(this.options.page != page) {
+				this.options.page = page;
+				this.render();
 
-			if(query.length) {
-				this.triggerMethod('paginate', this.children.findByModel(query[0]));
+				var query = this.collection.where({page: page});
+
+				if(query.length) {
+					this.triggerMethod('paginate', page, this.children.findByModel(query[0]));
+				}
 			}
 		},
 
@@ -2287,6 +2904,22 @@ function program1(depth0,data) {
 
     });
 
+    Toolbox.Views.TableViewFooter = Marionette.LayoutView.extend({
+
+        tagName: 'tr',
+
+        template: Toolbox.Template('table-view-footer'),
+
+        modelEvents: {
+            'change': 'render'
+        },
+
+        regions: {
+            content: 'td'
+        }
+
+    });
+
     Toolbox.Views.TableView = Marionette.CompositeView.extend({
 
         childView: Toolbox.Views.TableViewRow,
@@ -2296,13 +2929,59 @@ function program1(depth0,data) {
         template: Toolbox.Template('table-view-group'),
 
         options: {
+            // (int) The starting page
             page: 1,
-            order: false,
-            sort: false,
+
+            // (string) The order of the date being returned
+            order: null,
+
+            // (string) Either asc or desc sorting order
+            sort: null,
+
+            // (int) The numbers of rows per page
             limit: 20,
+
+            // (bool) Should show the pagination for this table
             paginate: true,
-            search: false,
-            columns: false
+
+            // (array) Array of array of column
+            columns: false,
+
+            // (bool) Fetch the data when table is shown
+            fetchOnShow: true,
+
+            // (array) An array of headers appended to the request
+            requestHeaders: [],
+
+            // (object) The pagination view class
+            paginationView: false,
+
+            // (object) The pagination view options object
+            paginationViewOptions: false,
+
+            // (string) The table header
+            header: false,
+
+            // (string) The table header tag name
+            headerTag: 'h3',
+
+            // (string) The table class name
+            tableClassName: 'table',
+
+            // (string) The loading class name
+            loadingClassName: 'loading',
+
+            // (string) The name of the property in the model storing the columns
+            childViewColumnsProperty: 'columns',
+
+            // (object) The activity indicator options
+            indicatorOptions: {
+                indicator: 'medium'
+            }
+        },
+
+        events: {
+            'click .sort': 'onSortClick'
         },
 
         initialize: function(options) {
@@ -2311,10 +2990,8 @@ function program1(depth0,data) {
             if(!this.model) {
                 this.model = new Backbone.Model();
             }
-
-            if(this.getOption('columns')) {
-                this.model.set('columns', this.getOption('columns'));
-            }
+            
+            this.model.set(this.options);
         },
 
         getEmptyView: function() {
@@ -2330,9 +3007,246 @@ function program1(depth0,data) {
             });
 
             return View;
+        },
+
+        onShow: function() {
+            if(this.getOption('fetchOnShow')) {
+                this.fetch();
+            }
+        },
+
+        onSortClick: function(e) {
+            var t = this, orderBy = $(e.target).data('id');
+
+            if(t.getOption('order') === orderBy) {
+                if(!t.getOption('sort')) {
+                    t.options.sort = 'asc';
+                }
+                else if(t.getOption('sort') === 'asc') {
+                    t.options.sort = 'desc';
+                }
+                else {
+                    t.options.orderBy = false;
+                    t.options.sort = false;
+                }
+            }
+            else {
+                t.options.order = orderBy;
+                t.options.sort = 'asc'; 
+            }
+
+            t.$el.find('.sort').parent().removeClass('sort-asc').removeClass('sort-desc');
+
+            if(t.getOption('sort')) {
+                $(e.target).parent().addClass('sort-'+t.getOption('sort'));
+            }
+
+            t.fetch(true);
+        },
+
+        showPagination: function(page, totalPages) {
+            var t = this, View = this.getOption('paginationView');
+
+            if(!View) {
+                View = Toolbox.Views.Pager;
+            }
+
+            var paginationViewOptions = this.getOption('paginationViewOptions');
+
+            if(!_.isObject(paginationViewOptions)) {
+                paginationViewOptions = {};
+            }
+
+            var view = new View(_.extend({
+                page: page,
+                totalPages: totalPages,
+            }, paginationViewOptions));
+
+            view.on('paginate', function(page, view) {
+                if(page != t.getOption('page')) {
+                    t.options.page = page;
+                    t.fetch(true);
+                }
+            });
+
+            var footerView = new Toolbox.Views.TableViewFooter({
+                model: new Backbone.Model({
+                    columns: this.model.get('columns')
+                })
+            });
+
+            this.pagination = new Backbone.Marionette.Region({
+                el: this.$el.find('tfoot')
+            });
+
+            this.pagination.show(footerView);
+
+            footerView.content.show(view);
+        },
+
+        showActivityIndicator: function() {
+            var t = this;
+
+            this.destroyChildren();
+
+            this.$el.find('table').addClass(this.getOption('loadingClassName'));
+
+            this.addChild(this.model, Toolbox.Views.ActivityIndicator.extend({
+                template: Toolbox.Template('table-activity-indicator-row'),
+                tagName: 'tr',
+                initialize: function(options) {
+                    Toolbox.Views.ActivityIndicator.prototype.initialize.call(this, options);
+
+                    // Set the activity indicator options
+                    _.extend(this.options, t.getOption('indicatorOptions'));
+
+                    // Set the activity indicator instance to be removed later
+                    t._activityIndicator = this;
+                }
+            }));
+        },
+
+        hideActivityIndicator: function() {
+           this.$el.find('table').removeClass(this.getOption('loadingClassName'));
+
+            if(this._activityIndicator) {
+                this.removeChildView(this._activityIndicator);
+                this._activityIndicator = false;
+            }
+        },
+
+        onChildviewBeforeRender: function(child) {
+            child.model.set(this.getOption('childViewColumnsProperty'), this.model.get('columns'));
+        },
+
+        getRequestData: function() {
+            var t = this, data = {}, options = [
+                'page', 
+                'limit', 
+                'order', 
+                'sort'
+            ];
+
+            _.each(options, function(name) {
+                if(!_.isNull(t.getOption(name))) {
+                    data[name] = t.getOption(name);
+                }
+            });
+
+            return data;
+        },
+
+        onFetch: function(collection, response) {
+            this.showActivityIndicator();
+        },
+
+        onFetchSuccess: function(collection, response) {
+            var page = response.response.currentPage;
+            var totalPages = response.response.lastPage;
+
+            this.model.set('page', page);
+            this.model.set('totalPages', totalPages);
+
+            if(this.getOption('paginate')) {
+                this.showPagination(page, totalPages);
+            }
+        },
+
+        onFetchComplete: function(status, collection, response) {
+            this.hideActivityIndicator();
+        },
+
+        fetch: function(reset) {
+            var t = this;
+
+            if(reset) {
+                this.collection.reset();
+            }
+
+            this.collection.fetch({
+                data: this.getRequestData(),
+                beforeSend: function(xhr) {
+                    if(t.getOption('requestHeaders')) {
+                        _.each(t.getOption('requestHeaders'), function(value, name) {
+                            xhr.setRequestHeader(name, value);
+                        });
+                    }
+                },
+                success: function(collection, response) {
+                    t.triggerMethod('fetch:complete', true, collection, response);
+                    t.triggerMethod('fetch:success', collection, response);
+                },
+                error: function(collection, response) {
+                    t.triggerMethod('fetch:complete', false, collection, response);
+                    t.triggerMethod('fetch:error', collection, response)
+                }
+            });
+
+            this.triggerMethod('fetch');
         }
 
     });
+
+    return Toolbox;
+
+}));
+(function (root, factory) {
+    if (typeof exports === 'object') {
+        module.exports = factory(require('toolbox'));
+    } else if (typeof define === 'function' && define.amd) {
+        define(['toolbox'], factory);
+    } else {
+        root.Toolbox = factory(root.Toolbox);
+    }
+}(this, function (Toolbox) {
+
+    'use strict';
+
+	Toolbox.Views.NoUnorderedListItem = Toolbox.Views.ItemView.extend({
+
+		template: Toolbox.Template('no-unordered-list-item'),
+
+		tagName: 'li'
+
+	});
+
+	Toolbox.Views.UnorderedListItem = Toolbox.Views.ItemView.extend({
+
+		template: Toolbox.Template('unordered-list-item'),
+
+		className: 'unordered-list-item',
+
+		tagName: 'li',
+
+		triggers: {
+			'click': 'click'
+		}
+
+	});
+
+	Toolbox.Views.UnorderedList = Toolbox.Views.CollectionView.extend({
+
+		childView: Toolbox.Views.UnorderedListItem,
+
+		className: 'unordered-list',
+
+		tagName: 'ul',
+
+		initialize: function() {
+			Toolbox.Views.CollectionView.prototype.initialize.apply(this, arguments);
+
+			if(!this.collection) {
+				this.collection = new Backbone.Collection();
+			}
+		},
+
+		childEvents: {
+			'click': function(view) {
+				this.triggerMethod('item:click', view);
+			}
+		}
+
+	});
 
     return Toolbox;
 

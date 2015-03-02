@@ -55,6 +55,19 @@ module.exports = function(grunt) {
           }
       },
     },
+    uglify: {
+      options: {
+        mangle: false,
+        compress: false,
+        drop_console: true,
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+      },
+      dist: {
+        files: {
+          'marionette.toolbox.min.js': 'marionette.toolbox.js'
+        }
+      }
+    },
     cssmin: {
       app: {
         src: 'marionette.toolbox.css',
@@ -90,6 +103,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   // Default task(s).
-  grunt.registerTask('default', ['handlebars', 'concat', 'cssmin', 'watch']);
+  grunt.registerTask('default', ['handlebars', 'concat', 'cssmin', 'uglify', 'watch']);
 
 };

@@ -1,53 +1,26 @@
-<div class="row">
-	
-	<div class="small-12 columns">
-		
-		<div class="table-page-header"></div>
+{{#if header}}
+	<{{../headerTag}} class="table-header">{{../header}}</{{../headerTag}}>
+{{/if}}
 
-		<div class="box">
-			
-			<div class="box-inner">
+<table class="{{tableClassName}}">
+	<thead>
+		<tr>
+		{{#columns}}
+			<th scope="col" {{#if width}}width="{{../width}}"{{/if}} class="{{#if className}}{{../className}}{{/if}} {{#is id ../order}}sort-{{../../sort}}{{/is}}">
+				{{#if id}}
+					<a href="#" data-id="{{../id}}" class="sort">{{{../name}}}</a>
+					<i class="sort-icon asc fa fa-sort-asc"></i>
+					<i class="sort-icon desc fa fa-sort-desc"></i>
+				{{/if}}
+				{{#not id}}
+					{{{../name}}}
+				{{/not}}
+			</th>
+		{{/columns}}
+		</tr>
+	</thead>
+	<tbody></tbody>
+	<tfoot></tfoot>
+</table>
 
-				<table>
-					<thead>
-						<tr>
-						{{#columns}}
-							<th scope="col" {{#if width}}width="{{../width}}"{{/if}} class="{{#if className}}{{../className}}{{/if}} {{#is id ../order}}sort-{{../../sort}}{{/is}}">
-								{{#if id}}
-									<a href="#" data-id="{{../id}}" class="sort">{{{../name}}}</a>
-									<i class="fa fa-sort-asc"></i>
-									<i class="fa fa-sort-desc"></i>
-								{{/if}}
-								{{#not id}}
-									{{{../name}}}
-								{{/not}}
-							</th>
-						{{/columns}}
-						</tr>
-					</thead>
-					<tbody></tbody>
-					{{#not isLoading}}
-						{{#if ../paginate}}
-						<tfoot>
-							<tr>
-								<td colspan="{{../../columns.length}}">
-									<div class="pagination text-center">
-										<a href="#" class="left"><i class="fa fa-long-arrow-left"></i> Prev Page</a>
-										<span class="page-number">Page {{#is ../../lastPage ">" "0"}}{{../../../currentPage}}{{/is}} {{#is ../../lastPage "==" "0"}}0{{/is}} of {{../../lastPage}}</span>
-										<a href="#" class="right">Next Page <i class="fa fa-long-arrow-right"></i></a>
-									</div>
-								</td>
-							</tr>
-						</tfoot>
-						{{/if}}
-					{{/not}}
-				</table>
-
-			</div>
-			
-		</div>
-
-		<div class="table-page-footer"></div>
-
-	</div>
-</div>
+<div class="pagination"></div>

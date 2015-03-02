@@ -74,6 +74,8 @@
 			paginationClassName: 'pagination',
 			activeClassName: 'active',
 			disabledClassName: 'disabled',
+			totalPages: 1,
+			showPages: 6,
 			page: 1
 		},
 
@@ -108,25 +110,25 @@
 
 			var currentPage = this.getOption('page');
 			var totalPages = this.getOption('totalPages');
-			var pagesToShow = this.getOption('showPages');
+			var showPages = this.getOption('showPages');
 
-			if(pagesToShow % 2) {
-				pagesToShow++; // must be an even number
+			if(showPages % 2) {
+				showPages++; // must be an even number
 			}
 
-			var startPage = (currentPage < 5) ? 1 : currentPage - (pagesToShow / 2);
-			var endPage = pagesToShow + startPage;
+			var startPage = (currentPage < showPages) ? 1 : currentPage - (showPages / 2);
+
+			var endPage = showPages + startPage;
 			
 			endPage = (totalPages < endPage) ? totalPages : endPage;
 			
-			var diff = startPage - endPage + pagesToShow;
+			var diff = startPage - endPage + showPages;
 			
 			startPage -= (startPage - diff > 0) ? diff : 0;
 			
-			var display = [];
-
 			if (startPage > 1) {
 				this.collection.add({page: 1});
+
 				if(startPage > 2) {
 					this.collection.add({divider: true});
 				}
@@ -189,14 +191,49 @@
 			this.prevPage();
 		},
 
-		setActivePage: function(page) {
+		setShowPages: function(showPages) {
+			this.options.showPages = showPages;
+			this.model.set('showPages', showPages);
+		},
+
+		getShowPages: function() {
+			return this.getOption('showPages');
+		},
+
+		setTotalPages: function(totalPages) {
+			this.options.totalPages = totalPages;
+			this.model.set('totalPages', totalPages);
+		},
+
+		getTotalPages: function() {
+			return this.getOption('getTotalPages');
+		},
+
+		setPage: function(page) {
 			this.options.page = page;
+			this.model.set('page', page);
+		},
+
+		getPage: function() {
+			return this.getOption('page');
+		},
+
+		setPaginationLinks: function(page, totalPages) {
+			this.setPage(page);
+			this.setTotalPages(totalPages);
 			this.render();
+		},
 
-			var query = this.collection.where({page: page});
+		setActivePage: function(page) {
+			if(this.options.page != page) {
+				this.options.page = page;
+				this.render();
 
-			if(query.length) {
-				this.triggerMethod('paginate', this.children.findByModel(query[0]));
+				var query = this.collection.where({page: page});
+
+				if(query.length) {
+					this.triggerMethod('paginate', page, this.children.findByModel(query[0]));
+				}
 			}
 		},
 

@@ -1,5 +1,14 @@
-.box { border: 1px solid rgb(214, 214, 214); margin: 0 0 2em; border-top: 1px solid rgb(204, 204, 204); clear: both; }
+table .sort-icon { display: none; }
+table .sort-asc .asc { display: inline-block; }
+table .sort-desc .desc { display: inline-block; }
+table + .pagination,
+table + .pagination .pager  { margin-top: 0; width: 100%; }
+table .activity-indicator-row { position: relative; height: 300px; }
+table .page-totals { text-align: center; font-weight: 200; }
+
+.box { border: 1px solid rgb(214, 214, 214); margin: 0; border-top: 1px solid rgb(204, 204, 204); clear: both; }
 .box table { border-collapse: collapse; margin: 0; width: 100%; }
+
 .box > h4 { position: relative; background: rgb(227, 227, 227); color: rgb(50, 50, 50); margin: 0; font-size: 18px; padding: 10px 10px 10px 10px; text-shadow: 0 1px 0 white; border-bottom: 1px solid rgb(204, 204, 204); }
 .box > h4 .dropdown { margin: 0; position: absolute; top: 10px; right: 8px; }
 .box > h4 .dropdown-trigger { padding: 7px; }
@@ -13,7 +22,6 @@
 .box > h4 .active a.dropdown-trigger:hover,
 .box > h4 .active a.dropdown-trigger:active,
 .box > h4 .active a.dropdown-trigger:focus { color: white; text-shadow: none; background: rgb(50, 50, 50); }
-
 .box tr { border-bottom: 1px solid rgb(234, 234, 234);  }
 .box tr:last-child { border: none; }
 .box th { background: rgb(248, 248, 248); color: rgb(100, 100, 100); text-shadow: 0 1px 0 white; padding: 16px 10px; border-bottom: 1px solid rgb(214, 214, 214); font-size: 16px; }
@@ -49,4 +57,3 @@
 	.box table:not(.unresponsive) tr th:nth-child(2),
 	.box table:not(.unresponsive) tr td:nth-child(2) { display: none; }
 }
-

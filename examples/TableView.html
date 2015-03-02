@@ -1,5 +1,10 @@
+<!DOCTYPE html>
+
 <html>
 	<head>
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
 		<link rel="stylesheet" href="../vendor.css">
 		<link rel="stylesheet" href="../marionette.toolbox.css">
 
@@ -7,8 +12,11 @@
 		<script src="../marionette.toolbox.js"></script>	
 	</head>
 	<body>
-		<div class="app-wrapper"></div>
-		
+		<div class="container">
+			<div class="app-wrapper"></div>
+			<button class="btn btn-default fetch-data">Fetch Data</button>
+		</div>
+			
 		<script type="text/javascript">
 			var App = new Backbone.Marionette.Application();
 
@@ -18,26 +26,58 @@
 
 			App.addInitializer(function() {
 				
-				var collection = new Backbone.Collection([{
-					name: 'Joe Smith',
-					created_at: '2015-01-01 05:30:00'
-				},{
-					name: 'Jane Doe',
-					created_at: '2015-02-02 12:25:40'
-				},{
-					name: 'Joe Smith',
-					created_at: '2015-01-01 05:30:00'
-				}]);
+				var UsersCollection = Backbone.Collection.extend({
+					
+					url: 'http://api.wedo.dev/deals',
+
+					parse: function(data, options) {
+						var responses = [];
+						
+						if(data.success) {
+							var t = this;
+
+							if(data.response.data) {
+								data = data.response.data;
+							}
+							else {
+								data = data.response;
+							}
+
+							_.each(data, function(response, i) {
+								if(response.uid) {
+									response.id = response.uid;
+								}
+
+								responses.push(new t.model(response));
+							});
+
+							return responses;
+						}
+
+						return [];
+					}
+
+				});
+
+				var collection = new UsersCollection();
 
 				var view = new Toolbox.Views.TableView({
 					collection: collection,
+					order: 'name',
+					sort: 'asc',
+					header: 'WeDo Local Deals',
+					tableClassName: 'table table-striped',
 					columns: [{
 						name: 'Name',
 						id: 'name'
 					},{
 						name: 'Created At',
-						id: 'created_at'
+						id: 'createdAt'
 					}]
+				});
+
+				$('.fetch-data').click(function() {
+					view.fetch();	
 				});
 
 				App.content.show(view);
