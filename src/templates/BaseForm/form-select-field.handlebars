@@ -1,0 +1,12 @@
+{{#if label}}
+	<label {{#if ../id}}id="{{../../id}}"{{/if}} {{#if ../labelClassName}}class="{{../../labelClassName}}"{{/if}}>{{../label}}</label>
+{{/if}}
+
+<select {{#if name}}name="{{../name}}"{{/if}} {{#if id}}id="{{../id}}"{{/if}} class="{{inputClassName}}">
+{{#options}}
+	<option {{#if value}}value="{{../value}}"{{/if}}>
+		{{#if label}}{{../label}}{{/if}}
+		{{#not label}}{{../value}}{{/not}}
+	</option>
+{{/options}}
+</select>

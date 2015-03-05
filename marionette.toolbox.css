@@ -20,6 +20,38 @@ form footer .activity-indicator-dimmer { background: transparent; position: stat
 form footer .activity-indicator-dimmer .activity-indicator { position: relative; right: 0;}
 form footer:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
 form footer .btn-primary + .btn-default { margin-left: 5px; }
+.inline-editor { 
+	position: relative;
+	display: inline-block;
+}
+.inline-editor-field { 
+	display: none; 
+}
+.inline-editor-editting .inline-editor-field { 
+	display: block; 
+}
+.inline-editor-editting .inline-editor-label { 
+	display: none; 
+}
+.inline-editor-edit-icon {
+	display: none;
+	position: absolute;
+	right: -25px;
+	top: 3px;
+	font-size: 14px;
+}
+.inline-editor:hover:not(.inline-editor-editting) .inline-editor-edit-icon {
+	display: block;
+}
+.inline-editor-activity-indicator { 
+	display: none; 
+	position: absolute; 
+	right: -20px; 
+	top: 17px;
+}
+.inline-editor-editting .inline-editor-activity-indicator { 
+	display: block;
+}
 .notifications {
 	position: fixed;
 	top: 70px;

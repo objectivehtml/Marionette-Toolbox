@@ -14,30 +14,6 @@
 	<body>
 		<div class="app-wrapper"></div>
 		
-		<script id="form-template" type="text/x-handlebars-template">
-
-			<div class="form-group">
-				<label for="first">First Name</label>
-				<input type="text" name="firstName" id="firstName" value="{{firstName}}" class="form-control" />
-			</div>
-
-			<div class="form-group">
-				<label for="last">Last Name</label>
-				<input type="text" name="lastName" id="lastName" value="{{lastName}}" class="form-control" />
-			</div>
-
-			<div class="form-group">
-				<label for="email">Email</label>
-				<input type="text" name="email" id="email" value="{{email}}" class="form-control" />
-			</div>
-
-			<footer>
-				<button class="btn btn-primary">Update Profile</button>
-				<a href="#" class="cancel"><i class="fa fa-times-circle"></i> Cancel</a>
-			</footer>
-
-		</script>
-
 		<script type="text/javascript">
 			var App = new Backbone.Marionette.Application();
 
@@ -47,14 +23,6 @@
 
 			App.addInitializer(function() {
 				
-				var source = $("#form-template").html();
-				
-				var View = Toolbox.Views.BaseForm.extend({
-
-					template: Handlebars.compile(source)
-
-				});
-
 				var User = Backbone.Model.extend({
 					
 					url: 'http://api.wedo.dev/auth/user',
@@ -126,25 +94,32 @@
 
 				var model = new User();
 
-				var view = new View({
-					model: model
-				});
-
-				view.on('cancel', function() {
-					console.log('cancel');
+				var view = new Toolbox.Views.InlineEditor({
+					attribute: 'firstName',
+					model: model,
+					formInputView: Toolbox.Views.SelectField,
+					formInputViewOptions: {
+						options: [{
+							value: 'Justin'
+						},{
+							value: 'Justin 12'
+						},{
+							value: 'Justin 123'
+						}]
+					}
 				});
 
 				var activity = new Toolbox.Views.ActivityIndicator({
 					indicator: 'medium'
 				});
 
-				App.content.show(activity);
-
 				model.fetch({
 					success: function() {
 						App.content.show(view);
 					}
 				});
+
+				App.content.show(activity);
 
 			});
 

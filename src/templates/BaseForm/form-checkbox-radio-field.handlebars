@@ -1,0 +1,12 @@
+{{#not options}}
+	<div class="{{../inputClassName}}">
+		<label {{#if ../labelClassName}}class="{{../../labelClassName}}"{{/if}}><input type="{{../type}}" name="{{../name}}" value="{{../value}}"></label>
+	</div>
+{{/not}}
+{{#if options}}
+	{{#../options}}
+	<div class="{{../../inputClassName}}">
+		<label {{#if ../../labelClassName}}class="{{../../../labelClassName}}"{{/if}}><input type="{{../../type}}" name="{{../../name}}[]" value="{{value}}"> {{label}}</label>
+	</div>
+	{{/../options}}
+{{/if}}

@@ -1,0 +1,5 @@
+{{#if label}}
+	<label {{#if ../id}}id="{{../../id}}"{{/if}} {{#if ../labelClassName}}class="{{../../labelClassName}}"{{/if}}>{{../label}}</label>
+{{/if}}
+
+<input type="{{type}}" {{#if name}}name="{{../name}}"{{/if}} {{#if id}}id="{{../id}}"{{/if}} class="{{inputClassName}}" />

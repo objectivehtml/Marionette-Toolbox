@@ -330,8 +330,12 @@
             return response.responseJSON.errors;
         },
 
+        getRedirect: function() {
+            return this.getOption('redirect');
+        },
+
         redirect: function() {
-            window.location = this.getOption('redirect');
+            window.location = this.getRedirect();
         },
 
         onRender: function() {
