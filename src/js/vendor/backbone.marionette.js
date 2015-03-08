@@ -1938,7 +1938,7 @@
     },
   
     // Override from `Marionette.View` to trigger show on child views
-    onShowCalled: function(){
+    onShowCalled: function() {
       this.children.each(function(child){
         if (_.isFunction(child.triggerMethod)) {
           child.triggerMethod('show');

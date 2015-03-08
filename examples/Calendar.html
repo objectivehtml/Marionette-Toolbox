@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
+		<link rel="stylesheet" href="../vendor.css">
+		<link rel="stylesheet" href="../marionette.toolbox.css">
+		
+		<script src="../vendor.js"></script>
+		<script src="../marionette.toolbox.js"></script>	
+	</head>
+	<body>
+		<div class="container">
+			<div class="app-wrapper"></div>
+		</div>
+
+		<script type="text/javascript">
+			var App = new Backbone.Marionette.Application();
+
+			App.addRegions({
+				content: $('.app-wrapper')
+			});
+
+			App.addInitializer(function() {
+
+				var DealsCollection = Backbone.Collection.extend({
+					
+					url: 'http://api.wedo.dev/deals',
+
+					parse: function(data, options) {
+						var responses = [];
+						
+						if(data.success) {
+							var t = this;
+
+							if(data.response.data) {
+								data = data.response.data;
+							}
+							else {
+								data = data.response;
+							}
+
+							_.each(data, function(response, i) {
+								if(response.uid) {
+									response.id = response.uid;
+								}
+
+								responses.push(new t.model(response));
+							});
+
+							return responses;
+						}
+
+						return [];
+					}
+
+				});
+
+				var deals = new DealsCollection();
+
+				var view = new Toolbox.Views.MonthlyCalendar({
+					collection: deals,
+					className: 'calendar calendar-shadow',
+					date: moment()
+				});
+
+				view.on('create:event', function(event) {
+					event.start = moment(event.model.get('createdAt'));
+		            event.end = moment(event.model.get('createdAt')).add(1, 'hour');
+				});
+
+				view.on('render', function() {
+					view.fetch();
+				});
+
+				view.on('day:click', function(week, day) {
+					console.log(day.model.get('events'));
+				});
+
+				App.content.show(view);	
+
+				/*
+				view.on('fetch:events', function(range) {
+					console.
+					log('fetch:events');
+
+					var events = [];
+
+					for(var x = 0; x <= range.end.diff(range.start, 'day'); x+=2) {
+						events.push({
+							date: range.start.clone().add(x, 'day')
+						});
+					}
+
+					this.renderEvents(events);
+				});
+				*/
+
+
+			});
+
+			App.start();
+
+		</script>
+		
+	</body>
+</html>

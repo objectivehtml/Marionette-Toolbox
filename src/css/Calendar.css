@@ -1,0 +1,120 @@
+.calendar {
+	display: block;
+	width: 100%;
+	position: relative;
+	background: #F6F6F6;
+}
+.calendar-shadow {
+	box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+}
+.calendar-header {
+	text-align: center;
+	font-size: 20px;
+	font-weight: 200;
+	margin-top: 10px;
+	text-transform: uppercase;
+}
+.calendar-sub-header { 
+	text-align: center;
+	font-size: 14px;
+	font-weight: 600;
+	color: #8F9093;
+}
+.calendar-navigation a {
+	background: #3EDCB5;
+	color: white;
+	font-size: 20px;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	border-radius: 1000px;
+}
+.calendar-navigation-prev { 
+	position: absolute;
+	top: 22px;
+	left: 20px;
+}
+.calendar-navigation-prev i {
+	position: relative;
+	right: 1px;
+}
+.calendar-navigation-next { 
+	position: absolute;
+	top: 22px;
+	right: 20px;
+}
+.calendar-navigation-next i {
+	position: relative;
+	left: 1px;
+}
+.calendar-masthead { 
+	position: relative;
+	background: white;
+	padding: 5px 10px 10px 20px;
+	border-bottom: 1px solid #DDDDDD;
+	border-top: 5px solid #3EDCB5;
+}
+.calendar-view {
+	border-top: 1px solid white;
+	padding: 30px;
+	position: relative;
+}
+.calendar table {
+	width: 100%;
+}
+.calendar tbody {
+	border: 1px solid #DDDDDD;
+}
+.calendar thead {
+	background: transparent;
+}
+.calendar table th {
+	text-align: center;
+	color: #3EDCB5;
+	text-transform: uppercase;
+	font-weight: 400;
+	font-size: 12px;
+	padding-bottom: 6px;
+}
+.calendar table td {
+	text-align: center;
+	width: 14.285%;
+	color: #686a6e;
+	font-weight: 400;
+	font-size: 20px;
+	cursor: pointer;
+	position: relative;
+}
+.calendar table td:hover {
+	background: #EDEDED;
+}
+.calendar table .calendar-day {
+	padding: 12px 0;
+	border-bottom: 1px solid #DDDDDD;
+}
+.calendar table .calendar-day:not(:last-child) { 
+	border-right: 1px solid #DDDDDD;
+}
+.calendar table .calendar-month {
+	background: white;
+}
+.calendar table .calendar-today,
+.calendar table .calendar-today:hover { 
+	background: #ED1F57;
+	color: white;
+	text-shadow: 0 1px #8F9093;
+}
+.calendar table .calendar-current-day,
+.calendar table .calendar-current-day:hover { 
+	background: #3EDCB5;
+	color: white;
+	text-shadow: 0 1px #8F9093;
+}
+.calendar table .calendar-has-events {
+	position: absolute;
+	bottom: 5px;
+	left: 0;
+	font-size: 6px;
+	width: 100%;
+	color: #D2154A;
+}
