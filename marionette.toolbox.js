@@ -2558,7 +2558,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         fetch: function() {
             var t = this, params = this.getQueryVariables();
 
-            this.triggerMethod('fetch');
+            this.triggerMethod('fetch', params);
 
             if(this.getCacheResponse(params)) {
                 this.restoreCacheResponse(params);
@@ -2585,8 +2585,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         createEvent: function(model) {
             var event = {
-                start: null,
-                end: null,
+                start: model.get('start') || null,
+                end: model.get('end') || null,
                 model: model
             };
 
@@ -2599,7 +2599,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             this.$el.find('.calendar-header').html(this.getCalendarHeader());
             this.$el.find('.calendar-sub-header').html(this.getCalendarSubHeader());
             this.renderCollection();
-            
+
             if(this.getOption('fetchOnRender')) {
                 this.fetch();
             }
@@ -2618,6 +2618,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             }
 
             collection._cachedResponses[string] = _.clone(collection);
+
+            this.triggerMethod('set:cache:response', collection._cachedResponses[string]);
         },
 
         getCacheResponse: function(params) {
@@ -2659,7 +2661,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             this.collection.each(function(model, i) {
                 var event = this.createEvent(model);
                 var view = this.getViewByDate(event.start);
-
                 if(view) {
                     view.addEvent(event);
                 }
@@ -2787,18 +2788,18 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 date = moment(date);
             }
 
-            var originalDate = this.getDate();
+            var prevDate = this.getDate();
 
             this.options.date = date;
-            this.triggerMethod('date:set', date, originalDate);
+            this.triggerMethod('date:set', date, prevDate);
         },
 
-        onDateSet: function(newDate, originalDate) {
-            if(!newDate.isSame(originalDate, 'month')) {
+        onDateSet: function(newDate, prevDate) {
+            if(!newDate.isSame(prevDate, 'month')) {
                 this.render();
             }
             else {
-                this.getViewByDate(originalDate).$el.removeClass('calendar-current-day');
+                this.getViewByDate(prevDate).$el.removeClass('calendar-current-day');
                 this.getViewByDate(newDate).$el.addClass('calendar-current-day');
             }
         },

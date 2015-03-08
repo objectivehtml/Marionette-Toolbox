@@ -71,33 +71,11 @@
 		            event.end = moment(event.model.get('createdAt')).add(1, 'hour');
 				});
 
-				view.on('render', function() {
-					view.fetch();
-				});
-
 				view.on('day:click', function(week, day) {
 					console.log(day.model.get('events'));
 				});
 
-				App.content.show(view);	
-
-				/*
-				view.on('fetch:events', function(range) {
-					console.
-					log('fetch:events');
-
-					var events = [];
-
-					for(var x = 0; x <= range.end.diff(range.start, 'day'); x+=2) {
-						events.push({
-							date: range.start.clone().add(x, 'day')
-						});
-					}
-
-					this.renderEvents(events);
-				});
-				*/
-
+				App.content.show(view);
 
 			});
 
