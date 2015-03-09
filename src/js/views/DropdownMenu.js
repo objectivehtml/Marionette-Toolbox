@@ -109,26 +109,12 @@
 			toggleClassName: 'open'
 		},
 
+        templateHelpers: function() {
+            return this.options;
+        },
+
 		initialize: function(options) {
 			Toolbox.Views.CompositeView.prototype.initialize.call(this, options);
-
-            var t = this, options = [
-            	'buttonLabel', 
-            	'buttonClassName', 
-            	'splitButton',
-            	'dropUp',
-            	'dropdownMenuClassName'
-            ];
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
-            }
-
-            _.each(options, function(name) {
-                if(t.getOption(name)) {
-                    t.model.set(name, t.getOption(name));
-                }
-            });
 
 			this.on('fetch', function() {
 				if(this.getOption('showIndicator')) {

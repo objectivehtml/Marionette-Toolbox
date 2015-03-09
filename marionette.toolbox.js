@@ -1449,22 +1449,14 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             }
         },
 
-        initialize: function() {
-            Marionette.ItemView.prototype.initialize.apply(this, arguments);
-
-            var t = this, options = ['fixed', 'dimmed', 'dimmedBgColor'];
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
+        templateHelpers: function() {
+            return {
+                fixed: this.getOption('fixed'),
+                dimmed: this.getOption('dimmed'),
+                dimmedBgColor: this.getOption('dimmedBgColor')
             }
-
-            _.each(options, function(name) {
-                if(t.getOption(name)) {
-                    t.model.set(name, t.getOption(name));
-                }
-            });
         },
-
+        
         getPresetOptions: function() {
             return {
                 'tiny': {
@@ -1599,10 +1591,12 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             labelClassName: 'control-label',
             inputClassName: 'form-control',
             triggerSelector: 'input',
-            updateFormModel: true
+            updateModel: true
         },
 
-        options: {},
+        templateHelpers: function() {
+            return this.options;
+        },
 
         initialize: function() {
             Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
@@ -1610,10 +1604,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             this.options = $.extend({}, this.defaultOptions, this.options);
 
             this.triggers = $.extend({}, this.getDefaultTriggers(), this.triggers);
-
-            this.formModel = this.model;
-
-            this.model = new Backbone.Model(this.options);
         },
 
         getDefaultTriggers: function() {
@@ -1641,7 +1631,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         onRender: function() {
-            this.setInputValue(this.model.get('value'));
+            this.setInputValue(this.getOption('value'));
         },
 
         onBlur: function() {
@@ -1653,10 +1643,10 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 value = this.getInputValue();
             }
 
-            this.model.set('value', value);
+            this.options.value = value;
 
-            if(this.getOption('updateFormModel') === true && this.formModel) {
-                this.formModel.set(this.getOption('name'), value);
+            if(this.getOption('updateModel') === true && this.model) {
+                this.model.set(this.getOption('name'), value);
             }
         },
 
@@ -2525,8 +2515,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 this.triggerMethod('week:click', week, args);
             },
             'day:click': function(week, day) {
-                this.triggerMethod('day:click', week, day);
                 this.setDate(day.getDate());
+                this.triggerMethod('day:click', week, day);
             }
         },
         
@@ -2534,7 +2524,12 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             collection: false,
             date: false,
             alwaysShowSixWeeks: true,
-            fetchOnRender: true
+            fetchOnRender: true,
+            indicatorOptions: {
+                indicator: 'small',
+                dimmed: true,
+                dimmedBgColor: 'rgba(255, 255, 255, .6)'
+            }
         },
 
         triggers: {
@@ -2558,29 +2553,33 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         fetch: function() {
             var t = this, params = this.getQueryVariables();
 
-            this.triggerMethod('fetch', params);
-
             if(this.getCacheResponse(params)) {
                 this.restoreCacheResponse(params);
             }
             else {
-                this.showActivityIndicator();
+                this.triggerMethod('fetch', params);
                 this.collection.reset();
                 this.collection.fetch({
                     data: params,
                     success: function(collection, response) {
                         t.setCacheResponse(params, collection);
-                        t.hideActivityIndicator();
                         t.triggerMethod('fetch:complete', true, collection, response);
                         t.triggerMethod('fetch:success', collection, response);
                     },
                     error: function(model, response) {
-                        t.hideActivityIndicator();
                         t.triggerMethod('fetch:complete', false, collection, response);
                         t.triggerMethod('fetch:error', collection, response);
                     }
                 });
             }
+        },
+
+        onFetch: function() {
+            this.showActivityIndicator();
+        },
+
+        onFetchComplete: function() {
+            this.hideActivityIndicator();
         },
 
         createEvent: function(model) {
@@ -2641,11 +2640,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 el: this.$el.find('.indicator')
             });
 
-            var view = new Toolbox.Views.ActivityIndicator({
-                indicator: 'small',
-                dimmed: true,
-                dimmedBgColor: 'rgba(255, 255, 255, .6)'
-            });
+            var view = new Toolbox.Views.ActivityIndicator(this.getOption('indicatorOptions'));
 
             this.indicator.show(view);
             this.triggerMethod('indicator:show');
@@ -2802,6 +2797,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 this.getViewByDate(prevDate).$el.removeClass('calendar-current-day');
                 this.getViewByDate(newDate).$el.addClass('calendar-current-day');
             }
+
+            var view = this.getViewByDate(newDate);
+            var events = view.model.get('events');
+
+            this.triggerMethod('show:events', view, events);
         },
 
         getPrevDate: function() {
@@ -3018,26 +3018,12 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			toggleClassName: 'open'
 		},
 
+        templateHelpers: function() {
+            return this.options;
+        },
+
 		initialize: function(options) {
 			Toolbox.Views.CompositeView.prototype.initialize.call(this, options);
-
-            var t = this, options = [
-            	'buttonLabel', 
-            	'buttonClassName', 
-            	'splitButton',
-            	'dropUp',
-            	'dropdownMenuClassName'
-            ];
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
-            }
-
-            _.each(options, function(name) {
-                if(t.getOption(name)) {
-                    t.model.set(name, t.getOption(name));
-                }
-            });
 
 			this.on('fetch', function() {
 				if(this.getOption('showIndicator')) {
@@ -3505,20 +3491,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			'click .close': 'close:click'
 		},
 
-		initialize: function() {
-			Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
-
-			var t = this;
-			
-			if(!this.model) {
-				this.model = new Backbone.Model({
-					icon: this.getOption('icon'),
-					message: this.getOption('message'),
-					type: this.getOption('type'),
-					title: this.getOption('title')
-				});
-			}
-		},
+        templateHelpers: function() {
+            return this.options;
+        },
 
 		onClick: function() {
 			if(this.getOption('closeOnClick')) {
@@ -3702,33 +3677,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			prevLabel: 'Previous'
 		},
 
-		initialize: function() {
-			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
-
-            var t = this, options = [
-            	'page', 
-            	'totalPages', 
-            	'snapToEdges', 
-            	'pagerClassName',
-            	'prevClassName',
-            	'nextClassName',
-            	'includePageTotals',
-            	'prevLabel',
-            	'nextLabel'
-            ];
-
-            console.log(this.getOption('snapToEdges'));
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
-            }
-
-            _.each(options, function(name) {
-                if(t.getOption(name)) {
-                    t.model.set(name, t.getOption(name));
-                }
-            });
-		},
+        templateHelpers: function() {
+            return this.options;
+        },
 
 		nextPage: function() {
 			var page = this.getOption('page');
@@ -3774,7 +3725,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		setActivePage: function(page) {
 			this.options.page = page;
-			this.model.set('page', page);
 			this.render();
 			this.triggerMethod('paginate', page);
 		},
@@ -3869,24 +3819,12 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			page: 1
 		},
 
-		initialize: function(options) {
-			Toolbox.Views.CompositeView.prototype.initialize.call(this, options);
+        templateHelpers: function() {
+            return this.options;
+        },
 
-            var t = this, options = ['page', 'paginationClassName'];
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
-            }
-
-            if(this.getOption('page')) {
-            	this.model.set('page', this.getOption('page'));
-            }
-
-            _.each(options, function(name) {
-                if(t.getOption(name)) {
-                    t.model.set(name, t.getOption(name));
-                }
-            });
+		initialize: function() {
+			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
 
             this.collection = new Backbone.Collection();
 		},
@@ -3983,7 +3921,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		setShowPages: function(showPages) {
 			this.options.showPages = showPages;
-			this.model.set('showPages', showPages);
 		},
 
 		getShowPages: function() {
@@ -3992,7 +3929,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		setTotalPages: function(totalPages) {
 			this.options.totalPages = totalPages;
-			this.model.set('totalPages', totalPages);
 		},
 
 		getTotalPages: function() {
@@ -4001,7 +3937,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		setPage: function(page) {
 			this.options.page = page;
-			this.model.set('page', page);
 		},
 
 		getPage: function() {
@@ -4054,10 +3989,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		className: 'progress',
 
-		modelEvents: {
-			'change': 'render'
-		},
-
 		options: {
 			// (string) The progress bar class name
 			progressBarClassName: 'progress-bar',
@@ -4066,24 +3997,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			progress: 0
 		},
 
-		initialize: function() {
-			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
-
-            var t = this, options = [
-            	'progress', 
-            	'progressBarClassName'
-            ];
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
-            }
-
-            _.each(options, function(name) {
-                if(t.getOption(name)) {
-                    t.model.set(name, t.getOption(name));
-                }
-            });
-		},
+        templateHelpers: function() {
+            return this.options;
+        },
 
 		setProgress: function(progress) {
 			if(progress < 0) {
@@ -4095,7 +4011,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			}
 
 			this.options.progress = progress;
-			this.model.set('progress', progress);
 			this.triggerMethod('progress', progress);
 
 			if(progress === 100) {
@@ -4105,6 +4020,10 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		getProgress: function() {
 			return this.getOption('progress');
+		},
+
+		onProgress: function() {
+			this.render();
 		}
 
 	});
@@ -4312,7 +4231,16 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         template: Toolbox.Template('table-no-items'),
 
-        className: 'no-results'
+        className: 'no-results',
+
+        options: {
+            // (array) Array of array of column
+            columns: false
+        },
+
+        templateHelpers: function() {
+            return this.options;
+        }
 
     });
 
@@ -4320,7 +4248,16 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         tagName: 'tr',
 
-        template: Toolbox.Template('table-view-row')
+        template: Toolbox.Template('table-view-row'),
+
+        options: {
+            // (array) Array of array of column
+            columns: false
+        },
+
+        templateHelpers: function() {
+            return this.options;
+        }
 
     });
 
@@ -4336,6 +4273,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         regions: {
             content: 'td'
+        },
+
+        options: {
+            // (array) Array of array of column
+            columns: false
+        },
+
+        templateHelpers: function() {
+            return this.options;
         }
 
     });
@@ -4404,14 +4350,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             'click .sort': 'onSortClick'
         },
 
-        initialize: function(options) {
-            Marionette.CompositeView.prototype.initialize.apply(this, arguments);
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
-            }
-            
-            this.model.set(this.options);
+        templateHelpers: function() {
+            return this.options;
         },
 
         getEmptyView: function() {
@@ -4421,6 +4361,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             });
 
             var View = Toolbox.Views.TableNoItemsRow.extend({
+                options: {
+                    columns: this.getOption('columns')
+                },
                 initialize: function() {
                     this.model = model;
                 }
@@ -4490,9 +4433,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             });
 
             var footerView = new Toolbox.Views.TableViewFooter({
-                model: new Backbone.Model({
-                    columns: this.model.get('columns')
-                })
+                columns: this.getOption('columns')
             });
 
             this.pagination = new Backbone.Marionette.Region({
@@ -4514,11 +4455,16 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             this.addChild(this.model, Toolbox.Views.ActivityIndicator.extend({
                 template: Toolbox.Template('table-activity-indicator-row'),
                 tagName: 'tr',
+                templateHelpers: function() {
+                    return this.options;
+                },
                 initialize: function(options) {
                     Toolbox.Views.ActivityIndicator.prototype.initialize.call(this, options);
 
                     // Set the activity indicator options
                     _.extend(this.options, t.getOption('indicatorOptions'));
+
+                    this.options.columns = t.getOption('columns');
 
                     // Set the activity indicator instance to be removed later
                     t._activityIndicator = this;
@@ -4536,7 +4482,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         onChildviewBeforeRender: function(child) {
-            child.model.set(this.getOption('childViewColumnsProperty'), this.model.get('columns'));
+            // child.model.set(this.getOption('childViewColumnsProperty'), this.model.get('columns'));
+
+            console.log(child);
+
+            child.options.columns = this.getOption('columns');
         },
 
         getRequestData: function() {
@@ -4564,8 +4514,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             var page = response.response.currentPage;
             var totalPages = response.response.lastPage;
 
-            this.model.set('page', page);
-            this.model.set('totalPages', totalPages);
+            this.options.page = page;
+            this.options.totalPages = totalPages;
 
             if(this.getOption('paginate')) {
                 this.showPagination(page, totalPages);

@@ -56,20 +56,9 @@
 			'click .close': 'close:click'
 		},
 
-		initialize: function() {
-			Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
-
-			var t = this;
-			
-			if(!this.model) {
-				this.model = new Backbone.Model({
-					icon: this.getOption('icon'),
-					message: this.getOption('message'),
-					type: this.getOption('type'),
-					title: this.getOption('title')
-				});
-			}
-		},
+        templateHelpers: function() {
+            return this.options;
+        },
 
 		onClick: function() {
 			if(this.getOption('closeOnClick')) {

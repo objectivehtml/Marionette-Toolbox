@@ -16,10 +16,6 @@
 
 		className: 'progress',
 
-		modelEvents: {
-			'change': 'render'
-		},
-
 		options: {
 			// (string) The progress bar class name
 			progressBarClassName: 'progress-bar',
@@ -28,24 +24,9 @@
 			progress: 0
 		},
 
-		initialize: function() {
-			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
-
-            var t = this, options = [
-            	'progress', 
-            	'progressBarClassName'
-            ];
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
-            }
-
-            _.each(options, function(name) {
-                if(t.getOption(name)) {
-                    t.model.set(name, t.getOption(name));
-                }
-            });
-		},
+        templateHelpers: function() {
+            return this.options;
+        },
 
 		setProgress: function(progress) {
 			if(progress < 0) {
@@ -57,7 +38,6 @@
 			}
 
 			this.options.progress = progress;
-			this.model.set('progress', progress);
 			this.triggerMethod('progress', progress);
 
 			if(progress === 100) {
@@ -67,6 +47,10 @@
 
 		getProgress: function() {
 			return this.getOption('progress');
+		},
+
+		onProgress: function() {
+			this.render();
 		}
 
 	});

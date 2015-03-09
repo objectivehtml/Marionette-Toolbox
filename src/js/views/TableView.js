@@ -16,7 +16,16 @@
 
         template: Toolbox.Template('table-no-items'),
 
-        className: 'no-results'
+        className: 'no-results',
+
+        options: {
+            // (array) Array of array of column
+            columns: false
+        },
+
+        templateHelpers: function() {
+            return this.options;
+        }
 
     });
 
@@ -24,7 +33,16 @@
 
         tagName: 'tr',
 
-        template: Toolbox.Template('table-view-row')
+        template: Toolbox.Template('table-view-row'),
+
+        options: {
+            // (array) Array of array of column
+            columns: false
+        },
+
+        templateHelpers: function() {
+            return this.options;
+        }
 
     });
 
@@ -40,6 +58,15 @@
 
         regions: {
             content: 'td'
+        },
+
+        options: {
+            // (array) Array of array of column
+            columns: false
+        },
+
+        templateHelpers: function() {
+            return this.options;
         }
 
     });
@@ -108,14 +135,8 @@
             'click .sort': 'onSortClick'
         },
 
-        initialize: function(options) {
-            Marionette.CompositeView.prototype.initialize.apply(this, arguments);
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
-            }
-            
-            this.model.set(this.options);
+        templateHelpers: function() {
+            return this.options;
         },
 
         getEmptyView: function() {
@@ -125,6 +146,9 @@
             });
 
             var View = Toolbox.Views.TableNoItemsRow.extend({
+                options: {
+                    columns: this.getOption('columns')
+                },
                 initialize: function() {
                     this.model = model;
                 }
@@ -194,9 +218,7 @@
             });
 
             var footerView = new Toolbox.Views.TableViewFooter({
-                model: new Backbone.Model({
-                    columns: this.model.get('columns')
-                })
+                columns: this.getOption('columns')
             });
 
             this.pagination = new Backbone.Marionette.Region({
@@ -218,11 +240,16 @@
             this.addChild(this.model, Toolbox.Views.ActivityIndicator.extend({
                 template: Toolbox.Template('table-activity-indicator-row'),
                 tagName: 'tr',
+                templateHelpers: function() {
+                    return this.options;
+                },
                 initialize: function(options) {
                     Toolbox.Views.ActivityIndicator.prototype.initialize.call(this, options);
 
                     // Set the activity indicator options
                     _.extend(this.options, t.getOption('indicatorOptions'));
+
+                    this.options.columns = t.getOption('columns');
 
                     // Set the activity indicator instance to be removed later
                     t._activityIndicator = this;
@@ -240,7 +267,11 @@
         },
 
         onChildviewBeforeRender: function(child) {
-            child.model.set(this.getOption('childViewColumnsProperty'), this.model.get('columns'));
+            // child.model.set(this.getOption('childViewColumnsProperty'), this.model.get('columns'));
+
+            console.log(child);
+
+            child.options.columns = this.getOption('columns');
         },
 
         getRequestData: function() {
@@ -268,8 +299,8 @@
             var page = response.response.currentPage;
             var totalPages = response.response.lastPage;
 
-            this.model.set('page', page);
-            this.model.set('totalPages', totalPages);
+            this.options.page = page;
+            this.options.totalPages = totalPages;
 
             if(this.getOption('paginate')) {
                 this.showPagination(page, totalPages);

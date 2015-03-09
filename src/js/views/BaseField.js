@@ -53,10 +53,12 @@
             labelClassName: 'control-label',
             inputClassName: 'form-control',
             triggerSelector: 'input',
-            updateFormModel: true
+            updateModel: true
         },
 
-        options: {},
+        templateHelpers: function() {
+            return this.options;
+        },
 
         initialize: function() {
             Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
@@ -64,10 +66,6 @@
             this.options = $.extend({}, this.defaultOptions, this.options);
 
             this.triggers = $.extend({}, this.getDefaultTriggers(), this.triggers);
-
-            this.formModel = this.model;
-
-            this.model = new Backbone.Model(this.options);
         },
 
         getDefaultTriggers: function() {
@@ -95,7 +93,7 @@
         },
 
         onRender: function() {
-            this.setInputValue(this.model.get('value'));
+            this.setInputValue(this.getOption('value'));
         },
 
         onBlur: function() {
@@ -107,10 +105,10 @@
                 value = this.getInputValue();
             }
 
-            this.model.set('value', value);
+            this.options.value = value;
 
-            if(this.getOption('updateFormModel') === true && this.formModel) {
-                this.formModel.set(this.getOption('name'), value);
+            if(this.getOption('updateModel') === true && this.model) {
+                this.model.set(this.getOption('name'), value);
             }
         },
 

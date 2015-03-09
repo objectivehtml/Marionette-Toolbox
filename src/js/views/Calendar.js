@@ -193,8 +193,8 @@
                 this.triggerMethod('week:click', week, args);
             },
             'day:click': function(week, day) {
-                this.triggerMethod('day:click', week, day);
                 this.setDate(day.getDate());
+                this.triggerMethod('day:click', week, day);
             }
         },
         
@@ -202,7 +202,12 @@
             collection: false,
             date: false,
             alwaysShowSixWeeks: true,
-            fetchOnRender: true
+            fetchOnRender: true,
+            indicatorOptions: {
+                indicator: 'small',
+                dimmed: true,
+                dimmedBgColor: 'rgba(255, 255, 255, .6)'
+            }
         },
 
         triggers: {
@@ -226,29 +231,33 @@
         fetch: function() {
             var t = this, params = this.getQueryVariables();
 
-            this.triggerMethod('fetch', params);
-
             if(this.getCacheResponse(params)) {
                 this.restoreCacheResponse(params);
             }
             else {
-                this.showActivityIndicator();
+                this.triggerMethod('fetch', params);
                 this.collection.reset();
                 this.collection.fetch({
                     data: params,
                     success: function(collection, response) {
                         t.setCacheResponse(params, collection);
-                        t.hideActivityIndicator();
                         t.triggerMethod('fetch:complete', true, collection, response);
                         t.triggerMethod('fetch:success', collection, response);
                     },
                     error: function(model, response) {
-                        t.hideActivityIndicator();
                         t.triggerMethod('fetch:complete', false, collection, response);
                         t.triggerMethod('fetch:error', collection, response);
                     }
                 });
             }
+        },
+
+        onFetch: function() {
+            this.showActivityIndicator();
+        },
+
+        onFetchComplete: function() {
+            this.hideActivityIndicator();
         },
 
         createEvent: function(model) {
@@ -309,11 +318,7 @@
                 el: this.$el.find('.indicator')
             });
 
-            var view = new Toolbox.Views.ActivityIndicator({
-                indicator: 'small',
-                dimmed: true,
-                dimmedBgColor: 'rgba(255, 255, 255, .6)'
-            });
+            var view = new Toolbox.Views.ActivityIndicator(this.getOption('indicatorOptions'));
 
             this.indicator.show(view);
             this.triggerMethod('indicator:show');
@@ -470,6 +475,11 @@
                 this.getViewByDate(prevDate).$el.removeClass('calendar-current-day');
                 this.getViewByDate(newDate).$el.addClass('calendar-current-day');
             }
+
+            var view = this.getViewByDate(newDate);
+            var events = view.model.get('events');
+
+            this.triggerMethod('show:events', view, events);
         },
 
         getPrevDate: function() {

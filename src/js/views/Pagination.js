@@ -79,24 +79,12 @@
 			page: 1
 		},
 
-		initialize: function(options) {
-			Toolbox.Views.CompositeView.prototype.initialize.call(this, options);
+        templateHelpers: function() {
+            return this.options;
+        },
 
-            var t = this, options = ['page', 'paginationClassName'];
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
-            }
-
-            if(this.getOption('page')) {
-            	this.model.set('page', this.getOption('page'));
-            }
-
-            _.each(options, function(name) {
-                if(t.getOption(name)) {
-                    t.model.set(name, t.getOption(name));
-                }
-            });
+		initialize: function() {
+			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
 
             this.collection = new Backbone.Collection();
 		},
@@ -193,7 +181,6 @@
 
 		setShowPages: function(showPages) {
 			this.options.showPages = showPages;
-			this.model.set('showPages', showPages);
 		},
 
 		getShowPages: function() {
@@ -202,7 +189,6 @@
 
 		setTotalPages: function(totalPages) {
 			this.options.totalPages = totalPages;
-			this.model.set('totalPages', totalPages);
 		},
 
 		getTotalPages: function() {
@@ -211,7 +197,6 @@
 
 		setPage: function(page) {
 			this.options.page = page;
-			this.model.set('page', page);
 		},
 
 		getPage: function() {

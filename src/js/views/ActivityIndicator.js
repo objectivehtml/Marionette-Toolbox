@@ -42,22 +42,14 @@
             }
         },
 
-        initialize: function() {
-            Marionette.ItemView.prototype.initialize.apply(this, arguments);
-
-            var t = this, options = ['fixed', 'dimmed', 'dimmedBgColor'];
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
+        templateHelpers: function() {
+            return {
+                fixed: this.getOption('fixed'),
+                dimmed: this.getOption('dimmed'),
+                dimmedBgColor: this.getOption('dimmedBgColor')
             }
-
-            _.each(options, function(name) {
-                if(t.getOption(name)) {
-                    t.model.set(name, t.getOption(name));
-                }
-            });
         },
-
+        
         getPresetOptions: function() {
             return {
                 'tiny': {

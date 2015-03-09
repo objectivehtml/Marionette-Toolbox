@@ -60,33 +60,9 @@
 			prevLabel: 'Previous'
 		},
 
-		initialize: function() {
-			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
-
-            var t = this, options = [
-            	'page', 
-            	'totalPages', 
-            	'snapToEdges', 
-            	'pagerClassName',
-            	'prevClassName',
-            	'nextClassName',
-            	'includePageTotals',
-            	'prevLabel',
-            	'nextLabel'
-            ];
-
-            console.log(this.getOption('snapToEdges'));
-
-            if(!this.model) {
-                this.model = new Backbone.Model();
-            }
-
-            _.each(options, function(name) {
-                if(t.getOption(name)) {
-                    t.model.set(name, t.getOption(name));
-                }
-            });
-		},
+        templateHelpers: function() {
+            return this.options;
+        },
 
 		nextPage: function() {
 			var page = this.getOption('page');
@@ -132,7 +108,6 @@
 
 		setActivePage: function(page) {
 			this.options.page = page;
-			this.model.set('page', page);
 			this.render();
 			this.triggerMethod('paginate', page);
 		},

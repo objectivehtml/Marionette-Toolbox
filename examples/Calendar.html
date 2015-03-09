@@ -71,8 +71,8 @@
 		            event.end = moment(event.model.get('createdAt')).add(1, 'hour');
 				});
 
-				view.on('day:click', function(week, day) {
-					console.log(day.model.get('events'));
+				view.on('show:events', function(view, events) {
+					console.log(events);
 				});
 
 				App.content.show(view);
