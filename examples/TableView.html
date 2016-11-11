@@ -67,12 +67,27 @@
 					sort: 'asc',
 					header: 'WeDo Local Deals',
 					tableClassName: 'table table-striped',
+					paginationView: Toolbox.Views.Pagination,
 					columns: [{
 						name: 'Name',
 						id: 'name'
 					},{
 						name: 'Created At',
 						id: 'createdAt'
+					}],
+					limit: 1,
+					buttons: [{
+						label: 'Test 1',
+						icon: 'fa fa-plus',
+						href: 'http://google.com'
+					},{
+						label: 'Test 2',
+						href: '#test'
+					},{
+						label: 'Test 3',
+						onClick: function() {
+							console.log('clicked me');
+						}
 					}]
 				});
 

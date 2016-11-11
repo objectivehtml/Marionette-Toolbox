@@ -7,7 +7,7 @@
   } else if (typeof exports !== 'undefined') {
     var Backbone = require('backbone');
     var _ = require('underscore');
-    var Marionette = require('marionette');
+    var Marionette = require('backbone.marionette');
     var Handlebars = require('handlebars');
     module.exports = factory(root, Backbone, Marionette, Handlebars, _);
   } else {

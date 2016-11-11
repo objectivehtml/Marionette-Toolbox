@@ -24,7 +24,7 @@
 			App.addInitializer(function() {
 				
 				var view = new Toolbox.Views.OrderedList({
-					collection: new Backbone.Collection([{
+					collection: new Backbone.Collection([/*{
 						content: 'List Item #1'
 					},{
 						content: 'List Item #2'
@@ -34,7 +34,7 @@
 						content: 'List Item #4'
 					},{
 						content: 'List Item #5'
-					}])
+					}*/])
 				});
 
 				view.on('item:click', function(child) {

@@ -5,6 +5,10 @@ table + .pagination,
 table + .pagination .pager  { margin-top: 0; width: 100%; }
 table .activity-indicator-row { position: relative; height: 300px; }
 table .page-totals { text-align: center; font-weight: 200; }
+table tr td { position: relative; }
+table .table-action { position: absolute; right: 100%; top: 3px; min-width: 55px; border-radius: 1000px 0 0 1000px; background: gray; font-size: 11px; padding: 3px 3px 3px 6px; color: white; display: none; }
+table tr:hover .table-action { display: block; font-weight: 300; }
+table tr:hover .table-action:hover { background: rgb(113, 113, 113); }
 
 .box { border: 1px solid rgb(214, 214, 214); margin: 0; border-top: 1px solid rgb(204, 204, 204); clear: both; }
 .box table { border-collapse: collapse; margin: 0; width: 100%; }

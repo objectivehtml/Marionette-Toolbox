@@ -1,8 +1,8 @@
 (function (root, factory) {
-    if (typeof exports === 'object') {
-        module.exports = factory(require('toolbox'));
-    } else if (typeof define === 'function' && define.amd) {
-        define(['toolbox'], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['marionette.toolbox'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('marionette.toolbox'));
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -16,13 +16,9 @@
 
 		tagName: 'nav',
 
-		events: {
-			'click .next-page': function() {
-				this.nextPage();
-			},
-			'click .prev-page': function() {
-				this.prevPage();
-			}
+		triggers: {
+			'click .next-page': 'next:page:click',
+			'click .prev-page': 'prev:page:click'
 		},
 
 		options: {

@@ -1,5 +1,17 @@
+{{#if buttons.length}}
+<div class="buttons-wrapper pull-right">
+	{{#../buttons}}
+		<a href="{{href}}" class="{{#if className}}{{../className}}{{/if}}{{#not className}}{{../../buttonClassName}}{{/not}}">{{#if icon}}<i class="{{../icon}}"></i>{{/if}} {{label}}</a>
+	{{/../buttons}}
+</div>
+{{/if}}
+
 {{#if header}}
 	<{{../headerTag}} class="table-header">{{../header}}</{{../headerTag}}>
+{{/if}}
+
+{{#if description}}
+	<{{../descriptionTag}} class="{{../descriptionClassName}}">{{../description}}</{{../descriptionTag}}>
 {{/if}}
 
 <table class="{{tableClassName}}">

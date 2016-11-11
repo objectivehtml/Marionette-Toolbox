@@ -1,8 +1,8 @@
 (function (root, factory) {
-    if (typeof exports === 'object') {
-        module.exports = factory(require('toolbox'));
-    } else if (typeof define === 'function' && define.amd) {
-        define(['toolbox'], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['marionette.toolbox'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('marionette.toolbox'));
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -22,11 +22,7 @@
 		},
 
 		triggers: {
-			'click a': {
-				event: 'click',
-				preventDefault: false,
-				stopPropagation: false
-		    }
+			'click a': 'click'
 		},
 
 		onRender: function() {
@@ -36,7 +32,7 @@
 		}
 
 	});
-	
+
 	Toolbox.Views.Pagination = Toolbox.Views.CompositeView.extend({
 
 		childViewContainer: 'ul',
@@ -107,13 +103,13 @@
 			var startPage = (currentPage < showPages) ? 1 : currentPage - (showPages / 2);
 
 			var endPage = showPages + startPage;
-			
+
 			endPage = (totalPages < endPage) ? totalPages : endPage;
-			
+
 			var diff = startPage - endPage + showPages;
-			
+
 			startPage -= (startPage - diff > 0) ? diff : 0;
-			
+
 			if (startPage > 1) {
 				this.collection.add({page: 1});
 
@@ -125,7 +121,7 @@
 			for(var i = startPage; i <= endPage; i++) {
 				this.collection.add({page: i});
 			}
-			
+
 			if (endPage < totalPages) {
 				if(totalPages - 1 > endPage) {
 					this.collection.add({divider: true});

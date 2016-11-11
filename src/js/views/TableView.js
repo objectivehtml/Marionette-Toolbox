@@ -1,8 +1,8 @@
 (function (root, factory) {
-    if (typeof exports === 'object') {
-        module.exports = factory(require('toolbox'));
-    } else if (typeof define === 'function' && define.amd) {
-        define(['toolbox'], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['marionette.toolbox'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('marionette.toolbox'));
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -10,7 +10,7 @@
 
     'use strict';
 
-    Toolbox.Views.TableNoItemsRow = Marionette.ItemView.extend({
+    Toolbox.Views.TableNoItemsRow = Toolbox.Views.ItemView.extend({
 
         tagName: 'tr',
 
@@ -20,7 +20,10 @@
 
         options: {
             // (array) Array of array of column
-            columns: false
+            columns: false,
+
+            // (string) The message to display if there are no table rows
+            message: 'No rows found'
         },
 
         templateHelpers: function() {
@@ -104,6 +107,17 @@
             // (array) An array of headers appended to the request
             requestHeaders: [],
 
+            // (array) The default options used to generate the query string
+            defaultRequestDataOptions: [
+                'page',
+                'limit',
+                'order',
+                'sort'
+            ],
+
+            // (array) Additional options used to generate the query string
+            requestDataOptions: [],
+
             // (object) The pagination view class
             paginationView: false,
 
@@ -116,6 +130,15 @@
             // (string) The table header tag name
             headerTag: 'h3',
 
+            // (string) The table description
+            description: false,
+
+            // (string) The table description tag
+            descriptionTag: 'p',
+
+            // (string) The table description tag
+            descriptionClassName: 'description',
+
             // (string) The table class name
             tableClassName: 'table',
 
@@ -127,12 +150,35 @@
 
             // (object) The activity indicator options
             indicatorOptions: {
-                indicator: 'medium'
-            }
+                indicator: 'small'
+            },
+
+            // (string) The message to display if there are no table rows
+            emptyMessage: 'No rows found',
+
+            // (string) The name of the class appended to the buttons
+            buttonClassName: 'btn btn-default',
+
+            // (array) An array of button objects
+            // {href: 'test-123', label: 'Test 123'}
+            buttons: []
         },
 
         events: {
-            'click .sort': 'onSortClick'
+            'click .sort': function(e) {
+                this.triggerMethod('sort:click', e);
+
+                e.preventDefault();
+            },
+            'click .buttons-wrapper a': function(e) {
+                var buttons = this.getOption('buttons');
+                var i = $(e.target).index();
+
+                if(_.isArray(buttons) && buttons[i].onClick) {
+                    buttons[i].onClick.call(this, $(e.target));
+                    e.preventDefault();
+                }
+            }
         },
 
         templateHelpers: function() {
@@ -140,17 +186,10 @@
         },
 
         getEmptyView: function() {
-            var model = new Backbone.Model({
-                columns: this.getOption('columns'),
-                message: 'There are no records found.'
-            });
-
             var View = Toolbox.Views.TableNoItemsRow.extend({
                 options: {
+                    message: this.getOption('emptyMessage'),
                     columns: this.getOption('columns')
-                },
-                initialize: function() {
-                    this.model = model;
                 }
             });
 
@@ -180,7 +219,7 @@
             }
             else {
                 t.options.order = orderBy;
-                t.options.sort = 'asc'; 
+                t.options.sort = 'asc';
             }
 
             t.$el.find('.sort').parent().removeClass('sort-asc').removeClass('sort-desc');
@@ -234,6 +273,7 @@
             var t = this;
 
             this.destroyChildren();
+            this.destroyEmptyView();
 
             this.$el.find('table').addClass(this.getOption('loadingClassName'));
 
@@ -267,37 +307,40 @@
         },
 
         onChildviewBeforeRender: function(child) {
-            // child.model.set(this.getOption('childViewColumnsProperty'), this.model.get('columns'));
-
-            console.log(child);
-
             child.options.columns = this.getOption('columns');
         },
 
         getRequestData: function() {
-            var t = this, data = {}, options = [
-                'page', 
-                'limit', 
-                'order', 
-                'sort'
-            ];
+            var t = this, data = {};
+            var options = this.getOption('requestDataOptions');
+            var defaultOptions = this.getOption('defaultRequestDataOptions');
+            var requestData = this.getOption('requestData');
 
-            _.each(options, function(name) {
-                if(!_.isNull(t.getOption(name))) {
+            if(requestData) {
+                data = requestData;
+            }
+
+            _.each(([]).concat(defaultOptions, options), function(name) {
+                if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
                     data[name] = t.getOption(name);
                 }
-            });
+            }, this);
 
             return data;
         },
 
         onFetch: function(collection, response) {
+            this.destroyEmptyView();
             this.showActivityIndicator();
         },
 
         onFetchSuccess: function(collection, response) {
             var page = response.response.currentPage;
             var totalPages = response.response.lastPage;
+
+            if(collection.length === 0) {
+                this.showEmptyView();
+            }
 
             this.options.page = page;
             this.options.totalPages = totalPages;

@@ -1,0 +1,125 @@
+.light-switch { 
+	position: relative; 
+	border: none !important; 
+	border-radius: 11px; 
+	width: 33px; 
+	height: 22px; 
+	overflow: hidden; 
+	cursor: pointer; 
+	-webkit-user-select: none; 
+	-moz-user-select: none; 
+	-ms-user-select: none; 
+	overflow: hidden; 
+	-webkit-box-shadow: 0 0 0 1px rgba(51, 170, 255, 0), 0 0 2px rgba(51, 170, 255, 0); 
+	-moz-box-shadow: 0 0 0 1px rgba(51, 170, 255, 0), 0 0 2px rgba(51, 170, 255, 0); 
+	box-shadow: 0 0 0 1px rgba(51, 170, 255, 0), 0 0 2px rgba(51, 170, 255, 0); 
+	-webkit-transition: -webkit-box-shadow linear 100ms; 
+	-moz-transition: box-shadow linear 100ms; 
+}
+
+.light-switch.small { 
+	border-radius: 9px; 
+	width: 27px; 
+	height: 18px; 
+}
+
+table .light-switch { 
+	display: inline-block; 
+	margin-bottom: -5px; 
+}
+
+.light-switch:focus { 
+	outline: none; 
+	-webkit-box-shadow: 0 0 0 1px rgba(51, 170, 255, 0.5), 0 0 2px #33aaff; 
+	-moz-box-shadow: 0 0 0 1px rgba(51, 170, 255, 0.5), 0 0 2px #33aaff; 
+	box-shadow: 0 0 0 1px rgba(51, 170, 255, 0.5), 0 0 2px #33aaff; 
+}
+
+.light-switch .light-switch-container { 
+	width: 44px; 
+}
+
+.light-switch .light-switch-container { 
+	margin-left: -11px; 
+}
+
+.light-switch.small .light-switch-container { 
+	width: 36px; 
+}
+
+.light-switch.small .light-switch-container { 
+	margin-left: -9px; 
+}
+
+.light-switch.on .light-switch-container { 
+	margin-left: 0; 
+}
+
+.light-switch .light-switch-label { 
+	width: 22px; 
+	height: 22px; 
+	-webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1); 
+	-moz-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1); 
+	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1); 
+}
+.light-switch .light-switch-label { 
+	float: left; 
+}
+
+.light-switch.small .light-switch-label { 
+	width: 18px; 
+	height: 18px; 
+}
+
+.light-switch .light-switch-label.on { 
+	background: #00b007; 
+}
+.light-switch .light-switch-label.on { 
+	border-radius: 11px 0 0 11px; 
+}
+
+.light-switch.small .light-switch-label.on { 
+	border-radius: 9px 0 0 9px; 
+}
+
+.light-switch .light-switch-label.off { 
+	background: #ebedef; 
+}
+.light-switch .light-switch-label.off { 
+	border-radius: 0 11px 11px 0; 
+}
+
+.light-switch.small .light-switch-label.off { 
+	border-radius: 0 9px 9px 0; 
+}
+
+.light-switch:not(.dragging).on .light-switch-label.off, 
+.light-switch:not(.dragging):not(.on) .light-switch-label.on { 
+	visibility: hidden; 
+}
+
+.light-switch .light-switch-handle { 
+	position: relative; 
+	border-radius: 11px; 
+	margin: 0 -11px; 
+	width: 22px; 
+	height: 22px; 
+	background-image: -webkit-linear-gradient(white, #fafafa); 
+	background-image: -moz-linear-gradient(white, #fafafa); 
+	background-image: -ms-linear-gradient(white, #fafafa); 
+	background-image: -o-linear-gradient(white, #fafafa); 
+	background-image: linear-gradient(white, #fafafa); 
+	-webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.1); 
+	-moz-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.1); 
+	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.1); 
+}
+.light-switch .light-switch-handle { 
+	float: left; 
+}
+
+.light-switch.small .light-switch-handle { 
+	border-radius: 9px; 
+	margin: 0 -9px; 
+	width: 18px; 
+	height: 18px; 
+}

@@ -1,8 +1,8 @@
 (function (root, factory) {
-    if (typeof exports === 'object') {
-        module.exports = factory(require('toolbox'));
-    } else if (typeof define === 'function' && define.amd) {
-        define(['toolbox'], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['marionette.toolbox'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('marionette.toolbox'));
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -10,7 +10,7 @@
 
     'use strict';
 
-    Toolbox.Views.ActivityIndicator = Marionette.ItemView.extend({
+    Toolbox.Views.ActivityIndicator = Toolbox.Views.ItemView.extend({
 
         template: Toolbox.Template('activity-indicator'),
 
@@ -20,7 +20,8 @@
             dimmedBgColor: false,
             dimmed: false,
             autoStart: true,
-            fixed: false,
+            position: false,
+            minHeight: '0px',
             indicator: {},
             defaultIndicator: {
                 lines: 11, // The number of lines to draw
@@ -35,7 +36,7 @@
                 trail: 40, // Afterglow percentage
                 shadow: false, // Whether to render a shadow
                 hwaccel: true, // Whether to use hardware acceleration
-                className: 'spinner', // The CSS class to assign to the spinner
+                className: 'activity-indicator-spinner', // The CSS class to assign to the spinner
                 zIndex: 2e9, // The z-index (defaults to 2000000000)
                 top: '50%', // Top position relative to parent
                 left: '50%' // Left position relative to parent
@@ -43,13 +44,9 @@
         },
 
         templateHelpers: function() {
-            return {
-                fixed: this.getOption('fixed'),
-                dimmed: this.getOption('dimmed'),
-                dimmedBgColor: this.getOption('dimmedBgColor')
-            }
+            return this.options;
         },
-        
+
         getPresetOptions: function() {
             return {
                 'tiny': {

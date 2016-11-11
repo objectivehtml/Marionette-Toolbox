@@ -5,24 +5,24 @@
 		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
 		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
 		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
-		<link rel="stylesheet" href="../vendor.css">
-		<link rel="stylesheet" href="../marionette.toolbox.css">
+		<link rel="stylesheet" href="../dist/marionette.toolbox.css">
 
-		<script src="../vendor.js"></script>
-		<script src="../marionette.toolbox.js"></script>	
+		<script src="../resources/vendor.js"></script>
+		<script src="../dist/marionette.toolbox.js"></script>
 	</head>
 	<body>
 		<div class="app-wrapper"></div>
-		
+
 		<script type="text/javascript">
+
 			var App = new Backbone.Marionette.Application();
 
-			App.addRegions({
-				content: $('.app-wrapper')
-			});
+			App.on('start', function() {
 
-			App.addInitializer(function() {
-				
+				App.addRegions({
+					content: $('.app-wrapper')
+				});
+
 				var view = new Toolbox.Views.ActivityIndicator({
 					indicator: 'medium',
 					dimmed: true,
@@ -31,12 +31,11 @@
 				});
 
 				App.content.show(view);
-
 			});
 
 			App.start();
 
 		</script>
-		
+
 	</body>
 </html>

@@ -1,8 +1,8 @@
 (function (root, factory) {
-    if (typeof exports === 'object') {
-        module.exports = factory(require('toolbox'));
-    } else if (typeof define === 'function' && define.amd) {
-        define(['toolbox'], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['marionette.toolbox'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('marionette.toolbox'));
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -45,13 +45,17 @@
 
         triggers: {},
 
-        defaultOptions: { 
+        defaultOptions: {
             id: false,
             label: false,
+            description: false,
             name: false,
             value: false,
+            header: false,
             labelClassName: 'control-label',
             inputClassName: 'form-control',
+            descriptionClassName: 'description',
+            headerTagName: 'h4',
             triggerSelector: 'input',
             updateModel: true
         },

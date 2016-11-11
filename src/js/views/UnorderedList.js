@@ -1,8 +1,8 @@
 (function (root, factory) {
-    if (typeof exports === 'object') {
-        module.exports = factory(require('toolbox'));
-    } else if (typeof define === 'function' && define.amd) {
-        define(['toolbox'], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['marionette.toolbox'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('marionette.toolbox'));
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -14,7 +14,15 @@
 
 		template: Toolbox.Template('no-unordered-list-item'),
 
-		tagName: 'li'
+		tagName: 'li',
+
+		options: {
+			message: 'There are no items in the list.'
+		},
+
+		templateHelpers: function() {
+			return this.options;
+		}
 
 	});
 
@@ -26,8 +34,14 @@
 
 		tagName: 'li',
 
-		triggers: {
-			'click': 'click'
+		events: {
+			'click': function(e, obj) {
+				this.triggerMethod('click', obj);
+			}
+		},
+
+		templateHelpers: function() {
+			return this.options
 		}
 
 	});
@@ -40,6 +54,23 @@
 
 		tagName: 'ul',
 
+		options: {
+			// (object) The view object to use for the empty message
+			emptyMessageView: Toolbox.Views.NoUnorderedListItem,
+
+			// (string) The message to display if there are no list items
+			emptyMessage: 'There are no items in the list.',
+
+			// (bool) Show the empty message view
+			showEmptyMessage: true
+		},
+
+		childEvents: {
+			'click': function(view) {
+				this.triggerMethod('item:click', view);
+			}
+		},
+
 		initialize: function() {
 			Toolbox.Views.CollectionView.prototype.initialize.apply(this, arguments);
 
@@ -48,11 +79,21 @@
 			}
 		},
 
-		childEvents: {
-			'click': function(view) {
-				this.triggerMethod('item:click', view);
-			}
-		}
+        getEmptyView: function() {
+        	if(this.getOption('showEmptyMessage')) {
+	            var View = this.getOption('emptyMessageView');
+
+	            View = View.extend({
+	                options: {
+	                    message: this.getOption('emptyMessage')
+	                }
+	            });
+
+	            return View;
+	        }
+
+	        return;
+        }
 
 	});
 

@@ -24,8 +24,9 @@
 			App.addInitializer(function() {
 				
 				var view = new Toolbox.Views.ListGroup({
+					activateOnClick: false,
 					collection: new Backbone.Collection([{
-						content: 'List Item #1',
+						content: '<a href="#test">List Item #1</a>',
 						badge: 10
 					},{
 						content: 'List Item #2',

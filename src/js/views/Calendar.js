@@ -1,8 +1,8 @@
 (function (root, factory) {
-    if (typeof exports === 'object') {
-        module.exports = factory(require('toolbox'));
-    } else if (typeof define === 'function' && define.amd) {
-        define(['toolbox'], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['marionette.toolbox'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('marionette.toolbox'));
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -197,7 +197,7 @@
                 this.triggerMethod('day:click', week, day);
             }
         },
-        
+
         options: {
             collection: false,
             date: false,
@@ -287,7 +287,7 @@
             this.triggerMethod('restore:cache:response');
         },
 
-        setCacheResponse: function(params, collection) {    
+        setCacheResponse: function(params, collection) {
             var string = JSON.stringify(params);
 
             if(!collection._cachedResponses) {
@@ -526,7 +526,7 @@
         }
 
     });
-    
+
     return Toolbox;
 
 }));

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
+		<link rel="stylesheet" href="../dist/marionette.toolbox.css">
+	</head>
+	<body>
+		<div class="app-wrapper"></div>
+
+		<script type="text/javascript">
+        /*
+			var App = new Backbone.Marionette.Application();
+
+			App.addRegions({
+				content: $('.app-wrapper')
+			});
+
+			App.addInitializer(function() {
+				var TabView = Toolbox.Views.ItemView.extend({
+					template: Toolbox.Template('tab-content'),
+			        templateHelpers: function() {
+			            return this.options;
+			        }
+				});
+
+				var tabView = new TabView({
+					name: 'tab-1',
+					label: 'Tab 1',
+					content: '1'
+				});
+
+				var view = new Toolbox.Views.Tabs({
+					content: [tabView, {
+						name: 'tab-2',
+						label: 'Tab 2',
+						content: '2'
+					}, {
+						name: 'tab-3',
+						label: 'Tab 3',
+						content: '3',
+						view: TabView
+					}]
+				});
+
+				App.content.show(view);
+
+				var tab = new Toolbox.Views.TabContent({
+					name: 'tab-4',
+					label: 'Tab 4',
+					content: '4'
+				});
+
+				view.addTab(tab);
+
+				view.setActiveTab('tab-3');
+
+				view.removeTab(view.getContentView('tab-2'));
+
+			});
+
+			App.start();
+        */
+		</script>
+
+	</body>
+</html>

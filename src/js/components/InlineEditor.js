@@ -1,12 +1,12 @@
 (function (root, factory) {
-    if (typeof exports === 'object') {
-        module.exports = factory(require('toolbox'));
-    } else if (typeof define === 'function' && define.amd) {
-        define(['toolbox'], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['marionette.toolbox', 'backbone.marionette'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('marionette.toolbox'), require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.Marionette);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, Marionette) {
 
     'use strict';
 
@@ -53,7 +53,7 @@
 				this.$el.wrapInner('<div class="'+this.getClass('label')+'" />');
 				this.$el.append(this.$field);
 				this.$el.append('<i class="'+this.getOption('editIcon')+' '+this.getClass('icon')+'" />');
-				
+
 				this.$indicator = $('<div class="'+this.getClass('activityIndicator')+'" />');
 
 				this.$el.append(this.$indicator);
@@ -84,7 +84,7 @@
 						if(t.getOption('allowNull') || !t.getOption('allowNull') && !t.isNull()) {
 							t.blur();
 						}
-		
+
 						e.preventDefault();
 					}
 				});

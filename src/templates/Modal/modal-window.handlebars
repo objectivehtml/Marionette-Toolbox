@@ -1,0 +1,17 @@
+<div class="modal-window">
+	<a href="#" class="modal-close"><i class="fa fa-times-circle"></i></a>
+
+	{{#if header}}
+	<h3 class="modal-header">{{header}}</h3>
+	{{/if}}
+
+	<div class="modal-content clearfix"></div>
+
+	{{#if buttons}}
+		<div class="modal-buttons">
+		{{#buttons}}
+			<a href="{{#if path}}{{path ../path}}{{/if}} {{#if url}}{{url ../url}}{{/if}}" class="{{className}} button" {{#if id}}id="{{id}}"{{/if}}>{{#if icon}}<span class="{{../icon}}"></span> {{/if}}{{text}}{{label}}</a>
+		{{/buttons}}
+		</div>
+	{{/if}}
+</div>

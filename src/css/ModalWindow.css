@@ -1,0 +1,92 @@
+.no-gutter.row { 
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.no-gutter [class^="col-"] {
+	padding-left: 0;
+}
+
+.modal-window-wrapper { 
+	position: fixed;
+	z-index: 99;
+	width: 100%;
+	top: -100%;
+	margin-top: 0;
+	transition: top .5s;
+	-webkit-transition: top .5s;
+	-moz-transition: top .5s;
+	-o-transition: top .5s;
+	-ms-transition: top .5s;
+}
+.modal-window-wrapper.show { 
+	top: 0;
+}
+.modal-window-wrapper h2 { 
+	font-size: 2.1em;
+	margin: .5em 0 .5em 0;
+}
+.modal-window-wrapper h3 { 
+	font-size: 1.8em;
+	margin: .5em 0 .75em 0;
+}
+.modal-window-wrapper h4 { 
+	font-size: 1.3375rem;
+}
+.modal-window { 
+	box-shadow: 0 0 3px rgb(90, 90, 90);
+	margin: 0 auto;
+	background: rgb(248, 248, 248);
+	width: 600px;
+	padding: .65em .8em;
+	position: relative;
+}
+.modal-window .modal-content { 
+	padding: 1em;
+	min-height: 225px;
+	overflow: auto;
+	box-shadow: none;
+	background: none;
+	border: none;
+}
+.modal-window .modal-close { 
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	color: rgb(50, 50, 50);
+	z-index: 101;
+}
+.modal-content form { 
+	margin-bottom: 0;
+}
+.modal-content form button { 
+	margin-bottom: 0;
+}
+.modal-content form > .row { 
+	margin-left: 0;
+	margin-right: 0;
+	padding: 0;
+}
+.modal-content form input {
+	font-size: 14px;
+	padding: 10px 5px;
+}
+.modal-content form .error {
+}
+.modal-content form .row.collapse input { 
+	padding: 8px;
+}
+.modal-buttons { 
+	border-top: 1px solid rgb(221, 221, 221);
+	margin: 1em;
+	padding: 1em 0 .5em;
+}
+.modal-buttons .button { 
+	margin: 0;
+}
+.modal-window span.prefix { 
+	padding: 10px 0 25px;
+}
+.modal-window span.prefix i { 
+	top: 10px;
+}

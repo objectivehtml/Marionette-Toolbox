@@ -1,8 +1,8 @@
 (function (root, factory) {
-    if (typeof exports === 'object') {
-        module.exports = factory(require('toolbox'));
-    } else if (typeof define === 'function' && define.amd) {
-        define(['toolbox'], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['marionette.toolbox'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('marionette.toolbox'));
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -27,17 +27,23 @@
     });
 
     Toolbox.Views.BaseForm = Toolbox.Views.LayoutView.extend({
-        
+
         tagName: 'form',
 
         triggers: {
             'submit': 'submit',
-            'click .cancel': 'cancel'
+            'click .cancel': 'cancel:click'
         },
 
         isSubmitting: false,
 
         options: {
+
+            // (object) An object of activity indicator options
+            activityIndicatorOptions: {
+                indicator: 'small'
+            },
+
             // (object) The error view object
             errorView: false,
 
@@ -48,7 +54,9 @@
             globalErrorsView: false,
 
             // (object) The global error view options object
-            globalErrorsOptions: false,
+            globalErrorsOptions: {
+                showEmptyMessage: false
+            },
 
             // (bool) Show global errors after form submits
             showGlobalErrors: false,
@@ -95,32 +103,32 @@
             defaultErrorMessage: {
                 icon: 'fa fa-warning',
                 type: 'alert',
-                title: 'Success!',
+                title: 'Error!',
                 message: 'The form could not be submitted.'
             }
         },
-        
+
         _serializedForm: false,
 
-        _errorViews: [],
+        _errorViews: false,
 
-        getFormData: function() {            
+        getFormData: function() {
             var data = {};
 
             this.$el.find('input, select, textarea').each(function() {
                 var name = $(this).attr('name');
+                var value = $(this).val();
 
                 if(name) {
                     if($(this).is(':radio') || $(this).is(':checkbox')) {
                         if($(this).is(':checked')) {
-                            data[name] = $(this).val();
-                        }
-                        else {
-                            data[name] = 0;
+                            data[name] = value;
                         }
                     }
                     else {
-                        data[name] = $(this).val();
+                        if(!_.isNull(value) || !_.isUndefined(value)) {
+                            data[name] = value;
+                        }
                     }
                 }
             });
@@ -129,7 +137,11 @@
         },
 
         showActivityIndicator: function() {
-            this.$indicator = $('<div class="form-indicator"></div>');
+            this.$indicator = this.$el.find('.form-indicator');
+
+            if(this.$indicator.length === 0) {
+                this.$indicator = $('<div class="form-indicator"></div>');
+            }
 
             if(this.$el.find('footer').length) {
                 this.$el.find('footer').append(this.$indicator);
@@ -139,21 +151,23 @@
             }
 
             this.indicator = new Backbone.Marionette.Region({
-                el: this.$indicator
-            });         
-
-            var indicator = new Toolbox.Views.ActivityIndicator({
-                indicator: 'small'
+                el: this.$indicator.get(0)
             });
+
+            var indicator = new Toolbox.Views.ActivityIndicator(this.getOption('activityIndicatorOptions'));
 
             this.indicator.show(indicator);
         },
-        
+
         removeErrors: function() {
+            console.log(this.$errors);
+
             if(this.$errors) {
                 _.each(this.$errors, function($error) {
-                    $error.parents('.has-error').removeClass('has-error').find('.error').remove();
-                });
+                    $error.parents('.'+this.getOption('hasErrorClassName'))
+                        .removeClass(this.getOption('hasErrorClassName'))
+                        .remove();
+                }, this);
             }
         },
 
@@ -178,15 +192,19 @@
 
             this.$globalErrors = $('<div class="global-errors"></div>');
 
-            this.$el.prepend(this.$globalErrors);
+            this.appendGlobalErrorRegionToDom(this.$globalErrors);
 
             this.globalErrors = new Backbone.Marionette.Region({
-                el: this.$globalErrors
+                el: this.$globalErrors.get(0)
             });
 
             var errorsView = new View(_.extend(this.getOption('globalErrorsOptions')));
 
             this.globalErrors.show(errorsView);
+        },
+
+        appendGlobalErrorRegionToDom: function($globalErrors) {
+            this.$el.prepend($globalErrors);
         },
 
         createNotification: function(notice) {
@@ -230,7 +248,16 @@
         },
 
         getInputField: function(field) {
-            return this.$el.find('[name="'+field+'"]');
+            field = field.replace('.', '_');
+
+            var $field = this.$el.find('[name="'+field+'"]');
+
+            if($field.length) {
+                return $field;
+            }
+            else {
+                return this.$el.find('#'+field);
+            }
         },
 
         setInputField: function(field, value) {
@@ -281,20 +308,26 @@
                 this.removeGlobalErrors();
             }
 
-            _.each(this._errorViews, function(view) {
-                var field = view.model.get('field');
+            if(_.isArray(this._errorViews)) {
+                _.each(this._errorViews, function(view) {
+                    var field = view.model.get('field');
 
-                if(t.getOption('addHasErrorClass') === true) {
-                    t.removeHasErrorClassFromField(field);
-                }
+                    if(t.getOption('addHasErrorClass') === true) {
+                        t.removeHasErrorClassFromField(field);
+                    }
 
-                if(t.getOption('showInlineErrors') === true) {
-                    view.$el.remove();
-                }
-            });
+                    if(t.getOption('showInlineErrors') === true) {
+                        view.$el.remove();
+                    }
+                });
+            }
         },
 
         showError: function(field, error) {
+            if(!this._errorViews) {
+                this._errorViews = [];
+            }
+
             var errorView = this.createError(field, error);
 
             if(this.getOption('showGlobalErrors') === true) {
@@ -303,7 +336,7 @@
 
             if(this.getOption('addHasErrorClass') === true) {
                 this.addHasErrorClassToField(field);
-            }   
+            }
 
             if(this.getOption('showInlineErrors') === true) {
                 this.appendErrorViewToField(errorView);
@@ -338,11 +371,29 @@
             window.location = this.getRedirect();
         },
 
+        showSuccessNotification: function() {
+            var notification = this.createNotification(_.extend(
+                this.getOption('defaultSuccessMessage'),
+                this.getOption('successMessage')
+            ));
+
+            notification.show();
+        },
+
+        showErrorNotification: function() {
+            var notification = this.createNotification(_.extend(
+                this.getOption('defaultErrorMessage'),
+                this.getOption('errorMessage')
+            ));
+
+            notification.show();
+        },
+
         onRender: function() {
             this._serializedForm = this.serialize();
 
             if(this.getOption('showGlobalErrors')) {
-                this.createGlobalErrorsRegion();        
+                this.createGlobalErrorsRegion();
             }
         },
 
@@ -353,12 +404,7 @@
             }
 
             if(this.getOption('showNotifications')) {
-                var notification = this.createNotification(_.extend(
-                    this.getOption('defaultSuccessMessage'),
-                    this.getOption('successMessage')
-                ));
-
-                notification.show();
+                this.showSuccessNotification();
             }
 
             if(this.getOption('redirect')) {
@@ -374,12 +420,7 @@
 
         onSubmitError: function(model, response) {
             if(this.getOption('showNotifications')) {
-                var notification = this.createNotification(_.extend(
-                    this.getOption('defaultErrorMessage'),
-                    this.getOption('errorMessage')
-                ));
-
-                notification.show();
+                this.showErrorNotification();
             }
 
             this.showErrors(this.getErrorsFromResponse(response));

@@ -1,21 +1,3 @@
-<div class="btn-group {{#if dropUp}}dropup{{/if}}">
+<a href="#" class="{{dropdownMenuToggleClassName}}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{toggleLabel}} <i class="{{dropdownMenuToggleIconClassName}}"></i></a>
 
-	{{#if splitButton}}
-		<button type="button" class="{{../buttonClassName}}">{{../buttonLabel}}</button>
-		<button type="button" class="{{../buttonClassName}} dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			<span class="caret"></span>
-			<span class="sr-only">Toggle Dropdown</span>
-		</button>
-	{{/if}}
-
-	{{#not splitButton}}
-		<button type="button" class="{{../buttonClassName}} dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			{{../buttonLabel}}
-			<span class="caret"></span>
-			<span class="sr-only">Toggle Dropdown</span>
-		</button>
-	{{/not}}
-
-	<ul class="{{#if dropdownMenuClassName}}{{../dropdownMenuClassName}}{{/if}}"></ul>
-
-</div>
+<ul class="{{#if dropdownMenuClassName}}{{../dropdownMenuClassName}}{{/if}}"></ul>

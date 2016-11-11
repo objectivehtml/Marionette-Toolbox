@@ -1,8 +1,8 @@
 (function (root, factory) {
-    if (typeof exports === 'object') {
-        module.exports = factory(require('toolbox'));
-    } else if (typeof define === 'function' && define.amd) {
-        define(['toolbox'], factory);
+    if (typeof define === 'function' && define.amd) {
+        define(['marionette.toolbox'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('marionette.toolbox'));
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -10,11 +10,11 @@
 
     'use strict';
 
-    Toolbox.Views.DropdownMenuNotItems = Toolbox.Views.ItemView.extend({
+    Toolbox.Views.DropdownMenuNoItems = Toolbox.Views.ItemView.extend({
 
 		tagName: 'li',
 
-		template: Toolbox.Template('dropdown-no-items'),
+		template: Toolbox.Template('dropdown-menu-no-items'),
 
 		className: 'no-results'
 
@@ -45,16 +45,20 @@
 		}
 
 	});
-	
+
 	Toolbox.Views.DropdownMenu = Toolbox.Views.CompositeView.extend({
 
 		childViewContainer: 'ul',
 
 		childView: Toolbox.Views.DropdownMenuItem,
 
+		emptyView: Toolbox.Views.DropdownMenuNoItems,
+
 		template: Toolbox.Template('dropdown-menu'),
 
 		className: 'dropdown',
+
+		tagName: 'li',
 
 		childEvents: {
 			'click': function(view) {
@@ -67,43 +71,39 @@
 		},
 
 		triggers: {
-			'click .btn:not(.dropdown-toggle)': 'button:click',
 			'click .dropdown-toggle': 'toggle:click'
 		},
 
 		options: {
-			// (string) The dropdown button text
-			buttonLabel: false,
+			// (string) The dropdown toggle text
+			toggleLabel: false,
 
-			// (string) The dropdown button class name
-			buttonClassName: 'btn btn-default',
+			// (string) The dropdown toggle class name
+			dropdownMenuToggleClassName: 'dropdown-toggle',
+
+			// (string) The dropdown toggle icon class name
+			dropdownMenuToggleIconClassName: 'fa fa-caret-down',
 
 			// (string) The dropdown menu class name
 			dropdownMenuClassName: 'dropdown-menu',
-			
+
 			// (int|bool) The collection limit
 			limit: false,
-			
+
 			// (string) The order of the collection items
 			order: 'name',
-			
+
 			// (string) Either asc or desc
 			sort: 'asc',
-			
+
 			// (bool) Close the menu after an item has been clicked
 			closeOnClick: true,
-
-			// (bool) Menu appear as a "dropup" instead of a "dropdown"
-			dropUp: false,
 
 			// (bool) Fetch the collection when the dropdown menu is shown
 			fetchOnShow: false,
 
 			// (bool) Show an activity indicator when fetching the collection
 			showIndicator: true,
-
-			// (bool) Show the button as split with two actions instead of one
-			splitButton: false,
 
 			// (string) The dropdown toggle class name
 			toggleClassName: 'open'
@@ -152,17 +152,17 @@
 		},
 
 		showMenu: function() {
-			this.$el.find('.dropdown-toggle').parent().addClass(this.getOption('toggleClassName'));
-			this.$el.find('.dropdown-toggle').attr('aria-expanded', 'true');
+			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().addClass(this.getOption('toggleClassName'));
+			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).attr('aria-expanded', 'true');
 		},
 
 		hideMenu: function() {
-			this.$el.find('.dropdown-toggle').parent().removeClass(this.getOption('toggleClassName'));
-			this.$el.find('.dropdown-toggle').attr('aria-expanded', 'false');
+			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().removeClass(this.getOption('toggleClassName'));
+			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).attr('aria-expanded', 'false');
 		},
 
 		isMenuVisible: function() {
-			return this.$el.find('.'+this.getOption('toggleClassName')).length > 0;
+			return this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().hasClass(this.getOption('toggleClassName'));
 		},
 
 		onToggleClick: function() {

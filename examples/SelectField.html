@@ -41,7 +41,7 @@
 				});
 
 				view.on('change', function() {
-					console.log(this.model.get('value'));
+					console.log(this.getInputField().val());
 				});
 
 				App.content.show(view);

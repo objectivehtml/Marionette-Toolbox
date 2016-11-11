@@ -10,7 +10,7 @@
 
     Handlebars.registerHelper('propertyOf', function(object, prop) {
         if(object.hasOwnProperty(prop)) {
-            return object[prop];
+            return new Handlebars.SafeString(object[prop]);
         }
 
         return null;

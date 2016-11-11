@@ -12,13 +12,20 @@
 		<script src="../marionette.toolbox.js"></script>	
 	</head>
 	<body>
-		<div class="app-wrapper"></div>
-		
+
+		<nav class="navbar navbar-default">
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right" id="dashboard-menu">
+				   
+				</ul>
+			</div>
+		</nav>
+
 		<script type="text/javascript">
 			var App = new Backbone.Marionette.Application();
 
 			App.addRegions({
-				content: $('.app-wrapper')
+				content: $('#dashboard-menu')
 			});
 
 			App.addInitializer(function() {
@@ -41,13 +48,10 @@
 
 				var view = new Toolbox.Views.DropdownMenu({
 					collection: collection,
-					buttonLabel: 'Show Dropdown',
-					buttonClassName: 'btn btn-default btn-lg',
-					dropdownMenuClassName: 'dropdown-menu dropdown-menu-right',
-					splitButton: true
+					toggleLabel: 'My Account'
 				});
 
-				view.on('button:click', function() {
+				view.on('toggle:click', function() {
 					console.log('do something');
 				});
 

@@ -1,5 +1,13 @@
+{{#if header}}
+	<{{../headerTagName}}>{{../header}}</{{../headerTagName}}>
+{{/if}}
+
 {{#if label}}
 	<label {{#if ../id}}id="{{../../id}}"{{/if}} {{#if ../labelClassName}}class="{{../../labelClassName}}"{{/if}}>{{../label}}</label>
+{{/if}}
+
+{{#if description}}
+	<p {{#if ../descriptionClassName}}class="{{../../descriptionClassName}}"{{/if}}>{{../description}}</p>
 {{/if}}
 
 <input type="{{type}}" {{#if name}}name="{{../name}}"{{/if}} {{#if id}}id="{{../id}}"{{/if}} class="{{inputClassName}}" />
