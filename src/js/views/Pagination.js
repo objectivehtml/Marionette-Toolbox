@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery', 'backbone'], function($, Backbone) {
+            return factory(root.Toolbox, root.$, Backbone);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'), require('backbone'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$, root.Backbone);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $, Backbone) {
 
     'use strict';
 
@@ -16,7 +18,7 @@
 
 		template: Toolbox.Template('pagination-item'),
 
-		options: {
+		defaultOptions: {
 			// (string) The active page class name
 			disabledClassName: 'disabled'
 		},
@@ -66,7 +68,7 @@
 			}
 		},
 
-		options: {
+		defaultOptions: {
 			paginationClassName: 'pagination',
 			activeClassName: 'active',
 			disabledClassName: 'disabled',
@@ -82,7 +84,9 @@
 		initialize: function() {
 			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
 
-            this.collection = new Backbone.Collection();
+            if(!this.collection) {
+                this.collection = new Backbone.Collection();
+            }
 		},
 
 		attachBuffer: function(collectionView, buffer) {

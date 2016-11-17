@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery'], function($) {
+            return factory(root.Toolbox, $);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $) {
 
 	'use strict';
 
@@ -14,7 +16,7 @@
 
 		className: 'notification clearfix',
 
-		options: {
+		defaultOptions: {
 			// (int) The fly-out animation rate in milliseconds
 			animation: 500,
 

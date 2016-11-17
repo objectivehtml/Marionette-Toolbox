@@ -1,4 +1,4 @@
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['activity-indicator'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['activity-indicator'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -51,7 +51,7 @@ function program7(depth0,data,depth1) {
   buffer += "\">\n	\n	<span class=\"activity-indicator\"></span>\n\n</div>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-checkbox-radio-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-checkbox-radio-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, blockHelperMissing=helpers.blockHelperMissing, helperMissing=helpers.helperMissing;
@@ -169,7 +169,7 @@ function program11(depth0,data,depth3) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-error'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-error'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
@@ -179,7 +179,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   else { helper = (depth0 && depth0.error); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   return escapeExpression(stack1);
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-input-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-input-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -292,7 +292,7 @@ function program13(depth0,data,depth1) {
     + "\" />";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-light-switch-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-light-switch-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -313,15 +313,28 @@ function program1(depth0,data,depth1) {
 function program3(depth0,data,depth1) {
   
   var buffer = "", stack1;
+  buffer += "\n	<label for=\""
+    + escapeExpression(((stack1 = (depth1 && depth1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" class=\""
+    + escapeExpression(((stack1 = (depth1 && depth1.labelClassName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">"
+    + escapeExpression(((stack1 = (depth1 && depth1.label)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</label>\n";
+  return buffer;
+  }
+
+function program5(depth0,data,depth1) {
+  
+  var buffer = "", stack1;
   buffer += "\n	<p ";
-  stack1 = helpers['if'].call(depth0, (depth1 && depth1.descriptionClassName), {hash:{},inverse:self.noop,fn:self.programWithDepth(4, program4, data, depth1),data:data});
+  stack1 = helpers['if'].call(depth0, (depth1 && depth1.descriptionClassName), {hash:{},inverse:self.noop,fn:self.programWithDepth(6, program6, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += ">"
     + escapeExpression(((stack1 = (depth1 && depth1.description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</p>\n";
   return buffer;
   }
-function program4(depth0,data,depth2) {
+function program6(depth0,data,depth2) {
   
   var buffer = "", stack1;
   buffer += "class=\""
@@ -330,7 +343,7 @@ function program4(depth0,data,depth2) {
   return buffer;
   }
 
-function program6(depth0,data,depth1) {
+function program8(depth0,data,depth1) {
   
   var stack1;
   return escapeExpression(((stack1 = (depth1 && depth1.activeClassName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
@@ -339,10 +352,13 @@ function program6(depth0,data,depth1) {
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.header), {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.description), {hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data});
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.label), {hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.description), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n<div class=\"light-switch ";
-  stack1 = (helper = helpers.is || (depth0 && depth0.is),options={hash:{},inverse:self.noop,fn:self.programWithDepth(6, program6, data, depth0),data:data},helper ? helper.call(depth0, (depth0 && depth0.value), 1, options) : helperMissing.call(depth0, "is", (depth0 && depth0.value), 1, options));
+  stack1 = (helper = helpers.is || (depth0 && depth0.is),options={hash:{},inverse:self.noop,fn:self.programWithDepth(8, program8, data, depth0),data:data},helper ? helper.call(depth0, (depth0 && depth0.value), 1, options) : helperMissing.call(depth0, "is", (depth0 && depth0.value), 1, options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\" tabindex=\"0\">\n	<div class=\"light-switch-container\">\n		<div class=\"light-switch-label on\"></div>\n		<div class=\"light-switch-handle\"></div>\n		<div class=\"light-switch-label off\"></div>\n	</div>\n</div>\n\n<input type=\"hidden\" name=\"";
   if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -352,10 +368,14 @@ function program6(depth0,data,depth1) {
   if (helper = helpers.value) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.value); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">";
+    + "\" id=\"";
+  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">\n";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-select-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-select-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing, blockHelperMissing=helpers.blockHelperMissing;
@@ -528,7 +548,7 @@ function program24(depth0,data,depth1) {
   buffer += "\n</select>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-textarea-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-textarea-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -637,7 +657,7 @@ function program13(depth0,data,depth1) {
     + "\"></textarea>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['breadcrumb'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['breadcrumb'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -668,7 +688,7 @@ function program3(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['no-breadcrumbs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-breadcrumbs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "";
@@ -676,7 +696,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['button-dropdown-menu'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['button-dropdown-menu'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -736,7 +756,7 @@ function program7(depth0,data,depth1) {
   buffer += "\"></ul>\n\n</div>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -757,7 +777,7 @@ function program1(depth0,data,depth1) {
   buffer += escapeExpression(stack1);
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['no-button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "";
@@ -765,7 +785,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['calendar-monthly-day-view'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['calendar-monthly-day-view'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -785,7 +805,7 @@ function program1(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['calendar-monthly-view'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['calendar-monthly-view'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -793,7 +813,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<div class=\"calendar-masthead\">\n	<nav class=\"calendar-navigation\">\n		<a href=\"#\" class=\"calendar-navigation-prev\"><i class=\"fa fa-angle-left\"></i></a>\n		<a href=\"#\" class=\"calendar-navigation-next\"><i class=\"fa fa-angle-right\"></i></a>\n	</nav>\n\n	<div class=\"calendar-header\"></div>\n	<div class=\"calendar-sub-header\"></div>\n</div>\n\n<div class=\"calendar-view\">\n	<div class=\"indicator\"></div>\n\n	<table class=\"calendar-monthly-view\">\n		<thead>\n			<tr>\n				<th>Sun</th>\n				<th>Mon</th>\n				<th>Tue</th>\n				<th>Wed</th>\n				<th>Thur</th>\n				<th>Fri</th>\n				<th>Sat</th>\n			</tr>\n		</thead>\n		<tbody></tbody>\n	</table>\n</div>";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['dropdown-menu-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['dropdown-menu-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -813,7 +833,7 @@ function program1(depth0,data,depth1) {
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['dropdown-menu-no-items'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['dropdown-menu-no-items'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "";
@@ -821,7 +841,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['dropdown-menu'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['dropdown-menu'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -850,7 +870,7 @@ function program1(depth0,data,depth1) {
   buffer += "\"></ul>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['inline-editor'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['inline-editor'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -858,7 +878,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<div class=\"inline-editor-label\"></div>\n\n<i class=\"fa fa-pencil inline-editor-edit-icon\"></i>\n\n<div class=\"inline-editor-field\"></div>\n\n<div class=\"inline-editor-activity-indicator\"></div>";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['list-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['list-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -880,7 +900,7 @@ function program1(depth0,data,depth1) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['no-list-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-list-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -888,7 +908,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "No items found.";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['modal-window'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['modal-window'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
@@ -985,7 +1005,7 @@ function program11(depth0,data,depth1) {
   buffer += "\n</div>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['notification'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['notification'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -1046,7 +1066,7 @@ function program6(depth0,data,depth1) {
   buffer += "\n\n</div>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['no-ordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-ordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function";
@@ -1057,7 +1077,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['ordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['ordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function";
@@ -1068,7 +1088,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['pager'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['pager'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -1126,7 +1146,7 @@ function program6(depth0,data,depth1) {
     + " <i class=\"fa fa-long-arrow-right\" aria-hidden=\"true\"></i></a></li>\n</ul>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['pagination-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['pagination-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -1171,7 +1191,7 @@ function program6(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['pagination'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['pagination'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
@@ -1184,7 +1204,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + "\">\n	<li>\n		<a href=\"#\" class=\"prev-page\" aria-label=\"Previous\">\n			<span aria-hidden=\"true\">&laquo;</span>\n		</a>\n	</li>\n    <li>\n		<a href=\"#\" class=\"next-page\" aria-label=\"Next\">\n			<span aria-hidden=\"true\">&raquo;</span>\n		</a>\n    </li>\n</ul>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['progress-bar'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['progress-bar'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
@@ -1209,7 +1229,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + "% Complete</span>\n</div>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['range-slider'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['range-slider'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -1217,7 +1237,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<div class=\"slider\"></div>";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-activity-indicator-row'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-activity-indicator-row'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -1239,7 +1259,7 @@ function program1(depth0,data,depth1) {
   buffer += ">\n\n	<div class=\"activity-indicator-dimmer\">\n		\n		<span class=\"activity-indicator\"></span>\n\n	</div>\n\n</td>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-no-items'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-no-items'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
@@ -1254,7 +1274,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + "\n</td>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-view-footer'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-view-footer'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -1285,7 +1305,7 @@ function program3(depth0,data,depth1) {
   buffer += "\n</td>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-view-group'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-view-group'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing, blockHelperMissing=helpers.blockHelperMissing;
@@ -1347,7 +1367,9 @@ function program9(depth0,data,depth1) {
   var buffer = "", stack1;
   buffer += "\n	<"
     + escapeExpression(((stack1 = (depth1 && depth1.headerTag)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " class=\"table-header\">"
+    + " class=\""
+    + escapeExpression(((stack1 = (depth1 && depth1.headerClassName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">"
     + escapeExpression(((stack1 = (depth1 && depth1.header)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</"
     + escapeExpression(((stack1 = (depth1 && depth1.headerTag)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -1448,10 +1470,10 @@ function program20(depth0,data,depth1) {
   else { helper = (depth0 && depth0.columns); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
   if (!helpers.columns) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(13, program13, data, depth0),data:data}); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n		</tr>\n	</thead>\n	<tbody></tbody>\n	<tfoot></tfoot>\n</table>\n\n<div class=\"pagination\"></div>";
+  buffer += "\n		</tr>\n	</thead>\n	<tbody></tbody>\n	<tfoot></tfoot>\n</table>\n\n<div class=\"pagination\"></div>\n";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-view-pagination'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-view-pagination'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -1459,7 +1481,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<div></div>";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-view-row'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-view-row'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
@@ -1484,7 +1506,7 @@ function program1(depth0,data,depth1) {
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['tab-content'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['tab-content'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function";
@@ -1495,7 +1517,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['tabs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['tabs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -1503,7 +1525,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<!-- Nav tabs -->\n<ul class=\"nav nav-tabs\" role=\"tablist\"></ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n</div>";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['no-unordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-unordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function";
@@ -1514,7 +1536,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['unordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['unordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function";

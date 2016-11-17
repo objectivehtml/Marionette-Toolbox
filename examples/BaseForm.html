@@ -5,15 +5,24 @@
 		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
 		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
 		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
-		<link rel="stylesheet" href="../vendor.css">
-		<link rel="stylesheet" href="../marionette.toolbox.css">
+		<link rel="stylesheet" href="../dist/marionette.toolbox.css">
 
-		<script src="../vendor.js"></script>
-		<script src="../marionette.toolbox.js"></script>	
+		<script src="../resources/vendor.js"></script>
+
+		<script type="text/javascript">
+			var $ = require('jquery');
+			var _ = require('underscore');
+			var Backbone = require('backbone');
+			var Marionette = require('backbone.marionette');
+			var Handlebars = require('handlebars');
+			var Spinner = require('spin.js');
+		</script>
+
+		<script src="../dist/marionette.toolbox.js"></script>
 	</head>
 	<body>
-		<div class="app-wrapper"></div>
-		
+		<div id="app-wrapper"></div>
+
 		<script id="form-template" type="text/x-handlebars-template">
 
 			<div class="form-group">
@@ -39,16 +48,17 @@
 		</script>
 
 		<script type="text/javascript">
+
 			var App = new Backbone.Marionette.Application();
 
 			App.addRegions({
-				content: $('.app-wrapper')
+				content: '#app-wrapper'
 			});
 
-			App.addInitializer(function() {
-				
+			App.on('start', function() {
+
 				var source = $("#form-template").html();
-				
+
 				var View = Toolbox.Views.BaseForm.extend({
 
 					template: Handlebars.compile(source)
@@ -56,7 +66,7 @@
 				});
 
 				var User = Backbone.Model.extend({
-					
+
 					url: 'http://api.wedo.dev/auth/user',
 
 					rest: {
@@ -79,11 +89,11 @@
 						var append = null, uid = model.get('uid');
 
 						model.set('id', model.get('uid'));
-						
+
 						append = rest.replace(/\:uid/, (uid ? uid : ''));
 
 						options.url = this.getUrl(method, append);
-						
+
 						options.beforeSend = function(xhr) {
 							xhr.setRequestHeader('X-Auth-Token', '89ac9e68-d09c-42e4-9acb-52423b28f4f7');
 						};
@@ -151,6 +161,6 @@
 			App.start();
 
 		</script>
-		
+
 	</body>
 </html>

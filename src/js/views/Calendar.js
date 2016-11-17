@@ -1,12 +1,31 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define([
+            'underscore',
+            'backbone',
+            'backbone.marionette',
+            'moment'
+        ], function(_, Backbone, Marionette, moment) {
+            return factory(root.Toolbox, _, Backbone, Marionette, moment)
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(
+            root.Toolbox,
+            require('underscore'),
+            require('backbone'),
+            require('backbone.marionette'),
+            require('moment')
+        );
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(
+            root.Toolbox,
+            root._,
+            root.Backbone,
+            root.Marionette,
+            root.moment
+        );
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, _, Backbone, Marionette, moment) {
 
     'use strict';
 
@@ -26,7 +45,7 @@
             'change': 'modelChanged'
         },
 
-        options: {
+        defaultOptions: {
             date: false
         },
 
@@ -39,10 +58,6 @@
                 day: this.getOption('day'),
                 hasEvents: this.hasEvents()
             }
-        },
-
-        initialize: function() {
-            Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
         },
 
         setCellHeight: function(width) {
@@ -121,7 +136,7 @@
             }
         },
 
-        options: {
+        defaultOptions: {
             days: false,
             events: false
         },
@@ -189,7 +204,6 @@
 
         childEvents: {
             'click': function(week, args) {
-                console.log(week, args);
                 this.triggerMethod('week:click', week, args);
             },
             'day:click': function(week, day) {
@@ -198,7 +212,7 @@
             }
         },
 
-        options: {
+        defaultOptions: {
             collection: false,
             date: false,
             alwaysShowSixWeeks: true,

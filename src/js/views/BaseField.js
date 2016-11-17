@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['underscore'], function(_) {
+            return factory(root.Toolbox, _);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('underscore'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root._);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox,  _) {
 
     'use strict';
 
@@ -67,9 +69,7 @@
         initialize: function() {
             Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
 
-            this.options = $.extend({}, this.defaultOptions, this.options);
-
-            this.triggers = $.extend({}, this.getDefaultTriggers(), this.triggers);
+            this.triggers = _.extend({}, this.getDefaultTriggers(), this.triggers);
         },
 
         getDefaultTriggers: function() {

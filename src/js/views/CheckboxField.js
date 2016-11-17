@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery', 'underscore'], function($, _) {
+            return factory(root.Toolbox, $, _)
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'), require('underscore'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$, root._);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $, _) {
 
     'use strict';
 
@@ -35,17 +37,15 @@
         },
 
         setInputValue: function(values) {
-            var t = this;
-
             if(!_.isArray(values)) {
                 values = [values];
             }
 
-            t.$el.find(':checked').attr('checked', false);
+            this.$el.find(':checked').attr('checked', false);
 
             _.each(values, function(value) {
-                t.$el.find('[value="'+value+'"]').attr('checked', true);
-            });
+                this.$el.find('[value="'+value+'"]').attr('checked', true);
+            }, this);
         }
 
     });

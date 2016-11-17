@@ -1,8 +1,8 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -18,7 +18,7 @@
 
 		tagName: 'li',
 
-		options: {
+		defaultOptions: {
 			message: 'There are no items in the list.'
 		}
 
@@ -52,7 +52,7 @@
 
 		tagName: 'ul',
 
-		options: {
+		defaultOptions: {
 			// (bool) Activate list item on click
 			activateOnClick: true,
 

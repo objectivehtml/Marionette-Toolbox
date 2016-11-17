@@ -1,8 +1,8 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox)
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -16,7 +16,7 @@
 
         className: 'inline-editor',
 
-        options: {
+        defaultOptions: {
             // (string) The attribute in the model to edit
             attribute: false,
 
@@ -26,13 +26,20 @@
             // (object) The form input view object options
             formInputViewOptions: false,
 
-            edittingClassName: 'inline-editor-editting'
+            // (srting) The class name to add to the field while it is being editted.
+            edittingClassName: 'inline-editor-editting',
+
+            // (bool) Allow the field to have a null value
+            allowNull: false,
+
+            // (int) The keycode to save the field data
+            saveKeycode: 13,
+
+            // (int) The keycode to cancel the field data
+            cancelKeycode: 27,
         },
 
         regions: {
-            allowNull: false,
-            saveKeycode: 13,
-            cancelKeycode: 27,
             input: '.inline-editor-field',
             indicator: '.inline-editor-activity-indicator'
         },

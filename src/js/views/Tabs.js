@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery', 'underscore'], function(_) {
+            return factory(root.Toolbox, $, _);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'), require('underscore'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$, root._);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $, _) {
 
     'use strict';
 
@@ -14,7 +16,7 @@
 
 		template: Toolbox.Template('tab-content'),
 
-		options: {
+		defaultOptions: {
 			name: false,
 
 			id: false,
@@ -39,7 +41,7 @@
 			}
 		},
 
-		options: {
+		defaultOptions: {
 			contentView: Toolbox.Views.TabContent,
 
 			activeClassName: 'active',

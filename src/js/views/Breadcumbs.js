@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['underscore', 'backbone'], function(_, Backbone) {
+            return factory(root.Toolbox, _, Backbone);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root._, root.Backbone);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, _, Backbone) {
 
 	'use strict';
 
@@ -38,7 +40,7 @@
 
 		tagName: 'ol',
 
-		options: {
+		defaultOptions: {
 			activeClassName: 'active'
 		},
 
@@ -52,8 +54,8 @@
 			}
 		},
 
-		initialize: function(options) {
-			Toolbox.Views.CollectionView.prototype.initialize.call(this, options);
+		initialize: function() {
+			Toolbox.Views.CollectionView.prototype.initialize.apply(this, arguments);
 
 			if(!this.collection) {
 				this.collection = new Backbone.Collection();
@@ -71,12 +73,10 @@
 		},
 
 		addBreadcrumbs: function(breadcrumbs) {
-			var t = this;
-
 			if(_.isArray(breadcrumbs)) {
 				_.each(breadcrumbs, function(breadcrumb) {
-					t.addBreadcrumb(breadcrumb);
-				});
+					this.addBreadcrumb(breadcrumb);
+				}, this);
 			}
 			else {
 				throw Error('Adding multiple breadcrumbs must done by passing an array');

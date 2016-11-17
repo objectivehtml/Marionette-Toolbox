@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['underscore', 'spin.js'], function(_, Spinner) {
+            return factory(root.Toolbox, _, Spinner);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('spin.js'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root._, root.Spinner);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, _, Spinner) {
 
     'use strict';
 
@@ -16,7 +18,7 @@
 
         spinning: false,
 
-        options: {
+        defaultOptions: {
             dimmedBgColor: false,
             dimmed: false,
             autoStart: true,
@@ -81,18 +83,18 @@
         },
 
         getSpinnerOptions: function() {
-            var defaultOptions = this.getOption('defaultIndicator');
-            var options = this.getOption('indicator');
+            var defaultIndicator = this.getOption('defaultIndicator');
+            var indicator = this.getOption('indicator');
             var presets = this.getPresetOptions();
 
-            if(_.isString(options) && presets[options]) {
-                options = presets[options];
+            if(_.isString(indicator) && presets[indicator]) {
+                indicator = presets[indicator];
             }
-            else {
-                options = {};
+            else if(typeof indicator !== "object"){
+                indicator = {};
             }
 
-            return _.extend({}, defaultOptions, options);
+            return _.extend({}, defaultIndicator, indicator);
         },
 
         getSpinnerDom: function() {

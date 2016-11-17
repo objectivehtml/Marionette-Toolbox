@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery', 'underscore', 'backbone', 'backbone.marionette'], function($, _, Backbone, Marionette) {
+            return factory(root.Toolbox, $, _, Backbone, Marionette);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'), require('underscore'), require('backbone'), require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$, root._, Backbone, Marionette);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $, _, Backbone, Marionette) {
 
     'use strict';
 
@@ -18,7 +20,7 @@
 
         className: 'no-results',
 
-        options: {
+        defaultOptions: {
             // (array) Array of array of column
             columns: false,
 
@@ -32,13 +34,13 @@
 
     });
 
-    Toolbox.Views.TableViewRow = Marionette.ItemView.extend({
+    Toolbox.Views.TableViewRow = Toolbox.Views.ItemView.extend({
 
         tagName: 'tr',
 
         template: Toolbox.Template('table-view-row'),
 
-        options: {
+        defaultOptions: {
             // (array) Array of array of column
             columns: false
         },
@@ -49,7 +51,7 @@
 
     });
 
-    Toolbox.Views.TableViewFooter = Marionette.LayoutView.extend({
+    Toolbox.Views.TableViewFooter = Toolbox.Views.LayoutView.extend({
 
         tagName: 'tr',
 
@@ -63,7 +65,7 @@
             content: 'td'
         },
 
-        options: {
+        defaultOptions: {
             // (array) Array of array of column
             columns: false
         },
@@ -74,7 +76,7 @@
 
     });
 
-    Toolbox.Views.TableView = Marionette.CompositeView.extend({
+    Toolbox.Views.TableView = Toolbox.Views.CompositeView.extend({
 
         childView: Toolbox.Views.TableViewRow,
 
@@ -82,7 +84,7 @@
 
         template: Toolbox.Template('table-view-group'),
 
-        options: {
+        defaultOptions: {
             // (int) The starting page
             page: 1,
 
@@ -129,6 +131,9 @@
 
             // (string) The table header tag name
             headerTag: 'h3',
+
+            // (string) The table header class name
+            headerClassName: 'table-header',
 
             // (string) The table description
             description: false,
@@ -260,7 +265,7 @@
                 columns: this.getOption('columns')
             });
 
-            this.pagination = new Backbone.Marionette.Region({
+            this.pagination = new Marionette.Region({
                 el: this.$el.find('tfoot')
             });
 
@@ -283,8 +288,8 @@
                 templateHelpers: function() {
                     return this.options;
                 },
-                initialize: function(options) {
-                    Toolbox.Views.ActivityIndicator.prototype.initialize.call(this, options);
+                initialize: function() {
+                    Toolbox.Views.ActivityIndicator.prototype.initialize.apply(this, arguments);
 
                     // Set the activity indicator options
                     _.extend(this.options, t.getOption('indicatorOptions'));
@@ -311,7 +316,7 @@
         },
 
         getRequestData: function() {
-            var t = this, data = {};
+            var data = {};
             var options = this.getOption('requestDataOptions');
             var defaultOptions = this.getOption('defaultRequestDataOptions');
             var requestData = this.getOption('requestData');
@@ -322,7 +327,7 @@
 
             _.each(([]).concat(defaultOptions, options), function(name) {
                 if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
-                    data[name] = t.getOption(name);
+                    data[name] = this.getOption(name);
                 }
             }, this);
 

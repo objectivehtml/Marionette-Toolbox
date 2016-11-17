@@ -8,23 +8,32 @@
 		<link rel="stylesheet" href="../dist/marionette.toolbox.css">
 
 		<script src="../resources/vendor.js"></script>
+
+		<script type="text/javascript">
+			var $ = require('jquery');
+			var _ = require('underscore');
+			var Backbone = require('backbone');
+			var Marionette = require('backbone.marionette');
+			var Handlebars = require('handlebars');
+			var Spinner = require('spin.js');
+		</script>
+
 		<script src="../dist/marionette.toolbox.js"></script>
 	</head>
 	<body>
-		<div class="app-wrapper"></div>
+		<div id="app-wrapper"></div>
 
 		<script type="text/javascript">
-
 			var App = new Backbone.Marionette.Application();
 
 			App.on('start', function() {
 
 				App.addRegions({
-					content: $('.app-wrapper')
+					content: '#app-wrapper'
 				});
 
 				var view = new Toolbox.Views.ActivityIndicator({
-					indicator: 'medium',
+					indicator: 'small',
 					dimmed: true,
 					dimmedBgColor: '#fff',
 					fixed: true

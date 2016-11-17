@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['backbone'], function(Backbone) {
+            return factory(root.Toolbox, Backbone);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('backbone'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.Backbone);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, Backbone) {
 
     'use strict';
 
@@ -26,7 +28,7 @@
 
 		template: Toolbox.Template('dropdown-menu-item'),
 
-		options: {
+		defaultOptions: {
 			dividerClassName: 'divider'
 		},
 
@@ -74,7 +76,7 @@
 			'click .dropdown-toggle': 'toggle:click'
 		},
 
-		options: {
+		defaultOptions: {
 			// (string) The dropdown toggle text
 			toggleLabel: false,
 
@@ -113,8 +115,8 @@
             return this.options;
         },
 
-		initialize: function(options) {
-			Toolbox.Views.CompositeView.prototype.initialize.call(this, options);
+		initialize: function() {
+			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
 
 			this.on('fetch', function() {
 				if(this.getOption('showIndicator')) {
@@ -133,8 +135,8 @@
 			var ActivityViewItem = Toolbox.Views.ActivityIndicator.extend({
 				tagName: 'li',
 				className: 'activity-indicator-item',
-				initialize: function(options) {
-					Toolbox.Views.ActivityIndicator.prototype.initialize.call(this, options);
+				initialize: function() {
+					Toolbox.Views.ActivityIndicator.prototype.initialize.apply(this, arguments);
 
 					this.options.indicator = 'small';
 				}

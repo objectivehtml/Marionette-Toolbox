@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery'], function($) {
+            return factory(root.Toolbox, $);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'))
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $) {
 
     'use strict';
 
@@ -24,7 +26,7 @@
             'click .modal-close': 'close:click'
         },
 
-        options: {
+        defaultOptions: {
             // (array) An array of button objects to add to the modal window
             buttons: [],
 

@@ -1,4 +1,49 @@
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['activity-indicator'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function(root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery', 'backbone', 'marionette', 'handlebars', 'underscore'], function($, Backbone, Marionette, Handlebars, _) {
+            return factory(root, $, Backbone, Marionette, Handlebars, _);
+        });
+    } else if (typeof exports !== 'undefined') {
+        module.exports = factory(
+            root,
+            require('jquery'),
+            require('backbone'),
+            require('backbone.marionette'),
+            require('handlebars'),
+            require('underscore')
+        );
+    } else {
+        factory(root, root.$, root.Backbone, root.Marionette, root.Handlebars, root._);
+    }
+}(this, function(root, $, Backbone, Marionette, Handlebars, _) {
+
+    'use strict';
+
+    var Toolbox = {};
+
+    Toolbox.handlebars = {};
+
+    Toolbox.Views = {};
+
+    Toolbox.VERSION = '0.4.3';
+
+    // Toolbox.Template
+    // -------------------
+    // Get an existing rendered handlebars template
+
+    Toolbox.Template = function(name) {
+        if(Toolbox.templates[name]) {
+            return Toolbox.templates[name];
+        }
+        else {
+            throw 'Cannot locate the Handlebars template with the name of "'+name+'".';
+        }
+    };
+
+    return root.Toolbox = Toolbox;
+}));
+
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['activity-indicator'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -51,7 +96,7 @@ function program7(depth0,data,depth1) {
   buffer += "\">\n	\n	<span class=\"activity-indicator\"></span>\n\n</div>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-checkbox-radio-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-checkbox-radio-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, blockHelperMissing=helpers.blockHelperMissing, helperMissing=helpers.helperMissing;
@@ -169,7 +214,7 @@ function program11(depth0,data,depth3) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-error'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-error'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
@@ -179,7 +224,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   else { helper = (depth0 && depth0.error); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   return escapeExpression(stack1);
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-input-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-input-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -292,7 +337,7 @@ function program13(depth0,data,depth1) {
     + "\" />";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-light-switch-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-light-switch-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -313,15 +358,28 @@ function program1(depth0,data,depth1) {
 function program3(depth0,data,depth1) {
   
   var buffer = "", stack1;
+  buffer += "\n	<label for=\""
+    + escapeExpression(((stack1 = (depth1 && depth1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" class=\""
+    + escapeExpression(((stack1 = (depth1 && depth1.labelClassName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">"
+    + escapeExpression(((stack1 = (depth1 && depth1.label)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</label>\n";
+  return buffer;
+  }
+
+function program5(depth0,data,depth1) {
+  
+  var buffer = "", stack1;
   buffer += "\n	<p ";
-  stack1 = helpers['if'].call(depth0, (depth1 && depth1.descriptionClassName), {hash:{},inverse:self.noop,fn:self.programWithDepth(4, program4, data, depth1),data:data});
+  stack1 = helpers['if'].call(depth0, (depth1 && depth1.descriptionClassName), {hash:{},inverse:self.noop,fn:self.programWithDepth(6, program6, data, depth1),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += ">"
     + escapeExpression(((stack1 = (depth1 && depth1.description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</p>\n";
   return buffer;
   }
-function program4(depth0,data,depth2) {
+function program6(depth0,data,depth2) {
   
   var buffer = "", stack1;
   buffer += "class=\""
@@ -330,7 +388,7 @@ function program4(depth0,data,depth2) {
   return buffer;
   }
 
-function program6(depth0,data,depth1) {
+function program8(depth0,data,depth1) {
   
   var stack1;
   return escapeExpression(((stack1 = (depth1 && depth1.activeClassName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
@@ -339,10 +397,13 @@ function program6(depth0,data,depth1) {
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.header), {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.description), {hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data});
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.label), {hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n\n";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.description), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n<div class=\"light-switch ";
-  stack1 = (helper = helpers.is || (depth0 && depth0.is),options={hash:{},inverse:self.noop,fn:self.programWithDepth(6, program6, data, depth0),data:data},helper ? helper.call(depth0, (depth0 && depth0.value), 1, options) : helperMissing.call(depth0, "is", (depth0 && depth0.value), 1, options));
+  stack1 = (helper = helpers.is || (depth0 && depth0.is),options={hash:{},inverse:self.noop,fn:self.programWithDepth(8, program8, data, depth0),data:data},helper ? helper.call(depth0, (depth0 && depth0.value), 1, options) : helperMissing.call(depth0, "is", (depth0 && depth0.value), 1, options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\" tabindex=\"0\">\n	<div class=\"light-switch-container\">\n		<div class=\"light-switch-label on\"></div>\n		<div class=\"light-switch-handle\"></div>\n		<div class=\"light-switch-label off\"></div>\n	</div>\n</div>\n\n<input type=\"hidden\" name=\"";
   if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -352,10 +413,14 @@ function program6(depth0,data,depth1) {
   if (helper = helpers.value) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.value); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">";
+    + "\" id=\"";
+  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">\n";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-select-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-select-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing, blockHelperMissing=helpers.blockHelperMissing;
@@ -528,7 +593,7 @@ function program24(depth0,data,depth1) {
   buffer += "\n</select>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['form-textarea-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-textarea-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -637,7 +702,7 @@ function program13(depth0,data,depth1) {
     + "\"></textarea>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['breadcrumb'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['breadcrumb'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -668,7 +733,7 @@ function program3(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['no-breadcrumbs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-breadcrumbs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "";
@@ -676,7 +741,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['button-dropdown-menu'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['button-dropdown-menu'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -736,7 +801,7 @@ function program7(depth0,data,depth1) {
   buffer += "\"></ul>\n\n</div>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -757,7 +822,7 @@ function program1(depth0,data,depth1) {
   buffer += escapeExpression(stack1);
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['no-button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "";
@@ -765,7 +830,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['calendar-monthly-day-view'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['calendar-monthly-day-view'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -785,7 +850,7 @@ function program1(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['calendar-monthly-view'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['calendar-monthly-view'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -793,7 +858,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<div class=\"calendar-masthead\">\n	<nav class=\"calendar-navigation\">\n		<a href=\"#\" class=\"calendar-navigation-prev\"><i class=\"fa fa-angle-left\"></i></a>\n		<a href=\"#\" class=\"calendar-navigation-next\"><i class=\"fa fa-angle-right\"></i></a>\n	</nav>\n\n	<div class=\"calendar-header\"></div>\n	<div class=\"calendar-sub-header\"></div>\n</div>\n\n<div class=\"calendar-view\">\n	<div class=\"indicator\"></div>\n\n	<table class=\"calendar-monthly-view\">\n		<thead>\n			<tr>\n				<th>Sun</th>\n				<th>Mon</th>\n				<th>Tue</th>\n				<th>Wed</th>\n				<th>Thur</th>\n				<th>Fri</th>\n				<th>Sat</th>\n			</tr>\n		</thead>\n		<tbody></tbody>\n	</table>\n</div>";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['dropdown-menu-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['dropdown-menu-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -813,7 +878,7 @@ function program1(depth0,data,depth1) {
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['dropdown-menu-no-items'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['dropdown-menu-no-items'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "";
@@ -821,7 +886,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['dropdown-menu'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['dropdown-menu'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -850,7 +915,7 @@ function program1(depth0,data,depth1) {
   buffer += "\"></ul>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['inline-editor'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['inline-editor'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -858,7 +923,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<div class=\"inline-editor-label\"></div>\n\n<i class=\"fa fa-pencil inline-editor-edit-icon\"></i>\n\n<div class=\"inline-editor-field\"></div>\n\n<div class=\"inline-editor-activity-indicator\"></div>";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['list-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['list-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -880,7 +945,7 @@ function program1(depth0,data,depth1) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['no-list-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-list-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -888,7 +953,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "No items found.";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['modal-window'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['modal-window'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
@@ -985,7 +1050,7 @@ function program11(depth0,data,depth1) {
   buffer += "\n</div>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['notification'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['notification'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -1046,7 +1111,7 @@ function program6(depth0,data,depth1) {
   buffer += "\n\n</div>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['no-ordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-ordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function";
@@ -1057,7 +1122,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['ordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['ordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function";
@@ -1068,7 +1133,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['pager'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['pager'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -1126,7 +1191,7 @@ function program6(depth0,data,depth1) {
     + " <i class=\"fa fa-long-arrow-right\" aria-hidden=\"true\"></i></a></li>\n</ul>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['pagination-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['pagination-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -1171,7 +1236,7 @@ function program6(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['pagination'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['pagination'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
@@ -1184,7 +1249,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + "\">\n	<li>\n		<a href=\"#\" class=\"prev-page\" aria-label=\"Previous\">\n			<span aria-hidden=\"true\">&laquo;</span>\n		</a>\n	</li>\n    <li>\n		<a href=\"#\" class=\"next-page\" aria-label=\"Next\">\n			<span aria-hidden=\"true\">&raquo;</span>\n		</a>\n    </li>\n</ul>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['progress-bar'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['progress-bar'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
@@ -1209,7 +1274,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + "% Complete</span>\n</div>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['range-slider'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['range-slider'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -1217,7 +1282,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<div class=\"slider\"></div>";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-activity-indicator-row'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-activity-indicator-row'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -1239,7 +1304,7 @@ function program1(depth0,data,depth1) {
   buffer += ">\n\n	<div class=\"activity-indicator-dimmer\">\n		\n		<span class=\"activity-indicator\"></span>\n\n	</div>\n\n</td>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-no-items'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-no-items'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
@@ -1254,7 +1319,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + "\n</td>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-view-footer'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-view-footer'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -1285,7 +1350,7 @@ function program3(depth0,data,depth1) {
   buffer += "\n</td>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-view-group'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-view-group'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing, blockHelperMissing=helpers.blockHelperMissing;
@@ -1347,7 +1412,9 @@ function program9(depth0,data,depth1) {
   var buffer = "", stack1;
   buffer += "\n	<"
     + escapeExpression(((stack1 = (depth1 && depth1.headerTag)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " class=\"table-header\">"
+    + " class=\""
+    + escapeExpression(((stack1 = (depth1 && depth1.headerClassName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">"
     + escapeExpression(((stack1 = (depth1 && depth1.header)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</"
     + escapeExpression(((stack1 = (depth1 && depth1.headerTag)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -1448,10 +1515,10 @@ function program20(depth0,data,depth1) {
   else { helper = (depth0 && depth0.columns); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
   if (!helpers.columns) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.programWithDepth(13, program13, data, depth0),data:data}); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n		</tr>\n	</thead>\n	<tbody></tbody>\n	<tfoot></tfoot>\n</table>\n\n<div class=\"pagination\"></div>";
+  buffer += "\n		</tr>\n	</thead>\n	<tbody></tbody>\n	<tfoot></tfoot>\n</table>\n\n<div class=\"pagination\"></div>\n";
   return buffer;
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-view-pagination'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-view-pagination'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -1459,7 +1526,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<div></div>";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['table-view-row'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-view-row'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
@@ -1484,7 +1551,7 @@ function program1(depth0,data,depth1) {
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['tab-content'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['tab-content'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function";
@@ -1495,7 +1562,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['tabs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['tabs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
@@ -1503,7 +1570,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<!-- Nav tabs -->\n<ul class=\"nav nav-tabs\" role=\"tablist\"></ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n</div>";
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['no-unordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-unordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function";
@@ -1514,7 +1581,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function (root, factory) {if (typeof exports === 'object') {module.exports = factory(require('handlebars'));} else if (typeof define === 'function' && define.amd) {define(['handlebars'], factory);} else {root.HandlebarsHelpersRegistry = factory(root.Handlebars);}}(this, function (Handlebars) {if(!Handlebars) {throw Error("Handlebars dependency cannot be found.");}if(typeof Handlebars.templates !== "object") {Handlebars.templates = {};}Handlebars.templates['unordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['unordered-list-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var stack1, helper, functionType="function";
@@ -1525,68 +1592,31 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
-(function(root, factory) {
-
-  if (typeof define === 'function' && define.amd) {
-    define(['backbone', 'marionette', 'handlebars', 'underscore'], function(Backbone, Marionette, Handlebars, _) {
-      return (root.Toolbox = factory(root, Backbone, Marionette, Handlebars, _));
-    });
-  } else if (typeof exports !== 'undefined') {
-    var Backbone = require('backbone');
-    var _ = require('underscore');
-    var Marionette = require('backbone.marionette');
-    var Handlebars = require('handlebars');
-    module.exports = factory(root, Backbone, Marionette, Handlebars, _);
-  } else {
-    root.Toolbox = factory(root, root.Backbone, root.Marionette, root.Handlebars, root._);
-  }
-
-}(this, function(root, Backbone, Marionette, Handlebars, _) {
-
-    'use strict';
-
-    var previousToolbox = root.Toolbox;
-
-    var Toolbox = Backbone.Toolbox = {};
-
-    Toolbox.Views = {};
-
-    Toolbox.VERSION = '0.0.1';
-
-    Toolbox.noConflict = function() {
-        root.Toolbox = previousToolbox;
-        return this;
-    };
-
-    // Toolbox.Template
-    // -------------------
-    // Get an existing rendered handlebars template
-
-    Toolbox.Template = function(name) {
-        if(Handlebars.templates[name]) {
-            return Handlebars.templates[name];
-        }
-        else {
-            throw 'Cannot locate the Handlebars template with the name of "'+name+'".';
-        }
-    };
-
-    return Toolbox;
-}));
-
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox', 'backbone.marionette'], factory);
+        define(['underscore', 'backbone.marionette'], function(_, Marionette) {
+            return factory(root.Toolbox, _, Marionette);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'), require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('underscore'), quire('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root.Marionette);
+        root.Toolbox = factory(root.Toolbox, root._, root.Marionette);
     }
-}(this, function (Toolbox, Marionette) {
+}(this, function (Toolbox, _, Marionette) {
 
     'use strict';
 
     Toolbox.Views.ItemView = Marionette.ItemView.extend({
+
+        defaultOptions: {
+
+        },
+
+        initialize: function() {
+            Marionette.ItemView.prototype.initialize.apply(this, arguments);
+
+            this.options = _.extend({}, this.defaultOptions, this.options);
+        }
 
 	});
 
@@ -1597,9 +1627,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox', 'backbone.marionette'], factory);
+        define(['backbone.marionette'], function(Marionette) {
+            return factory(root.Toolbox, Marionette)
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'), require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('backbone.marionette'));
     } else {
         root.Toolbox = factory(root.Toolbox, root.Marionette);
     }
@@ -1609,6 +1641,16 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     Toolbox.Views.LayoutView = Marionette.LayoutView.extend({
 
+        defaultOptions: {
+
+        },
+
+        initialize: function() {
+            Marionette.LayoutView.prototype.initialize.apply(this, arguments);
+
+            this.options = _.extend({}, this.defaultOptions, this.options);
+        }
+
 	});
 
 
@@ -1618,9 +1660,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox', 'backbone.marionette'], factory);
+        define(['backbone.marionette'], function(Marionette) {
+            return factory(root.Toolbox, Marionette);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'), require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('backbone.marionette'));
     } else {
         root.Toolbox = factory(root.Toolbox, root.Marionette);
     }
@@ -1630,6 +1674,16 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     Toolbox.Views.CompositeView = Marionette.CompositeView.extend({
 
+        defaultOptions: {
+
+        },
+
+        initialize: function() {
+            Marionette.CompositeView.prototype.initialize.apply(this, arguments);
+
+            this.options = _.extend({}, this.defaultOptions, this.options);
+        }
+
 	});
 
 
@@ -1639,9 +1693,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox', 'backbone.marionette'], factory);
+        define(['backbone.marionette'], function(Marionette) {
+            return factory(root.Toolbox, Marionette);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'), require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('backbone.marionette'));
     } else {
         root.Toolbox = factory(root.Toolbox, root.Marionette);
     }
@@ -1651,6 +1707,16 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     Toolbox.Views.CollectionView = Marionette.CollectionView.extend({
 
+        defaultOptions: {
+
+        },
+
+        initialize: function() {
+            Marionette.CollectionView.prototype.initialize.apply(this, arguments);
+
+            this.options = _.extend({}, this.defaultOptions, this.options);
+        }
+
 	});
 
 
@@ -1660,13 +1726,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['underscore'], function(_) {
+            return factory(root.Toolbox, _);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('underscore'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root._);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox,  _) {
 
     'use strict';
 
@@ -1727,9 +1795,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         initialize: function() {
             Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
 
-            this.options = $.extend({}, this.defaultOptions, this.options);
-
-            this.triggers = $.extend({}, this.getDefaultTriggers(), this.triggers);
+            this.triggers = _.extend({}, this.getDefaultTriggers(), this.triggers);
         },
 
         getDefaultTriggers: function() {
@@ -1796,13 +1862,21 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery', 'underscore', 'backbone', 'backbone.marionette'], function($, _, Backbone, Marionette) {
+            return factory(root.Toolbox, $, _, Backbone, Marionette);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(
+            root.Toolbox,
+            require('jQuery'),
+            require('underscore'),
+            require('backbone'),
+            require('backbone.marionette')
+        );
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$, root._, root.Backbone, root.Marionette);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $, _, Backbone, Marionette) {
 
     'use strict';
 
@@ -1833,7 +1907,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         isSubmitting: false,
 
-        options: {
+        defaultOptions: {
 
             // (object) An object of activity indicator options
             activityIndicatorOptions: {
@@ -1956,8 +2030,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         removeErrors: function() {
-            console.log(this.$errors);
-
             if(this.$errors) {
                 _.each(this.$errors, function($error) {
                     $error.parents('.'+this.getOption('hasErrorClassName'))
@@ -1990,7 +2062,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
             this.appendGlobalErrorRegionToDom(this.$globalErrors);
 
-            this.globalErrors = new Backbone.Marionette.Region({
+            this.globalErrors = new Marionette.Region({
                 el: this.$globalErrors.get(0)
             });
 
@@ -2250,13 +2322,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['backbone'], function(Backbone) {
+            return factory(root.Toolbox, Backbone);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('backbone'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.Backbone);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, Backbone) {
 
     'use strict';
 
@@ -2276,7 +2350,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		template: Toolbox.Template('dropdown-menu-item'),
 
-		options: {
+		defaultOptions: {
 			dividerClassName: 'divider'
 		},
 
@@ -2324,7 +2398,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			'click .dropdown-toggle': 'toggle:click'
 		},
 
-		options: {
+		defaultOptions: {
 			// (string) The dropdown toggle text
 			toggleLabel: false,
 
@@ -2363,8 +2437,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             return this.options;
         },
 
-		initialize: function(options) {
-			Toolbox.Views.CompositeView.prototype.initialize.call(this, options);
+		initialize: function() {
+			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
 
 			this.on('fetch', function() {
 				if(this.getOption('showIndicator')) {
@@ -2383,8 +2457,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			var ActivityViewItem = Toolbox.Views.ActivityIndicator.extend({
 				tagName: 'li',
 				className: 'activity-indicator-item',
-				initialize: function(options) {
-					Toolbox.Views.ActivityIndicator.prototype.initialize.call(this, options);
+				initialize: function() {
+					Toolbox.Views.ActivityIndicator.prototype.initialize.apply(this, arguments);
 
 					this.options.indicator = 'small';
 				}
@@ -2465,9 +2539,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -2488,7 +2562,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			'click .dropdown-toggle': 'toggle:click'
 		},
 
-		options: {
+		defaultOptions: {
 			// (string) The dropdown button text
 			buttonLabel: false,
 
@@ -2552,13 +2626,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox', 'backbone.marionette'], factory);
+        define(['jQuery', 'backbone.marionette'], function($, Marionette) {
+            return factory(root.Toolbox, $, Marionette);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'), require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('jQuery'), require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root.Marionette);
+        root.Toolbox = factory(root.Toolbox, root.$, root.Marionette);
     }
-}(this, function (Toolbox, Marionette) {
+}(this, function (Toolbox, $, Marionette) {
 
     'use strict';
 
@@ -2566,7 +2642,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		$el: false,
 
-		options: {
+		defaultOptions: {
 			fieldName: 'value',
 			editIcon: 'fa fa-pencil',
 			saveKeycode: 13,
@@ -2984,13 +3060,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['underscore', 'spin.js'], function(_, Spinner) {
+            return factory(root.Toolbox, _, Spinner);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('spin.js'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root._, root.Spinner);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, _, Spinner) {
 
     'use strict';
 
@@ -3000,7 +3078,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         spinning: false,
 
-        options: {
+        defaultOptions: {
             dimmedBgColor: false,
             dimmed: false,
             autoStart: true,
@@ -3065,18 +3143,18 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         getSpinnerOptions: function() {
-            var defaultOptions = this.getOption('defaultIndicator');
-            var options = this.getOption('indicator');
+            var defaultIndicator = this.getOption('defaultIndicator');
+            var indicator = this.getOption('indicator');
             var presets = this.getPresetOptions();
 
-            if(_.isString(options) && presets[options]) {
-                options = presets[options];
+            if(_.isString(indicator) && presets[indicator]) {
+                indicator = presets[indicator];
             }
-            else {
-                options = {};
+            else if(typeof indicator !== "object"){
+                indicator = {};
             }
 
-            return _.extend({}, defaultOptions, options);
+            return _.extend({}, defaultIndicator, indicator);
         },
 
         getSpinnerDom: function() {
@@ -3113,13 +3191,611 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['underscore'], function(_) {
+            return factory(root.Toolbox, _);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('underscore'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root._);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox,  _) {
+
+    'use strict';
+
+    Toolbox.Views.BaseField = Toolbox.Views.ItemView.extend({
+
+        formModel: false,
+
+        className: 'form-group',
+
+        defaultTriggers: {
+            'focus {{triggerSelector}}': {
+                event: 'focus',
+                preventDefault: false
+            },
+            'blur {{triggerSelector}}': {
+                event: 'blur',
+                preventDefault: false
+            },
+            'click {{triggerSelector}}': {
+                event: 'click',
+                preventDefault: false
+            },
+            'keyup {{triggerSelector}}': {
+                event: 'key:up',
+                preventDefault: false
+            },
+            'keydown {{triggerSelector}}': {
+                event: 'key:down',
+                preventDefault: false
+            },
+            'keypress {{triggerSelector}}': {
+                event: 'key:press',
+                preventDefault: false
+            }
+        },
+
+        triggers: {},
+
+        defaultOptions: {
+            id: false,
+            label: false,
+            description: false,
+            name: false,
+            value: false,
+            header: false,
+            labelClassName: 'control-label',
+            inputClassName: 'form-control',
+            descriptionClassName: 'description',
+            headerTagName: 'h4',
+            triggerSelector: 'input',
+            updateModel: true
+        },
+
+        templateHelpers: function() {
+            return this.options;
+        },
+
+        initialize: function() {
+            Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
+
+            this.triggers = _.extend({}, this.getDefaultTriggers(), this.triggers);
+        },
+
+        getDefaultTriggers: function() {
+            var t = this, defaultTriggers = {};
+
+            _.each(this.defaultTriggers, function(trigger, key) {
+                _.each(t.options, function(value, name) {
+                    if(_.isString(value)) {
+                        key = key.replace('{{'+name+'}}', value);
+                    }
+                });
+
+                defaultTriggers[key.trim()] = trigger;
+            });
+
+            return defaultTriggers;
+        },
+
+        blur: function() {
+            this.getInputField().blur();
+        },
+
+        focus: function() {
+            this.getInputField().focus();
+        },
+
+        onRender: function() {
+            this.setInputValue(this.getOption('value'));
+        },
+
+        onBlur: function() {
+            this.save();
+        },
+
+        save: function(value) {
+            if(_.isUndefined(value)) {
+                value = this.getInputValue();
+            }
+
+            this.options.value = value;
+
+            if(this.getOption('updateModel') === true && this.model) {
+                this.model.set(this.getOption('name'), value);
+            }
+        },
+
+        setInputValue: function(value) {
+            this.getInputField().val(value);
+        },
+
+        getInputValue: function() {
+           return this.getInputField().val();
+        },
+
+        getInputField: function() {
+            return this.$el.find('input');
+        }
+
+    });
+
+    return Toolbox;
+
+}));
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['jQuery', 'underscore', 'backbone', 'backbone.marionette'], function($, _, Backbone, Marionette) {
+            return factory(root.Toolbox, $, _, Backbone, Marionette);
+        });
+    } else if (typeof exports === 'object') {
+        module.exports = factory(
+            root.Toolbox,
+            require('jQuery'),
+            require('underscore'),
+            require('backbone'),
+            require('backbone.marionette')
+        );
+    } else {
+        root.Toolbox = factory(root.Toolbox, root.$, root._, root.Backbone, root.Marionette);
+    }
+}(this, function (Toolbox, $, _, Backbone, Marionette) {
+
+    'use strict';
+
+    Toolbox.Views.BlockFormError = Toolbox.Views.ItemView.extend({
+
+        template: Toolbox.Template('form-error'),
+
+        tagName: 'span',
+
+        className: 'help-block'
+
+    });
+
+    Toolbox.Views.InlineFormError = Toolbox.Views.BlockFormError.extend({
+
+        className: 'help-inline'
+
+    });
+
+    Toolbox.Views.BaseForm = Toolbox.Views.LayoutView.extend({
+
+        tagName: 'form',
+
+        triggers: {
+            'submit': 'submit',
+            'click .cancel': 'cancel:click'
+        },
+
+        isSubmitting: false,
+
+        defaultOptions: {
+
+            // (object) An object of activity indicator options
+            activityIndicatorOptions: {
+                indicator: 'small'
+            },
+
+            // (object) The error view object
+            errorView: false,
+
+            // (object) The error view options object
+            errorViewOptions: false,
+
+            // (object) The global error view object
+            globalErrorsView: false,
+
+            // (object) The global error view options object
+            globalErrorsOptions: {
+                showEmptyMessage: false
+            },
+
+            // (bool) Show global errors after form submits
+            showGlobalErrors: false,
+
+            // (bool) Show notifications after form submits
+            showNotifications: true,
+
+            // (object) The notification view object
+            notificationView: false,
+
+            // (object) The notification view options object
+            notificationViewOptions: false,
+
+            // (string) The form group class name
+            formGroupClassName: 'form-group',
+
+            // (string) The has error class name
+            hasErrorClassName: 'has-error',
+
+            // (bool) Add the has error classes to fields
+            addHasErrorClass: true,
+
+            // (bool) Add the inline form errors
+            showInlineErrors: true,
+
+            // (string) The redirect url. False if no redirect
+            redirect: false,
+
+            // (object) The success message object
+            successMessage: false,
+
+            // (object) The default success message object
+            defaultSuccessMessage: {
+                icon: 'fa fa-check',
+                type: 'success',
+                title: 'Success!',
+                message: 'The form was successfully submitted.'
+            },
+
+            // (object) The errpr message object
+            errorMessage: false,
+
+            // (object) The default success message object
+            defaultErrorMessage: {
+                icon: 'fa fa-warning',
+                type: 'alert',
+                title: 'Error!',
+                message: 'The form could not be submitted.'
+            }
+        },
+
+        _serializedForm: false,
+
+        _errorViews: false,
+
+        getFormData: function() {
+            var data = {};
+
+            this.$el.find('input, select, textarea').each(function() {
+                var name = $(this).attr('name');
+                var value = $(this).val();
+
+                if(name) {
+                    if($(this).is(':radio') || $(this).is(':checkbox')) {
+                        if($(this).is(':checked')) {
+                            data[name] = value;
+                        }
+                    }
+                    else {
+                        if(!_.isNull(value) || !_.isUndefined(value)) {
+                            data[name] = value;
+                        }
+                    }
+                }
+            });
+
+            return data;
+        },
+
+        showActivityIndicator: function() {
+            this.$indicator = this.$el.find('.form-indicator');
+
+            if(this.$indicator.length === 0) {
+                this.$indicator = $('<div class="form-indicator"></div>');
+            }
+
+            if(this.$el.find('footer').length) {
+                this.$el.find('footer').append(this.$indicator);
+            }
+            else {
+                this.$el.append(this.$indicator);
+            }
+
+            this.indicator = new Backbone.Marionette.Region({
+                el: this.$indicator.get(0)
+            });
+
+            var indicator = new Toolbox.Views.ActivityIndicator(this.getOption('activityIndicatorOptions'));
+
+            this.indicator.show(indicator);
+        },
+
+        removeErrors: function() {
+            if(this.$errors) {
+                _.each(this.$errors, function($error) {
+                    $error.parents('.'+this.getOption('hasErrorClassName'))
+                        .removeClass(this.getOption('hasErrorClassName'))
+                        .remove();
+                }, this);
+            }
+        },
+
+        serialize: function() {
+            return JSON.stringify(this.getFormData());
+        },
+
+        hasFormChanged: function() {
+            if(!this._serializedForm) {
+                return false;
+            }
+
+            return this._serializedForm !== this.serialize();
+        },
+
+        createGlobalErrorsRegion: function() {
+            var View = this.getOption('globalErrorsView');
+
+            if(!View) {
+                View = Toolbox.Views.UnorderedList;
+            }
+
+            this.$globalErrors = $('<div class="global-errors"></div>');
+
+            this.appendGlobalErrorRegionToDom(this.$globalErrors);
+
+            this.globalErrors = new Marionette.Region({
+                el: this.$globalErrors.get(0)
+            });
+
+            var errorsView = new View(_.extend(this.getOption('globalErrorsOptions')));
+
+            this.globalErrors.show(errorsView);
+        },
+
+        appendGlobalErrorRegionToDom: function($globalErrors) {
+            this.$el.prepend($globalErrors);
+        },
+
+        createNotification: function(notice) {
+            var View = this.getOption('notificationView');
+
+            if(!View) {
+                View = Toolbox.Views.Notification;
+            }
+
+            var view = new View(_.extend({
+                type: notice.type ? notice.type : 'alert',
+                title: notice.title ? notice.title : false,
+                message: notice.message ? notice.message : false,
+                icon: notice.icon ? notice.icon : false
+            }, this.getOption('notificationViewOptions')));
+
+            return view;
+        },
+
+        createError: function(field, error) {
+            var View = this.getOption('errorView');
+
+            if(!View) {
+                View = Toolbox.Views.BlockFormError;
+            }
+
+            var model = new Backbone.Model({
+                field: field,
+                error: error
+            });
+
+            var view = new View(_.extend({
+                model: model
+            }, this.getOption('errorViewOptions')));
+
+            return view;
+        },
+
+        getInputFieldParent: function(field) {
+            return this.getInputField(field).parents('.' + this.getOption('formGroupClassName'));
+        },
+
+        getInputField: function(field) {
+            field = field.replace('.', '_');
+
+            var $field = this.$el.find('[name="'+field+'"]');
+
+            if($field.length) {
+                return $field;
+            }
+            else {
+                return this.$el.find('#'+field);
+            }
+        },
+
+        setInputField: function(field, value) {
+            this.getInputField(field).val(value);
+        },
+
+        addHasErrorClassToField: function(field) {
+           this.getInputFieldParent(field).addClass(this.getOption('hasErrorClassName'));
+        },
+
+        removeHasErrorClassFromField: function(field) {
+           this.getInputFieldParent(field).removeClass(this.getOption('hasErrorClassName'));
+        },
+
+        removeGlobalErrors: function() {
+            if(this.globalErrors && this.globalErrors.currentView) {
+                this.globalErrors.currentView.collection.reset();
+            }
+        },
+
+        focusOnFirstError: function() {
+            var selector = 'div.'+this.getOption('hasErrorClassName')+':first';
+
+            this.$el.find(selector)
+                .find('input, select, textarea')
+                .focus();
+        },
+
+        appendErrorViewToGlobal: function(errorView) {
+            var error = errorView.model.get('error');
+
+            this.globalErrors.currentView.collection.add({
+                content: error
+            });
+        },
+
+        appendErrorViewToField: function(errorView) {
+            errorView.render();
+
+            this.getInputFieldParent(errorView.model.get('field'))
+                .append(errorView.$el);
+        },
+
+        hideErrors: function() {
+            var t = this;
+
+            if(this.getOption('showGlobalErrors') === true) {
+                this.removeGlobalErrors();
+            }
+
+            if(_.isArray(this._errorViews)) {
+                _.each(this._errorViews, function(view) {
+                    var field = view.model.get('field');
+
+                    if(t.getOption('addHasErrorClass') === true) {
+                        t.removeHasErrorClassFromField(field);
+                    }
+
+                    if(t.getOption('showInlineErrors') === true) {
+                        view.$el.remove();
+                    }
+                });
+            }
+        },
+
+        showError: function(field, error) {
+            if(!this._errorViews) {
+                this._errorViews = [];
+            }
+
+            var errorView = this.createError(field, error);
+
+            if(this.getOption('showGlobalErrors') === true) {
+                this.appendErrorViewToGlobal(errorView);
+            }
+
+            if(this.getOption('addHasErrorClass') === true) {
+                this.addHasErrorClassToField(field);
+            }
+
+            if(this.getOption('showInlineErrors') === true) {
+                this.appendErrorViewToField(errorView);
+            }
+
+            this._errorViews.push(errorView);
+        },
+
+        showErrors: function(errors) {
+            var t = this;
+
+            _.each(errors, function(error, field) {
+                t.showError(field, error);
+            });
+
+            this.focusOnFirstError();
+        },
+
+        hideActivityIndicator: function() {
+            this.indicator.empty();
+        },
+
+        getErrorsFromResponse: function(response) {
+            return response.responseJSON.errors;
+        },
+
+        getRedirect: function() {
+            return this.getOption('redirect');
+        },
+
+        redirect: function() {
+            window.location = this.getRedirect();
+        },
+
+        showSuccessNotification: function() {
+            var notification = this.createNotification(_.extend(
+                this.getOption('defaultSuccessMessage'),
+                this.getOption('successMessage')
+            ));
+
+            notification.show();
+        },
+
+        showErrorNotification: function() {
+            var notification = this.createNotification(_.extend(
+                this.getOption('defaultErrorMessage'),
+                this.getOption('errorMessage')
+            ));
+
+            notification.show();
+        },
+
+        onRender: function() {
+            this._serializedForm = this.serialize();
+
+            if(this.getOption('showGlobalErrors')) {
+                this.createGlobalErrorsRegion();
+            }
+        },
+
+        onSubmitSuccess: function() {
+            if(this.hasFormChanged()) {
+                this.triggerMethod('form:changed');
+                this._serializedForm = this.serialize();
+            }
+
+            if(this.getOption('showNotifications')) {
+                this.showSuccessNotification();
+            }
+
+            if(this.getOption('redirect')) {
+                this.redirect();
+            }
+        },
+
+        onSubmitComplete: function(status, model, response) {
+            this.isSubmitting = false;
+            this.hideErrors();
+            this.hideActivityIndicator();
+        },
+
+        onSubmitError: function(model, response) {
+            if(this.getOption('showNotifications')) {
+                this.showErrorNotification();
+            }
+
+            this.showErrors(this.getErrorsFromResponse(response));
+        },
+
+        onSubmit: function() {
+            var t = this;
+
+            if(!this.isSubmitting) {
+                this.isSubmitting = true;
+                this.showActivityIndicator();
+
+                this.model.save(this.getFormData(), {
+                    success: function(model, response) {
+                        t.triggerMethod('submit:complete', true, model, response);
+                        t.triggerMethod('submit:success', model, response);
+                    },
+                    error: function(model, response) {
+                        t.triggerMethod('submit:complete', false, model, response);
+                        t.triggerMethod('submit:error', model, response);
+                    }
+                });
+            }
+        }
+
+    });
+
+    return Toolbox;
+
+}));
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['underscore', 'backbone'], function(_, Backbone) {
+            return factory(root.Toolbox, _, Backbone);
+        });
+    } else if (typeof exports === 'object') {
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone'));
+    } else {
+        root.Toolbox = factory(root.Toolbox, root._, root.Backbone);
+    }
+}(this, function (Toolbox, _, Backbone) {
 
 	'use strict';
 
@@ -3151,7 +3827,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		tagName: 'ol',
 
-		options: {
+		defaultOptions: {
 			activeClassName: 'active'
 		},
 
@@ -3165,8 +3841,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			}
 		},
 
-		initialize: function(options) {
-			Toolbox.Views.CollectionView.prototype.initialize.call(this, options);
+		initialize: function() {
+			Toolbox.Views.CollectionView.prototype.initialize.apply(this, arguments);
 
 			if(!this.collection) {
 				this.collection = new Backbone.Collection();
@@ -3184,12 +3860,10 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 		},
 
 		addBreadcrumbs: function(breadcrumbs) {
-			var t = this;
-
 			if(_.isArray(breadcrumbs)) {
 				_.each(breadcrumbs, function(breadcrumb) {
-					t.addBreadcrumb(breadcrumb);
-				});
+					this.addBreadcrumb(breadcrumb);
+				}, this);
 			}
 			else {
 				throw Error('Adding multiple breadcrumbs must done by passing an array');
@@ -3273,9 +3947,96 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
+    } else {
+        root.Toolbox = factory(root.Toolbox);
+    }
+}(this, function (Toolbox) {
+
+    'use strict';
+
+	Toolbox.Views.ButtonDropdownMenu = Toolbox.Views.DropdownMenu.extend({
+
+		template: Toolbox.Template('button-dropdown-menu'),
+
+		childViewContainer: 'ul',
+
+		tagName: 'div',
+
+		triggers: {
+			'click .btn:not(.dropdown-toggle)': 'button:click',
+			'click .dropdown-toggle': 'toggle:click'
+		},
+
+		defaultOptions: {
+			// (string) The dropdown button text
+			buttonLabel: false,
+
+			// (string) The dropdown button class name
+			buttonClassName: 'btn btn-default',
+
+			// (string) The dropdown toggle class name
+			dropdownMenuToggleClassName: 'dropdown-toggle',
+
+			// (string) The dropdown menu class name
+			dropdownMenuClassName: 'dropdown-menu',
+
+			// (int|bool) The collection limit
+			limit: false,
+
+			// (string) The order of the collection items
+			order: 'name',
+
+			// (string) Either asc or desc
+			sort: 'asc',
+
+			// (bool) Close the menu after an item has been clicked
+			closeOnClick: true,
+
+			// (bool) Menu appear as a "dropup" instead of a "dropdown"
+			dropUp: false,
+
+			// (bool) Fetch the collection when the dropdown menu is shown
+			fetchOnShow: false,
+
+			// (bool) Show an activity indicator when fetching the collection
+			showIndicator: true,
+
+			// (bool) Show the button as split with two actions instead of one
+			splitButton: false,
+
+			// (string) The dropdown toggle class name
+			toggleClassName: 'open'
+		},
+
+		showMenu: function() {
+			this.$el.find('.dropdown-toggle').parent().addClass(this.getOption('toggleClassName'));
+			this.$el.find('.dropdown-toggle').attr('aria-expanded', 'true');
+		},
+
+		hideMenu: function() {
+			this.$el.find('.dropdown-toggle').parent().removeClass(this.getOption('toggleClassName'));
+			this.$el.find('.dropdown-toggle').attr('aria-expanded', 'false');
+		},
+
+		isMenuVisible: function() {
+			return this.$el.find('.'+this.getOption('toggleClassName')).length > 0;
+		}
+
+
+	});
+
+    return Toolbox;
+
+}));
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        factory(root.Toolbox);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -3323,7 +4084,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			'click': 'onChildClick'
 		},
 
-		options: {
+		defaultOptions: {
 			// (string) The active class name
 			activeClassName: 'active',
 
@@ -3356,13 +4117,32 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define([
+            'underscore',
+            'backbone',
+            'backbone.marionette',
+            'moment'
+        ], function(_, Backbone, Marionette, moment) {
+            return factory(root.Toolbox, _, Backbone, Marionette, moment)
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(
+            root.Toolbox,
+            require('underscore'),
+            require('backbone'),
+            require('backbone.marionette'),
+            require('moment')
+        );
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(
+            root.Toolbox,
+            root._,
+            root.Backbone,
+            root.Marionette,
+            root.moment
+        );
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, _, Backbone, Marionette, moment) {
 
     'use strict';
 
@@ -3382,7 +4162,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             'change': 'modelChanged'
         },
 
-        options: {
+        defaultOptions: {
             date: false
         },
 
@@ -3395,10 +4175,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 day: this.getOption('day'),
                 hasEvents: this.hasEvents()
             }
-        },
-
-        initialize: function() {
-            Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
         },
 
         setCellHeight: function(width) {
@@ -3477,7 +4253,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             }
         },
 
-        options: {
+        defaultOptions: {
             days: false,
             events: false
         },
@@ -3545,7 +4321,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         childEvents: {
             'click': function(week, args) {
-                console.log(week, args);
                 this.triggerMethod('week:click', week, args);
             },
             'day:click': function(week, day) {
@@ -3554,7 +4329,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             }
         },
 
-        options: {
+        defaultOptions: {
             collection: false,
             date: false,
             alwaysShowSixWeeks: true,
@@ -3889,13 +4664,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery', 'underscore'], function($, _) {
+            return factory(root.Toolbox, $, _)
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'), require('underscore'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$, root._);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $, _) {
 
     'use strict';
 
@@ -3924,17 +4701,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         setInputValue: function(values) {
-            var t = this;
-
             if(!_.isArray(values)) {
                 values = [values];
             }
 
-            t.$el.find(':checked').attr('checked', false);
+            this.$el.find(':checked').attr('checked', false);
 
             _.each(values, function(value) {
-                t.$el.find('[value="'+value+'"]').attr('checked', true);
-            });
+                this.$el.find('[value="'+value+'"]').attr('checked', true);
+            }, this);
         }
 
     });
@@ -3945,9 +4720,292 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['backbone.marionette'], function(Marionette) {
+            return factory(root.Toolbox, Marionette);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('backbone.marionette'));
+    } else {
+        root.Toolbox = factory(root.Toolbox, root.Marionette);
+    }
+}(this, function (Toolbox, Marionette) {
+
+    'use strict';
+
+    Toolbox.Views.CollectionView = Marionette.CollectionView.extend({
+
+        defaultOptions: {
+
+        },
+
+        initialize: function() {
+            Marionette.CollectionView.prototype.initialize.apply(this, arguments);
+
+            this.options = _.extend({}, this.defaultOptions, this.options);
+        }
+
+	});
+
+
+    return Toolbox;
+
+}));
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['backbone.marionette'], function(Marionette) {
+            return factory(root.Toolbox, Marionette);
+        });
+    } else if (typeof exports === 'object') {
+        module.exports = factory(root.Toolbox, require('backbone.marionette'));
+    } else {
+        root.Toolbox = factory(root.Toolbox, root.Marionette);
+    }
+}(this, function (Toolbox, Marionette) {
+
+    'use strict';
+
+    Toolbox.Views.CompositeView = Marionette.CompositeView.extend({
+
+        defaultOptions: {
+
+        },
+
+        initialize: function() {
+            Marionette.CompositeView.prototype.initialize.apply(this, arguments);
+
+            this.options = _.extend({}, this.defaultOptions, this.options);
+        }
+
+	});
+
+
+    return Toolbox;
+
+}));
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['backbone'], function(Backbone) {
+            return factory(root.Toolbox, Backbone);
+        });
+    } else if (typeof exports === 'object') {
+        module.exports = factory(root.Toolbox, require('backbone'));
+    } else {
+        root.Toolbox = factory(root.Toolbox, root.Backbone);
+    }
+}(this, function (Toolbox, Backbone) {
+
+    'use strict';
+
+    Toolbox.Views.DropdownMenuNoItems = Toolbox.Views.ItemView.extend({
+
+		tagName: 'li',
+
+		template: Toolbox.Template('dropdown-menu-no-items'),
+
+		className: 'no-results'
+
+	});
+
+	Toolbox.Views.DropdownMenuItem = Toolbox.Views.ItemView.extend({
+
+		tagName: 'li',
+
+		template: Toolbox.Template('dropdown-menu-item'),
+
+		defaultOptions: {
+			dividerClassName: 'divider'
+		},
+
+		triggers: {
+			'click': {
+				event: 'click',
+				preventDefault: false,
+				stopPropagation: false
+		    }
+		},
+
+		onDomRefresh: function() {
+			if(this.model.get('divider') === true) {
+				this.$el.addClass(this.getOption('dividerClassName'));
+			}
+		}
+
+	});
+
+	Toolbox.Views.DropdownMenu = Toolbox.Views.CompositeView.extend({
+
+		childViewContainer: 'ul',
+
+		childView: Toolbox.Views.DropdownMenuItem,
+
+		emptyView: Toolbox.Views.DropdownMenuNoItems,
+
+		template: Toolbox.Template('dropdown-menu'),
+
+		className: 'dropdown',
+
+		tagName: 'li',
+
+		childEvents: {
+			'click': function(view) {
+				if(this.getOption('closeOnClick') === true) {
+					this.hideMenu()
+				}
+
+				this.triggerMethod('item:click', view);
+			}
+		},
+
+		triggers: {
+			'click .dropdown-toggle': 'toggle:click'
+		},
+
+		defaultOptions: {
+			// (string) The dropdown toggle text
+			toggleLabel: false,
+
+			// (string) The dropdown toggle class name
+			dropdownMenuToggleClassName: 'dropdown-toggle',
+
+			// (string) The dropdown toggle icon class name
+			dropdownMenuToggleIconClassName: 'fa fa-caret-down',
+
+			// (string) The dropdown menu class name
+			dropdownMenuClassName: 'dropdown-menu',
+
+			// (int|bool) The collection limit
+			limit: false,
+
+			// (string) The order of the collection items
+			order: 'name',
+
+			// (string) Either asc or desc
+			sort: 'asc',
+
+			// (bool) Close the menu after an item has been clicked
+			closeOnClick: true,
+
+			// (bool) Fetch the collection when the dropdown menu is shown
+			fetchOnShow: false,
+
+			// (bool) Show an activity indicator when fetching the collection
+			showIndicator: true,
+
+			// (string) The dropdown toggle class name
+			toggleClassName: 'open'
+		},
+
+        templateHelpers: function() {
+            return this.options;
+        },
+
+		initialize: function() {
+			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
+
+			this.on('fetch', function() {
+				if(this.getOption('showIndicator')) {
+					this.showIndicator();
+				}
+			});
+
+			this.on('fetch:success fetch:error', function() {
+				if(this.getOption('showIndicator')) {
+					this.hideIndicator();
+				}
+			});
+		},
+
+		showIndicator: function() {
+			var ActivityViewItem = Toolbox.Views.ActivityIndicator.extend({
+				tagName: 'li',
+				className: 'activity-indicator-item',
+				initialize: function() {
+					Toolbox.Views.ActivityIndicator.prototype.initialize.apply(this, arguments);
+
+					this.options.indicator = 'small';
+				}
+			});
+
+			this.addChild(new Backbone.Model(), ActivityViewItem);
+		},
+
+		hideIndicator: function() {
+			var view = this.children.findByIndex(0);
+
+			if(view && view instanceof Toolbox.Views.ActivityIndicator) {
+				this.children.remove(this.children.findByIndex(0));
+			}
+		},
+
+		showMenu: function() {
+			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().addClass(this.getOption('toggleClassName'));
+			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).attr('aria-expanded', 'true');
+		},
+
+		hideMenu: function() {
+			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().removeClass(this.getOption('toggleClassName'));
+			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).attr('aria-expanded', 'false');
+		},
+
+		isMenuVisible: function() {
+			return this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().hasClass(this.getOption('toggleClassName'));
+		},
+
+		onToggleClick: function() {
+			if(!this.isMenuVisible()) {
+				this.showMenu();
+			}
+			else {
+				this.hideMenu();
+			}
+		},
+
+		onShow: function() {
+			var t = this;
+
+			if(this.getOption('fetchOnShow')) {
+				this.fetch();
+			}
+		},
+
+		fetch: function() {
+			var t = this;
+
+			this.triggerMethod('fetch');
+
+			this.collection.fetch({
+				data: {
+					limit: this.getOption('limit'),
+					order: this.getOption('order'),
+					sort: this.getOption('sort'),
+				},
+				success: function(collection, response) {
+					if(t.getOption('showIndicator')) {
+						t.hideIndicator();
+					}
+
+					t.render();
+					t.triggerMethod('fetch:success', collection, response);
+				},
+				error: function(collection, response) {
+					t.triggerMethod('fetch:error', collection, response);
+				}
+			});
+		}
+
+	});
+
+    return Toolbox;
+
+}));
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        factory(root.Toolbox)
+    } else if (typeof exports === 'object') {
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -3961,7 +5019,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         className: 'inline-editor',
 
-        options: {
+        defaultOptions: {
             // (string) The attribute in the model to edit
             attribute: false,
 
@@ -3971,13 +5029,20 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             // (object) The form input view object options
             formInputViewOptions: false,
 
-            edittingClassName: 'inline-editor-editting'
+            // (srting) The class name to add to the field while it is being editted.
+            edittingClassName: 'inline-editor-editting',
+
+            // (bool) Allow the field to have a null value
+            allowNull: false,
+
+            // (int) The keycode to save the field data
+            saveKeycode: 13,
+
+            // (int) The keycode to cancel the field data
+            cancelKeycode: 27,
         },
 
         regions: {
-            allowNull: false,
-            saveKeycode: 13,
-            cancelKeycode: 27,
             input: '.inline-editor-field',
             indicator: '.inline-editor-activity-indicator'
         },
@@ -4146,9 +5211,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -4172,13 +5237,48 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['backbone.marionette'], function(Marionette) {
+            return factory(root.Toolbox, Marionette)
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.Marionette);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, Marionette) {
+
+    'use strict';
+
+    Toolbox.Views.LayoutView = Marionette.LayoutView.extend({
+
+        defaultOptions: {
+
+        },
+
+        initialize: function() {
+            Marionette.LayoutView.prototype.initialize.apply(this, arguments);
+
+            this.options = _.extend({}, this.defaultOptions, this.options);
+        }
+
+	});
+
+
+    return Toolbox;
+
+}));
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['underscore'], function(_) {
+            return factory(root.Toolbox, _);
+        });
+    } else if (typeof exports === 'object') {
+        module.exports = factory(root.Toolbox, require('underscore'));
+    } else {
+        root.Toolbox = factory(root.Toolbox, root._);
+    }
+}(this, function (Toolbox, _) {
 
     'use strict';
 
@@ -4218,8 +5318,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             }
         },
 
-        initialize: function(options) {
-            Toolbox.Views.BaseField.prototype.initialize.apply(this, options);
+        initialize: function() {
+            Toolbox.Views.BaseField.prototype.initialize.apply(this, arguments);
 
             if(this.options.value === false || _.isNaN(this.options.value)) {
                 this.options.value = 0;
@@ -4309,9 +5409,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -4327,7 +5427,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		tagName: 'li',
 
-		options: {
+		defaultOptions: {
 			message: 'There are no items in the list.'
 		}
 
@@ -4361,7 +5461,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		tagName: 'ul',
 
-		options: {
+		defaultOptions: {
 			// (bool) Activate list item on click
 			activateOnClick: true,
 
@@ -4419,13 +5519,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery'], function($) {
+            return factory(root.Toolbox, $);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'))
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $) {
 
     'use strict';
 
@@ -4443,7 +5545,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             'click .modal-close': 'close:click'
         },
 
-        options: {
+        defaultOptions: {
             // (array) An array of button objects to add to the modal window
             buttons: [],
 
@@ -4504,13 +5606,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery'], function($) {
+            return factory(root.Toolbox, $);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $) {
 
 	'use strict';
 
@@ -4518,7 +5622,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		className: 'notification clearfix',
 
-		options: {
+		defaultOptions: {
 			// (int) The fly-out animation rate in milliseconds
 			animation: 500,
 
@@ -4634,9 +5738,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -4650,7 +5754,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		tagName: 'li',
 
-		options: {
+		defaultOptions: {
 			message: 'There are no items in the list.'
 		},
 
@@ -4690,7 +5794,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		tagName: 'ol',
 
-		options: {
+		defaultOptions: {
 			// (object) The view object to use for the empty message
 			emptyMessageView: Toolbox.Views.NoOrderedListItem,
 
@@ -4731,9 +5835,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -4752,7 +5856,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			'click .prev-page': 'prev:page:click'
 		},
 
-		options: {
+		defaultOptions: {
 			// (string) The pager class name
 			pagerClassName: 'pager',
 
@@ -4851,13 +5955,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery', 'backbone'], function($, Backbone) {
+            return factory(root.Toolbox, root.$, Backbone);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'), require('backbone'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$, root.Backbone);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $, Backbone) {
 
     'use strict';
 
@@ -4867,7 +5973,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		template: Toolbox.Template('pagination-item'),
 
-		options: {
+		defaultOptions: {
 			// (string) The active page class name
 			disabledClassName: 'disabled'
 		},
@@ -4917,7 +6023,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			}
 		},
 
-		options: {
+		defaultOptions: {
 			paginationClassName: 'pagination',
 			activeClassName: 'active',
 			disabledClassName: 'disabled',
@@ -4933,7 +6039,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 		initialize: function() {
 			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
 
-            this.collection = new Backbone.Collection();
+            if(!this.collection) {
+                this.collection = new Backbone.Collection();
+            }
 		},
 
 		attachBuffer: function(collectionView, buffer) {
@@ -5081,9 +6189,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -5097,7 +6205,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		className: 'progress',
 
-		options: {
+		defaultOptions: {
 			// (string) The progress bar class name
 			progressBarClassName: 'progress-bar',
 
@@ -5142,9 +6250,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -5159,6 +6267,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         options: {
             options: false,
             type: 'radio',
+            inputClassName: 'radio',
             checkboxClassName: 'radio'
         },
 
@@ -5178,13 +6287,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['nouislider'], function(noUiSlider) {
+            return factory(root.Toolbox, noUiSlider);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('nouislider'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.noUiSlider);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, noUiSlider) {
 
     'use strict';
 
@@ -5192,7 +6303,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         template: Toolbox.Template('range-slider'),
 
-        options: {
+        defaultOptions: {
             // (bool) Should the slider be animate
             animate: true,
 
@@ -5251,33 +6362,41 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 options.limit = this.getOption('limit');
             }
 
-            this.$el.find('.slider').noUiSlider(options).on({
-                slide: function() {
-                    t.triggerMethod('slide', t.getValue());
-                },
-                set: function() {
-                    t.triggerMethod('set', t.getValue());
-                },
-                change: function() {
-                    t.triggerMethod('change', t.getValue());
-                }
+            var slider = this.$el.find('.slider').get(0);
+
+            slider = noUiSlider.create(slider, options);
+
+            slider.on('slide', function() {
+                t.triggerMethod('slide', t.getValue());
+            });
+
+            slider.on('set', function() {
+                t.triggerMethod('set', t.getValue());
+            });
+
+            slider.on('change', function() {
+                t.triggerMethod('change', t.getValue());
             });
         },
 
+        getSliderElement: function() {
+            return this.$el.find('.slider');
+        },
+
         getValue: function() {
-            return this.$el.find('.slider').val();
+            return this.getSliderElement().val();
         },
 
         setValue: function(value) {
-            this.$el.find('.slider').val(value);
+            this.getSliderElement().val(value);
         },
 
         disable: function() {
-            this.$el.find('.slider').attr('disabled', true);
+            this.getSliderElement().attr('disabled', true);
         },
 
         enable: function() {
-            this.$el.find('.slider').attr('disabled', false);
+            this.getSliderElement().attr('disabled', false);
         }
 
 	});
@@ -5288,9 +6407,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -5334,13 +6453,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery', 'underscore', 'backbone', 'backbone.marionette'], function($, _, Backbone, Marionette) {
+            return factory(root.Toolbox, $, _, Backbone, Marionette);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'), require('underscore'), require('backbone'), require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$, root._, Backbone, Marionette);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $, _, Backbone, Marionette) {
 
     'use strict';
 
@@ -5352,7 +6473,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         className: 'no-results',
 
-        options: {
+        defaultOptions: {
             // (array) Array of array of column
             columns: false,
 
@@ -5366,13 +6487,13 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     });
 
-    Toolbox.Views.TableViewRow = Marionette.ItemView.extend({
+    Toolbox.Views.TableViewRow = Toolbox.Views.ItemView.extend({
 
         tagName: 'tr',
 
         template: Toolbox.Template('table-view-row'),
 
-        options: {
+        defaultOptions: {
             // (array) Array of array of column
             columns: false
         },
@@ -5383,7 +6504,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     });
 
-    Toolbox.Views.TableViewFooter = Marionette.LayoutView.extend({
+    Toolbox.Views.TableViewFooter = Toolbox.Views.LayoutView.extend({
 
         tagName: 'tr',
 
@@ -5397,7 +6518,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             content: 'td'
         },
 
-        options: {
+        defaultOptions: {
             // (array) Array of array of column
             columns: false
         },
@@ -5408,7 +6529,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     });
 
-    Toolbox.Views.TableView = Marionette.CompositeView.extend({
+    Toolbox.Views.TableView = Toolbox.Views.CompositeView.extend({
 
         childView: Toolbox.Views.TableViewRow,
 
@@ -5416,7 +6537,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         template: Toolbox.Template('table-view-group'),
 
-        options: {
+        defaultOptions: {
             // (int) The starting page
             page: 1,
 
@@ -5463,6 +6584,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
             // (string) The table header tag name
             headerTag: 'h3',
+
+            // (string) The table header class name
+            headerClassName: 'table-header',
 
             // (string) The table description
             description: false,
@@ -5594,7 +6718,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 columns: this.getOption('columns')
             });
 
-            this.pagination = new Backbone.Marionette.Region({
+            this.pagination = new Marionette.Region({
                 el: this.$el.find('tfoot')
             });
 
@@ -5617,8 +6741,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 templateHelpers: function() {
                     return this.options;
                 },
-                initialize: function(options) {
-                    Toolbox.Views.ActivityIndicator.prototype.initialize.call(this, options);
+                initialize: function() {
+                    Toolbox.Views.ActivityIndicator.prototype.initialize.apply(this, arguments);
 
                     // Set the activity indicator options
                     _.extend(this.options, t.getOption('indicatorOptions'));
@@ -5645,7 +6769,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         getRequestData: function() {
-            var t = this, data = {};
+            var data = {};
             var options = this.getOption('requestDataOptions');
             var defaultOptions = this.getOption('defaultRequestDataOptions');
             var requestData = this.getOption('requestData');
@@ -5656,7 +6780,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
             _.each(([]).concat(defaultOptions, options), function(name) {
                 if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
-                    data[name] = t.getOption(name);
+                    data[name] = this.getOption(name);
                 }
             }, this);
 
@@ -5725,13 +6849,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery', 'underscore'], function(_) {
+            return factory(root.Toolbox, $, _);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('jQuery'), require('underscore'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$, root._);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $, _) {
 
     'use strict';
 
@@ -5739,7 +6865,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		template: Toolbox.Template('tab-content'),
 
-		options: {
+		defaultOptions: {
 			name: false,
 
 			id: false,
@@ -5764,7 +6890,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			}
 		},
 
-		options: {
+		defaultOptions: {
 			contentView: Toolbox.Views.TabContent,
 
 			activeClassName: 'active',
@@ -5870,9 +6996,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -5900,13 +7026,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['backbone'], function(Backbone) {
+            return factory(root.Toolbox, Backbone);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('backbone'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.Backbone);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, Backbone) {
 
     'use strict';
 
@@ -5916,7 +7044,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		tagName: 'li',
 
-		options: {
+		defaultOptions: {
 			message: 'There are no items in the list.'
 		},
 
@@ -5954,7 +7082,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		tagName: 'ul',
 
-		options: {
+		defaultOptions: {
 			// (object) The view object to use for the empty message
 			emptyMessageView: Toolbox.Views.NoUnorderedListItem,
 

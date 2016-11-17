@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['underscore'], function(_) {
+            return factory(root.Toolbox, _);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('underscore'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root._);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, _) {
 
     'use strict';
 
@@ -46,8 +48,8 @@
             }
         },
 
-        initialize: function(options) {
-            Toolbox.Views.BaseField.prototype.initialize.apply(this, options);
+        initialize: function() {
+            Toolbox.Views.BaseField.prototype.initialize.apply(this, arguments);
 
             if(this.options.value === false || _.isNaN(this.options.value)) {
                 this.options.value = 0;

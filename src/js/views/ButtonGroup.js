@@ -1,8 +1,8 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        factory(root.Toolbox);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox);
     } else {
         root.Toolbox = factory(root.Toolbox);
     }
@@ -50,7 +50,7 @@
 			'click': 'onChildClick'
 		},
 
-		options: {
+		defaultOptions: {
 			// (string) The active class name
 			activeClassName: 'active',
 

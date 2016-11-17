@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['backbone'], function(Backbone) {
+            return factory(root.Toolbox, Backbone);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('backbone'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.Backbone);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, Backbone) {
 
     'use strict';
 
@@ -16,7 +18,7 @@
 
 		tagName: 'li',
 
-		options: {
+		defaultOptions: {
 			message: 'There are no items in the list.'
 		},
 
@@ -54,7 +56,7 @@
 
 		tagName: 'ul',
 
-		options: {
+		defaultOptions: {
 			// (object) The view object to use for the empty message
 			emptyMessageView: Toolbox.Views.NoUnorderedListItem,
 

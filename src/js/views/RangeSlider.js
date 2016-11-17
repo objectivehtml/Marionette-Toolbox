@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['nouislider'], function(noUiSlider) {
+            return factory(root.Toolbox, noUiSlider);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(root.Toolbox, require('nouislider'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.noUiSlider);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, noUiSlider) {
 
     'use strict';
 
@@ -14,7 +16,7 @@
 
         template: Toolbox.Template('range-slider'),
 
-        options: {
+        defaultOptions: {
             // (bool) Should the slider be animate
             animate: true,
 
@@ -73,33 +75,41 @@
                 options.limit = this.getOption('limit');
             }
 
-            this.$el.find('.slider').noUiSlider(options).on({
-                slide: function() {
-                    t.triggerMethod('slide', t.getValue());
-                },
-                set: function() {
-                    t.triggerMethod('set', t.getValue());
-                },
-                change: function() {
-                    t.triggerMethod('change', t.getValue());
-                }
+            var slider = this.$el.find('.slider').get(0);
+
+            slider = noUiSlider.create(slider, options);
+
+            slider.on('slide', function() {
+                t.triggerMethod('slide', t.getValue());
+            });
+
+            slider.on('set', function() {
+                t.triggerMethod('set', t.getValue());
+            });
+
+            slider.on('change', function() {
+                t.triggerMethod('change', t.getValue());
             });
         },
 
+        getSliderElement: function() {
+            return this.$el.find('.slider');
+        },
+
         getValue: function() {
-            return this.$el.find('.slider').val();
+            return this.getSliderElement().val();
         },
 
         setValue: function(value) {
-            this.$el.find('.slider').val(value);
+            this.getSliderElement().val(value);
         },
 
         disable: function() {
-            this.$el.find('.slider').attr('disabled', true);
+            this.getSliderElement().attr('disabled', true);
         },
 
         enable: function() {
-            this.$el.find('.slider').attr('disabled', false);
+            this.getSliderElement().attr('disabled', false);
         }
 
 	});

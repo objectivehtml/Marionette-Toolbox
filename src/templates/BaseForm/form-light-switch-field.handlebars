@@ -2,6 +2,10 @@
 	<{{../headerTagName}}>{{../header}}</{{../headerTagName}}>
 {{/if}}
 
+{{#if label}}
+	<label for="{{../id}}" class="{{../labelClassName}}">{{../label}}</label>
+{{/if}}
+
 {{#if description}}
 	<p {{#if ../descriptionClassName}}class="{{../../descriptionClassName}}"{{/if}}>{{../description}}</p>
 {{/if}}
@@ -14,4 +18,4 @@
 	</div>
 </div>
 
-<input type="hidden" name="{{name}}" value="{{value}}">
+<input type="hidden" name="{{name}}" value="{{value}}" id="{{id}}">

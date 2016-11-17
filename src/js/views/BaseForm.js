@@ -1,12 +1,20 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['marionette.toolbox'], factory);
+        define(['jQuery', 'underscore', 'backbone', 'backbone.marionette'], function($, _, Backbone, Marionette) {
+            return factory(root.Toolbox, $, _, Backbone, Marionette);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('marionette.toolbox'));
+        module.exports = factory(
+            root.Toolbox,
+            require('jQuery'),
+            require('underscore'),
+            require('backbone'),
+            require('backbone.marionette')
+        );
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$, root._, root.Backbone, root.Marionette);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $, _, Backbone, Marionette) {
 
     'use strict';
 
@@ -37,7 +45,7 @@
 
         isSubmitting: false,
 
-        options: {
+        defaultOptions: {
 
             // (object) An object of activity indicator options
             activityIndicatorOptions: {
@@ -160,8 +168,6 @@
         },
 
         removeErrors: function() {
-            console.log(this.$errors);
-
             if(this.$errors) {
                 _.each(this.$errors, function($error) {
                     $error.parents('.'+this.getOption('hasErrorClassName'))
@@ -194,7 +200,7 @@
 
             this.appendGlobalErrorRegionToDom(this.$globalErrors);
 
-            this.globalErrors = new Backbone.Marionette.Region({
+            this.globalErrors = new Marionette.Region({
                 el: this.$globalErrors.get(0)
             });
 
