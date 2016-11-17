@@ -25,7 +25,7 @@
 
     Toolbox.Views = {};
 
-    Toolbox.VERSION = '0.4.3';
+    Toolbox.VERSION = '0.4.5';
 
     // Toolbox.Template
     // -------------------
@@ -1598,7 +1598,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             return factory(root.Toolbox, _, Marionette);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'), quire('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone.marionette'));
     } else {
         root.Toolbox = factory(root.Toolbox, root._, root.Marionette);
     }
@@ -1627,15 +1627,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['backbone.marionette'], function(Marionette) {
-            return factory(root.Toolbox, Marionette)
+        define(['underscore', 'backbone.marionette'], function(_, Marionette) {
+            return factory(root.Toolbox, _, Marionette);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root.Marionette);
+        root.Toolbox = factory(root.Toolbox, root._, root.Marionette);
     }
-}(this, function (Toolbox, Marionette) {
+}(this, function (Toolbox, _, Marionette) {
 
     'use strict';
 
@@ -1660,15 +1660,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['backbone.marionette'], function(Marionette) {
-            return factory(root.Toolbox, Marionette);
+        define(['underscore', 'backbone.marionette'], function(_, Marionette) {
+            return factory(root.Toolbox, _, Marionette);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root.Marionette);
+        root.Toolbox = factory(root.Toolbox, root._, root.Marionette);
     }
-}(this, function (Toolbox, Marionette) {
+}(this, function (Toolbox, _, Marionette) {
 
     'use strict';
 
@@ -1693,15 +1693,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['backbone.marionette'], function(Marionette) {
-            return factory(root.Toolbox, Marionette);
+        define(['underscore', 'backbone.marionette'], function(_, Marionette) {
+            return factory(root.Toolbox, _, Marionette);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root.Marionette);
+        root.Toolbox = factory(root.Toolbox, root._, root.Marionette);
     }
-}(this, function (Toolbox, Marionette) {
+}(this, function (Toolbox, _, Marionette) {
 
     'use strict';
 
@@ -4720,15 +4720,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['backbone.marionette'], function(Marionette) {
-            return factory(root.Toolbox, Marionette);
+        define(['underscore', 'backbone.marionette'], function(_, Marionette) {
+            return factory(root.Toolbox, _, Marionette);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root.Marionette);
+        root.Toolbox = factory(root.Toolbox, root._, root.Marionette);
     }
-}(this, function (Toolbox, Marionette) {
+}(this, function (Toolbox, _, Marionette) {
 
     'use strict';
 
@@ -4753,15 +4753,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['backbone.marionette'], function(Marionette) {
-            return factory(root.Toolbox, Marionette);
+        define(['underscore', 'backbone.marionette'], function(_, Marionette) {
+            return factory(root.Toolbox, _, Marionette);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root.Marionette);
+        root.Toolbox = factory(root.Toolbox, root._, root.Marionette);
     }
-}(this, function (Toolbox, Marionette) {
+}(this, function (Toolbox, _, Marionette) {
 
     'use strict';
 
@@ -5237,15 +5237,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['backbone.marionette'], function(Marionette) {
-            return factory(root.Toolbox, Marionette)
+        define(['underscore', 'backbone.marionette'], function(_, Marionette) {
+            return factory(root.Toolbox, _, Marionette);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root.Marionette);
+        root.Toolbox = factory(root.Toolbox, root._, root.Marionette);
     }
-}(this, function (Toolbox, Marionette) {
+}(this, function (Toolbox, _, Marionette) {
 
     'use strict';
 

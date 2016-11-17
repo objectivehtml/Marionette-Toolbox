@@ -4,7 +4,7 @@
             return factory(root.Toolbox, _, Marionette);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'), quire('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone.marionette'));
     } else {
         root.Toolbox = factory(root.Toolbox, root._, root.Marionette);
     }
