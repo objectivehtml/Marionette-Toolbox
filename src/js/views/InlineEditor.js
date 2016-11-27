@@ -14,7 +14,7 @@
 
         template: Toolbox.Template('inline-editor'),
 
-        className: 'inline-editor',
+        className: 'inline-editor-wrapper',
 
         defaultOptions: {
             // (string) The attribute in the model to edit

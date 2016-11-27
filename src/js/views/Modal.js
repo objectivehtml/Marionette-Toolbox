@@ -1,14 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['jQuery'], function($) {
-            return factory(root.Toolbox, $);
+        define(['jQuery', 'underscore'], function($, _) {
+            return factory(root.Toolbox, $, _);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('jQuery'))
+        module.exports = factory(root.Toolbox, require('jQuery'), require('underscore'))
     } else {
-        root.Toolbox = factory(root.Toolbox, root.$);
+        root.Toolbox = factory(root.Toolbox, root.$, root._);
     }
-}(this, function (Toolbox, $) {
+}(this, function (Toolbox, $, _) {
 
     'use strict';
 
@@ -37,8 +37,24 @@
             closeAnimationRate: 500
         },
 
+        events: {
+            'click .modal-buttons a': function(e) {
+                var buttons = this.getOption('buttons');
+                var i = $(e.target).index();
+
+                if(_.isArray(buttons) && buttons[i].onClick) {
+                    buttons[i].onClick.call(this, $(e.target));
+                    e.preventDefault();
+                }
+            }
+        },
+
         templateHelpers: function() {
             return this.options;
+        },
+
+        setContentView: function(view) {
+            this.content.show(view);
         },
 
         getContentView: function() {
@@ -46,11 +62,9 @@
         },
 
         show: function() {
-            var t = this;
+            var t = this, view = this.getContentView();
 
             this.render();
-
-            var view = this.getContentView();
 
             view.on('cancel:click', function() {
                 t.hide();

@@ -78,6 +78,8 @@
 
     Toolbox.Views.TableView = Toolbox.Views.CompositeView.extend({
 
+		className: 'table-view',
+
         childView: Toolbox.Views.TableViewRow,
 
         childViewContainer: 'tbody',

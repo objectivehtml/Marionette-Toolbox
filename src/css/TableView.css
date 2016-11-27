@@ -1,3 +1,7 @@
+.table-view .buttons-wrapper {
+	margin-bottom: 15px;
+}
+
 table .sort-icon { display: none; }
 table .sort-asc .asc { display: inline-block; }
 table .sort-desc .desc { display: inline-block; }
@@ -19,8 +23,8 @@ table tr:hover .table-action:hover { background: rgb(113, 113, 113); }
 .box > h4 .dropdown-menu { background: rgb(50, 50, 50); }
 .box > h4 .dropdown-menu h5,
 .box > h4 .dropdown-menu label { color: white; text-shadow: none; }
-.box > h4 a.dropdown-trigger:hover, 
-.box > h4 a.dropdown-trigger:focus, 
+.box > h4 a.dropdown-trigger:hover,
+.box > h4 a.dropdown-trigger:focus,
 .box > h4 a.dropdown-trigger:active { color: rgb(50, 50, 50); }
 .box > h4 .active a.dropdown-trigger,
 .box > h4 .active a.dropdown-trigger:hover,
@@ -31,8 +35,8 @@ table tr:hover .table-action:hover { background: rgb(113, 113, 113); }
 .box th { background: rgb(248, 248, 248); color: rgb(100, 100, 100); text-shadow: 0 1px 0 white; padding: 16px 10px; border-bottom: 1px solid rgb(214, 214, 214); font-size: 16px; }
 .box table tr.error { background: rgb(250, 246, 246) !important; }
 .box table tr.error td, .box table tr.error td a { color: rgb(144, 35, 40); }
-.box table tr.even, 
-.box table tr.alt, 
+.box table tr.even,
+.box table tr.alt,
 .box table tr:nth-of-type(even) { background: white; }
 .box td { padding: 10px; }
 .box td:last-child.small { width: 100px; font-size: 12px; }
