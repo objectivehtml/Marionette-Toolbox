@@ -24,7 +24,28 @@
 
         tagName: 'span',
 
-        className: 'help-block'
+        className: 'help-block',
+
+        options: {
+            // (string) The input field name
+            field: false,
+
+            // (array) The input field errors
+            errors: [],
+
+            // (bool) If true errors will have <br> tags to break error into newlines
+            newline: true
+        },
+
+        templateHelpers: function() {
+            var options = _.extend({}, this.options);
+
+            if(!_.isArray(options.errors)) {
+                options.errors = [options.errors];
+            }
+
+            return options;
+        }
 
     });
 
@@ -53,7 +74,7 @@
             },
 
             // (object) The error view object
-            errorView: false,
+            errorView: Toolbox.Views.BlockFormError,
 
             // (object) The error view options object
             errorViewOptions: false,
@@ -233,18 +254,12 @@
         createError: function(field, error) {
             var View = this.getOption('errorView');
 
-            if(!View) {
-                View = Toolbox.Views.BlockFormError;
-            }
+            var model = new Backbone.Model();
 
-            var model = new Backbone.Model({
+            var view = new View(_.extend({}, this.getOption('errorViewOptions'), {
                 field: field,
-                error: error
-            });
-
-            var view = new View(_.extend({
-                model: model
-            }, this.getOption('errorViewOptions')));
+                errors: error
+            }));
 
             return view;
         },
@@ -293,39 +308,33 @@
         },
 
         appendErrorViewToGlobal: function(errorView) {
-            var error = errorView.model.get('error');
-
             this.globalErrors.currentView.collection.add({
-                content: error
+                content: errorView.getOption('errors')
             });
         },
 
         appendErrorViewToField: function(errorView) {
             errorView.render();
 
-            this.getInputFieldParent(errorView.model.get('field'))
+            this.getInputFieldParent(errorView.getOption('field'))
                 .append(errorView.$el);
         },
 
         hideErrors: function() {
-            var t = this;
-
             if(this.getOption('showGlobalErrors') === true) {
                 this.removeGlobalErrors();
             }
 
             if(_.isArray(this._errorViews)) {
                 _.each(this._errorViews, function(view) {
-                    var field = view.model.get('field');
-
-                    if(t.getOption('addHasErrorClass') === true) {
-                        t.removeHasErrorClassFromField(field);
+                    if(this.getOption('addHasErrorClass') === true) {
+                        this.removeHasErrorClassFromField(view.getOption('field'));
                     }
 
-                    if(t.getOption('showInlineErrors') === true) {
+                    if(this.getOption('showInlineErrors') === true) {
                         view.$el.remove();
                     }
-                });
+                }, this);
             }
         },
 

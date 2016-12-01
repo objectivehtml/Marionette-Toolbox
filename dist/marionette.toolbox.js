@@ -25,7 +25,7 @@
 
     Toolbox.Views = {};
 
-    Toolbox.VERSION = '0.4.10';
+    Toolbox.VERSION = '0.4.16';
 
     // Toolbox.Template
     // -------------------
@@ -94,45 +94,6 @@ function program7(depth0,data,depth1) {
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.dimmedBgColor), {hash:{},inverse:self.noop,fn:self.programWithDepth(7, program7, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\">\n	\n	<span class=\"activity-indicator\"></span>\n\n</div>";
-  return buffer;
-  })}));
-(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['breadcrumb'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
-
-function program1(depth0,data) {
-  
-  var buffer = "", stack1, helper;
-  buffer += "<a href=\"";
-  if (helper = helpers.href) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.href); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "\">";
-  return buffer;
-  }
-
-function program3(depth0,data) {
-  
-  
-  return "</a>";
-  }
-
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.href), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  if (helper = helpers.label) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.label); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1);
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.href), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  return buffer;
-  })}));
-(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-breadcrumbs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "";
-
-
   return buffer;
   })}));
 (function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-checkbox-radio-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -256,12 +217,29 @@ function program11(depth0,data,depth3) {
 (function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-error'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
+function program1(depth0,data,depth1) {
+  
+  var buffer = "", stack1;
+  buffer += "\n    <span>"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + "</span>";
+  stack1 = helpers['if'].call(depth0, (depth1 && depth1.newline), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n";
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  
+  return "<br>";
+  }
 
-  if (helper = helpers.error) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.error); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  return escapeExpression(stack1);
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.errors), {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n";
+  return buffer;
   })}));
 (function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-input-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -739,6 +717,45 @@ function program13(depth0,data,depth1) {
   else { helper = (depth0 && depth0.inputClassName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "\"></textarea>";
+  return buffer;
+  })}));
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['breadcrumb'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1, helper;
+  buffer += "<a href=\"";
+  if (helper = helpers.href) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.href); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">";
+  return buffer;
+  }
+
+function program3(depth0,data) {
+  
+  
+  return "</a>";
+  }
+
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.href), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (helper = helpers.label) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.label); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1);
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.href), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  return buffer;
+  })}));
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-breadcrumbs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "";
+
+
   return buffer;
   })}));
 (function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['button-dropdown-menu'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1877,7 +1894,28 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         tagName: 'span',
 
-        className: 'help-block'
+        className: 'help-block',
+
+        options: {
+            // (string) The input field name
+            field: false,
+
+            // (array) The input field errors
+            errors: [],
+
+            // (bool) If true errors will have <br> tags to break error into newlines
+            newline: true
+        },
+
+        templateHelpers: function() {
+            var options = _.extend({}, this.options);
+
+            if(!_.isArray(options.errors)) {
+                options.errors = [options.errors];
+            }
+
+            return options;
+        }
 
     });
 
@@ -1906,7 +1944,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             },
 
             // (object) The error view object
-            errorView: false,
+            errorView: Toolbox.Views.BlockFormError,
 
             // (object) The error view options object
             errorViewOptions: false,
@@ -2086,18 +2124,12 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         createError: function(field, error) {
             var View = this.getOption('errorView');
 
-            if(!View) {
-                View = Toolbox.Views.BlockFormError;
-            }
+            var model = new Backbone.Model();
 
-            var model = new Backbone.Model({
+            var view = new View(_.extend({}, this.getOption('errorViewOptions'), {
                 field: field,
-                error: error
-            });
-
-            var view = new View(_.extend({
-                model: model
-            }, this.getOption('errorViewOptions')));
+                errors: error
+            }));
 
             return view;
         },
@@ -2146,39 +2178,33 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         appendErrorViewToGlobal: function(errorView) {
-            var error = errorView.model.get('error');
-
             this.globalErrors.currentView.collection.add({
-                content: error
+                content: errorView.getOption('errors')
             });
         },
 
         appendErrorViewToField: function(errorView) {
             errorView.render();
 
-            this.getInputFieldParent(errorView.model.get('field'))
+            this.getInputFieldParent(errorView.getOption('field'))
                 .append(errorView.$el);
         },
 
         hideErrors: function() {
-            var t = this;
-
             if(this.getOption('showGlobalErrors') === true) {
                 this.removeGlobalErrors();
             }
 
             if(_.isArray(this._errorViews)) {
                 _.each(this._errorViews, function(view) {
-                    var field = view.model.get('field');
-
-                    if(t.getOption('addHasErrorClass') === true) {
-                        t.removeHasErrorClassFromField(field);
+                    if(this.getOption('addHasErrorClass') === true) {
+                        this.removeHasErrorClassFromField(view.getOption('field'));
                     }
 
-                    if(t.getOption('showInlineErrors') === true) {
+                    if(this.getOption('showInlineErrors') === true) {
                         view.$el.remove();
                     }
-                });
+                }, this);
             }
         },
 
@@ -3342,7 +3368,28 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
         tagName: 'span',
 
-        className: 'help-block'
+        className: 'help-block',
+
+        options: {
+            // (string) The input field name
+            field: false,
+
+            // (array) The input field errors
+            errors: [],
+
+            // (bool) If true errors will have <br> tags to break error into newlines
+            newline: true
+        },
+
+        templateHelpers: function() {
+            var options = _.extend({}, this.options);
+
+            if(!_.isArray(options.errors)) {
+                options.errors = [options.errors];
+            }
+
+            return options;
+        }
 
     });
 
@@ -3371,7 +3418,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             },
 
             // (object) The error view object
-            errorView: false,
+            errorView: Toolbox.Views.BlockFormError,
 
             // (object) The error view options object
             errorViewOptions: false,
@@ -3551,18 +3598,12 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         createError: function(field, error) {
             var View = this.getOption('errorView');
 
-            if(!View) {
-                View = Toolbox.Views.BlockFormError;
-            }
+            var model = new Backbone.Model();
 
-            var model = new Backbone.Model({
+            var view = new View(_.extend({}, this.getOption('errorViewOptions'), {
                 field: field,
-                error: error
-            });
-
-            var view = new View(_.extend({
-                model: model
-            }, this.getOption('errorViewOptions')));
+                errors: error
+            }));
 
             return view;
         },
@@ -3611,39 +3652,33 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         appendErrorViewToGlobal: function(errorView) {
-            var error = errorView.model.get('error');
-
             this.globalErrors.currentView.collection.add({
-                content: error
+                content: errorView.getOption('errors')
             });
         },
 
         appendErrorViewToField: function(errorView) {
             errorView.render();
 
-            this.getInputFieldParent(errorView.model.get('field'))
+            this.getInputFieldParent(errorView.getOption('field'))
                 .append(errorView.$el);
         },
 
         hideErrors: function() {
-            var t = this;
-
             if(this.getOption('showGlobalErrors') === true) {
                 this.removeGlobalErrors();
             }
 
             if(_.isArray(this._errorViews)) {
                 _.each(this._errorViews, function(view) {
-                    var field = view.model.get('field');
-
-                    if(t.getOption('addHasErrorClass') === true) {
-                        t.removeHasErrorClassFromField(field);
+                    if(this.getOption('addHasErrorClass') === true) {
+                        this.removeHasErrorClassFromField(view.getOption('field'));
                     }
 
-                    if(t.getOption('showInlineErrors') === true) {
+                    if(this.getOption('showInlineErrors') === true) {
                         view.$el.remove();
                     }
-                });
+                }, this);
             }
         },
 

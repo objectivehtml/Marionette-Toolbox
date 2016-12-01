@@ -1,1 +1,3 @@
-{{error}}
+{{#each errors}}
+    <span>{{this}}</span>{{#if ../newline}}<br>{{/if}}
+{{/each}}

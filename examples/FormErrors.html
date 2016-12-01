@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
+		<link rel="stylesheet" href="../dist/marionette.toolbox.css">
+
+		<script src="../resources/vendor.js"></script>
+
+		<script type="text/javascript">
+			var $ = require('jquery');
+			var _ = require('underscore');
+			var Backbone = require('backbone');
+			var Marionette = require('backbone.marionette');
+			var Handlebars = require('handlebars');
+		</script>
+
+		<script src="../dist/marionette.toolbox.js"></script>
+	</head>
+	<body>
+		<div class="container">
+            <h3>Single Block Error</h3>
+			<div id="block-error"></div>
+
+            <h3>Multiple Block Error</h3>
+			<div id="block-errors"></div>
+
+            <h3>Single Inline Error</h3>
+    		<div id="inline-error"></div>
+
+            <h3>Multiple Inline Error</h3>
+    		<div id="inline-errors"></div>
+		</div>
+
+		<script type="text/javascript">
+			var App = new Backbone.Marionette.Application();
+
+			App.addRegions({
+                blockError: '#block-error',
+                blockErrors: '#block-errors',
+                inlineError: '#inline-error',
+                inlineErrors: '#inline-errors'
+			});
+
+			App.on('start', function() {
+
+				var view = new Toolbox.Views.BlockFormError({
+                    field: 'field1',
+                    errors: 'This field is required.'
+				});
+
+				App.blockError.show(view);
+
+				var view2 = new Toolbox.Views.BlockFormError({
+                    field: 'field2',
+                    errors: [
+                        'This field is required.',
+                        'This field must be a string'
+                    ]
+				});
+
+				App.blockErrors.show(view2);
+
+                var view3 = new Toolbox.Views.InlineFormError({
+                    field: 'field3',
+                    errors: 'This field is required.'
+				});
+
+				App.inlineError.show(view3);
+
+				var view4 = new Toolbox.Views.InlineFormError({
+                    field: 'field4',
+                    errors: [
+                        'This field is required.',
+                        'This field must be a string'
+                    ]
+				});
+
+				App.inlineErrors.show(view4);
+
+			});
+
+			App.start();
+
+		</script>
+
+	</body>
+</html>
