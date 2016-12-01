@@ -10,7 +10,7 @@
 
     'use strict';
 
-	Toolbox.Views.NoListGroupItem = Toolbox.Views.ItemView.extend({
+	Toolbox.NoListGroupItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('no-list-group-item'),
 
@@ -24,7 +24,7 @@
 
 	});
 
-	Toolbox.Views.ListGroupItem = Toolbox.Views.ItemView.extend({
+	Toolbox.ListGroupItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('list-group-item'),
 
@@ -44,9 +44,9 @@
 
 	});
 
-	Toolbox.Views.ListGroup = Toolbox.Views.CollectionView.extend({
+	Toolbox.ListGroup = Toolbox.CollectionView.extend({
 
-		childView: Toolbox.Views.ListGroupItem,
+		childView: Toolbox.ListGroupItem,
 
 		className: 'list-group',
 
@@ -63,7 +63,7 @@
 			emptyMessage: 'There are no items in the list.',
 
 			// (object) The view object to use for the empty message
-			emptyMessageView: Toolbox.Views.NoListGroupItem,
+			emptyMessageView: Toolbox.NoListGroupItem,
 
 			// (bool) Show the empty message view
 			showEmptyMessage: true

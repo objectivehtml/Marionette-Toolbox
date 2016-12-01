@@ -10,7 +10,7 @@
 
     'use strict';
 
-	Toolbox.Views.NoOrderedListItem = Toolbox.Views.ItemView.extend({
+	Toolbox.NoOrderedListItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('no-ordered-list-item'),
 
@@ -26,7 +26,7 @@
 
 	});
 
-	Toolbox.Views.OrderedListItem = Toolbox.Views.ItemView.extend({
+	Toolbox.OrderedListItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('ordered-list-item'),
 
@@ -46,11 +46,11 @@
 
 	});
 
-	Toolbox.Views.OrderedList = Toolbox.Views.CollectionView.extend({
+	Toolbox.OrderedList = Toolbox.CollectionView.extend({
 
-		childView: Toolbox.Views.OrderedListItem,
+		childView: Toolbox.OrderedListItem,
 
-    	emptyView: Toolbox.Views.NoUnorderedListItem,
+    	emptyView: Toolbox.NoUnorderedListItem,
 
 		className: 'ordered-list',
 
@@ -58,7 +58,7 @@
 
 		defaultOptions: {
 			// (object) The view object to use for the empty message
-			emptyMessageView: Toolbox.Views.NoOrderedListItem,
+			emptyMessageView: Toolbox.NoOrderedListItem,
 
 			// (string) The message to display if there are no list items
 			emptyMessage: 'There are no items in the list.',

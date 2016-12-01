@@ -43,59 +43,6 @@
     return root.Toolbox = Toolbox;
 }));
 
-(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['activity-indicator'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
-
-function program1(depth0,data) {
-  
-  
-  return "dimmed";
-  }
-
-function program3(depth0,data,depth1) {
-  
-  var buffer = "", stack1;
-  buffer += "min-height:"
-    + escapeExpression(((stack1 = (depth1 && depth1.minHeight)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ";";
-  return buffer;
-  }
-
-function program5(depth0,data,depth1) {
-  
-  var buffer = "", stack1;
-  buffer += "position:"
-    + escapeExpression(((stack1 = (depth1 && depth1.position)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ";";
-  return buffer;
-  }
-
-function program7(depth0,data,depth1) {
-  
-  var buffer = "", stack1;
-  buffer += "background-color: "
-    + escapeExpression(((stack1 = (depth1 && depth1.dimmedBgColor)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ";";
-  return buffer;
-  }
-
-  buffer += "<div class=\"activity-indicator-dimmer ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.dimmed), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\" style=\"";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.minHeight), {hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.position), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.dimmedBgColor), {hash:{},inverse:self.noop,fn:self.programWithDepth(7, program7, data, depth0),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\">\n	\n	<span class=\"activity-indicator\"></span>\n\n</div>";
-  return buffer;
-  })}));
 (function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-checkbox-radio-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -717,6 +664,59 @@ function program13(depth0,data,depth1) {
   else { helper = (depth0 && depth0.inputClassName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "\"></textarea>";
+  return buffer;
+  })}));
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['activity-indicator'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  
+  return "dimmed";
+  }
+
+function program3(depth0,data,depth1) {
+  
+  var buffer = "", stack1;
+  buffer += "min-height:"
+    + escapeExpression(((stack1 = (depth1 && depth1.minHeight)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + ";";
+  return buffer;
+  }
+
+function program5(depth0,data,depth1) {
+  
+  var buffer = "", stack1;
+  buffer += "position:"
+    + escapeExpression(((stack1 = (depth1 && depth1.position)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + ";";
+  return buffer;
+  }
+
+function program7(depth0,data,depth1) {
+  
+  var buffer = "", stack1;
+  buffer += "background-color: "
+    + escapeExpression(((stack1 = (depth1 && depth1.dimmedBgColor)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + ";";
+  return buffer;
+  }
+
+  buffer += "<div class=\"activity-indicator-dimmer ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.dimmed), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\" style=\"";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.minHeight), {hash:{},inverse:self.noop,fn:self.programWithDepth(3, program3, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.position), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.dimmedBgColor), {hash:{},inverse:self.noop,fn:self.programWithDepth(7, program7, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\">\n	\n	<span class=\"activity-indicator\"></span>\n\n</div>";
   return buffer;
   })}));
 (function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['breadcrumb'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1614,7 +1614,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.ItemView = Marionette.ItemView.extend({
+    Toolbox.ItemView = Marionette.ItemView.extend({
 
         defaultOptions: {
 
@@ -1647,7 +1647,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.LayoutView = Marionette.LayoutView.extend({
+    Toolbox.LayoutView = Marionette.LayoutView.extend({
 
         defaultOptions: {
 
@@ -1680,7 +1680,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.CompositeView = Marionette.CompositeView.extend({
+    Toolbox.CompositeView = Marionette.CompositeView.extend({
 
         defaultOptions: {
 
@@ -1713,7 +1713,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.CollectionView = Marionette.CollectionView.extend({
+    Toolbox.CollectionView = Marionette.CollectionView.extend({
 
         defaultOptions: {
 
@@ -1746,7 +1746,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.BaseField = Toolbox.Views.ItemView.extend({
+    Toolbox.BaseField = Toolbox.ItemView.extend({
 
         formModel: false,
 
@@ -1801,7 +1801,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         initialize: function() {
-            Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
+            Toolbox.ItemView.prototype.initialize.apply(this, arguments);
 
             this.triggers = _.extend({}, this.getDefaultTriggers(), this.triggers);
         },
@@ -1888,7 +1888,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.BlockFormError = Toolbox.Views.ItemView.extend({
+    Toolbox.BlockFormError = Toolbox.ItemView.extend({
 
         template: Toolbox.Template('form-error'),
 
@@ -1919,13 +1919,13 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     });
 
-    Toolbox.Views.InlineFormError = Toolbox.Views.BlockFormError.extend({
+    Toolbox.InlineFormError = Toolbox.BlockFormError.extend({
 
         className: 'help-inline'
 
     });
 
-    Toolbox.Views.BaseForm = Toolbox.Views.LayoutView.extend({
+    Toolbox.BaseForm = Toolbox.LayoutView.extend({
 
         tagName: 'form',
 
@@ -1944,7 +1944,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             },
 
             // (object) The error view object
-            errorView: Toolbox.Views.BlockFormError,
+            errorView: Toolbox.BlockFormError,
 
             // (object) The error view options object
             errorViewOptions: false,
@@ -2053,7 +2053,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 el: this.$indicator.get(0)
             });
 
-            var indicator = new Toolbox.Views.ActivityIndicator(this.getOption('activityIndicatorOptions'));
+            var indicator = new Toolbox.ActivityIndicator(this.getOption('activityIndicatorOptions'));
 
             this.indicator.show(indicator);
         },
@@ -2084,7 +2084,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             var View = this.getOption('globalErrorsView');
 
             if(!View) {
-                View = Toolbox.Views.UnorderedList;
+                View = Toolbox.UnorderedList;
             }
 
             this.$globalErrors = $('<div class="global-errors"></div>');
@@ -2108,7 +2108,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             var View = this.getOption('notificationView');
 
             if(!View) {
-                View = Toolbox.Views.Notification;
+                View = Toolbox.Notification;
             }
 
             var view = new View(_.extend({
@@ -2351,7 +2351,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.DropdownMenuNoItems = Toolbox.Views.ItemView.extend({
+    Toolbox.DropdownMenuNoItems = Toolbox.ItemView.extend({
 
 		tagName: 'li',
 
@@ -2361,7 +2361,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.DropdownMenuItem = Toolbox.Views.ItemView.extend({
+	Toolbox.DropdownMenuItem = Toolbox.ItemView.extend({
 
 		tagName: 'li',
 
@@ -2387,13 +2387,13 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.DropdownMenu = Toolbox.Views.CompositeView.extend({
+	Toolbox.DropdownMenu = Toolbox.CompositeView.extend({
 
 		childViewContainer: 'ul',
 
-		childView: Toolbox.Views.DropdownMenuItem,
+		childView: Toolbox.DropdownMenuItem,
 
-		emptyView: Toolbox.Views.DropdownMenuNoItems,
+		emptyView: Toolbox.DropdownMenuNoItems,
 
 		template: Toolbox.Template('dropdown-menu'),
 
@@ -2455,7 +2455,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
 		initialize: function() {
-			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
+			Toolbox.CompositeView.prototype.initialize.apply(this, arguments);
 
 			this.on('fetch', function() {
 				if(this.getOption('showIndicator')) {
@@ -2471,11 +2471,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 		},
 
 		showIndicator: function() {
-			var ActivityViewItem = Toolbox.Views.ActivityIndicator.extend({
+			var ActivityViewItem = Toolbox.ActivityIndicator.extend({
 				tagName: 'li',
 				className: 'activity-indicator-item',
 				initialize: function() {
-					Toolbox.Views.ActivityIndicator.prototype.initialize.apply(this, arguments);
+					Toolbox.ActivityIndicator.prototype.initialize.apply(this, arguments);
 
 					this.options.indicator = 'small';
 				}
@@ -2487,7 +2487,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 		hideIndicator: function() {
 			var view = this.children.findByIndex(0);
 
-			if(view && view instanceof Toolbox.Views.ActivityIndicator) {
+			if(view && view instanceof Toolbox.ActivityIndicator) {
 				this.children.remove(this.children.findByIndex(0));
 			}
 		},
@@ -2566,7 +2566,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-	Toolbox.Views.ButtonDropdownMenu = Toolbox.Views.DropdownMenu.extend({
+	Toolbox.ButtonDropdownMenu = Toolbox.DropdownMenu.extend({
 
 		template: Toolbox.Template('button-dropdown-menu'),
 
@@ -2657,268 +2657,239 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     Toolbox.InlineEditor = Marionette.Object.extend({
 
-		$el: false,
+  		$el: false,
 
-		defaultOptions: {
-			fieldName: 'value',
-			editIcon: 'fa fa-pencil',
-			saveKeycode: 13,
-			cancelKeycode: 27,
-			allowNull: false,
-			model: false,
-			classes: {
-				wrapper: 'inline-editor-wrapper',
-				field: 'inline-editor-field',
-				editting: 'inline-editor-editting',
-				label: 'inline-editor-label',
-				icon: 'inline-editor-edit-icon',
-				activityIndicator: 'inline-editor-activity-indicator'
-			}
-		},
+  		defaultOptions: {
+  			fieldName: 'value',
+  			editIcon: 'fa fa-pencil',
+  			saveKeycode: 13,
+  			cancelKeycode: 27,
+  			allowNull: false,
+  			model: false,
+  			classes: {
+  				wrapper: 'inline-editor-wrapper',
+  				field: 'inline-editor-field',
+  				editting: 'inline-editor-editting',
+  				label: 'inline-editor-label',
+  				icon: 'inline-editor-edit-icon',
+  				activityIndicator: 'inline-editor-activity-indicator'
+  			}
+  		},
 
-		constructor: function($el, options) {
-			Marionette.Object.prototype.constructor.call(this, options);
+  		constructor: function($el, options) {
+  			Marionette.Object.prototype.constructor.call(this, options);
 
-			this.$el = $el;
+  			this.$el = $el;
 
-			this.build();
+  			this.build();
 
-			this.trigger('initialize', options);
-		},
+  			this.trigger('initialize', options);
+  		},
 
-		build: function() {
-			var t = this;
+  		build: function() {
+  			var t = this;
 
-			if(!this.$el.hasClass(this.getClass('wrapper'))) {
-				this.value = this.$el.html();
+  			if(!this.$el.hasClass(this.getClass('wrapper'))) {
+  				this.value = this.$el.html();
 
-				this.$field = $('<input type="text" name="'+this.getOption('fieldName')+'" class="'+this.getClass('field')+'" />').val(this.value);
+  				this.$field = $('<input type="text" name="'+this.getOption('fieldName')+'" class="'+this.getClass('field')+'" />').val(this.value);
 
-				this.$el.addClass(this.getClass('wrapper'));
-				this.$el.wrapInner('<div class="'+this.getClass('label')+'" />');
-				this.$el.append(this.$field);
-				this.$el.append('<i class="'+this.getOption('editIcon')+' '+this.getClass('icon')+'" />');
+  				this.$el.addClass(this.getClass('wrapper'));
+  				this.$el.wrapInner('<div class="'+this.getClass('label')+'" />');
+  				this.$el.append(this.$field);
+  				this.$el.append('<i class="'+this.getOption('editIcon')+' '+this.getClass('icon')+'" />');
 
-				this.$indicator = $('<div class="'+this.getClass('activityIndicator')+'" />');
+  				this.$indicator = $('<div class="'+this.getClass('activityIndicator')+'" />');
 
-				this.$el.append(this.$indicator);
+  				this.$el.append(this.$indicator);
 
-				this.indicator = new Backbone.Marionette.Region({
-					el: this.$indicator
-				});
+  				this.indicator = new Backbone.Marionette.Region({
+  					el: this.$indicator
+  				});
 
-				this.$label = this.$el.find('.'+this.getClass('label'));
+  				this.$label = this.$el.find('.'+this.getClass('label'));
 
-				this.$label.on('click', function(e) {
-					t.onClick(e);
-					t.trigger('click');
-				});
+  				this.$label.on('click', function(e) {
+  					t.onClick(e);
+  					t.trigger('click');
+  				});
 
-				this.$field.on('focus', function(e) {
-					t.onFocus(e);
-					t.trigger('focus');
-				});
+  				this.$field.on('focus', function(e) {
+  					t.onFocus(e);
+  					t.trigger('focus');
+  				});
 
-				this.$field.on('blur', function(e) {
-					t.onBlur(e);
-					t.trigger('blur');
-				});
+  				this.$field.on('blur', function(e) {
+  					t.onBlur(e);
+  					t.trigger('blur');
+  				});
 
-				this.$field.on('keypress', function(e) {
-					if(e.keyCode === t.getOption('saveKeycode')) {
-						if(t.getOption('allowNull') || !t.getOption('allowNull') && !t.isNull()) {
-							t.blur();
-						}
+  				this.$field.on('keypress', function(e) {
+  					if(e.keyCode === t.getOption('saveKeycode')) {
+  						if(t.getOption('allowNull') || !t.getOption('allowNull') && !t.isNull()) {
+  							t.blur();
+  						}
 
-						e.preventDefault();
-					}
-				});
+  						e.preventDefault();
+  					}
+  				});
 
-				this.$field.on('keyup', function(e) {
-					if (e.keyCode === t.getOption('cancelKeycode')) {
-		                t.cancel();
-		                e.preventDefault();
-		            };
-				});
+  				this.$field.on('keyup', function(e) {
+  					if (e.keyCode === t.getOption('cancelKeycode')) {
+  		                t.cancel();
+  		                e.preventDefault();
+  		            };
+  				});
 
-				this.trigger('bluid');
-			}
-		},
+  				this.trigger('bluid');
+  			}
+  		},
 
-		destroy: function() {
-			var t = this;
+  		destroy: function() {
+  			var t = this;
 
-			if(this.$el.hasClass(t.getClass('wrapper'))) {
-				this.$el.removeClass(t.getClass('wrapper'));
-				this.$el.html(this.value);
-				this.$el.off('click');
-				this.trigger('destroy');
-			}
-		},
+  			if(this.$el.hasClass(t.getClass('wrapper'))) {
+  				this.$el.removeClass(t.getClass('wrapper'));
+  				this.$el.html(this.value);
+  				this.$el.off('click');
+  				this.trigger('destroy');
+  			}
+  		},
 
-		isNull: function() {
-			return this.$field.val() === '' ? true : false;
-		},
+  		isNull: function() {
+  			return this.$field.val() === '' ? true : false;
+  		},
 
-		isEditing: function() {
-			return this.$el.hasClass(this.getClass('editting'));
-		},
+  		isEditing: function() {
+  			return this.$el.hasClass(this.getClass('editting'));
+  		},
 
-		save: function() {
-			var t = this, model = this.getOption('model');
+  		save: function() {
+  			var t = this, model = this.getOption('model');
 
-			var save = function() {
-				if(this.getOption('allowNull') || !this.getOption('allowNull') && !this.isNull()) {
-					this.setValue(this.$field.val());
-					this.$el.removeClass(this.getClass('editting'));
-				}
-			};
+  			var save = function() {
+  				if(this.getOption('allowNull') || !this.getOption('allowNull') && !this.isNull()) {
+  					this.setValue(this.$field.val());
+  					this.$el.removeClass(this.getClass('editting'));
+  				}
+  			};
 
-			if(model) {
-				this.trigger('onBeforeSave');
-				this.onBeforeSave();
+  			if(model) {
+  				this.trigger('onBeforeSave');
+  				this.onBeforeSave();
 
-				var data = {};
+  				var data = {};
 
-				data[this.getOption('fieldName')] = this.$field.val();
+  				data[this.getOption('fieldName')] = this.$field.val();
 
-				model.save(data, {
-					success: function() {
-						save.call(t);
-						t.onAfterSave();
-						t.trigger('onAfterSave');
-						t.trigger('change', t.getValue());
-					},
-					error: function() {
-						t.onError();
-						t.trigger('error');
-					}
-				});
-			}
-			else {
-				this.onBeforeSave();
-				this.trigger('onBeforeSave');
-				save.call(this);
-				this.onAfterSave();
-				this.trigger('onAfterSave');
-				this.trigger('change', this.getValue());
-			}
-		},
+  				model.save(data, {
+  					success: function() {
+  						save.call(t);
+  						t.onAfterSave();
+  						t.trigger('onAfterSave');
+  						t.trigger('change', t.getValue());
+  					},
+  					error: function() {
+  						t.onError();
+  						t.trigger('error');
+  					}
+  				});
+  			}
+  			else {
+  				this.onBeforeSave();
+  				this.trigger('onBeforeSave');
+  				save.call(this);
+  				this.onAfterSave();
+  				this.trigger('onAfterSave');
+  				this.trigger('change', this.getValue());
+  			}
+  		},
 
-		cancel: function() {
-			this.setValue(this.value);
-			this.blur();
-			this.onCancel();
-			this.trigger('cancel');
-		},
+  		cancel: function() {
+  			this.setValue(this.value);
+  			this.blur();
+  			this.onCancel();
+  			this.trigger('cancel');
+  		},
 
-		focus: function() {
-			this.$el.addClass(this.getClass('editting'));
-			this.$field.focus();
-			this.$field.select();
-			this.trigger('focus');
-		},
+  		focus: function() {
+  			this.$el.addClass(this.getClass('editting'));
+  			this.$field.focus();
+  			this.$field.select();
+  			this.trigger('focus');
+  		},
 
-		blur: function() {
-			this.$field.blur();
-			this.trigger('blur');
-		},
+  		blur: function() {
+  			this.$field.blur();
+  			this.trigger('blur');
+  		},
 
-		setClass: function(name, value) {
-			this.options.classes[name] = value;
-		},
+  		setClass: function(name, value) {
+  			this.options.classes[name] = value;
+  		},
 
-		getClass: function(name) {
-			var classes = this.getOption('classes');
+  		getClass: function(name) {
+  			var classes = this.getOption('classes');
 
-			return classes[name] ? classes[name] : '';
-		},
+  			return classes[name] ? classes[name] : '';
+  		},
 
-		getValue: function() {
-			return this.value;
-		},
+  		getValue: function() {
+  			return this.value;
+  		},
 
-		setValue: function(value) {
-			this.value = value;
-			this.$label.html(value);
-			this.$field.val(value);
-		},
+  		setValue: function(value) {
+  			this.value = value;
+  			this.$label.html(value);
+  			this.$field.val(value);
+  		},
 
-		showActivityIndicator: function() {
-			var view = new App.Views.ActivityIndicator({
-				indicator: 'tiny'
-			});
+  		showActivityIndicator: function() {
+  			var view = new App.Views.ActivityIndicator({
+  				indicator: 'tiny'
+  			});
 
-			this.indicator.show(view);
-		},
+  			this.indicator.show(view);
+  		},
 
-		hideActivityIndicator: function() {
-			this.indicator.empty();
-		},
+  		hideActivityIndicator: function() {
+  			this.indicator.empty();
+  		},
 
-		onBeforeSave: function() {
-			this.showActivityIndicator();
-		},
+  		onBeforeSave: function() {
+  			this.showActivityIndicator();
+  		},
 
-		onAfterSave: function() {
-			this.hideActivityIndicator();
-		},
+  		onAfterSave: function() {
+  			this.hideActivityIndicator();
+  		},
 
-		onError: function() {
-			this.hideActivityIndicator();
-		},
+  		onError: function() {
+  			this.hideActivityIndicator();
+  		},
 
-		onCancel: function() {},
+  		onCancel: function() {},
 
-		onClick: function(e) {
-			this.focus();
-		},
+  		onClick: function(e) {
+  			this.focus();
+  		},
 
-		onFocus: function(e) {
-			this.$el.addClass(this.getClass('editting'));
-		},
+  		onFocus: function(e) {
+  			this.$el.addClass(this.getClass('editting'));
+  		},
 
-		onBlur: function(e) {
-			if(this.value !== this.$field.val()) {
-				this.save();
-			}
-			else {
-				this.$el.removeClass(this.getClass('editting'));
-			}
-		}
+  		onBlur: function(e) {
+  			if(this.value !== this.$field.val()) {
+  				this.save();
+  			}
+  			else {
+  				this.$el.removeClass(this.getClass('editting'));
+  			}
+  		}
 
-	});
+  	});
 
     return Toolbox;
-
-}));
-
-(function (root, factory) {
-    if (typeof exports === 'object') {
-        module.exports = factory(require('handlebars'));
-    } else if (typeof define === 'function' && define.amd) {
-        define(['handlebars'], factory);
-    } else {
-        root.HandlebarsHelpersRegistry = factory(root.Handlebars);
-    }
-}(this, function (Handlebars) {
-    
-    Handlebars.registerHelper('eachProperty', function(context, options) {
-    	var ret = [];
-
-    	if(_.isObject(context)) {
-	    	_.each(context, function(value, property) {
-	    		var parse = {
-	    			property: property,
-	    			value: value
-	    		};
-
-	    		ret.push(options.fn(parse));
-	    	});
-	    }
-
-    	return ret.join("\n");
-    });
 
 }));
 
@@ -3037,22 +3008,18 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 }));
 (function (root, factory) {
     if (typeof exports === 'object') {
-        module.exports = factory(require('handlebars'));
+        module.exports = factory(require('handlebars'), require('underscore'));
     } else if (typeof define === 'function' && define.amd) {
-        define(['handlebars'], factory);
+        define(['handlebars', 'underscore'], factory);
     } else {
-        root.HandlebarsHelpersRegistry = factory(root.Handlebars);
+        root.HandlebarsHelpersRegistry = factory(root.Handlebars, root._);
     }
-}(this, function (Handlebars) {
+}(this, function (Handlebars, _) {
 
     Handlebars.registerHelper('not', function(value, options) {
     	return !value || value == 0 ? options.fn(value) : false;
     });
-
-    Handlebars.registerHelper('undefined', function(value, options) {
-    	return _.isUndefined(value) ? true : false;
-    });
-
+    
 }));
 
 (function (root, factory) {
@@ -3089,7 +3056,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.ActivityIndicator = Toolbox.Views.ItemView.extend({
+    Toolbox.ActivityIndicator = Toolbox.ItemView.extend({
 
         template: Toolbox.Template('activity-indicator'),
 
@@ -3208,611 +3175,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore'], function(_) {
-            return factory(root.Toolbox, _);
-        });
-    } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'));
-    } else {
-        root.Toolbox = factory(root.Toolbox, root._);
-    }
-}(this, function (Toolbox,  _) {
-
-    'use strict';
-
-    Toolbox.Views.BaseField = Toolbox.Views.ItemView.extend({
-
-        formModel: false,
-
-        className: 'form-group',
-
-        defaultTriggers: {
-            'focus {{triggerSelector}}': {
-                event: 'focus',
-                preventDefault: false
-            },
-            'blur {{triggerSelector}}': {
-                event: 'blur',
-                preventDefault: false
-            },
-            'click {{triggerSelector}}': {
-                event: 'click',
-                preventDefault: false
-            },
-            'keyup {{triggerSelector}}': {
-                event: 'key:up',
-                preventDefault: false
-            },
-            'keydown {{triggerSelector}}': {
-                event: 'key:down',
-                preventDefault: false
-            },
-            'keypress {{triggerSelector}}': {
-                event: 'key:press',
-                preventDefault: false
-            }
-        },
-
-        triggers: {},
-
-        defaultOptions: {
-            id: false,
-            label: false,
-            description: false,
-            name: false,
-            value: false,
-            header: false,
-            labelClassName: 'control-label',
-            inputClassName: 'form-control',
-            descriptionClassName: 'description',
-            headerTagName: 'h4',
-            triggerSelector: 'input',
-            updateModel: true
-        },
-
-        templateHelpers: function() {
-            return this.options;
-        },
-
-        initialize: function() {
-            Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
-
-            this.triggers = _.extend({}, this.getDefaultTriggers(), this.triggers);
-        },
-
-        getDefaultTriggers: function() {
-            var t = this, defaultTriggers = {};
-
-            _.each(this.defaultTriggers, function(trigger, key) {
-                _.each(t.options, function(value, name) {
-                    if(_.isString(value)) {
-                        key = key.replace('{{'+name+'}}', value);
-                    }
-                });
-
-                defaultTriggers[key.trim()] = trigger;
-            });
-
-            return defaultTriggers;
-        },
-
-        blur: function() {
-            this.getInputField().blur();
-        },
-
-        focus: function() {
-            this.getInputField().focus();
-        },
-
-        onRender: function() {
-            this.setInputValue(this.getOption('value'));
-        },
-
-        onBlur: function() {
-            this.save();
-        },
-
-        save: function(value) {
-            if(_.isUndefined(value)) {
-                value = this.getInputValue();
-            }
-
-            this.options.value = value;
-
-            if(this.getOption('updateModel') === true && this.model) {
-                this.model.set(this.getOption('name'), value);
-            }
-        },
-
-        setInputValue: function(value) {
-            this.getInputField().val(value);
-        },
-
-        getInputValue: function() {
-           return this.getInputField().val();
-        },
-
-        getInputField: function() {
-            return this.$el.find('input');
-        }
-
-    });
-
-    return Toolbox;
-
-}));
-
-(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['jQuery', 'underscore', 'backbone', 'backbone.marionette'], function($, _, Backbone, Marionette) {
-            return factory(root.Toolbox, $, _, Backbone, Marionette);
-        });
-    } else if (typeof exports === 'object') {
-        module.exports = factory(
-            root.Toolbox,
-            require('jQuery'),
-            require('underscore'),
-            require('backbone'),
-            require('backbone.marionette')
-        );
-    } else {
-        root.Toolbox = factory(root.Toolbox, root.$, root._, root.Backbone, root.Marionette);
-    }
-}(this, function (Toolbox, $, _, Backbone, Marionette) {
-
-    'use strict';
-
-    Toolbox.Views.BlockFormError = Toolbox.Views.ItemView.extend({
-
-        template: Toolbox.Template('form-error'),
-
-        tagName: 'span',
-
-        className: 'help-block',
-
-        options: {
-            // (string) The input field name
-            field: false,
-
-            // (array) The input field errors
-            errors: [],
-
-            // (bool) If true errors will have <br> tags to break error into newlines
-            newline: true
-        },
-
-        templateHelpers: function() {
-            var options = _.extend({}, this.options);
-
-            if(!_.isArray(options.errors)) {
-                options.errors = [options.errors];
-            }
-
-            return options;
-        }
-
-    });
-
-    Toolbox.Views.InlineFormError = Toolbox.Views.BlockFormError.extend({
-
-        className: 'help-inline'
-
-    });
-
-    Toolbox.Views.BaseForm = Toolbox.Views.LayoutView.extend({
-
-        tagName: 'form',
-
-        triggers: {
-            'submit': 'submit',
-            'click .cancel': 'cancel:click'
-        },
-
-        isSubmitting: false,
-
-        defaultOptions: {
-
-            // (object) An object of activity indicator options
-            activityIndicatorOptions: {
-                indicator: 'small'
-            },
-
-            // (object) The error view object
-            errorView: Toolbox.Views.BlockFormError,
-
-            // (object) The error view options object
-            errorViewOptions: false,
-
-            // (object) The global error view object
-            globalErrorsView: false,
-
-            // (object) The global error view options object
-            globalErrorsOptions: {
-                showEmptyMessage: false
-            },
-
-            // (bool) Show global errors after form submits
-            showGlobalErrors: false,
-
-            // (bool) Show notifications after form submits
-            showNotifications: true,
-
-            // (object) The notification view object
-            notificationView: false,
-
-            // (object) The notification view options object
-            notificationViewOptions: false,
-
-            // (string) The form group class name
-            formGroupClassName: 'form-group',
-
-            // (string) The has error class name
-            hasErrorClassName: 'has-error',
-
-            // (bool) Add the has error classes to fields
-            addHasErrorClass: true,
-
-            // (bool) Add the inline form errors
-            showInlineErrors: true,
-
-            // (string) The redirect url. False if no redirect
-            redirect: false,
-
-            // (object) The success message object
-            successMessage: false,
-
-            // (object) The default success message object
-            defaultSuccessMessage: {
-                icon: 'fa fa-check',
-                type: 'success',
-                title: 'Success!',
-                message: 'The form was successfully submitted.'
-            },
-
-            // (object) The errpr message object
-            errorMessage: false,
-
-            // (object) The default success message object
-            defaultErrorMessage: {
-                icon: 'fa fa-warning',
-                type: 'alert',
-                title: 'Error!',
-                message: 'The form could not be submitted.'
-            }
-        },
-
-        _serializedForm: false,
-
-        _errorViews: false,
-
-        getFormData: function() {
-            var data = {};
-
-            this.$el.find('input, select, textarea').each(function() {
-                var name = $(this).attr('name');
-                var value = $(this).val();
-
-                if(name) {
-                    if($(this).is(':radio') || $(this).is(':checkbox')) {
-                        if($(this).is(':checked')) {
-                            data[name] = value;
-                        }
-                    }
-                    else {
-                        if(!_.isNull(value) || !_.isUndefined(value)) {
-                            data[name] = value;
-                        }
-                    }
-                }
-            });
-
-            return data;
-        },
-
-        showActivityIndicator: function() {
-            this.$indicator = this.$el.find('.form-indicator');
-
-            if(this.$indicator.length === 0) {
-                this.$indicator = $('<div class="form-indicator"></div>');
-            }
-
-            if(this.$el.find('footer').length) {
-                this.$el.find('footer').append(this.$indicator);
-            }
-            else {
-                this.$el.append(this.$indicator);
-            }
-
-            this.indicator = new Backbone.Marionette.Region({
-                el: this.$indicator.get(0)
-            });
-
-            var indicator = new Toolbox.Views.ActivityIndicator(this.getOption('activityIndicatorOptions'));
-
-            this.indicator.show(indicator);
-        },
-
-        removeErrors: function() {
-            if(this.$errors) {
-                _.each(this.$errors, function($error) {
-                    $error.parents('.'+this.getOption('hasErrorClassName'))
-                        .removeClass(this.getOption('hasErrorClassName'))
-                        .remove();
-                }, this);
-            }
-        },
-
-        serialize: function() {
-            return JSON.stringify(this.getFormData());
-        },
-
-        hasFormChanged: function() {
-            if(!this._serializedForm) {
-                return false;
-            }
-
-            return this._serializedForm !== this.serialize();
-        },
-
-        createGlobalErrorsRegion: function() {
-            var View = this.getOption('globalErrorsView');
-
-            if(!View) {
-                View = Toolbox.Views.UnorderedList;
-            }
-
-            this.$globalErrors = $('<div class="global-errors"></div>');
-
-            this.appendGlobalErrorRegionToDom(this.$globalErrors);
-
-            this.globalErrors = new Marionette.Region({
-                el: this.$globalErrors.get(0)
-            });
-
-            var errorsView = new View(_.extend(this.getOption('globalErrorsOptions')));
-
-            this.globalErrors.show(errorsView);
-        },
-
-        appendGlobalErrorRegionToDom: function($globalErrors) {
-            this.$el.prepend($globalErrors);
-        },
-
-        createNotification: function(notice) {
-            var View = this.getOption('notificationView');
-
-            if(!View) {
-                View = Toolbox.Views.Notification;
-            }
-
-            var view = new View(_.extend({
-                type: notice.type ? notice.type : 'alert',
-                title: notice.title ? notice.title : false,
-                message: notice.message ? notice.message : false,
-                icon: notice.icon ? notice.icon : false
-            }, this.getOption('notificationViewOptions')));
-
-            return view;
-        },
-
-        createError: function(field, error) {
-            var View = this.getOption('errorView');
-
-            var model = new Backbone.Model();
-
-            var view = new View(_.extend({}, this.getOption('errorViewOptions'), {
-                field: field,
-                errors: error
-            }));
-
-            return view;
-        },
-
-        getInputFieldParent: function(field) {
-            return this.getInputField(field).parents('.' + this.getOption('formGroupClassName'));
-        },
-
-        getInputField: function(field) {
-            field = field.replace('.', '_');
-
-            var $field = this.$el.find('[name="'+field+'"]');
-
-            if($field.length) {
-                return $field;
-            }
-            else {
-                return this.$el.find('#'+field);
-            }
-        },
-
-        setInputField: function(field, value) {
-            this.getInputField(field).val(value);
-        },
-
-        addHasErrorClassToField: function(field) {
-           this.getInputFieldParent(field).addClass(this.getOption('hasErrorClassName'));
-        },
-
-        removeHasErrorClassFromField: function(field) {
-           this.getInputFieldParent(field).removeClass(this.getOption('hasErrorClassName'));
-        },
-
-        removeGlobalErrors: function() {
-            if(this.globalErrors && this.globalErrors.currentView) {
-                this.globalErrors.currentView.collection.reset();
-            }
-        },
-
-        focusOnFirstError: function() {
-            var selector = 'div.'+this.getOption('hasErrorClassName')+':first';
-
-            this.$el.find(selector)
-                .find('input, select, textarea')
-                .focus();
-        },
-
-        appendErrorViewToGlobal: function(errorView) {
-            this.globalErrors.currentView.collection.add({
-                content: errorView.getOption('errors')
-            });
-        },
-
-        appendErrorViewToField: function(errorView) {
-            errorView.render();
-
-            this.getInputFieldParent(errorView.getOption('field'))
-                .append(errorView.$el);
-        },
-
-        hideErrors: function() {
-            if(this.getOption('showGlobalErrors') === true) {
-                this.removeGlobalErrors();
-            }
-
-            if(_.isArray(this._errorViews)) {
-                _.each(this._errorViews, function(view) {
-                    if(this.getOption('addHasErrorClass') === true) {
-                        this.removeHasErrorClassFromField(view.getOption('field'));
-                    }
-
-                    if(this.getOption('showInlineErrors') === true) {
-                        view.$el.remove();
-                    }
-                }, this);
-            }
-        },
-
-        showError: function(field, error) {
-            if(!this._errorViews) {
-                this._errorViews = [];
-            }
-
-            var errorView = this.createError(field, error);
-
-            if(this.getOption('showGlobalErrors') === true) {
-                this.appendErrorViewToGlobal(errorView);
-            }
-
-            if(this.getOption('addHasErrorClass') === true) {
-                this.addHasErrorClassToField(field);
-            }
-
-            if(this.getOption('showInlineErrors') === true) {
-                this.appendErrorViewToField(errorView);
-            }
-
-            this._errorViews.push(errorView);
-        },
-
-        showErrors: function(errors) {
-            var t = this;
-
-            _.each(errors, function(error, field) {
-                t.showError(field, error);
-            });
-
-            this.focusOnFirstError();
-        },
-
-        hideActivityIndicator: function() {
-            this.indicator.empty();
-        },
-
-        getErrorsFromResponse: function(response) {
-            return response.responseJSON.errors;
-        },
-
-        getRedirect: function() {
-            return this.getOption('redirect');
-        },
-
-        redirect: function() {
-            window.location = this.getRedirect();
-        },
-
-        showSuccessNotification: function() {
-            var notification = this.createNotification(_.extend(
-                this.getOption('defaultSuccessMessage'),
-                this.getOption('successMessage')
-            ));
-
-            notification.show();
-        },
-
-        showErrorNotification: function() {
-            var notification = this.createNotification(_.extend(
-                this.getOption('defaultErrorMessage'),
-                this.getOption('errorMessage')
-            ));
-
-            notification.show();
-        },
-
-        onRender: function() {
-            this._serializedForm = this.serialize();
-
-            if(this.getOption('showGlobalErrors')) {
-                this.createGlobalErrorsRegion();
-            }
-        },
-
-        onSubmitSuccess: function() {
-            if(this.hasFormChanged()) {
-                this.triggerMethod('form:changed');
-                this._serializedForm = this.serialize();
-            }
-
-            if(this.getOption('showNotifications')) {
-                this.showSuccessNotification();
-            }
-
-            if(this.getOption('redirect')) {
-                this.redirect();
-            }
-        },
-
-        onSubmitComplete: function(status, model, response) {
-            this.isSubmitting = false;
-            this.hideErrors();
-            this.hideActivityIndicator();
-        },
-
-        onSubmitError: function(model, response) {
-            if(this.getOption('showNotifications')) {
-                this.showErrorNotification();
-            }
-
-            this.showErrors(this.getErrorsFromResponse(response));
-        },
-
-        onSubmit: function() {
-            var t = this;
-
-            if(!this.isSubmitting) {
-                this.isSubmitting = true;
-                this.showActivityIndicator();
-
-                this.model.save(this.getFormData(), {
-                    success: function(model, response) {
-                        t.triggerMethod('submit:complete', true, model, response);
-                        t.triggerMethod('submit:success', model, response);
-                    },
-                    error: function(model, response) {
-                        t.triggerMethod('submit:complete', false, model, response);
-                        t.triggerMethod('submit:error', model, response);
-                    }
-                });
-            }
-        }
-
-    });
-
-    return Toolbox;
-
-}));
-
-(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
         define(['underscore', 'backbone'], function(_, Backbone) {
             return factory(root.Toolbox, _, Backbone);
         });
@@ -3825,7 +3187,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	'use strict';
 
-	Toolbox.Views.NoBreadcrumbs = Toolbox.Views.ItemView.extend({
+	Toolbox.NoBreadcrumbs = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('no-breadcrumbs'),
 
@@ -3835,7 +3197,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.Breadcrumb = Toolbox.Views.ItemView.extend({
+	Toolbox.Breadcrumb = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('breadcrumb'),
 
@@ -3843,11 +3205,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.Breadcrumbs = Toolbox.Views.CollectionView.extend({
+	Toolbox.Breadcrumbs = Toolbox.CollectionView.extend({
 
-		childView: Toolbox.Views.Breadcrumb,
+		childView: Toolbox.Breadcrumb,
 
-		emptyView: Toolbox.Views.NoBreadcrumbs,
+		emptyView: Toolbox.NoBreadcrumbs,
 
 		className: 'breadcrumb',
 
@@ -3868,7 +3230,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 		},
 
 		initialize: function() {
-			Toolbox.Views.CollectionView.prototype.initialize.apply(this, arguments);
+			Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
 
 			if(!this.collection) {
 				this.collection = new Backbone.Collection();
@@ -3983,94 +3345,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-	Toolbox.Views.ButtonDropdownMenu = Toolbox.Views.DropdownMenu.extend({
-
-		template: Toolbox.Template('button-dropdown-menu'),
-
-		childViewContainer: 'ul',
-
-		tagName: 'div',
-
-		triggers: {
-			'click .btn:not(.dropdown-toggle)': 'button:click',
-			'click .dropdown-toggle': 'toggle:click'
-		},
-
-		defaultOptions: {
-			// (string) The dropdown button text
-			buttonLabel: false,
-
-			// (string) The dropdown button class name
-			buttonClassName: 'btn btn-default',
-
-			// (string) The dropdown toggle class name
-			dropdownMenuToggleClassName: 'dropdown-toggle',
-
-			// (string) The dropdown menu class name
-			dropdownMenuClassName: 'dropdown-menu',
-
-			// (int|bool) The collection limit
-			limit: false,
-
-			// (string) The order of the collection items
-			order: 'name',
-
-			// (string) Either asc or desc
-			sort: 'asc',
-
-			// (bool) Close the menu after an item has been clicked
-			closeOnClick: true,
-
-			// (bool) Menu appear as a "dropup" instead of a "dropdown"
-			dropUp: false,
-
-			// (bool) Fetch the collection when the dropdown menu is shown
-			fetchOnShow: false,
-
-			// (bool) Show an activity indicator when fetching the collection
-			showIndicator: true,
-
-			// (bool) Show the button as split with two actions instead of one
-			splitButton: false,
-
-			// (string) The dropdown toggle class name
-			toggleClassName: 'open'
-		},
-
-		showMenu: function() {
-			this.$el.find('.dropdown-toggle').parent().addClass(this.getOption('toggleClassName'));
-			this.$el.find('.dropdown-toggle').attr('aria-expanded', 'true');
-		},
-
-		hideMenu: function() {
-			this.$el.find('.dropdown-toggle').parent().removeClass(this.getOption('toggleClassName'));
-			this.$el.find('.dropdown-toggle').attr('aria-expanded', 'false');
-		},
-
-		isMenuVisible: function() {
-			return this.$el.find('.'+this.getOption('toggleClassName')).length > 0;
-		}
-
-
-	});
-
-    return Toolbox;
-
-}));
-
-(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        factory(root.Toolbox);
-    } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox);
-    } else {
-        root.Toolbox = factory(root.Toolbox);
-    }
-}(this, function (Toolbox) {
-
-    'use strict';
-
-    Toolbox.Views.ButtonGroupItem = Toolbox.Views.ItemView.extend({
+    Toolbox.ButtonGroupItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('button-group-item'),
 
@@ -4090,17 +3365,17 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.NoButtonGroupItems = Toolbox.Views.ItemView.extend({
+	Toolbox.NoButtonGroupItems = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('no-button-group-item')
 
 	});
 
-	Toolbox.Views.ButtonGroup = Toolbox.Views.CollectionView.extend({
+	Toolbox.ButtonGroup = Toolbox.CollectionView.extend({
 
-		childView: Toolbox.Views.ButtonGroupItem,
+		childView: Toolbox.ButtonGroupItem,
 
-		emptyView: Toolbox.Views.NoButtonGroupItems,
+		emptyView: Toolbox.NoButtonGroupItems,
 
 		className: 'btn-group',
 
@@ -4172,7 +3447,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.MonthlyCalendarDay = Toolbox.Views.ItemView.extend({
+    Toolbox.MonthlyCalendarDay = Toolbox.ItemView.extend({
 
         template: Toolbox.Template('calendar-monthly-day-view'),
 
@@ -4267,9 +3542,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     });
 
-    Toolbox.Views.MonthlyCalendarWeek = Toolbox.Views.CollectionView.extend({
+    Toolbox.MonthlyCalendarWeek = Toolbox.CollectionView.extend({
 
-        childView: Toolbox.Views.MonthlyCalendarDay,
+        childView: Toolbox.MonthlyCalendarDay,
 
         tagName: 'tr',
 
@@ -4335,13 +3610,13 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     });
 
-    Toolbox.Views.MonthlyCalendar = Toolbox.Views.CompositeView.extend({
+    Toolbox.MonthlyCalendar = Toolbox.CompositeView.extend({
 
         template: Toolbox.Template('calendar-monthly-view'),
 
         className: 'calendar',
 
-        childView: Toolbox.Views.MonthlyCalendarWeek,
+        childView: Toolbox.MonthlyCalendarWeek,
 
         childViewContainer: 'tbody',
 
@@ -4475,7 +3750,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 el: this.$el.find('.indicator')
             });
 
-            var view = new Toolbox.Views.ActivityIndicator(this.getOption('indicatorOptions'));
+            var view = new Toolbox.ActivityIndicator(this.getOption('indicatorOptions'));
 
             this.indicator.show(view);
             this.triggerMethod('indicator:show');
@@ -4702,7 +3977,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.CheckboxField = Toolbox.Views.BaseField.extend({
+    Toolbox.CheckboxField = Toolbox.BaseField.extend({
 
         template: Toolbox.Template('form-checkbox-radio-field'),
 
@@ -4746,289 +4021,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore', 'backbone.marionette'], function(_, Marionette) {
-            return factory(root.Toolbox, _, Marionette);
-        });
-    } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'), require('backbone.marionette'));
-    } else {
-        root.Toolbox = factory(root.Toolbox, root._, root.Marionette);
-    }
-}(this, function (Toolbox, _, Marionette) {
-
-    'use strict';
-
-    Toolbox.Views.CollectionView = Marionette.CollectionView.extend({
-
-        defaultOptions: {
-
-        },
-
-        initialize: function() {
-            Marionette.CollectionView.prototype.initialize.apply(this, arguments);
-
-            this.options = _.extend({}, this.defaultOptions, this.options);
-        }
-
-	});
-
-
-    return Toolbox;
-
-}));
-
-(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['underscore', 'backbone.marionette'], function(_, Marionette) {
-            return factory(root.Toolbox, _, Marionette);
-        });
-    } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'), require('backbone.marionette'));
-    } else {
-        root.Toolbox = factory(root.Toolbox, root._, root.Marionette);
-    }
-}(this, function (Toolbox, _, Marionette) {
-
-    'use strict';
-
-    Toolbox.Views.CompositeView = Marionette.CompositeView.extend({
-
-        defaultOptions: {
-
-        },
-
-        initialize: function() {
-            Marionette.CompositeView.prototype.initialize.apply(this, arguments);
-
-            this.options = _.extend({}, this.defaultOptions, this.options);
-        }
-
-	});
-
-
-    return Toolbox;
-
-}));
-
-(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['backbone'], function(Backbone) {
-            return factory(root.Toolbox, Backbone);
-        });
-    } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('backbone'));
-    } else {
-        root.Toolbox = factory(root.Toolbox, root.Backbone);
-    }
-}(this, function (Toolbox, Backbone) {
-
-    'use strict';
-
-    Toolbox.Views.DropdownMenuNoItems = Toolbox.Views.ItemView.extend({
-
-		tagName: 'li',
-
-		template: Toolbox.Template('dropdown-menu-no-items'),
-
-		className: 'no-results'
-
-	});
-
-	Toolbox.Views.DropdownMenuItem = Toolbox.Views.ItemView.extend({
-
-		tagName: 'li',
-
-		template: Toolbox.Template('dropdown-menu-item'),
-
-		defaultOptions: {
-			dividerClassName: 'divider'
-		},
-
-		triggers: {
-			'click': {
-				event: 'click',
-				preventDefault: false,
-				stopPropagation: false
-		    }
-		},
-
-		onDomRefresh: function() {
-			if(this.model.get('divider') === true) {
-				this.$el.addClass(this.getOption('dividerClassName'));
-			}
-		}
-
-	});
-
-	Toolbox.Views.DropdownMenu = Toolbox.Views.CompositeView.extend({
-
-		childViewContainer: 'ul',
-
-		childView: Toolbox.Views.DropdownMenuItem,
-
-		emptyView: Toolbox.Views.DropdownMenuNoItems,
-
-		template: Toolbox.Template('dropdown-menu'),
-
-		className: 'dropdown',
-
-		tagName: 'li',
-
-		childEvents: {
-			'click': function(view) {
-				if(this.getOption('closeOnClick') === true) {
-					this.hideMenu()
-				}
-
-				this.triggerMethod('item:click', view);
-			}
-		},
-
-		triggers: {
-			'click .dropdown-toggle': 'toggle:click'
-		},
-
-		defaultOptions: {
-			// (string) The dropdown toggle text
-			toggleLabel: false,
-
-			// (string) The dropdown toggle class name
-			dropdownMenuToggleClassName: 'dropdown-toggle',
-
-			// (string) The dropdown toggle icon class name
-			dropdownMenuToggleIconClassName: 'fa fa-caret-down',
-
-			// (string) The dropdown menu class name
-			dropdownMenuClassName: 'dropdown-menu',
-
-			// (int|bool) The collection limit
-			limit: false,
-
-			// (string) The order of the collection items
-			order: 'name',
-
-			// (string) Either asc or desc
-			sort: 'asc',
-
-			// (bool) Close the menu after an item has been clicked
-			closeOnClick: true,
-
-			// (bool) Fetch the collection when the dropdown menu is shown
-			fetchOnShow: false,
-
-			// (bool) Show an activity indicator when fetching the collection
-			showIndicator: true,
-
-			// (string) The dropdown toggle class name
-			toggleClassName: 'open'
-		},
-
-        templateHelpers: function() {
-            return this.options;
-        },
-
-		initialize: function() {
-			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
-
-			this.on('fetch', function() {
-				if(this.getOption('showIndicator')) {
-					this.showIndicator();
-				}
-			});
-
-			this.on('fetch:success fetch:error', function() {
-				if(this.getOption('showIndicator')) {
-					this.hideIndicator();
-				}
-			});
-		},
-
-		showIndicator: function() {
-			var ActivityViewItem = Toolbox.Views.ActivityIndicator.extend({
-				tagName: 'li',
-				className: 'activity-indicator-item',
-				initialize: function() {
-					Toolbox.Views.ActivityIndicator.prototype.initialize.apply(this, arguments);
-
-					this.options.indicator = 'small';
-				}
-			});
-
-			this.addChild(new Backbone.Model(), ActivityViewItem);
-		},
-
-		hideIndicator: function() {
-			var view = this.children.findByIndex(0);
-
-			if(view && view instanceof Toolbox.Views.ActivityIndicator) {
-				this.children.remove(this.children.findByIndex(0));
-			}
-		},
-
-		showMenu: function() {
-			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().addClass(this.getOption('toggleClassName'));
-			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).attr('aria-expanded', 'true');
-		},
-
-		hideMenu: function() {
-			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().removeClass(this.getOption('toggleClassName'));
-			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).attr('aria-expanded', 'false');
-		},
-
-		isMenuVisible: function() {
-			return this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().hasClass(this.getOption('toggleClassName'));
-		},
-
-		onToggleClick: function() {
-			if(!this.isMenuVisible()) {
-				this.showMenu();
-			}
-			else {
-				this.hideMenu();
-			}
-		},
-
-		onShow: function() {
-			var t = this;
-
-			if(this.getOption('fetchOnShow')) {
-				this.fetch();
-			}
-		},
-
-		fetch: function() {
-			var t = this;
-
-			this.triggerMethod('fetch');
-
-			this.collection.fetch({
-				data: {
-					limit: this.getOption('limit'),
-					order: this.getOption('order'),
-					sort: this.getOption('sort'),
-				},
-				success: function(collection, response) {
-					if(t.getOption('showIndicator')) {
-						t.hideIndicator();
-					}
-
-					t.render();
-					t.triggerMethod('fetch:success', collection, response);
-				},
-				error: function(collection, response) {
-					t.triggerMethod('fetch:error', collection, response);
-				}
-			});
-		}
-
-	});
-
-    return Toolbox;
-
-}));
-
-(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
         factory(root.Toolbox)
     } else if (typeof exports === 'object') {
         module.exports = factory(root.Toolbox);
@@ -5039,7 +4031,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.InlineEditor = Toolbox.Views.LayoutView.extend({
+    Toolbox.InlineEditor = Toolbox.LayoutView.extend({
 
         template: Toolbox.Template('inline-editor'),
 
@@ -5081,7 +4073,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             var t = this, View = this.getOption('formInputView');
 
             if(!View) {
-                View = Toolbox.Views.InputField;
+                View = Toolbox.InputField;
             }
 
             var options = _.extend({
@@ -5116,7 +4108,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         showActivityIndicator: function() {
-            var view = new Toolbox.Views.ActivityIndicator({
+            var view = new Toolbox.ActivityIndicator({
                 indicator: 'tiny'
             });
 
@@ -5247,7 +4239,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.InputField = Toolbox.Views.BaseField.extend({
+    Toolbox.InputField = Toolbox.BaseField.extend({
 
         template: Toolbox.Template('form-input-field'),
 
@@ -5275,14 +4267,14 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.LayoutView = Marionette.LayoutView.extend({
+    Toolbox.ItemView = Marionette.ItemView.extend({
 
         defaultOptions: {
 
         },
 
         initialize: function() {
-            Marionette.LayoutView.prototype.initialize.apply(this, arguments);
+            Marionette.ItemView.prototype.initialize.apply(this, arguments);
 
             this.options = _.extend({}, this.defaultOptions, this.options);
         }
@@ -5308,7 +4300,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.LightSwitchField = Toolbox.Views.BaseField.extend({
+    Toolbox.LightSwitchField = Toolbox.BaseField.extend({
 
         template: Toolbox.Template('form-light-switch-field'),
 
@@ -5345,7 +4337,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         initialize: function() {
-            Toolbox.Views.BaseField.prototype.initialize.apply(this, arguments);
+            Toolbox.BaseField.prototype.initialize.apply(this, arguments);
 
             if(this.options.value === false || _.isNaN(this.options.value)) {
                 this.options.value = 0;
@@ -5445,7 +4437,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-	Toolbox.Views.NoListGroupItem = Toolbox.Views.ItemView.extend({
+	Toolbox.NoListGroupItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('no-list-group-item'),
 
@@ -5459,7 +4451,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.ListGroupItem = Toolbox.Views.ItemView.extend({
+	Toolbox.ListGroupItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('list-group-item'),
 
@@ -5479,9 +4471,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.ListGroup = Toolbox.Views.CollectionView.extend({
+	Toolbox.ListGroup = Toolbox.CollectionView.extend({
 
-		childView: Toolbox.Views.ListGroupItem,
+		childView: Toolbox.ListGroupItem,
 
 		className: 'list-group',
 
@@ -5498,7 +4490,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 			emptyMessage: 'There are no items in the list.',
 
 			// (object) The view object to use for the empty message
-			emptyMessageView: Toolbox.Views.NoListGroupItem,
+			emptyMessageView: Toolbox.NoListGroupItem,
 
 			// (bool) Show the empty message view
 			showEmptyMessage: true
@@ -5557,7 +4549,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.Modal = Toolbox.Views.LayoutView.extend({
+    Toolbox.Modal = Toolbox.LayoutView.extend({
 
         template: Toolbox.Template('modal-window'),
 
@@ -5658,7 +4650,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	'use strict';
 
-	Toolbox.Views.Notification = Toolbox.Views.ItemView.extend({
+	Toolbox.Notification = Toolbox.ItemView.extend({
 
 		className: 'notification clearfix',
 
@@ -5788,7 +4780,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-	Toolbox.Views.NoOrderedListItem = Toolbox.Views.ItemView.extend({
+	Toolbox.NoOrderedListItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('no-ordered-list-item'),
 
@@ -5804,7 +4796,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.OrderedListItem = Toolbox.Views.ItemView.extend({
+	Toolbox.OrderedListItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('ordered-list-item'),
 
@@ -5824,11 +4816,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.OrderedList = Toolbox.Views.CollectionView.extend({
+	Toolbox.OrderedList = Toolbox.CollectionView.extend({
 
-		childView: Toolbox.Views.OrderedListItem,
+		childView: Toolbox.OrderedListItem,
 
-    	emptyView: Toolbox.Views.NoUnorderedListItem,
+    	emptyView: Toolbox.NoUnorderedListItem,
 
 		className: 'ordered-list',
 
@@ -5836,7 +4828,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		defaultOptions: {
 			// (object) The view object to use for the empty message
-			emptyMessageView: Toolbox.Views.NoOrderedListItem,
+			emptyMessageView: Toolbox.NoOrderedListItem,
 
 			// (string) The message to display if there are no list items
 			emptyMessage: 'There are no items in the list.',
@@ -5885,7 +4877,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-	Toolbox.Views.Pager = Toolbox.Views.ItemView.extend({
+	Toolbox.Pager = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('pager'),
 
@@ -6007,7 +4999,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-	Toolbox.Views.PaginationItem = Toolbox.Views.ItemView.extend({
+	Toolbox.PaginationItem = Toolbox.ItemView.extend({
 
 		tagName: 'li',
 
@@ -6030,11 +5022,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.Pagination = Toolbox.Views.CompositeView.extend({
+	Toolbox.Pagination = Toolbox.CompositeView.extend({
 
 		childViewContainer: 'ul',
 
-		childView: Toolbox.Views.PaginationItem,
+		childView: Toolbox.PaginationItem,
 
 		template: Toolbox.Template('pagination'),
 
@@ -6077,7 +5069,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
 		initialize: function() {
-			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
+			Toolbox.CompositeView.prototype.initialize.apply(this, arguments);
 
             if(!this.collection) {
                 this.collection = new Backbone.Collection();
@@ -6239,7 +5231,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-	Toolbox.Views.ProgressBar = Toolbox.Views.ItemView.extend({
+	Toolbox.ProgressBar = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('progress-bar'),
 
@@ -6300,7 +5292,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.RadioField = Toolbox.Views.BaseField.extend({
+    Toolbox.RadioField = Toolbox.BaseField.extend({
 
         template: Toolbox.Template('form-checkbox-radio-field'),
 
@@ -6339,7 +5331,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.RangeSlider = Toolbox.Views.ItemView.extend({
+    Toolbox.RangeSlider = Toolbox.ItemView.extend({
 
         template: Toolbox.Template('range-slider'),
 
@@ -6457,7 +5449,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.SelectField = Toolbox.Views.BaseField.extend({
+    Toolbox.SelectField = Toolbox.BaseField.extend({
 
         template: Toolbox.Template('form-select-field'),
 
@@ -6505,7 +5497,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.TableNoItemsRow = Toolbox.Views.ItemView.extend({
+    Toolbox.TableNoItemsRow = Toolbox.ItemView.extend({
 
         tagName: 'tr',
 
@@ -6527,7 +5519,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     });
 
-    Toolbox.Views.TableViewRow = Toolbox.Views.ItemView.extend({
+    Toolbox.TableViewRow = Toolbox.ItemView.extend({
 
         tagName: 'tr',
 
@@ -6544,7 +5536,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     });
 
-    Toolbox.Views.TableViewFooter = Toolbox.Views.LayoutView.extend({
+    Toolbox.TableViewFooter = Toolbox.LayoutView.extend({
 
         tagName: 'tr',
 
@@ -6569,11 +5561,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     });
 
-    Toolbox.Views.TableView = Toolbox.Views.CompositeView.extend({
+    Toolbox.TableView = Toolbox.CompositeView.extend({
 
 		className: 'table-view',
 
-        childView: Toolbox.Views.TableViewRow,
+        childView: Toolbox.TableViewRow,
 
         childViewContainer: 'tbody',
 
@@ -6686,7 +5678,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         },
 
         getEmptyView: function() {
-            var View = Toolbox.Views.TableNoItemsRow.extend({
+            var View = Toolbox.TableNoItemsRow.extend({
                 options: {
                     message: this.getOption('emptyMessage'),
                     columns: this.getOption('columns')
@@ -6735,7 +5727,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
             var t = this, View = this.getOption('paginationView');
 
             if(!View) {
-                View = Toolbox.Views.Pager;
+                View = Toolbox.Pager;
             }
 
             var paginationViewOptions = this.getOption('paginationViewOptions');
@@ -6756,7 +5748,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
                 }
             });
 
-            var footerView = new Toolbox.Views.TableViewFooter({
+            var footerView = new Toolbox.TableViewFooter({
                 columns: this.getOption('columns')
             });
 
@@ -6777,14 +5769,14 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
             this.$el.find('table').addClass(this.getOption('loadingClassName'));
 
-            this.addChild(this.model, Toolbox.Views.ActivityIndicator.extend({
+            this.addChild(this.model, Toolbox.ActivityIndicator.extend({
                 template: Toolbox.Template('table-activity-indicator-row'),
                 tagName: 'tr',
                 templateHelpers: function() {
                     return this.options;
                 },
                 initialize: function() {
-                    Toolbox.Views.ActivityIndicator.prototype.initialize.apply(this, arguments);
+                    Toolbox.ActivityIndicator.prototype.initialize.apply(this, arguments);
 
                     // Set the activity indicator options
                     _.extend(this.options, t.getOption('indicatorOptions'));
@@ -6903,7 +5895,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.TabContent = Toolbox.Views.ItemView.extend({
+    Toolbox.TabContent = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('tab-content'),
 
@@ -6920,7 +5912,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
         }
     });
 
-	Toolbox.Views.Tabs = Toolbox.Views.LayoutView.extend({
+	Toolbox.Tabs = Toolbox.LayoutView.extend({
 
 		template: Toolbox.Template('tabs'),
 
@@ -6933,7 +5925,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 		},
 
 		defaultOptions: {
-			contentView: Toolbox.Views.TabContent,
+			contentView: Toolbox.TabContent,
 
 			activeClassName: 'active',
 
@@ -7048,7 +6040,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-    Toolbox.Views.TextAreaField = Toolbox.Views.BaseField.extend({
+    Toolbox.TextAreaField = Toolbox.BaseField.extend({
 
         template: Toolbox.Template('form-textarea-field'),
 
@@ -7080,7 +6072,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     'use strict';
 
-	Toolbox.Views.NoUnorderedListItem = Toolbox.Views.ItemView.extend({
+	Toolbox.NoUnorderedListItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('no-unordered-list-item'),
 
@@ -7096,7 +6088,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.UnorderedListItem = Toolbox.Views.ItemView.extend({
+	Toolbox.UnorderedListItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('unordered-list-item'),
 
@@ -7116,9 +6108,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 	});
 
-	Toolbox.Views.UnorderedList = Toolbox.Views.CollectionView.extend({
+	Toolbox.UnorderedList = Toolbox.CollectionView.extend({
 
-		childView: Toolbox.Views.UnorderedListItem,
+		childView: Toolbox.UnorderedListItem,
 
 		className: 'unordered-list',
 
@@ -7126,7 +6118,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 		defaultOptions: {
 			// (object) The view object to use for the empty message
-			emptyMessageView: Toolbox.Views.NoUnorderedListItem,
+			emptyMessageView: Toolbox.NoUnorderedListItem,
 
 			// (string) The message to display if there are no list items
 			emptyMessage: 'There are no items in the list.',
@@ -7142,7 +6134,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 		},
 
 		initialize: function() {
-			Toolbox.Views.CollectionView.prototype.initialize.apply(this, arguments);
+			Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
 
 			if(!this.collection) {
 				this.collection = new Backbone.Collection();

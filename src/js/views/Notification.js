@@ -12,7 +12,7 @@
 
 	'use strict';
 
-	Toolbox.Views.Notification = Toolbox.Views.ItemView.extend({
+	Toolbox.Notification = Toolbox.ItemView.extend({
 
 		className: 'notification clearfix',
 

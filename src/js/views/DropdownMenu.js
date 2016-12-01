@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.DropdownMenuNoItems = Toolbox.Views.ItemView.extend({
+    Toolbox.DropdownMenuNoItems = Toolbox.ItemView.extend({
 
 		tagName: 'li',
 
@@ -22,7 +22,7 @@
 
 	});
 
-	Toolbox.Views.DropdownMenuItem = Toolbox.Views.ItemView.extend({
+	Toolbox.DropdownMenuItem = Toolbox.ItemView.extend({
 
 		tagName: 'li',
 
@@ -48,13 +48,13 @@
 
 	});
 
-	Toolbox.Views.DropdownMenu = Toolbox.Views.CompositeView.extend({
+	Toolbox.DropdownMenu = Toolbox.CompositeView.extend({
 
 		childViewContainer: 'ul',
 
-		childView: Toolbox.Views.DropdownMenuItem,
+		childView: Toolbox.DropdownMenuItem,
 
-		emptyView: Toolbox.Views.DropdownMenuNoItems,
+		emptyView: Toolbox.DropdownMenuNoItems,
 
 		template: Toolbox.Template('dropdown-menu'),
 
@@ -116,7 +116,7 @@
         },
 
 		initialize: function() {
-			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
+			Toolbox.CompositeView.prototype.initialize.apply(this, arguments);
 
 			this.on('fetch', function() {
 				if(this.getOption('showIndicator')) {
@@ -132,11 +132,11 @@
 		},
 
 		showIndicator: function() {
-			var ActivityViewItem = Toolbox.Views.ActivityIndicator.extend({
+			var ActivityViewItem = Toolbox.ActivityIndicator.extend({
 				tagName: 'li',
 				className: 'activity-indicator-item',
 				initialize: function() {
-					Toolbox.Views.ActivityIndicator.prototype.initialize.apply(this, arguments);
+					Toolbox.ActivityIndicator.prototype.initialize.apply(this, arguments);
 
 					this.options.indicator = 'small';
 				}
@@ -148,7 +148,7 @@
 		hideIndicator: function() {
 			var view = this.children.findByIndex(0);
 
-			if(view && view instanceof Toolbox.Views.ActivityIndicator) {
+			if(view && view instanceof Toolbox.ActivityIndicator) {
 				this.children.remove(this.children.findByIndex(0));
 			}
 		},

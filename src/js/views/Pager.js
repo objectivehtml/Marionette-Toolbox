@@ -10,7 +10,7 @@
 
     'use strict';
 
-	Toolbox.Views.Pager = Toolbox.Views.ItemView.extend({
+	Toolbox.Pager = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('pager'),
 

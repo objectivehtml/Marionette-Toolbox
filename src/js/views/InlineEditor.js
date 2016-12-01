@@ -10,7 +10,7 @@
 
     'use strict';
 
-    Toolbox.Views.InlineEditor = Toolbox.Views.LayoutView.extend({
+    Toolbox.InlineEditor = Toolbox.LayoutView.extend({
 
         template: Toolbox.Template('inline-editor'),
 
@@ -52,7 +52,7 @@
             var t = this, View = this.getOption('formInputView');
 
             if(!View) {
-                View = Toolbox.Views.InputField;
+                View = Toolbox.InputField;
             }
 
             var options = _.extend({
@@ -87,7 +87,7 @@
         },
 
         showActivityIndicator: function() {
-            var view = new Toolbox.Views.ActivityIndicator({
+            var view = new Toolbox.ActivityIndicator({
                 indicator: 'tiny'
             });
 

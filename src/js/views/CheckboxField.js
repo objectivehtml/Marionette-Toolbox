@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.CheckboxField = Toolbox.Views.BaseField.extend({
+    Toolbox.CheckboxField = Toolbox.BaseField.extend({
 
         template: Toolbox.Template('form-checkbox-radio-field'),
 

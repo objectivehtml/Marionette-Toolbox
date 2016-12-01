@@ -10,7 +10,7 @@
 
     'use strict';
 
-    Toolbox.Views.TextAreaField = Toolbox.Views.BaseField.extend({
+    Toolbox.TextAreaField = Toolbox.BaseField.extend({
 
         template: Toolbox.Template('form-textarea-field'),
 

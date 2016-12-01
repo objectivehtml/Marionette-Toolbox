@@ -29,7 +29,7 @@
 
     'use strict';
 
-    Toolbox.Views.MonthlyCalendarDay = Toolbox.Views.ItemView.extend({
+    Toolbox.MonthlyCalendarDay = Toolbox.ItemView.extend({
 
         template: Toolbox.Template('calendar-monthly-day-view'),
 
@@ -124,9 +124,9 @@
 
     });
 
-    Toolbox.Views.MonthlyCalendarWeek = Toolbox.Views.CollectionView.extend({
+    Toolbox.MonthlyCalendarWeek = Toolbox.CollectionView.extend({
 
-        childView: Toolbox.Views.MonthlyCalendarDay,
+        childView: Toolbox.MonthlyCalendarDay,
 
         tagName: 'tr',
 
@@ -192,13 +192,13 @@
 
     });
 
-    Toolbox.Views.MonthlyCalendar = Toolbox.Views.CompositeView.extend({
+    Toolbox.MonthlyCalendar = Toolbox.CompositeView.extend({
 
         template: Toolbox.Template('calendar-monthly-view'),
 
         className: 'calendar',
 
-        childView: Toolbox.Views.MonthlyCalendarWeek,
+        childView: Toolbox.MonthlyCalendarWeek,
 
         childViewContainer: 'tbody',
 
@@ -332,7 +332,7 @@
                 el: this.$el.find('.indicator')
             });
 
-            var view = new Toolbox.Views.ActivityIndicator(this.getOption('indicatorOptions'));
+            var view = new Toolbox.ActivityIndicator(this.getOption('indicatorOptions'));
 
             this.indicator.show(view);
             this.triggerMethod('indicator:show');

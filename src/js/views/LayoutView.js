@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.LayoutView = Marionette.LayoutView.extend({
+    Toolbox.LayoutView = Marionette.LayoutView.extend({
 
         defaultOptions: {
 

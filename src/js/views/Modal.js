@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.Modal = Toolbox.Views.LayoutView.extend({
+    Toolbox.Modal = Toolbox.LayoutView.extend({
 
         template: Toolbox.Template('modal-window'),
 

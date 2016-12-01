@@ -12,7 +12,7 @@
 
     'use strict';
 
-	Toolbox.Views.NoUnorderedListItem = Toolbox.Views.ItemView.extend({
+	Toolbox.NoUnorderedListItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('no-unordered-list-item'),
 
@@ -28,7 +28,7 @@
 
 	});
 
-	Toolbox.Views.UnorderedListItem = Toolbox.Views.ItemView.extend({
+	Toolbox.UnorderedListItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('unordered-list-item'),
 
@@ -48,9 +48,9 @@
 
 	});
 
-	Toolbox.Views.UnorderedList = Toolbox.Views.CollectionView.extend({
+	Toolbox.UnorderedList = Toolbox.CollectionView.extend({
 
-		childView: Toolbox.Views.UnorderedListItem,
+		childView: Toolbox.UnorderedListItem,
 
 		className: 'unordered-list',
 
@@ -58,7 +58,7 @@
 
 		defaultOptions: {
 			// (object) The view object to use for the empty message
-			emptyMessageView: Toolbox.Views.NoUnorderedListItem,
+			emptyMessageView: Toolbox.NoUnorderedListItem,
 
 			// (string) The message to display if there are no list items
 			emptyMessage: 'There are no items in the list.',
@@ -74,7 +74,7 @@
 		},
 
 		initialize: function() {
-			Toolbox.Views.CollectionView.prototype.initialize.apply(this, arguments);
+			Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
 
 			if(!this.collection) {
 				this.collection = new Backbone.Collection();

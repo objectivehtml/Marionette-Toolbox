@@ -10,7 +10,7 @@
 
     'use strict';
 
-    Toolbox.Views.ButtonGroupItem = Toolbox.Views.ItemView.extend({
+    Toolbox.ButtonGroupItem = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('button-group-item'),
 
@@ -30,17 +30,17 @@
 
 	});
 
-	Toolbox.Views.NoButtonGroupItems = Toolbox.Views.ItemView.extend({
+	Toolbox.NoButtonGroupItems = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('no-button-group-item')
 
 	});
 
-	Toolbox.Views.ButtonGroup = Toolbox.Views.CollectionView.extend({
+	Toolbox.ButtonGroup = Toolbox.CollectionView.extend({
 
-		childView: Toolbox.Views.ButtonGroupItem,
+		childView: Toolbox.ButtonGroupItem,
 
-		emptyView: Toolbox.Views.NoButtonGroupItems,
+		emptyView: Toolbox.NoButtonGroupItems,
 
 		className: 'btn-group',
 

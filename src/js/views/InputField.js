@@ -10,7 +10,7 @@
 
     'use strict';
 
-    Toolbox.Views.InputField = Toolbox.Views.BaseField.extend({
+    Toolbox.InputField = Toolbox.BaseField.extend({
 
         template: Toolbox.Template('form-input-field'),
 

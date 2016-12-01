@@ -12,7 +12,7 @@
 
 	'use strict';
 
-	Toolbox.Views.NoBreadcrumbs = Toolbox.Views.ItemView.extend({
+	Toolbox.NoBreadcrumbs = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('no-breadcrumbs'),
 
@@ -22,7 +22,7 @@
 
 	});
 
-	Toolbox.Views.Breadcrumb = Toolbox.Views.ItemView.extend({
+	Toolbox.Breadcrumb = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('breadcrumb'),
 
@@ -30,11 +30,11 @@
 
 	});
 
-	Toolbox.Views.Breadcrumbs = Toolbox.Views.CollectionView.extend({
+	Toolbox.Breadcrumbs = Toolbox.CollectionView.extend({
 
-		childView: Toolbox.Views.Breadcrumb,
+		childView: Toolbox.Breadcrumb,
 
-		emptyView: Toolbox.Views.NoBreadcrumbs,
+		emptyView: Toolbox.NoBreadcrumbs,
 
 		className: 'breadcrumb',
 
@@ -55,7 +55,7 @@
 		},
 
 		initialize: function() {
-			Toolbox.Views.CollectionView.prototype.initialize.apply(this, arguments);
+			Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
 
 			if(!this.collection) {
 				this.collection = new Backbone.Collection();

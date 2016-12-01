@@ -10,7 +10,7 @@
 
     'use strict';
 
-	Toolbox.Views.ButtonDropdownMenu = Toolbox.Views.DropdownMenu.extend({
+	Toolbox.ButtonDropdownMenu = Toolbox.DropdownMenu.extend({
 
 		template: Toolbox.Template('button-dropdown-menu'),
 

@@ -46,14 +46,14 @@
 
 			App.on('start', function() {
 
-				var view = new Toolbox.Views.BlockFormError({
+				var view = new Toolbox.BlockFormError({
                     field: 'field1',
                     errors: 'This field is required.'
 				});
 
 				App.blockError.show(view);
 
-				var view2 = new Toolbox.Views.BlockFormError({
+				var view2 = new Toolbox.BlockFormError({
                     field: 'field2',
                     errors: [
                         'This field is required.',
@@ -63,14 +63,14 @@
 
 				App.blockErrors.show(view2);
 
-                var view3 = new Toolbox.Views.InlineFormError({
+                var view3 = new Toolbox.InlineFormError({
                     field: 'field3',
                     errors: 'This field is required.'
 				});
 
 				App.inlineError.show(view3);
 
-				var view4 = new Toolbox.Views.InlineFormError({
+				var view4 = new Toolbox.InlineFormError({
                     field: 'field4',
                     errors: [
                         'This field is required.',

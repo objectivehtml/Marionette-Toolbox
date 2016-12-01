@@ -71,7 +71,7 @@ gulp.task('templates', function() {
 
 gulp.task('scripts', function() {
     var files = [
-        './src/js/Core/Toolbox.js',
+        './src/js/Toolbox.js',
         './src/Helpers/*.js',
         './src/templates.*js',
         './src/js/Views/ItemView.js',

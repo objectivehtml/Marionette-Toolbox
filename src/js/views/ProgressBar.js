@@ -10,7 +10,7 @@
 
     'use strict';
 
-	Toolbox.Views.ProgressBar = Toolbox.Views.ItemView.extend({
+	Toolbox.ProgressBar = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('progress-bar'),
 

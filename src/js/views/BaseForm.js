@@ -18,7 +18,7 @@
 
     'use strict';
 
-    Toolbox.Views.BlockFormError = Toolbox.Views.ItemView.extend({
+    Toolbox.BlockFormError = Toolbox.ItemView.extend({
 
         template: Toolbox.Template('form-error'),
 
@@ -49,13 +49,13 @@
 
     });
 
-    Toolbox.Views.InlineFormError = Toolbox.Views.BlockFormError.extend({
+    Toolbox.InlineFormError = Toolbox.BlockFormError.extend({
 
         className: 'help-inline'
 
     });
 
-    Toolbox.Views.BaseForm = Toolbox.Views.LayoutView.extend({
+    Toolbox.BaseForm = Toolbox.LayoutView.extend({
 
         tagName: 'form',
 
@@ -74,7 +74,7 @@
             },
 
             // (object) The error view object
-            errorView: Toolbox.Views.BlockFormError,
+            errorView: Toolbox.BlockFormError,
 
             // (object) The error view options object
             errorViewOptions: false,
@@ -183,7 +183,7 @@
                 el: this.$indicator.get(0)
             });
 
-            var indicator = new Toolbox.Views.ActivityIndicator(this.getOption('activityIndicatorOptions'));
+            var indicator = new Toolbox.ActivityIndicator(this.getOption('activityIndicatorOptions'));
 
             this.indicator.show(indicator);
         },
@@ -214,7 +214,7 @@
             var View = this.getOption('globalErrorsView');
 
             if(!View) {
-                View = Toolbox.Views.UnorderedList;
+                View = Toolbox.UnorderedList;
             }
 
             this.$globalErrors = $('<div class="global-errors"></div>');
@@ -238,7 +238,7 @@
             var View = this.getOption('notificationView');
 
             if(!View) {
-                View = Toolbox.Views.Notification;
+                View = Toolbox.Notification;
             }
 
             var view = new View(_.extend({

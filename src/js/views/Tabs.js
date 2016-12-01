@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.TabContent = Toolbox.Views.ItemView.extend({
+    Toolbox.TabContent = Toolbox.ItemView.extend({
 
 		template: Toolbox.Template('tab-content'),
 
@@ -29,7 +29,7 @@
         }
     });
 
-	Toolbox.Views.Tabs = Toolbox.Views.LayoutView.extend({
+	Toolbox.Tabs = Toolbox.LayoutView.extend({
 
 		template: Toolbox.Template('tabs'),
 
@@ -42,7 +42,7 @@
 		},
 
 		defaultOptions: {
-			contentView: Toolbox.Views.TabContent,
+			contentView: Toolbox.TabContent,
 
 			activeClassName: 'active',
 

@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.BaseField = Toolbox.Views.ItemView.extend({
+    Toolbox.BaseField = Toolbox.ItemView.extend({
 
         formModel: false,
 
@@ -67,7 +67,7 @@
         },
 
         initialize: function() {
-            Toolbox.Views.ItemView.prototype.initialize.apply(this, arguments);
+            Toolbox.ItemView.prototype.initialize.apply(this, arguments);
 
             this.triggers = _.extend({}, this.getDefaultTriggers(), this.triggers);
         },

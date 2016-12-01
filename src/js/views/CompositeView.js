@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.CompositeView = Marionette.CompositeView.extend({
+    Toolbox.CompositeView = Marionette.CompositeView.extend({
 
         defaultOptions: {
 

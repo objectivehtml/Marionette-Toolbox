@@ -32,7 +32,7 @@
 
 			App.on('start', function() {
 
-				var view = new Toolbox.Views.ButtonGroup({
+				var view = new Toolbox.ButtonGroup({
 					activateOnClick: false,
 					collection: new Backbone.Collection([{
 						icon: 'fa fa-check',
@@ -56,7 +56,7 @@
 				});
 
 				view.on('click', function(child) {
-					var notification = new Toolbox.Views.Notification({
+					var notification = new Toolbox.Notification({
 						icon: child.model.get('icon'),
 						type: child.model.get('type'),
 						title: child.model.get('title'),

@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.ItemView = Marionette.ItemView.extend({
+    Toolbox.ItemView = Marionette.ItemView.extend({
 
         defaultOptions: {
 

@@ -34,7 +34,7 @@
 
 			App.on('start', function() {
 
-				var content = new Toolbox.Views.UnorderedList({
+				var content = new Toolbox.UnorderedList({
 					collection: new Backbone.Collection([{
 						content: 'List Item #1'
 					},{
@@ -48,7 +48,7 @@
 					}])
 				});
 
-				var view = new Toolbox.Views.Modal({
+				var view = new Toolbox.Modal({
 					contentView: content,
 					buttons: [{
 						label: 'Test',

@@ -70,13 +70,13 @@
 
 				var collection = new UsersCollection();
 
-				var view = new Toolbox.Views.TableView({
+				var view = new Toolbox.TableView({
 					collection: collection,
 					order: 'name',
 					sort: 'asc',
 					header: 'WeDo Local Deals',
 					tableClassName: 'table table-striped',
-					paginationView: Toolbox.Views.Pagination,
+					paginationView: Toolbox.Pagination,
 					columns: [{
 						name: 'Name',
 						id: 'name'

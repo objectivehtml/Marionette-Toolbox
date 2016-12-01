@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.TableNoItemsRow = Toolbox.Views.ItemView.extend({
+    Toolbox.TableNoItemsRow = Toolbox.ItemView.extend({
 
         tagName: 'tr',
 
@@ -34,7 +34,7 @@
 
     });
 
-    Toolbox.Views.TableViewRow = Toolbox.Views.ItemView.extend({
+    Toolbox.TableViewRow = Toolbox.ItemView.extend({
 
         tagName: 'tr',
 
@@ -51,7 +51,7 @@
 
     });
 
-    Toolbox.Views.TableViewFooter = Toolbox.Views.LayoutView.extend({
+    Toolbox.TableViewFooter = Toolbox.LayoutView.extend({
 
         tagName: 'tr',
 
@@ -76,11 +76,11 @@
 
     });
 
-    Toolbox.Views.TableView = Toolbox.Views.CompositeView.extend({
+    Toolbox.TableView = Toolbox.CompositeView.extend({
 
 		className: 'table-view',
 
-        childView: Toolbox.Views.TableViewRow,
+        childView: Toolbox.TableViewRow,
 
         childViewContainer: 'tbody',
 
@@ -193,7 +193,7 @@
         },
 
         getEmptyView: function() {
-            var View = Toolbox.Views.TableNoItemsRow.extend({
+            var View = Toolbox.TableNoItemsRow.extend({
                 options: {
                     message: this.getOption('emptyMessage'),
                     columns: this.getOption('columns')
@@ -242,7 +242,7 @@
             var t = this, View = this.getOption('paginationView');
 
             if(!View) {
-                View = Toolbox.Views.Pager;
+                View = Toolbox.Pager;
             }
 
             var paginationViewOptions = this.getOption('paginationViewOptions');
@@ -263,7 +263,7 @@
                 }
             });
 
-            var footerView = new Toolbox.Views.TableViewFooter({
+            var footerView = new Toolbox.TableViewFooter({
                 columns: this.getOption('columns')
             });
 
@@ -284,14 +284,14 @@
 
             this.$el.find('table').addClass(this.getOption('loadingClassName'));
 
-            this.addChild(this.model, Toolbox.Views.ActivityIndicator.extend({
+            this.addChild(this.model, Toolbox.ActivityIndicator.extend({
                 template: Toolbox.Template('table-activity-indicator-row'),
                 tagName: 'tr',
                 templateHelpers: function() {
                     return this.options;
                 },
                 initialize: function() {
-                    Toolbox.Views.ActivityIndicator.prototype.initialize.apply(this, arguments);
+                    Toolbox.ActivityIndicator.prototype.initialize.apply(this, arguments);
 
                     // Set the activity indicator options
                     _.extend(this.options, t.getOption('indicatorOptions'));

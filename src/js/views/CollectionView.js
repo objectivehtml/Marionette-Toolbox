@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.CollectionView = Marionette.CollectionView.extend({
+    Toolbox.CollectionView = Marionette.CollectionView.extend({
 
         defaultOptions: {
 

@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.LightSwitchField = Toolbox.Views.BaseField.extend({
+    Toolbox.LightSwitchField = Toolbox.BaseField.extend({
 
         template: Toolbox.Template('form-light-switch-field'),
 
@@ -49,7 +49,7 @@
         },
 
         initialize: function() {
-            Toolbox.Views.BaseField.prototype.initialize.apply(this, arguments);
+            Toolbox.BaseField.prototype.initialize.apply(this, arguments);
 
             if(this.options.value === false || _.isNaN(this.options.value)) {
                 this.options.value = 0;

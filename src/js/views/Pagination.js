@@ -12,7 +12,7 @@
 
     'use strict';
 
-	Toolbox.Views.PaginationItem = Toolbox.Views.ItemView.extend({
+	Toolbox.PaginationItem = Toolbox.ItemView.extend({
 
 		tagName: 'li',
 
@@ -35,11 +35,11 @@
 
 	});
 
-	Toolbox.Views.Pagination = Toolbox.Views.CompositeView.extend({
+	Toolbox.Pagination = Toolbox.CompositeView.extend({
 
 		childViewContainer: 'ul',
 
-		childView: Toolbox.Views.PaginationItem,
+		childView: Toolbox.PaginationItem,
 
 		template: Toolbox.Template('pagination'),
 
@@ -82,7 +82,7 @@
         },
 
 		initialize: function() {
-			Toolbox.Views.CompositeView.prototype.initialize.apply(this, arguments);
+			Toolbox.CompositeView.prototype.initialize.apply(this, arguments);
 
             if(!this.collection) {
                 this.collection = new Backbone.Collection();

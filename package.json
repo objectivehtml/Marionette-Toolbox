@@ -1,8 +1,14 @@
 {
   "name": "marionette.toolbox",
   "description": "An opinionated collection of UI components for Backbone.Marionette.",
-  "keywords": ["ui", "interface", "components", "backbone", "marionette"],
-  "version": "0.4.16",
+  "keywords": [
+    "ui",
+    "interface",
+    "components",
+    "backbone",
+    "marionette"
+  ],
+  "version": "0.5.0",
   "main": "./dist/marionette.toolbox.js",
   "dependencies": {
     "backbone": "^1.3.3",
@@ -22,6 +28,7 @@
     "globby": "^6.1.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
+    "gulp-define-module": "^0.1.5",
     "gulp-handlebars": "^2.2.0",
     "gulp-inject-version": "^1.0.1",
     "gulp-rename": "^1.2.2",

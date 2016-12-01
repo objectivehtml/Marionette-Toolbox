@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.ActivityIndicator = Toolbox.Views.ItemView.extend({
+    Toolbox.ActivityIndicator = Toolbox.ItemView.extend({
 
         template: Toolbox.Template('activity-indicator'),
 

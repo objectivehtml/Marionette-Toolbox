@@ -10,7 +10,7 @@
 
     'use strict';
 
-    Toolbox.Views.SelectField = Toolbox.Views.BaseField.extend({
+    Toolbox.SelectField = Toolbox.BaseField.extend({
 
         template: Toolbox.Template('form-select-field'),
 

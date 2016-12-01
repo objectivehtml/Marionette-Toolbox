@@ -1,19 +1,15 @@
 (function (root, factory) {
     if (typeof exports === 'object') {
-        module.exports = factory(require('handlebars'));
+        module.exports = factory(require('handlebars'), require('underscore'));
     } else if (typeof define === 'function' && define.amd) {
-        define(['handlebars'], factory);
+        define(['handlebars', 'underscore'], factory);
     } else {
-        root.HandlebarsHelpersRegistry = factory(root.Handlebars);
+        root.HandlebarsHelpersRegistry = factory(root.Handlebars, root._);
     }
-}(this, function (Handlebars) {
+}(this, function (Handlebars, _) {
 
     Handlebars.registerHelper('not', function(value, options) {
     	return !value || value == 0 ? options.fn(value) : false;
     });
-
-    Handlebars.registerHelper('undefined', function(value, options) {
-    	return _.isUndefined(value) ? true : false;
-    });
-
+    
 }));

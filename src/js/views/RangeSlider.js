@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Views.RangeSlider = Toolbox.Views.ItemView.extend({
+    Toolbox.RangeSlider = Toolbox.ItemView.extend({
 
         template: Toolbox.Template('range-slider'),
 

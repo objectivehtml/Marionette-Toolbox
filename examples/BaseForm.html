@@ -59,7 +59,7 @@
 
 				var source = $("#form-template").html();
 
-				var View = Toolbox.Views.BaseForm.extend({
+				var View = Toolbox.BaseForm.extend({
 
 					template: Handlebars.compile(source)
 
@@ -144,7 +144,7 @@
 					console.log('cancel');
 				});
 
-				var activity = new Toolbox.Views.ActivityIndicator({
+				var activity = new Toolbox.ActivityIndicator({
 					indicator: 'medium'
 				});
 

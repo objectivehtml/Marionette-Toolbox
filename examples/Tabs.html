@@ -31,7 +31,7 @@
 			});
 
 			App.on('start', function() {
-				var TabView = Toolbox.Views.ItemView.extend({
+				var TabView = Toolbox.ItemView.extend({
 					template: Toolbox.Template('tab-content'),
 			        templateHelpers: function() {
 			            return this.options;
@@ -44,7 +44,7 @@
 					content: '1'
 				});
 
-				var view = new Toolbox.Views.Tabs({
+				var view = new Toolbox.Tabs({
 					content: [tabView, {
 						name: 'tab-2',
 						label: 'Tab 2',
@@ -59,7 +59,7 @@
 
 				App.content.show(view);
 
-				var tab = new Toolbox.Views.TabContent({
+				var tab = new Toolbox.TabContent({
 					name: 'tab-4',
 					label: 'Tab 4',
 					content: '4'
