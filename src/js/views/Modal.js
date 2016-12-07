@@ -53,6 +53,10 @@
             return this.options;
         },
 
+        showContentView: function(view) {
+            this.setContentView(view);
+        },
+
         setContentView: function(view) {
             this.content.show(view);
         },

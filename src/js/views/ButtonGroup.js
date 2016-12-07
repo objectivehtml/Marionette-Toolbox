@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        factory(root.Toolbox);
+        define(['backbone'], function(Backbone) {
+            return factory(root.Toolbox, Backbone);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox);
+        module.exports = factory(root.Toolbox, require('backbone'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.Backbone);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, Backbone) {
 
     'use strict';
 
@@ -55,8 +57,25 @@
 			activeClassName: 'active',
 
 			// (bool) Activate the button on click
-			activateOnClick: true
+			activateOnClick: true,
+
+			// (mixed) Pass an array of buttons instead of passing a collection object.
+			buttons: false
 		},
+
+        initialize: function(options) {
+            Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
+
+            if(this.getOption('buttons') && !options.collection) {
+                this.collection = new Backbone.Collection(this.getOption('buttons'));
+            }
+        },
+
+        setActiveIndex: function(index) {
+            if(this.children.findByIndex(index)) {
+                this.children.findByIndex(index).$el.click();
+            }
+        },
 
 		onDomRefresh: function() {
 			this.$el.find('.'+this.getOption('activeClassName')).click();

@@ -1,4 +1,4 @@
-.has-indicator { 
+.has-indicator {
 	position:relative;
 	min-height:75px;
 }
@@ -7,7 +7,7 @@
 	position: fixed;
 }
 
-.activity-indicator-dimmer.dimmed { 
+.activity-indicator-dimmer.dimmed {
 	background: rgba(0, 0, 0, .7);
 	position: absolute;
 	top: 0;
@@ -16,55 +16,57 @@
 	height: 100%;
 	z-index: 100;
 }
+
 form footer { 
 	padding: 0 0;
 	display: block;
 }
-form footer [type="submit"]:not(.clear-float) { 
+form footer [type="submit"]:not(.clear-float) {
 	float: left;
 }
-form footer { 
-	border-top: 1px solid #e6e6e6; 
-	margin-top: 20px; 
-	padding-top: 20px; 
-	position: relative; 
+form footer {
+	border-top: 1px solid #e6e6e6;
+	margin-top: 20px;
+	padding-top: 20px;
+	position: relative;
 }
-form footer.no-border { 
-	border-top: 0; 
-	margin-top: 0; 
-	padding-top: 0; 
+form footer.no-border {
+	border-top: 0;
+	margin-top: 0;
+	padding-top: 0;
 }
-form footer .cancel:not(.btn) { 
-	margin-left: 1em; 
-	font-size: 14px; 
-	font-weight: 200; 
+form footer .cancel:not(.btn) {
+	margin-left: 1em;
+	font-size: 14px;
+	font-weight: 200;
 	position: relative;
 	top: 7px;
 }
-form footer .form-indicator { 
-	position: absolute; 
-	right: 30px; 
-	top: 35px; 
+form footer .form-indicator {
+	position: absolute;
+	right: 30px;
+	top: 35px;
 }
-form footer .activity-indicator-dimmer { 
-	background: transparent; 
+form footer .activity-indicator-dimmer {
+	background: transparent;
 	position: static;
 }
-form footer .activity-indicator-dimmer .activity-indicator { 
-	position: relative; 
+form footer .activity-indicator-dimmer .activity-indicator {
+	position: relative;
 	right: 0;
 }
-form footer:after { 
-	visibility: hidden; 
-	display: block; 
-	font-size: 0; 
-	content: " "; 
-	clear: both; 
-	height: 0; 
+form footer:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
 }
-form footer .btn-primary + .btn-default { 
-	margin-left: 5px; 
+form footer .btn-primary + .btn-default {
+	margin-left: 5px;
 }
+
 .calendar {
 	display: block;
 	width: 100%;

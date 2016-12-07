@@ -60,8 +60,7 @@
         tagName: 'form',
 
         triggers: {
-            'submit': 'submit',
-            'click .cancel': 'cancel:click'
+            'submit': 'submit'
         },
 
         isSubmitting: false,
@@ -371,7 +370,9 @@
         },
 
         hideActivityIndicator: function() {
-            this.indicator.empty();
+            if(this.indicator) {
+                this.indicator.empty();
+            }
         },
 
         getErrorsFromResponse: function(response) {

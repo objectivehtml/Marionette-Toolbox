@@ -42,11 +42,64 @@
 
         defaultOptions: {
             // (array) Array of array of column
-            columns: false
+            columns: false,
+
+            // (mixed) If not false, pass a valid View prototype
+            editFormClass: false,
+
+            // (mixed) If not false, pass a valid View prototype
+            deleteFormClass: false
+        },
+
+        triggers: {
+            'click .edit': 'click:edit',
+            'click .delete': 'click:delete'
         },
 
         templateHelpers: function() {
             return this.options;
+        },
+
+        onClickEdit: function() {
+            var View = this.getOption('editFormClass');
+
+            if(View) {
+                var view = new View({
+                    model: this.model
+                });
+
+                view.on('submit:success', function() {
+                    this.render();
+                }, this);
+
+                this.showViewInModal(view);
+            }
+        },
+
+        onClickDelete: function() {
+            var View = this.getOption('deleteFormClass');
+
+            if(View) {
+                var view = new View({
+                    model: this.model
+                });
+
+                this.showViewInModal(view);
+            }
+        },
+
+        showViewInModal: function(view) {
+            var modal = new Toolbox.Modal({
+                contentView: view
+            });
+
+            view.on('submit:success', function() {
+                modal.hide();
+            });
+
+            modal.show();
+
+            return modal;
         }
 
     });

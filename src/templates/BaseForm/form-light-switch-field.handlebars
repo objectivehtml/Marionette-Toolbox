@@ -10,7 +10,7 @@
 	<p {{#if ../descriptionClassName}}class="{{../../descriptionClassName}}"{{/if}}>{{../description}}</p>
 {{/if}}
 
-<div class="light-switch {{#is value 1}}{{../activeClassName}}{{/is}}" tabindex="0">
+<div class="{{inputClassName}} {{#is value 1}}{{../activeClassName}}{{/is}}" tabindex="0">
 	<div class="light-switch-container">
 		<div class="light-switch-label on"></div>
 		<div class="light-switch-handle"></div>

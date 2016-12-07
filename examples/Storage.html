@@ -20,37 +20,37 @@
 		<script src="../dist/marionette.toolbox.js"></script>
 	</head>
 	<body>
-		<div id="app-wrapper"></div>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
 
-			App.addRegions({
-				content: '#app-wrapper'
-			});
+            var Model = Backbone.Model.extend({
+                url: '/test'
+            });
 
-			App.on('start', function() {
+            var Collection = Backbone.Collection.extend({
+                url: '/tests',
+                model: Model
+            });
 
-				var view = new Toolbox.ButtonGroup({
-					buttons: [{
-						icon: 'fa fa-check',
-						label: 'Ok'
-					},{
-						icon: 'fa fa-times-circle',
-						label: 'Cancel'
-					}]
-				});
+            var storage = new Toolbox.Storage({
+                table: 'users',
+                columns: [
+                    'first',
+                    'last',
+                    'email'
+                ],
+                dataClass: Collection
+            });
 
-				view.on('activate', function(child) {
-					console.log(child);
-				});
+            var collection = storage.load();
 
-				App.content.show(view);
+            collection.add({
+                first: 'Test',
+                last: 'Test',
+                email: 'test@test.com'
+            });
 
-				view.setActiveIndex(1);
-			});
-
-			App.start();
+            storage.save();
 
 		</script>
 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
+		<link rel="stylesheet" href="../dist/marionette.toolbox.css">
+
+		<script src="../resources/vendor.js"></script>
+
+		<script type="text/javascript">
+			var $ = require('jquery');
+			var _ = require('underscore');
+			var Backbone = require('backbone');
+			var Marionette = require('backbone.marionette');
+			var Handlebars = require('handlebars');
+			var Spinner = require('spin.js');
+		</script>
+
+		<script src="../dist/marionette.toolbox.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div id="app-wrapper"></div>
+		</div>
+
+		<script type="text/javascript">
+			var App = new Backbone.Marionette.Application();
+
+			App.addRegions({
+				content: '#app-wrapper'
+			});
+
+			App.on('start', function() {
+
+                var TreeNode = Backbone.Model.extend({
+                    initialize: function() {
+                        var children = this.get("children") || this.children;
+
+                        if (children) {
+                            this.children = new TreeNodeCollection(children);
+                            this.unset("children");
+                        }
+                    }
+                });
+
+                var TreeNodeCollection = Backbone.Collection.extend({
+                    model: TreeNode
+                });
+
+                var data = [{
+                    id: 1,
+                    name: 'Super Admin',
+                    parent_id: null
+                },{
+                    id: 2,
+                    name: 'Admin',
+                    parent_id: null,
+                    children: [{
+                        id: 4,
+                        name: 'Add',
+                        parent_id: 2,
+                        children: [{
+                            id: 7,
+                            name: 'Users',
+                            parent_id: 4
+                        },{
+                            id: 8,
+                            name: 'Contacts',
+                            parent_id: 4
+                        }]
+                    },{
+                        id: 5,
+                        name: 'Edit',
+                        parent_id: 2,
+                        children: [{
+                            id: 9,
+                            name: 'Users',
+                            parent_id: 4
+                        },{
+                            id: 10,
+                            name: 'Contacts',
+                            parent_id: 4
+                        }]
+                    },{
+                        id: 6,
+                        name: 'Delete',
+                        parent_id: 2,
+                        children: [{
+                            id: 11,
+                            name: 'Users',
+                            parent_id: 4
+                        },{
+                            id: 12,
+                            name: 'Contacts',
+                            parent_id: 4
+                        }]
+                    }]
+                },{
+                    id: 3,
+                    name: 'User',
+                    parent_id: null
+                }];
+
+                var view = new Toolbox.TreeView({
+                    collection: new TreeNodeCollection(data),
+                    template: Toolbox.Template('tree-view-node'),
+                    childViewOptions: {
+                        template: Toolbox.Template('tree-view-node')
+                    }
+                });
+
+				App.content.show(view);
+
+			});
+
+			App.start();
+
+		</script>
+
+	</body>
+</html>

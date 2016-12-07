@@ -22,9 +22,14 @@ function getNPMPackageIds() {
 gulp.task('browserSync', function() {
     browserSync = browserSync.create();
     browserSync.init({
-       server: {
-           baseDir: "./src"
-       }
+        server: {
+            baseDir: "./",
+            routes: {
+                '/resources': 'resources'
+            },
+            directory: true
+        },
+        startPath: "./examples"
    });
 });
 
@@ -66,22 +71,24 @@ gulp.task('templates', function() {
             wrapper: wrapper
         }))
         .pipe(concat('templates.js'))
-        .pipe(gulp.dest('./src'));
+        .pipe(gulp.dest('./src'))
+        .pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('scripts', function() {
     var files = [
         './src/js/Toolbox.js',
-        './src/Helpers/*.js',
         './src/templates.*js',
+        './src/Handlebars/*.js',
+        './src/Components/*.js',
         './src/js/Views/ItemView.js',
-        './src/js/views/LayoutView.js',
-        './src/js/views/CompositeView.js',
-        './src/js/views/CollectionView.js',
-        './src/js/views/BaseField.js',
-        './src/js/views/BaseForm.js',
-        './src/js/views/DropdownMenu.js',
-        './src/js/views/ButtonDropdownMenu.js',
+        './src/js/Views/LayoutView.js',
+        './src/js/Views/CompositeView.js',
+        './src/js/Views/CollectionView.js',
+        './src/js/Views/BaseField.js',
+        './src/js/Views/BaseForm.js',
+        './src/js/Views/DropdownMenu.js',
+        './src/js/Views/ButtonDropdownMenu.js',
         './src/js/**/*.js'
     ];
 
@@ -90,7 +97,8 @@ gulp.task('scripts', function() {
             prepend: ''
         }))
         .pipe(concat('marionette.toolbox.js'))
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('./dist'))
+        .pipe(browserSync.reload({stream: true}));
 });
 
 var dependencies = Object.keys(packageJson && packageJson.dependencies || {});
@@ -109,4 +117,11 @@ gulp.task('vendor', function () {
         .pipe(gulp.dest('./resources'));
 });
 
-gulp.task('default', ['vendor', 'css', 'templates', 'scripts']);
+gulp.task('watch', function() {
+    gulp.watch('./src/css/**/*.css', ['css']).on('change', browserSync.reload);
+    gulp.watch('./src/js/**/*.js', ['scripts']);
+    gulp.watch('./src/templates/**/*.handlebars', ['templates']);
+    gulp.watch('./examples/**/*.html').on('change', browserSync.reload);
+});
+
+gulp.task('default', ['browserSync', 'vendor', 'css', 'templates', 'scripts', 'watch']);

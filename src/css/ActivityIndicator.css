@@ -1,4 +1,4 @@
-.has-indicator { 
+.has-indicator {
 	position:relative;
 	min-height:75px;
 }
@@ -7,7 +7,7 @@
 	position: fixed;
 }
 
-.activity-indicator-dimmer.dimmed { 
+.activity-indicator-dimmer.dimmed {
 	background: rgba(0, 0, 0, .7);
 	position: absolute;
 	top: 0;

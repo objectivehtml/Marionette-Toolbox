@@ -33,16 +33,62 @@
 			});
 
 			App.on('start', function() {
-				var view = new Toolbox.LightSwitchField({
-					label: 'Field Name',
-					name: 'field_name',
-					value: 1,
-					labelClassName: 'control-label field-label',
-					inputClassName: 'light-switch field-class'
-				});
 
-				view.on('change', function(value) {
-					console.log(value);
+				/*
+				var data = [{
+					"id": 1,
+					"parent_id": 11,
+					"name": "Permission 7"
+				}, {
+					"id": 6,
+					"parent_id": null,
+					"name": "Permission 8"
+				}, {
+					"id": 10,
+					"parent_id": 6,
+					"name": "Permission 4"
+				}, {
+					"id": 11,
+					"parent_id": 6,
+					"name": "Permission 5"
+				}, {
+					"id": 12,
+					"parent_id": null,
+					"name": "Permission 6"
+				}, {
+					"id": 13,
+					"parent_id": null,
+					"name": "Permission 1"
+				}, {
+					"id": 14,
+					"parent_id": 13,
+					"name": "Permission 2"
+				}, {
+					"id": 15,
+					"parent_id": 14,
+					"name": "Permission 3"
+				}];
+				*/
+
+				var data = [{
+					"id": 1,
+					"parent_id": null,
+					"name": "Permission 1"
+				},{
+					"id": 2,
+					"parent_id": 1,
+					"name": "Permission 2"
+				}];
+
+				var collection = new Backbone.Collection(data);
+
+				var tree = new Toolbox.Tree(collection);
+
+				var view = new Toolbox.TreeView({
+					collection: tree,
+                    childViewOptions: {
+                        template: Toolbox.Template('tree-view-node')
+                    }
 				});
 
 				App.content.show(view);

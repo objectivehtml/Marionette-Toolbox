@@ -25,7 +25,9 @@
 
             offValue: 0,
 
-            triggerSelector: '.light-switch'
+            triggerSelector: '.light-switch',
+
+            inputClassName: 'light-switch'
         },
 
         triggers: {
