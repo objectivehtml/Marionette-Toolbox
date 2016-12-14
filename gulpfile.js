@@ -34,7 +34,7 @@ gulp.task('browserSync', function() {
 });
 
 gulp.task('css', function() {
-    gulp.src(['./src/css/**/*.css'])
+    gulp.src(['./src/**/*.css'])
         .pipe(concat('marionette.toolbox.css'))
         .pipe(gulp.dest('./dist'));
 });
@@ -62,7 +62,7 @@ gulp.task('templates', function() {
         '}))'
     ].join('');
 
-    gulp.src(['./src/templates/**/*.handlebars'])
+    gulp.src(['./src/**/*.handlebars'])
         .pipe(handlebars())
         .pipe(defineModule('plain', {
             require: {
@@ -71,25 +71,23 @@ gulp.task('templates', function() {
             wrapper: wrapper
         }))
         .pipe(concat('templates.js'))
-        .pipe(gulp.dest('./src'))
-        .pipe(browserSync.reload({stream: true}));
+        .pipe(gulp.dest('./src/Core'));
 });
 
 gulp.task('scripts', function() {
     var files = [
-        './src/js/Toolbox.js',
-        './src/templates.*js',
-        './src/Handlebars/*.js',
-        './src/Components/*.js',
-        './src/js/Views/ItemView.js',
-        './src/js/Views/LayoutView.js',
-        './src/js/Views/CompositeView.js',
-        './src/js/Views/CollectionView.js',
-        './src/js/Views/BaseField.js',
-        './src/js/Views/BaseForm.js',
-        './src/js/Views/DropdownMenu.js',
-        './src/js/Views/ButtonDropdownMenu.js',
-        './src/js/**/*.js'
+        './src/Core/Toolbox.js',
+        './src/Core/templates.*js',
+        './src/Core/Handlebars/*.js',
+        './src/TreeView/Tree.js',
+        './src/Core/ItemView.js',
+        './src/Core/LayoutView.js',
+        './src/Core/CompositeView.js',
+        './src/Core/CollectionView.js',
+        './src/BaseForm/BaseField.js',
+        './src/BaseForm/BaseForm.js',
+        './src/DropdownMenu/DropdownMenu.js',
+        './src/**/*.js'
     ];
 
     gulp.src(files)
@@ -118,9 +116,9 @@ gulp.task('vendor', function () {
 });
 
 gulp.task('watch', function() {
-    gulp.watch('./src/css/**/*.css', ['css']).on('change', browserSync.reload);
-    gulp.watch('./src/js/**/*.js', ['scripts']);
-    gulp.watch('./src/templates/**/*.handlebars', ['templates']);
+    gulp.watch('./src/**/*.css', ['css']).on('change', browserSync.reload);
+    gulp.watch('./src/**/*.js', ['scripts']);
+    gulp.watch('./src/**/*.handlebars', ['templates', 'scripts']);
     gulp.watch('./examples/**/*.html').on('change', browserSync.reload);
 });
 

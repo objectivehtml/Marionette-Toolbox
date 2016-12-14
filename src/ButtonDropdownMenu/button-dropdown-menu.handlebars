@@ -1,0 +1,21 @@
+<div class="btn-group {{#if dropUp}}dropup{{/if}}">
+
+	{{#if splitButton}}
+		<button type="button" class="{{../buttonClassName}}">{{../buttonLabel}}</button>
+		<button type="button" class="{{../buttonClassName}} {{../dropdownMenuToggleClassName}}" data-toggle="dropdown" aria-expanded="false">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+	{{/if}}
+
+	{{#not splitButton}}
+		<button type="button" class="{{../buttonClassName}} {{../dropdownMenuToggleClassName}}" data-toggle="dropdown" aria-expanded="false">
+			{{../buttonLabel}}
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+	{{/not}}
+
+	<ul class="{{#if dropdownMenuClassName}}{{../dropdownMenuClassName}}{{/if}}"></ul>
+
+</div>

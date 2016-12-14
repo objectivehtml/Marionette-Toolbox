@@ -31,28 +31,26 @@
 
 			App.on('start', function() {
 
-				var collection = new Backbone.Collection([{
-					href: '#1',
-					value: 'Dropdown Item #1'
-				},{
-					href: '#2',
-					value: 'Dropdown Item #2'
-				},{
-					href: '#3',
-					value: 'Dropdown Item #3'
-				},{
-					divider: true
-				},{
-					href: '#4',
-					value: 'Dropdown Item #4'
-				}]);
-
 				var view = new Toolbox.ButtonDropdownMenu({
-					collection: collection,
 					buttonLabel: 'Show Dropdown',
 					buttonClassName: 'btn btn-default btn-lg',
 					dropdownMenuClassName: 'dropdown-menu dropdown-menu-right',
-					splitButton: true
+					splitButton: true,
+					items: [{
+						href: '#1',
+						label: 'Dropdown Item #1'
+					},{
+						href: '#2',
+						label: 'Dropdown Item #2'
+					},{
+						href: '#3',
+						label: 'Dropdown Item #3'
+					},{
+						divider: true
+					},{
+						href: '#4',
+						label: 'Dropdown Item #4'
+					}]
 				});
 
 				view.on('button:click', function() {

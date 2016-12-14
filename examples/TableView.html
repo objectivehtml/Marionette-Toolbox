@@ -37,33 +37,19 @@
 
 				var UsersCollection = Backbone.Collection.extend({
 
-					url: 'http://api.wedo.dev/deals',
+					url: 'http://api.wedo.ws/deals',
 
 					parse: function(data, options) {
 						var responses = [];
 
-						if(data.success) {
-							var t = this;
-
-							if(data.response.data) {
-								data = data.response.data;
+						_.each(data.response.data, function(response, i) {
+							if(response.uid) {
+								response.id = response.uid;
 							}
-							else {
-								data = data.response;
-							}
+							responses.push(new this.model(response));
+						}, this);
 
-							_.each(data, function(response, i) {
-								if(response.uid) {
-									response.id = response.uid;
-								}
-
-								responses.push(new t.model(response));
-							});
-
-							return responses;
-						}
-
-						return [];
+						return responses;
 					}
 
 				});
@@ -84,7 +70,7 @@
 						name: 'Created At',
 						id: 'createdAt'
 					}],
-					limit: 1,
+					limit: 10,
 					buttons: [{
 						label: 'Test 1',
 						icon: 'fa fa-plus',
