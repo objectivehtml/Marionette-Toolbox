@@ -25,7 +25,7 @@
 
     Toolbox.Views = {};
 
-    Toolbox.VERSION = '0.5.45';
+    Toolbox.VERSION = '0.5.56';
 
     // Toolbox.Template
     // -------------------
@@ -170,6 +170,35 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return buffer;
   })}));
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data,depth1) {
+  
+  var buffer = "", stack1;
+  buffer += "<i class=\""
+    + escapeExpression(((stack1 = (depth1 && depth1.icon)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"></i> ";
+  return buffer;
+  }
+
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.icon), {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (helper = helpers.label) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.label); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1);
+  return buffer;
+  })}));
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "";
+
+
+  return buffer;
+  })}));
 (function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['button-dropdown-menu'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -228,35 +257,6 @@ function program7(depth0,data,depth1) {
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.dropdownMenuClassName), {hash:{},inverse:self.noop,fn:self.programWithDepth(7, program7, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\"></ul>\n\n</div>\n";
-  return buffer;
-  })}));
-(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression, self=this;
-
-function program1(depth0,data,depth1) {
-  
-  var buffer = "", stack1;
-  buffer += "<i class=\""
-    + escapeExpression(((stack1 = (depth1 && depth1.icon)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></i> ";
-  return buffer;
-  }
-
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.icon), {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  if (helper = helpers.label) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.label); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1);
-  return buffer;
-  })}));
-(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['no-button-group-item'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "";
-
-
   return buffer;
   })}));
 (function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['calendar-monthly-day-view'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1259,13 +1259,12 @@ function program17(depth0,data) {
   buffer += " ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.selected), {hash:{},inverse:self.noop,fn:self.program(20, program20, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">\n		";
+  buffer += ">";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.label), {hash:{},inverse:self.noop,fn:self.programWithDepth(22, program22, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n		";
   stack1 = (helper = helpers.not || (depth0 && depth0.not),options={hash:{},inverse:self.noop,fn:self.programWithDepth(24, program24, data, depth0),data:data},helper ? helper.call(depth0, (depth0 && depth0.label), options) : helperMissing.call(depth0, "not", (depth0 && depth0.label), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n	</option>\n";
+  buffer += "</option>\n";
   return buffer;
   }
 function program18(depth0,data,depth1) {
@@ -1326,16 +1325,8 @@ function program24(depth0,data,depth1) {
   else { helper = (depth0 && depth0.options); stack1 = typeof helper === functionType ? helper.call(depth0, options) : helper; }
   if (!helpers.options) { stack1 = blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(17, program17, data),data:data}); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</select>";
+  buffer += "\n</select>\n";
   return buffer;
-  })}));
-(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['range-slider'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "<div class=\"slider\"></div>";
   })}));
 (function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['table-activity-indicator-row'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -1606,6 +1597,33 @@ function program1(depth0,data,depth1) {
   if(stack1 || stack1 === 0) { return stack1; }
   else { return ''; }
   })}));
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['tab-content'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var stack1, helper, functionType="function";
+
+
+  if (helper = helpers.content) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.content); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  if(stack1 || stack1 === 0) { return stack1; }
+  else { return ''; }
+  })}));
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['tabs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<!-- Nav tabs -->\n<ul class=\"nav nav-tabs\" role=\"tablist\"></ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n</div>";
+  })}));
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['range-slider'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<div class=\"slider\"></div>";
+  })}));
 (function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['form-textarea-field'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -1715,24 +1733,18 @@ function program13(depth0,data,depth1) {
     + "\"></textarea>";
   return buffer;
   })}));
-(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['tab-content'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['draggable-tree-view-node'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var stack1, helper, functionType="function";
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  if (helper = helpers.content) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.content); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  if(stack1 || stack1 === 0) { return stack1; }
-  else { return ''; }
-  })}));
-(function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['tabs'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
-  this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
-
-
-  return "<!-- Nav tabs -->\n<ul class=\"nav nav-tabs\" role=\"tablist\"></ul>\n\n<!-- Tab panes -->\n<div class=\"tab-content\">\n</div>";
+  buffer += "<i class=\"fa fa-bars drag-handle\"></i>\n\n<div class=\"node-name\">\n    <span>";
+  if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.name); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</span> <!--<div class=\"menu\"></div>-->\n</div>\n\n<ul class=\"children\"></ul>\n";
+  return buffer;
   })}));
 (function (root, factory) {if (typeof define === 'function' && define.amd) {define(['handlebars'], function(Handlebars) {return factory(root.Toolbox, Handlebars)});} else if (typeof exports === 'object') {module.exports = factory(root.Toolbox, require('handlebars'));} else {factory(root.Toolbox, root.Handlebars);}}(this, function (Toolbox, Handlebars) {if(typeof Toolbox === "undefined") {throw Error('Handlebars is not defined.')}if(typeof Toolbox.templates !== "object") {Toolbox.templates = {}}Toolbox.templates['tree-view-node'] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -2559,20 +2571,64 @@ function program1(depth0,data) {
         getFormData: function() {
             var data = {};
 
-            this.$el.find('input, select, textarea').each(function() {
-                var name = $(this).attr('name');
-                var value = $(this).val();
+            function stripBrackets(component) {
+                var matches = component.match(/[^\[\]]+/);
 
-                if(name) {
-                    if($(this).is(':radio') || $(this).is(':checkbox')) {
-                        if($(this).is(':checked')) {
-                            data[name] = value;
-                        }
+                return matches ? matches[0] : false;
+            }
+
+            function addComponent(subject, component, value) {
+                if(!subject[component]) {
+                    subject[component] = value;
+                }
+
+                return subject[component];
+            }
+
+            function addComponents(subject, components, value) {
+                _.each(components, function(component, i) {
+                    var variable = stripBrackets(component);
+
+                    if(variable) {
+                        subject = addComponent(subject, variable, components.length > i + 1 ? {} : value);
                     }
                     else {
-                        if(!_.isNull(value) || !_.isUndefined(value)) {
-                            data[name] = value;
-                        }
+                        // this is an array like []
+                    }
+                });
+            }
+
+            function createObjects(root, components, value) {
+                if(!data[root]) {
+                    data[root] = {};
+                }
+
+                addComponents(data[root], components, value);
+            }
+
+            this.$el.find('input, select, textarea').each(function() {
+                var name = $(this).attr('name');
+
+                if(($(this).is(':radio') || $(this).is(':checkbox'))) {
+                    if($(this).is(':checked')) {
+                        var value = $(this).val();
+                    }
+                }
+                else {
+                    var value = $(this).val();
+                }
+
+                if(name && (!_.isNull(value) && !_.isUndefined(value))) {
+                    var matches = name.match(/(^\w+)?(\[.*!?\])/);
+
+                    if(matches) {
+                        var root = matches[1];
+                        var components = matches[2].match(/\[.*?\]/g);
+
+                        createObjects(root, components, value);
+                    }
+                    else {
+                        data[name] = value;
                     }
                 }
             });
@@ -3119,130 +3175,79 @@ function program1(depth0,data) {
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore', 'spin.js'], function(_, Spinner) {
-            return factory(root.Toolbox, _, Spinner);
+        define(['underscore', 'backbone'], function(_, Backbone) {
+            return factory(root.Toolbox, _, Backbone);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'), require('spin.js'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root._, root.Spinner);
+        root.Toolbox = factory(root.Toolbox, root._, root.Backbone);
     }
-}(this, function (Toolbox, _, Spinner) {
+}(this, function (Toolbox, _, Backbone) {
 
     'use strict';
 
-    Toolbox.ActivityIndicator = Toolbox.ItemView.extend({
+    Toolbox.TreeViewNode = Toolbox.CompositeView.extend({
 
-        template: Toolbox.Template('activity-indicator'),
-
-        spinning: false,
-
-        defaultOptions: {
-            dimmedBgColor: false,
-            dimmed: false,
-            autoStart: true,
-            position: false,
-            minHeight: '0px',
-            indicator: {},
-            defaultIndicator: {
-                lines: 11, // The number of lines to draw
-                length: 15, // The length of each line
-                width: 3, // The line thickness
-                radius: 13, // The radius of the inner circle
-                corners: 4, // Corner roundness (0..1)
-                rotate: 0, // The rotation offset
-                direction: 1, // 1: clockwise, -1: counterclockwise
-                color: '#000', // #rgb or #rrggbb or array of colors
-                speed: 1, // Rounds per second
-                trail: 40, // Afterglow percentage
-                shadow: false, // Whether to render a shadow
-                hwaccel: true, // Whether to use hardware acceleration
-                className: 'activity-indicator-spinner', // The CSS class to assign to the spinner
-                zIndex: 2e9, // The z-index (defaults to 2000000000)
-                top: '50%', // Top position relative to parent
-                left: '50%' // Left position relative to parent
+        getTemplate: function() {
+            if(!this.getOption('template')) {
+                throw new Error('A template option must be set.');
             }
+
+            return this.getOption('template');
         },
 
-        templateHelpers: function() {
-            return this.options;
+        tagName: 'li',
+
+        options: {
+            idAttribute: 'id',
+            parentAttribute: 'parent_id',
+            childViewContainer: '.children'
         },
 
-        getPresetOptions: function() {
+        attributes: function() {
             return {
-                'tiny': {
-                    lines: 12, // The number of lines to draw
-                    length: 4, // The length of each line
-                    width: 1, // The line thickness
-                    radius: 4, // The radius of the inner circle
-                    corners: 1, // Corner roundness (0..1)
-                },
-                'small': {
-                    lines: 12, // The number of lines to draw
-                    length: 7, // The length of each line
-                    width: 1, // The line thickness
-                    radius: 7, // The radius of the inner circle
-                    corners: 1, // Corner roundness (0..1)
-                },
-                'medium': {
-                    lines: 12, // The number of lines to draw
-                    length: 14, // The length of each line
-                    width: 1, // The line thickness
-                    radius: 11, // The radius of the inner circle
-                    corners: 1, // Corner roundness (0..1)
-                },
-                'large': {
-                    lines: 12, // The number of lines to draw
-                    length: 28, // The length of each line
-                    width: 1, // The line thickness
-                    radius: 20, // The radius of the inner circle
-                    corners: 1, // Corner roundness (0..1)
-                }
+                'data-id': this.model.get(this.getOption('idAttribute')),
+                'data-parent-id': this.model.get(this.getOption('parentAttribute'))
             };
         },
 
-        getSpinnerOptions: function() {
-            var defaultIndicator = this.getOption('defaultIndicator');
-            var indicator = this.getOption('indicator');
-            var presets = this.getPresetOptions();
+        initialize: function() {
+            Toolbox.CompositeView.prototype.initialize.apply(this, arguments);
 
-            if(_.isString(indicator) && presets[indicator]) {
-                indicator = presets[indicator];
-            }
-            else if(typeof indicator !== "object"){
-                indicator = {};
-            }
+            this.collection = this.model.children;
 
-            return _.extend({}, defaultIndicator, indicator);
+            var options = _.extend({}, this.options);
+
+            delete options.model;
+
+            this.childViewOptions = _.extend({}, options, this.getOption('childViewOptions') || {});
         },
 
-        getSpinnerDom: function() {
-            return this.$el.find('.activity-indicator').get(0);
-        },
-
-        start: function() {
-            this.spinning = true;
-            this.spinner.spin(this.getSpinnerDom());
-            this.triggerMethod('start');
-        },
-
-        stop: function() {
-            this.spinning = false;
-            this.spinner.stop();
-            this.triggerMethod('stop');
-        },
-
-        onRender: function() {
-            // create the spinner object
-            this.spinner = new Spinner(this.getSpinnerOptions());
-
-            // start if options.autoStart is true
-            if(this.getOption('autoStart')) {
-                this.start();
-            }
+        templateHelpers: function() {
+            return {
+                hasChildren:  this.collection ? this.collection.length > 0 : false
+            };
         }
 
-    });
+	});
+
+    Toolbox.TreeView = Toolbox.CollectionView.extend({
+
+        childView: Toolbox.TreeViewNode,
+
+        tagName: 'ul',
+
+        initialize: function() {
+            Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
+
+            this.options.childViewOptions = _.extend({}, {
+                template: this.getOption('template'),
+                treeRoot: this
+            }, this.getOption('childViewOptions') || {});
+        }
+
+	});
 
     return Toolbox;
 
@@ -3403,6 +3408,137 @@ function program1(depth0,data) {
 		}
 
 	});
+
+    return Toolbox;
+
+}));
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['underscore', 'spin.js'], function(_, Spinner) {
+            return factory(root.Toolbox, _, Spinner);
+        });
+    } else if (typeof exports === 'object') {
+        module.exports = factory(root.Toolbox, require('underscore'), require('spin.js'));
+    } else {
+        root.Toolbox = factory(root.Toolbox, root._, root.Spinner);
+    }
+}(this, function (Toolbox, _, Spinner) {
+
+    'use strict';
+
+    Toolbox.ActivityIndicator = Toolbox.ItemView.extend({
+
+        template: Toolbox.Template('activity-indicator'),
+
+        spinning: false,
+
+        defaultOptions: {
+            dimmedBgColor: false,
+            dimmed: false,
+            autoStart: true,
+            position: false,
+            minHeight: '0px',
+            indicator: {},
+            defaultIndicator: {
+                lines: 11, // The number of lines to draw
+                length: 15, // The length of each line
+                width: 3, // The line thickness
+                radius: 13, // The radius of the inner circle
+                corners: 4, // Corner roundness (0..1)
+                rotate: 0, // The rotation offset
+                direction: 1, // 1: clockwise, -1: counterclockwise
+                color: '#000', // #rgb or #rrggbb or array of colors
+                speed: 1, // Rounds per second
+                trail: 40, // Afterglow percentage
+                shadow: false, // Whether to render a shadow
+                hwaccel: true, // Whether to use hardware acceleration
+                className: 'activity-indicator-spinner', // The CSS class to assign to the spinner
+                zIndex: 2e9, // The z-index (defaults to 2000000000)
+                top: '50%', // Top position relative to parent
+                left: '50%' // Left position relative to parent
+            }
+        },
+
+        templateHelpers: function() {
+            return this.options;
+        },
+
+        getPresetOptions: function() {
+            return {
+                'tiny': {
+                    lines: 12, // The number of lines to draw
+                    length: 4, // The length of each line
+                    width: 1, // The line thickness
+                    radius: 4, // The radius of the inner circle
+                    corners: 1, // Corner roundness (0..1)
+                },
+                'small': {
+                    lines: 12, // The number of lines to draw
+                    length: 7, // The length of each line
+                    width: 1, // The line thickness
+                    radius: 7, // The radius of the inner circle
+                    corners: 1, // Corner roundness (0..1)
+                },
+                'medium': {
+                    lines: 12, // The number of lines to draw
+                    length: 14, // The length of each line
+                    width: 1, // The line thickness
+                    radius: 11, // The radius of the inner circle
+                    corners: 1, // Corner roundness (0..1)
+                },
+                'large': {
+                    lines: 12, // The number of lines to draw
+                    length: 28, // The length of each line
+                    width: 1, // The line thickness
+                    radius: 20, // The radius of the inner circle
+                    corners: 1, // Corner roundness (0..1)
+                }
+            };
+        },
+
+        getSpinnerOptions: function() {
+            var defaultIndicator = this.getOption('defaultIndicator');
+            var indicator = this.getOption('indicator');
+            var presets = this.getPresetOptions();
+
+            if(_.isString(indicator) && presets[indicator]) {
+                indicator = presets[indicator];
+            }
+            else if(typeof indicator !== "object"){
+                indicator = {};
+            }
+
+            return _.extend({}, defaultIndicator, indicator);
+        },
+
+        getSpinnerDom: function() {
+            return this.$el.find('.activity-indicator').get(0);
+        },
+
+        start: function() {
+            this.spinning = true;
+            this.spinner.spin(this.getSpinnerDom());
+            this.triggerMethod('start');
+        },
+
+        stop: function() {
+            this.spinning = false;
+            this.spinner.stop();
+            this.triggerMethod('stop');
+        },
+
+        onRender: function() {
+            // create the spinner object
+            this.spinner = new Spinner(this.getSpinnerOptions());
+
+            // start if options.autoStart is true
+            if(this.getOption('autoStart')) {
+                this.start();
+            }
+        }
+
+    });
 
     return Toolbox;
 
@@ -4797,6 +4933,103 @@ function program1(depth0,data) {
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
+        factory(root.Toolbox);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(root.Toolbox);
+    } else {
+        root.Toolbox = factory(root.Toolbox);
+    }
+}(this, function (Toolbox) {
+
+    'use strict';
+
+	Toolbox.NoOrderedListItem = Toolbox.ItemView.extend({
+
+		template: Toolbox.Template('no-ordered-list-item'),
+
+		tagName: 'li',
+
+		defaultOptions: {
+			message: 'There are no items in the list.'
+		},
+
+		templateHelpers: function() {
+			return this.options;
+		}
+
+	});
+
+	Toolbox.OrderedListItem = Toolbox.ItemView.extend({
+
+		template: Toolbox.Template('ordered-list-item'),
+
+		className: 'ordered-list-item',
+
+		tagName: 'li',
+
+		events: {
+			'click': function(e, obj) {
+				this.triggerMethod('click', obj);
+			}
+		},
+
+		templateHelpers: function() {
+			return this.options
+		}
+
+	});
+
+	Toolbox.OrderedList = Toolbox.CollectionView.extend({
+
+		childView: Toolbox.OrderedListItem,
+
+    	emptyView: Toolbox.NoUnorderedListItem,
+
+		className: 'ordered-list',
+
+		tagName: 'ol',
+
+		defaultOptions: {
+			// (object) The view object to use for the empty message
+			emptyMessageView: Toolbox.NoOrderedListItem,
+
+			// (string) The message to display if there are no list items
+			emptyMessage: 'There are no items in the list.',
+
+			// (bool) Show the empty message view
+			showEmptyMessage: true
+		},
+
+		childEvents: {
+			'click': function(view) {
+				this.triggerMethod('item:click', view);
+			}
+		},
+
+        getEmptyView: function() {
+        	if(this.getOption('showEmptyMessage')) {
+	            var View = this.getOption('emptyMessageView');
+
+	            View = View.extend({
+	                options: {
+	                    message: this.getOption('emptyMessage')
+	                }
+	            });
+
+	            return View;
+	        }
+
+	        return;
+        }
+
+	});
+
+    return Toolbox;
+
+}));
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
         define(['jQuery'], function($) {
             return factory(root.Toolbox, $);
         });
@@ -4939,86 +5172,87 @@ function program1(depth0,data) {
 
     'use strict';
 
-	Toolbox.NoOrderedListItem = Toolbox.ItemView.extend({
+	Toolbox.ProgressBar = Toolbox.ItemView.extend({
 
-		template: Toolbox.Template('no-ordered-list-item'),
+		template: Toolbox.Template('progress-bar'),
 
-		tagName: 'li',
+		className: 'progress',
 
 		defaultOptions: {
-			message: 'There are no items in the list.'
+			// (string) The progress bar class name
+			progressBarClassName: 'progress-bar',
+
+			// (int) The progress percentage
+			progress: 0
 		},
 
-		templateHelpers: function() {
-			return this.options;
+        templateHelpers: function() {
+            return this.options;
+        },
+
+		setProgress: function(progress) {
+			if(progress < 0) {
+				progress = 0;
+			}
+
+			if(progress > 100) {
+				progress = 100;
+			}
+
+			this.options.progress = progress;
+			this.triggerMethod('progress', progress);
+
+			if(progress === 100) {
+				this.triggerMethod('complete');
+			}
+		},
+
+		getProgress: function() {
+			return this.getOption('progress');
+		},
+
+		onProgress: function() {
+			this.render();
 		}
 
 	});
 
-	Toolbox.OrderedListItem = Toolbox.ItemView.extend({
+    return Toolbox;
 
-		template: Toolbox.Template('ordered-list-item'),
+}));
 
-		className: 'ordered-list-item',
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        factory(root.Toolbox);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(root.Toolbox);
+    } else {
+        root.Toolbox = factory(root.Toolbox);
+    }
+}(this, function (Toolbox) {
 
-		tagName: 'li',
+    'use strict';
 
-		events: {
-			'click': function(e, obj) {
-				this.triggerMethod('click', obj);
-			}
-		},
+    Toolbox.RadioField = Toolbox.BaseField.extend({
 
-		templateHelpers: function() {
-			return this.options
-		}
+        template: Toolbox.Template('form-radio-field'),
 
-	});
+        options: {
+            options: false,
+            type: 'radio',
+            inputClassName: 'radio',
+            checkboxClassName: 'radio'
+        },
 
-	Toolbox.OrderedList = Toolbox.CollectionView.extend({
+        getInputValue: function() {
+            return this.$el.find(':checked').val();
+        },
 
-		childView: Toolbox.OrderedListItem,
-
-    	emptyView: Toolbox.NoUnorderedListItem,
-
-		className: 'ordered-list',
-
-		tagName: 'ol',
-
-		defaultOptions: {
-			// (object) The view object to use for the empty message
-			emptyMessageView: Toolbox.NoOrderedListItem,
-
-			// (string) The message to display if there are no list items
-			emptyMessage: 'There are no items in the list.',
-
-			// (bool) Show the empty message view
-			showEmptyMessage: true
-		},
-
-		childEvents: {
-			'click': function(view) {
-				this.triggerMethod('item:click', view);
-			}
-		},
-
-        getEmptyView: function() {
-        	if(this.getOption('showEmptyMessage')) {
-	            var View = this.getOption('emptyMessageView');
-
-	            View = View.extend({
-	                options: {
-	                    message: this.getOption('emptyMessage')
-	                }
-	            });
-
-	            return View;
-	        }
-
-	        return;
+        setInputValue: function(value) {
+            return this.$el.find('[value="'+value+'"]').attr('checked', true);
         }
 
-	});
+    });
 
     return Toolbox;
 
@@ -5390,84 +5624,36 @@ function program1(depth0,data) {
 
     'use strict';
 
-	Toolbox.ProgressBar = Toolbox.ItemView.extend({
+    Toolbox.SelectField = Toolbox.BaseField.extend({
 
-		template: Toolbox.Template('progress-bar'),
-
-		className: 'progress',
-
-		defaultOptions: {
-			// (string) The progress bar class name
-			progressBarClassName: 'progress-bar',
-
-			// (int) The progress percentage
-			progress: 0
-		},
-
-        templateHelpers: function() {
-            return this.options;
-        },
-
-		setProgress: function(progress) {
-			if(progress < 0) {
-				progress = 0;
-			}
-
-			if(progress > 100) {
-				progress = 100;
-			}
-
-			this.options.progress = progress;
-			this.triggerMethod('progress', progress);
-
-			if(progress === 100) {
-				this.triggerMethod('complete');
-			}
-		},
-
-		getProgress: function() {
-			return this.getOption('progress');
-		},
-
-		onProgress: function() {
-			this.render();
-		}
-
-	});
-
-    return Toolbox;
-
-}));
-
-(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        factory(root.Toolbox);
-    } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox);
-    } else {
-        root.Toolbox = factory(root.Toolbox);
-    }
-}(this, function (Toolbox) {
-
-    'use strict';
-
-    Toolbox.RadioField = Toolbox.BaseField.extend({
-
-        template: Toolbox.Template('form-radio-field'),
+        template: Toolbox.Template('form-select-field'),
 
         options: {
-            options: false,
-            type: 'radio',
-            inputClassName: 'radio',
-            checkboxClassName: 'radio'
+            triggerSelector: 'select',
+            multiple: false,
+            options: []
+        },
+
+        triggers: {
+            'change .form-control': 'change'
+        },
+
+        onChange: function() {
+            this.save();
+        },
+
+        getInputField: function() {
+            return this.$el.find('select');
         },
 
         getInputValue: function() {
-            return this.$el.find(':checked').val();
+            return this.getInputField().val();
         },
 
-        setInputValue: function(value) {
-            return this.$el.find('[value="'+value+'"]').attr('checked', true);
+        onDomRefresh: function() {
+            if(this.getOption('value')) {
+                this.getInputField().val(this.getOption('value'));
+            }
         }
 
     });
@@ -5591,52 +5777,6 @@ function program1(depth0,data) {
         }
 
 	});
-
-    return Toolbox;
-
-}));
-
-(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        factory(root.Toolbox);
-    } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox);
-    } else {
-        root.Toolbox = factory(root.Toolbox);
-    }
-}(this, function (Toolbox) {
-
-    'use strict';
-
-    Toolbox.SelectField = Toolbox.BaseField.extend({
-
-        template: Toolbox.Template('form-select-field'),
-
-        options: {
-            triggerSelector: 'select',
-            multiple: false,
-            options: []
-        },
-
-        triggers: {
-            'change .form-control': 'change'
-        },
-
-        onChange: function() {
-            this.save();
-        },
-
-        getInputField: function() {
-            return this.$el.find('select');
-        },
-
-        onDomRefresh: function() {
-            if(this.getOption('value')) {
-                this.getInputField().val(this.getOption('value'));
-            }
-        }
-
-    });
 
     return Toolbox;
 
@@ -5934,7 +6074,7 @@ function program1(depth0,data) {
             descriptionTag: 'p',
 
             // (string) The table description tag
-            descriptionClassName: 'description',
+            descriptionClassName: 'description row col-sm-6',
 
             // (string) The table class name
             tableClassName: 'table',
@@ -6150,7 +6290,7 @@ function program1(depth0,data) {
         onFetchComplete: function(status, collection, response) {
             this.hideActivityIndicator();
         },
-        
+
         getCurrentPage(response) {
             return response.current_page || response.currentPage;
         },
@@ -6373,45 +6513,35 @@ function program1(depth0,data) {
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore', 'backbone'], function(_, Backbone) {
-            return factory(root.Toolbox, _, Backbone);
+        define(['underscore', 'jQuery', 'backbone.marionette', 'interact.js'], function(_, $, Marionette, interact) {
+            return factory(root.Toolbox, _, $, Marionette, interact);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'), require('backbone'));
+        module.exports = factory(
+            root.Toolbox,
+            require('underscore'),
+            require('jQuery'),
+            require('backbone.marionette'),
+            require('interact.js')
+        );
     } else {
-        root.Toolbox = factory(root.Toolbox, root._, root.Backbone);
+        root.Toolbox = factory(root.Toolbox, root._, root.$, root.Marionette, root.interact);
     }
-}(this, function (Toolbox, _, Backbone) {
+}(this, function (Toolbox, _, $, Marionette, interact) {
 
-    'use strict';
+    Toolbox.DraggableTreeNode = Toolbox.TreeViewNode.extend({
 
-    Toolbox.TreeViewNode = Toolbox.CompositeView.extend({
+        className: 'draggable-tree-node',
 
-        getTemplate: function() {
-            if(!this.getOption('template')) {
-                throw new Error('A template option must be set.');
-            }
-
-            return this.getOption('template');
-        },
-
-        tagName: 'li',
-
-        options: {
-            idAttribute: 'id',
-            parentAttribute: 'parent_id',
-            childViewContainer: '.children'
-        },
-
-        modelEvents: {
-            'change': 'render'
-        },
-
-        attributes: function() {
-            return {
-                'data-id': this.model.get(this.getOption('idAttribute')),
-                'data-parent-id': this.model.get(this.getOption('parentAttribute'))
-            };
+        defaultOptions: function() {
+            return _.extend({}, Toolbox.TreeViewNode.prototype.defaultOptions, {
+                menuClassName: 'menu',
+                menuView: Toolbox.DropdownMenu,
+                menuViewOptions: {
+                    tagName: 'div'
+                },
+                menuItems: []
+            });
         },
 
         initialize: function() {
@@ -6426,30 +6556,271 @@ function program1(depth0,data) {
             this.childViewOptions = _.extend({}, options, this.getOption('childViewOptions') || {});
         },
 
-        templateHelpers: function() {
-            return {
-                hasChildren:  this.collection ? this.collection.length > 0 : false
-            };
+        root: function() {
+            return this.getOption('treeRoot');
+        },
+
+        getMenuContainer: function() {
+            return this.$el.find('.' + this.getOption('menuClassName'));
+        },
+
+        showMenu: function() {
+            var View = this.getOption('menuView'), container = this.getMenuContainer();
+
+            if(View && container.length) {
+        		var view = new View(_.extend({}, this.getOption('menuViewOptions'), {
+        			items: this.getOption('menuItems')
+        		}));
+
+                this.menu = new Marionette.Region({
+                    el: container.get(0)
+                });
+
+                this.menu.show(view);
+            }
+        },
+
+        onDrop: function(event) {
+            var self = this;
+
+            Dropzones(event.dragEvent, event.target, {
+                before: function($element) {
+                    $(event.relatedTarget).insertBefore($element);
+                    self.root().triggerMethod('drop:before', event, self);
+                },
+                after: function($element) {
+                    $(event.relatedTarget).insertAfter($element);
+                    self.root().triggerMethod('drop:after', event, self);
+                },
+                children: function($element) {
+                    var $children = $element.find('.children').first();
+                    if(!$children.length) {
+                        $element.prepend($children = $('<ul/>').addClass('children'));
+                    }
+                    $children.prepend(event.relatedTarget);
+                    self.root().triggerMethod('drop:children', event, self);
+                }
+            });
+
+            self.root().triggerMethod('drop', event, this);
+        },
+
+        onDropMove: function(event) {
+            Dropzones(event, event.dropzone.element(), {
+                before: function($element) {
+                    $element.addClass('droppable drop-before')
+                        .removeClass('drop-after drop-children');
+                },
+                after: function($element) {
+                    $(event.dropzone.element())
+                        .addClass('droppable drop-after')
+                        .removeClass('drop-before drop-children');
+                },
+                children: function($element) {
+                    $(event.dropzone.element())
+                        .addClass('droppable drop-children')
+                        .removeClass('drop-after drop-before')
+                }
+            });
+        },
+
+        onDragMove: function(event) {
+            this.$el.addClass('dragging');
+
+            var target = event.target;
+
+            var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+            var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+            // translate the element
+            target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+
+            // update the posiion attributes
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+
+            this.root().triggerMethod('drag:move', event, this);
+        },
+
+        onDragStart: function() {
+            this.root().triggerMethod('drag:start', event, this);
+        },
+
+        onDragEnd: function(event) {
+            this.$el.removeClass('dragging');
+
+            $(event.target).attr({
+                'data-x': false,
+                'data-y': false,
+                'style': false
+            });
+
+            this.root().triggerMethod('drag:end', event, this);
+        },
+
+        onDragEnter: function() {
+            this.root().triggerMethod('drag:enter', event, this);
+        },
+
+        onDragLeave: function(event) {
+            $(event.target).removeClass('droppable drop-before drop-after drop-children');
+
+            this.root().triggerMethod('drag:leave', event, this);
+        },
+
+        onDropDeactivate: function(event) {
+            $(event.target).removeClass('droppable drop-before drop-after drop-children');
+
+            this.root().triggerMethod('drop:deactivate', event, this);
+        },
+
+        onDomRefresh: function() {
+            var self = this, $el = this.$el;
+
+            interact(this.$el.get(0))
+                .allowFrom('.drag-handle')
+                .draggable({
+                    autoScroll: true,
+                    onmove: function(event) {
+                        self.triggerMethod('drag:move', event);
+                    },
+                    onend: function (event) {
+                        self.triggerMethod('drag:end', event);
+                    },
+                    onstart: function(event) {
+                        self.triggerMethod('drag:start', event);
+                    }
+                });
+
+            interact(this.$el.get(0))
+                .dropzone({
+                    accept: '.' + this.className,
+                    ondragenter: function (event) {
+                        self.triggerMethod('drag:enter', event);
+                    },
+                    ondragleave: function (event) {
+                        self.triggerMethod('drag:leave', event);
+                    },
+                    ondrop: function (event) {
+                        self.triggerMethod('drop', event);
+                    },
+                    ondropdeactivate: function (event) {
+                        self.triggerMethod('drop:deactivate', event);
+                    }
+                })
+                .on('dragmove', function (event) {
+                    if(event.dropzone) {
+                        self.triggerMethod('drop:move', event);
+                    }
+                });
+
+            this.showMenu();
         }
 
-	});
+    });
 
-    Toolbox.TreeView = Toolbox.CollectionView.extend({
+    Toolbox.DraggableTreeView = Toolbox.TreeView.extend({
 
-        childView: Toolbox.TreeViewNode,
+        childView: Toolbox.DraggableTreeNode,
 
-        tagName: 'ul',
+        className: 'draggable-tree'
 
-        initialize: function() {
-            Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
+    });
 
-            this.options.childViewOptions = _.extend({}, {
-                template: this.getOption('template'),
-                treeRoot: this
-            }, this.getOption('childViewOptions') || {});
+    var ViewOffset = function(node, singleFrame) {
+        function addOffset(node, coords, view) {
+            var p = node.offsetParent;
+            coords.x += node.offsetLeft - (p ? p.scrollLeft : 0);
+            coords.y += node.offsetTop - (p ? p.scrollTop : 0);
+
+            if (p) {
+                if (p.nodeType == 1) {
+                    var parentStyle = view.getComputedStyle(p, '');
+
+                    if (parentStyle.position != 'static') {
+                        coords.x += parseInt(parentStyle.borderLeftWidth);
+                        coords.y += parseInt(parentStyle.borderTopWidth);
+
+                        if (p.localName == 'TABLE') {
+                            coords.x += parseInt(parentStyle.paddingLeft);
+                            coords.y += parseInt(parentStyle.paddingTop);
+                        }
+                        else if (p.localName == 'BODY') {
+                            var style = view.getComputedStyle(node, '');
+                            coords.x += parseInt(style.marginLeft);
+                            coords.y += parseInt(style.marginTop);
+                        }
+                    }
+                    else if (p.localName == 'BODY') {
+                        coords.x += parseInt(parentStyle.borderLeftWidth);
+                        coords.y += parseInt(parentStyle.borderTopWidth);
+                    }
+
+                    var parent = node.parentNode;
+
+                    while (p != parent) {
+                        coords.x -= parent.scrollLeft;
+                        coords.y -= parent.scrollTop;
+                        parent = parent.parentNode;
+                    }
+
+                    addOffset(p, coords, view);
+                }
+            }
+            else {
+                if (node.localName == 'BODY') {
+                    var style = view.getComputedStyle(node, '');
+                    coords.x += parseInt(style.borderLeftWidth);
+                    coords.y += parseInt(style.borderTopWidth);
+
+                    var htmlStyle = view.getComputedStyle(node.parentNode, '');
+                    coords.x -= parseInt(htmlStyle.paddingLeft);
+                    coords.y -= parseInt(htmlStyle.paddingTop);
+                }
+
+                if (node.scrollLeft)
+                    coords.x += node.scrollLeft;
+                if (node.scrollTop)
+                    coords.y += node.scrollTop;
+
+                var win = node.ownerDocument.defaultView;
+
+                if (win && (!singleFrame && win.frameElement))
+                    addOffset(win.frameElement, coords, win);
+            }
         }
 
-	});
+        var coords = { x: 0, y: 0 };
+
+        if (node)
+            addOffset(node, coords, node.ownerDocument.defaultView);
+
+        return coords;
+    }
+
+    var Dropzones = function(event, element, callbacks) {
+        var offset = ViewOffset(element);
+        var top = offset.y;
+        var left = offset.x;
+        var height = element.offsetHeight;
+        var heightThreshold = height * .25;
+        var widthThreshold = 40;
+        var bottom = top + height;
+
+        if(heightThreshold > 20) {
+            heightThreshold = 20;
+        }
+
+        if(event.pageY < top + heightThreshold) {
+            callbacks.before ? callbacks.before.call(self, $(element)) : null;
+        }
+        else if(event.pageY > bottom - heightThreshold || event.pageX < left + widthThreshold) {
+            callbacks.after ? callbacks.after.call(self, $(element)) : null;
+        }
+        else {
+            callbacks.children ? callbacks.children.call(self, $(element)) : null;
+        }
+    };
 
     return Toolbox;
 

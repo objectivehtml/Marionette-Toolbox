@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
+		<link rel="stylesheet" href="../dist/marionette.toolbox.css">
+
+		<script src="../resources/vendor.js"></script>
+
+		<script type="text/javascript">
+			var $ = require('jquery');
+			var _ = require('underscore');
+			var Backbone = require('backbone');
+			var Marionette = require('backbone.marionette');
+			var Handlebars = require('handlebars');
+            var interact = require('interact.js');
+		</script>
+
+		<script src="../dist/marionette.toolbox.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div id="app-wrapper"></div>
+		</div>
+
+		<script type="text/javascript">
+			var App = new Backbone.Marionette.Application();
+
+			App.addRegions({
+				content: '#app-wrapper'
+			});
+
+			App.on('start', function() {
+
+				var data = [{
+					"id": 1,
+					"parent_id": null,
+					"name": "Permission 1",
+					"order": 1
+				}, {
+					"id":2,
+					"parent_id": 1,
+					"name": "Permission 2",
+					"order": 1
+				}, {
+					"id":3,
+					"parent_id": 2,
+					"name": "Permission 3",
+					"order": 1
+				}, {
+					"id":4,
+					"parent_id": 3,
+					"name": "Permission 4",
+					"order": 1
+				}, {
+					"id":5,
+					"parent_id": 4,
+					"name": "Permission 5",
+					"order": 1
+				}, {
+					"id":6,
+					"parent_id": 5,
+					"name": "Permission 6",
+					"order": 1
+				}, {
+					"id":7,
+					"parent_id": 6,
+					"name": "Permission 7",
+					"order": 1
+				}];
+
+				var collection = new Backbone.Collection(data);
+
+				var tree = new Toolbox.Tree(collection, {
+					comparator: 'order'
+				});
+
+				var view = new Toolbox.DraggableTreeView({
+					collection: tree,
+                    childViewOptions: {
+                        template: Toolbox.Template('draggable-tree-view-node')
+                    }
+				});
+
+				App.content.show(view);
+
+			});
+
+			App.start();
+
+		</script>
+
+	</body>
+</html>

@@ -25,20 +25,55 @@
 
 		<script id="form-template" type="text/x-handlebars-template">
 
+			<!--
 			<div class="form-group">
 				<label for="first">First Name</label>
-				<input type="text" name="firstName" id="firstName" value="{{firstName}}" class="form-control" />
+				<input type="text" name="firstName" id="firstName" value="Justin" class="form-control" />
 			</div>
 
 			<div class="form-group">
 				<label for="last">Last Name</label>
-				<input type="text" name="lastName" id="lastName" value="{{lastName}}" class="form-control" />
+				<input type="text" name="lastName" id="lastName" value="Kimbrell" class="form-control" />
 			</div>
 
 			<div class="form-group">
 				<label for="email">Email</label>
-				<input type="text" name="email" id="email" value="{{email}}" class="form-control" />
+				<input type="text" name="email" id="email" value="kimbrell@me.com" class="form-control" />
 			</div>
+
+			<div class="form-group">
+				<label for="age">Option - Age</label>
+				<input type="text" name="options[age]" id="age" value="30" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label for="favorite-color">Option - Favorite Color</label>
+				<input type="text" name="options[color]" id="favorite-color" value="green" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label for="favorite-color">Option - Birthday</label>
+				<input type="text" name="options[profile][birthday]" id="favorite-color" value="07/05/1986" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label for="favorite-color">Option - Gender</label>
+				<input type="text" name="options[profile][gender]" id="favorite-color" value="male" class="form-control" />
+			</div>
+
+			<input type="hidden" name="options[profile][test][a][a]" value="1">
+			<input type="hidden" name="options[profile][test][a][b]" value="2">
+			<input type="hidden" name="options[profile][test][b][a]" value="3">
+			<input type="hidden" name="options[profile][test][b][b]" value="4">
+		-->
+
+					<div class="form-group">
+						<label for="gender">Option - Gender</label>
+						<select name="profile[gender]" id="gender">
+							<option value="male">Male</option>
+							<option value="" selected>Female</option>
+						</select>
+					</div>
 
 			<footer>
 				<button class="btn btn-primary">Update Profile</button>
@@ -60,101 +95,10 @@
 				var source = $("#form-template").html();
 
 				var View = Toolbox.BaseForm.extend({
-
 					template: Handlebars.compile(source)
-
 				});
 
-				var User = Backbone.Model.extend({
-
-					url: 'http://api.wedo.dev/auth/user',
-
-					rest: {
-						'read': ':uid',
-						'create': '',
-						'update': ':uid',
-						'delete': ':uid'
-					},
-
-					sync: function(method, model, options) {
-						options = options || {};
-						method  = method.toLowerCase();
-
-						if(method == 'update' && this.forcePost) {
-							method = arguments[0] = 'create';
-						}
-
-						var rest = this.rest[method];
-
-						var append = null, uid = model.get('uid');
-
-						model.set('id', model.get('uid'));
-
-						append = rest.replace(/\:uid/, (uid ? uid : ''));
-
-						options.url = this.getUrl(method, append);
-
-						options.beforeSend = function(xhr) {
-							xhr.setRequestHeader('X-Auth-Token', '89ac9e68-d09c-42e4-9acb-52423b28f4f7');
-						};
-
-						if ( method === 'delete' ) {
-					        options.data = JSON.stringify(this.toJSON());
-					        options.contentType = 'applicaton/json';
-					    }
-
-						return Backbone.sync.apply(this, arguments);
-					},
-
-					getUrl: function(method, append) {
-						if(!method) {
-							method = 'read';
-						}
-
-						var url = this.url;
-
-						if(_.isObject(url)) {
-							if(url[method]) {
-								url = url[method];
-							}
-						}
-
-						return url;
-					},
-
-					parse: function(data, options) {
-						if(data.success) {
-							if(data.response.id) {
-								data.response.id = data.response.id;
-							}
-
-							this.set(data.response);
-						}
-					}
-
-				});
-
-				var model = new User();
-
-				var view = new View({
-					model: model
-				});
-
-				view.on('cancel', function() {
-					console.log('cancel');
-				});
-
-				var activity = new Toolbox.ActivityIndicator({
-					indicator: 'medium'
-				});
-
-				App.content.show(activity);
-
-				model.fetch({
-					success: function() {
-						App.content.show(view);
-					}
-				});
+				App.content.show(new View());
 
 			});
 

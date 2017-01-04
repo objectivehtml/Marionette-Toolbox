@@ -143,20 +143,64 @@
         getFormData: function() {
             var data = {};
 
-            this.$el.find('input, select, textarea').each(function() {
-                var name = $(this).attr('name');
-                var value = $(this).val();
+            function stripBrackets(component) {
+                var matches = component.match(/[^\[\]]+/);
 
-                if(name) {
-                    if($(this).is(':radio') || $(this).is(':checkbox')) {
-                        if($(this).is(':checked')) {
-                            data[name] = value;
-                        }
+                return matches ? matches[0] : false;
+            }
+
+            function addComponent(subject, component, value) {
+                if(!subject[component]) {
+                    subject[component] = value;
+                }
+
+                return subject[component];
+            }
+
+            function addComponents(subject, components, value) {
+                _.each(components, function(component, i) {
+                    var variable = stripBrackets(component);
+
+                    if(variable) {
+                        subject = addComponent(subject, variable, components.length > i + 1 ? {} : value);
                     }
                     else {
-                        if(!_.isNull(value) || !_.isUndefined(value)) {
-                            data[name] = value;
-                        }
+                        // this is an array like []
+                    }
+                });
+            }
+
+            function createObjects(root, components, value) {
+                if(!data[root]) {
+                    data[root] = {};
+                }
+
+                addComponents(data[root], components, value);
+            }
+
+            this.$el.find('input, select, textarea').each(function() {
+                var name = $(this).attr('name');
+
+                if(($(this).is(':radio') || $(this).is(':checkbox'))) {
+                    if($(this).is(':checked')) {
+                        var value = $(this).val();
+                    }
+                }
+                else {
+                    var value = $(this).val();
+                }
+
+                if(name && (!_.isNull(value) && !_.isUndefined(value))) {
+                    var matches = name.match(/(^\w+)?(\[.*!?\])/);
+
+                    if(matches) {
+                        var root = matches[1];
+                        var components = matches[2].match(/\[.*?\]/g);
+
+                        createObjects(root, components, value);
+                    }
+                    else {
+                        data[name] = value;
                     }
                 }
             });

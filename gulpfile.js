@@ -87,6 +87,7 @@ gulp.task('scripts', function() {
         './src/BaseForm/BaseField.js',
         './src/BaseForm/BaseForm.js',
         './src/DropdownMenu/DropdownMenu.js',
+        './src/TreeView/TreeView.js',
         './src/**/*.js'
     ];
 

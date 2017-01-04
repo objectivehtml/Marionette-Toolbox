@@ -732,3 +732,124 @@ table tr:hover .table-action:hover { background: rgb(113, 113, 113); }
 	.box table:not(.unresponsive) tr th:nth-child(2),
 	.box table:not(.unresponsive) tr td:nth-child(2) { display: none; }
 }
+
+.draggable-tree .dropdown-toggle {
+    background: #ebebec;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    font-size: 11px;
+    text-align: center;
+    color: #616163;
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #616163;
+    text-shadow: 0 1px 0 white;
+    margin: 0 5px;
+}
+
+.draggable-tree .menu {
+    opacity: 0;
+    display: inline-block;
+}
+
+.draggable-tree .children {
+    margin-left: 20px;
+}
+
+.draggable-tree .node-name:hover .menu {
+    opacity: 1;
+}
+
+.draggable-tree,
+.draggable-tree ul {
+    list-style: none;
+    padding: 0;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.draggable-tree > .draggable-tree-node {
+    margin-left: 0;
+}
+
+.draggable-tree-node {
+    background: white;
+    margin-bottom: 5px;
+    margin: 0 0 0 30px;
+    border: 2px solid white;
+    clear: both;
+    position: relative;
+}
+
+.draggable-tree-node .actions {
+    display: inline-block;
+    opacity: 0;
+    margin-left: 25px;
+}
+
+.draggable-tree-node.drop-before {
+    border-top: 2px solid #8ed359;
+}
+
+.draggable-tree-node.drop-after {
+    border-bottom: 2px solid #8ed359;
+}
+
+.draggable-tree-node .node-name {
+    border-bottom: 2px solid transparent;
+    position: relative;
+}
+
+.draggable-tree-node.drop-children > .node-name {
+    border-bottom: 2px solid #8ed359;
+}
+
+.draggable-tree-node.dragging {
+    opacity: .5;
+}
+
+.draggable-tree-node .drag-handle {
+    padding: 10px;
+    float: left;
+    margin-top: 3px;
+    color: rgba(0, 0, 0, .2);
+}
+
+.draggable-tree-node .node-name {
+    padding: 10px;
+    display: inline-block;
+}
+
+
+
+.draggable-tree-node.drop-before {
+    border-top: 2px solid #8ed359;
+}
+
+.draggable-tree-node.drop-after {
+    border-bottom: 2px solid #8ed359;
+}
+
+
+.draggable-tree-node.drop-after:before,
+.draggable-tree-node.drop-before:before,
+.draggable-tree-node.drop-children > .node-name:before {
+    content: '';
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    background: white;
+    position: absolute;
+    border: 2px solid #8ed359;
+    border-radius: 1000px;
+}
+
+.draggable-tree-node.drop-after:before,
+.draggable-tree-node.drop-children > .node-name:before {
+    bottom: -6px;
+}
+
+.draggable-tree-node.drop-before:before {
+    top: -6px;
+}

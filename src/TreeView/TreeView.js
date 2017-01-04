@@ -30,10 +30,6 @@
             childViewContainer: '.children'
         },
 
-        modelEvents: {
-            'change': 'render'
-        },
-
         attributes: function() {
             return {
                 'data-id': this.model.get(this.getOption('idAttribute')),

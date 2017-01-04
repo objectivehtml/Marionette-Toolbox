@@ -32,6 +32,10 @@
             return this.$el.find('select');
         },
 
+        getInputValue: function() {
+            return this.getInputField().val();
+        },
+
         onDomRefresh: function() {
             if(this.getOption('value')) {
                 this.getInputField().val(this.getOption('value'));

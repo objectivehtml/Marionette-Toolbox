@@ -12,9 +12,6 @@
 
 <select {{#if name}}name="{{../name}}"{{/if}} {{#if id}}id="{{../id}}"{{/if}} class="{{inputClassName}}" {{#if multiple}}multiple{{/if}}>
 {{#options}}
-	<option {{#if value}}value="{{../value}}"{{/if}} {{#if selected}}selected{{/if}}>
-		{{#if label}}{{{../label}}}{{/if}}
-		{{#not label}}{{{../value}}}{{/not}}
-	</option>
+	<option {{#if value}}value="{{../value}}"{{/if}} {{#if selected}}selected{{/if}}>{{#if label}}{{{../label}}}{{/if}}{{#not label}}{{{../value}}}{{/not}}</option>
 {{/options}}
 </select>

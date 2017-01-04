@@ -197,7 +197,7 @@
             descriptionTag: 'p',
 
             // (string) The table description tag
-            descriptionClassName: 'description',
+            descriptionClassName: 'description row col-sm-6',
 
             // (string) The table class name
             tableClassName: 'table',
@@ -413,7 +413,7 @@
         onFetchComplete: function(status, collection, response) {
             this.hideActivityIndicator();
         },
-        
+
         getCurrentPage(response) {
             return response.current_page || response.currentPage;
         },
