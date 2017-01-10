@@ -12,6 +12,7 @@
 
     'use strict';
 
+
     Toolbox.Tree = Backbone.Collection.extend({
 
         hasResetOnce: false,
@@ -101,11 +102,23 @@
                 return null;
             }
 
-            return model.get(this.getOption('parentAttribute'));
+            return model.get(this.getOption('parentAttribute')) || null;
         },
 
         getId: function(model) {
             return model.get(this.getOption('idAttribute'));
+        },
+
+        reorder: function(collection) {
+            collection = collection || this;
+
+            collection.each(function(model, i) {
+                model.set('order', i + 1);
+
+                if(model.children && model.children.length) {
+                    this.reorder(model.children);
+                }
+            }, this);
         },
 
         appendNodes: function(children, parent) {
@@ -114,17 +127,97 @@
             }, this);
         },
 
-        appendNode(child, parent) {
-            child.children || (child.children = this._createCollection());
+        appendNode(child, parent, options) {
+            options = options || {};
+            child.children = child.children || this._createCollection();
+
+            if(this.getOption('comparator')) {
+                var comparator = (!_.isUndefined(options.at) ? options.at : (parent ? parent.children.length : this.length)) + 1;
+
+                child.set(this.getOption('comparator'), comparator);
+            }
 
             if(parent) {
-                parent.children.add(child);
+                child.set(this.getOption('parentAttribute'), parent.get(this.getOption('idAttribute')));
+                parent.children.add(child, options);
             }
             else {
-                this.add(child);
+                child.set(this.getOption('parentAttribute'), null);
+                this.add(child, options);
             }
 
             return child;
+        },
+
+        appendNodeBefore(child, sibling) {
+            var parentId = this.getParentId(sibling);
+            var parent = parentId ? this.find({id: parentId}) : null;
+            var index = parent ? parent.children.indexOf(sibling) : this.indexOf(sibling);
+
+            this.appendNode(child, parent, {
+                at: index
+            });
+
+            return child;
+        },
+
+        appendNodeAfter(child, sibling) {
+            var parentId = this.getParentId(sibling);
+            var parent = this.find({id: parentId});
+
+            if(parentId && parent) {
+                this.appendNode(child, parent, {
+                    at: parent.children.indexOf(sibling) + 1
+                });
+            }
+            else {
+                this.appendNode(child, null, {
+                    at: this.indexOf(sibling) + 1
+                });
+            }
+
+            return child;
+        },
+
+        removeNode: function(node) {
+            var parentId = this.getParentId(node);
+
+            if(parentId) {
+                var parent = this.find({id: parentId});
+
+                parent.children.remove(node);
+            }
+            else {
+                this.remove(node);
+            }
+        },
+
+        find: function(iteratee, context) {
+            function find(collection) {
+                var model = _.find(collection.models, iteratee, context);
+
+                if(!model) {
+                    for(var i in collection.models) {
+                        var model = collection.models[i];
+
+                        if(model.children && model.children.length) {
+                            var found = find(model.children);
+
+                            if(found) {
+                                return found;
+                            }
+                        }
+                    }
+                }
+
+                return model;
+            }
+
+            return find(this);
+        },
+
+        where: function(attributes, context) {
+            return this.find.call(this, attributes, context);
         },
 
         findParentNode: function(child, collection) {

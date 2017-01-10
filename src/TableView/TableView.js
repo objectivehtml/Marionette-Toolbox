@@ -1,10 +1,10 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['jQuery', 'underscore', 'backbone', 'backbone.marionette'], function($, _, Backbone, Marionette) {
+        define(['jquery', 'underscore', 'backbone', 'backbone.marionette'], function($, _, Backbone, Marionette) {
             return factory(root.Toolbox, $, _, Backbone, Marionette);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('jQuery'), require('underscore'), require('backbone'), require('backbone.marionette'));
+        module.exports = factory(root.Toolbox, require('jquery'), require('underscore'), require('backbone'), require('backbone.marionette'));
     } else {
         root.Toolbox = factory(root.Toolbox, root.$, root._, Backbone, Marionette);
     }

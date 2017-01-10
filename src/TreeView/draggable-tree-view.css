@@ -29,7 +29,7 @@
 .draggable-tree,
 .draggable-tree ul {
     list-style: none;
-    padding: 0;
+    padding: 5px;
     font-size: 16px;
     margin-bottom: 0;
 }
@@ -72,6 +72,8 @@
 
 .draggable-tree-node.dragging {
     opacity: .5;
+    z-index: 9999999;
+    position: fixed;
 }
 
 .draggable-tree-node .drag-handle {
@@ -108,6 +110,7 @@
     position: absolute;
     border: 2px solid #8ed359;
     border-radius: 1000px;
+    z-index: 99999;
 }
 
 .draggable-tree-node.drop-after:before,

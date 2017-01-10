@@ -1,21 +1,29 @@
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['jquery', 'backbone', 'marionette', 'handlebars', 'underscore'], function($, Backbone, Marionette, Handlebars, _) {
-            return factory(root, $, Backbone, Marionette, Handlebars, _);
-        });
+        define([
+                'jquery',
+                'backbone',
+                'backbone.radio',
+                'backbone.marionette',
+                'handlebars',
+                'underscore'
+            ], function($, Backbone, Radio, Marionette, Handlebars, _) {
+                return factory(root, $, Backbone, Radio, Marionette, Handlebars, _);
+            });
     } else if (typeof exports !== 'undefined') {
         module.exports = factory(
             root,
             require('jquery'),
             require('backbone'),
+            require('backbone.radio'),
             require('backbone.marionette'),
             require('handlebars'),
             require('underscore')
         );
     } else {
-        factory(root, root.$, root.Backbone, root.Marionette, root.Handlebars, root._);
+        factory(root, root.$, root.Backbone, root.Backbone.Radio, root.Marionette, root.Handlebars, root._);
     }
-}(this, function(root, $, Backbone, Marionette, Handlebars, _) {
+}(this, function(root, $, Backbone, Radio, Marionette, Handlebars, _) {
 
     'use strict';
 

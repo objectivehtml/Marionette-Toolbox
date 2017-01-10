@@ -1,10 +1,10 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['jQuery', 'backbone'], function($, Backbone) {
+        define(['jquery', 'backbone'], function($, Backbone) {
             return factory(root.Toolbox, root.$, Backbone);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('jQuery'), require('backbone'));
+        module.exports = factory(root.Toolbox, require('jquery'), require('backbone'));
     } else {
         root.Toolbox = factory(root.Toolbox, root.$, root.Backbone);
     }

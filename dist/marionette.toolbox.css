@@ -665,6 +665,48 @@ table .light-switch {
 	cursor: not-allowed;
 }
 
+.selection-pool-search {
+    background: #8ed359;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.selection-pool-search input {
+    border-radius: 100px;
+    width: 100%;
+    margin: 0;
+    font-size: 14px;
+}
+
+.selection-pool-search input:focus,
+.selection-pool-search input:active {
+    border-color: #8ed359;
+}
+
+.selection-pool-search > div {
+    padding: 0;
+}
+
+.selection-pool:not(.dropping) .selection-pool-lists > :first-child:after {
+    content: '';
+    width: 2px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-right: 2px solid #8ed359;
+}
+
+.selection-pool .droppable-pool {
+    border: 2px solid transparent;
+    overflow-y: auto;
+    height: 350px;
+}
+
+.selection-pool .droppable {
+    border: 2px solid #8ed359;
+}
+
 .table-view .buttons-wrapper {
 	margin-bottom: 15px;
 }
@@ -764,7 +806,7 @@ table tr:hover .table-action:hover { background: rgb(113, 113, 113); }
 .draggable-tree,
 .draggable-tree ul {
     list-style: none;
-    padding: 0;
+    padding: 5px;
     font-size: 16px;
     margin-bottom: 0;
 }
@@ -807,6 +849,8 @@ table tr:hover .table-action:hover { background: rgb(113, 113, 113); }
 
 .draggable-tree-node.dragging {
     opacity: .5;
+    z-index: 9999999;
+    position: fixed;
 }
 
 .draggable-tree-node .drag-handle {
@@ -843,6 +887,7 @@ table tr:hover .table-action:hover { background: rgb(113, 113, 113); }
     position: absolute;
     border: 2px solid #8ed359;
     border-radius: 1000px;
+    z-index: 99999;
 }
 
 .draggable-tree-node.drop-after:before,
@@ -852,4 +897,118 @@ table tr:hover .table-action:hover { background: rgb(113, 113, 113); }
 
 .draggable-tree-node.drop-before:before {
     top: -6px;
+}
+
+.wizard-progress-wrapper {
+    width: 100%;
+    padding: 30px;
+}
+
+.wizard-progress-wrapper:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearfix { display: inline-block; }
+
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+
+
+.wizard-progress-bar {
+    counter-reset: step;
+}
+
+.wizard-step {
+    list-style-type: none;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: #7d7d7d;
+}
+
+a.wizard-step,
+a.wizard-step:hover {
+    color: #7d7d7d;
+    text-decoration: none;
+}
+
+.wizard-step:not(.disabled) {
+    cursor: pointer;
+}
+
+.wizard-step.disabled {
+    cursor: default;
+}
+
+.wizard-finished .wizard-step {
+    cursor: default;
+}
+
+.wizard:not(.wizard-finished) .wizard-step.active:hover:before,
+.wizard:not(.wizard-finished) .wizard-step.complete:hover:before {
+    border-color: red;
+    color: red;
+}
+
+.wizard:not(.wizard-finished) .wizard-step.complete:hover + .wizard-step:after {
+    background-color: red;
+}
+
+.wizard-step:before {
+    width: 40px;
+    height: 40px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 36px;
+    font-size: 15px;
+    border: 2px solid #7d7d7d;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.wizard-step:after {
+    width: 100%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    background-color: #7d7d7d;
+    top: 20px;
+    left: -50%;
+    z-index: -1;
+}
+
+.wizard-step:first-child:after {
+    content: none;
+}
+
+.wizard-step.active {
+    color: green;
+}
+
+.wizard-step.complete:before,
+.wizard-step.active:before {
+    border-color: #55b776;
+    color: #55b776;
+}
+
+.wizard-step.complete + .wizard-step:after {
+    background-color: #55b776;
+}
+
+.wizard-step.complete:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+    line-height: 40px;
 }

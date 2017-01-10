@@ -1,0 +1,113 @@
+.wizard-progress-wrapper {
+    width: 100%;
+    padding: 30px;
+}
+
+.wizard-progress-wrapper:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearfix { display: inline-block; }
+
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+
+
+.wizard-progress-bar {
+    counter-reset: step;
+}
+
+.wizard-step {
+    list-style-type: none;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: #7d7d7d;
+}
+
+a.wizard-step,
+a.wizard-step:hover {
+    color: #7d7d7d;
+    text-decoration: none;
+}
+
+.wizard-step:not(.disabled) {
+    cursor: pointer;
+}
+
+.wizard-step.disabled {
+    cursor: default;
+}
+
+.wizard-finished .wizard-step {
+    cursor: default;
+}
+
+.wizard:not(.wizard-finished) .wizard-step.active:hover:before,
+.wizard:not(.wizard-finished) .wizard-step.complete:hover:before {
+    border-color: red;
+    color: red;
+}
+
+.wizard:not(.wizard-finished) .wizard-step.complete:hover + .wizard-step:after {
+    background-color: red;
+}
+
+.wizard-step:before {
+    width: 40px;
+    height: 40px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 36px;
+    font-size: 15px;
+    border: 2px solid #7d7d7d;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.wizard-step:after {
+    width: 100%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    background-color: #7d7d7d;
+    top: 20px;
+    left: -50%;
+    z-index: -1;
+}
+
+.wizard-step:first-child:after {
+    content: none;
+}
+
+.wizard-step.active {
+    color: green;
+}
+
+.wizard-step.complete:before,
+.wizard-step.active:before {
+    border-color: #55b776;
+    color: #55b776;
+}
+
+.wizard-step.complete + .wizard-step:after {
+    background-color: #55b776;
+}
+
+.wizard-step.complete:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+    line-height: 40px;
+}

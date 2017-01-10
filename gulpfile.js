@@ -7,6 +7,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var buffer = require('vinyl-buffer');
+var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
 var handlebars = require('gulp-handlebars');
 var defineModule = require('gulp-define-module');
@@ -75,8 +76,9 @@ gulp.task('templates', function() {
 });
 
 gulp.task('scripts', function() {
-    var files = [
+    return gulp.src([
         './src/Core/Toolbox.js',
+        './src/Utilities/*.js',
         './src/Core/templates.*js',
         './src/Core/Handlebars/*.js',
         './src/TreeView/Tree.js',
@@ -86,18 +88,22 @@ gulp.task('scripts', function() {
         './src/Core/CollectionView.js',
         './src/BaseForm/BaseField.js',
         './src/BaseForm/BaseForm.js',
+        './src/UnorderedList/UnorderedList.js',
         './src/DropdownMenu/DropdownMenu.js',
+        './src/TreeView/TreeViewNode.js',
         './src/TreeView/TreeView.js',
+        './src/TreeView/DraggableTreeNode.js',
+        './src/TreeView/DraggableTreeView.js',
         './src/**/*.js'
-    ];
-
-    gulp.src(files)
-        .pipe(injectVersion({
-            prepend: ''
-        }))
-        .pipe(concat('marionette.toolbox.js'))
-        .pipe(gulp.dest('./dist'))
-        .pipe(browserSync.reload({stream: true}));
+    ])
+    .pipe(sourcemaps.init())
+    .pipe(injectVersion({
+        prepend: ''
+    }))
+    .pipe(concat('marionette.toolbox.js'))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./dist'))
+    .pipe(browserSync.reload({stream: true}));
 });
 
 var dependencies = Object.keys(packageJson && packageJson.dependencies || {});

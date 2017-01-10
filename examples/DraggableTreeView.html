@@ -13,6 +13,9 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
+
+			require('backbone.radio');
+
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
             var interact = require('interact.js');
@@ -46,28 +49,23 @@
 					"order": 1
 				}, {
 					"id":3,
-					"parent_id": 2,
+					"parent_id": null,
 					"name": "Permission 3",
-					"order": 1
+					"order": 2
 				}, {
 					"id":4,
-					"parent_id": 3,
+					"parent_id": 2,
 					"name": "Permission 4",
-					"order": 1
+					"order": 2
 				}, {
 					"id":5,
-					"parent_id": 4,
+					"parent_id": null,
 					"name": "Permission 5",
-					"order": 1
+					"order": 3
 				}, {
 					"id":6,
-					"parent_id": 5,
+					"parent_id": 4,
 					"name": "Permission 6",
-					"order": 1
-				}, {
-					"id":7,
-					"parent_id": 6,
-					"name": "Permission 7",
 					"order": 1
 				}];
 
@@ -80,12 +78,21 @@
 				var view = new Toolbox.DraggableTreeView({
 					collection: tree,
                     childViewOptions: {
+						idAttribute: 'id',
+						parentAttribute: 'parent_id',
                         template: Toolbox.Template('draggable-tree-view-node')
                     }
 				});
 
 				App.content.show(view);
 
+				var node = tree.find({id: 2})
+
+				tree.removeNode(node);
+
+				tree.appendNodeBefore(node, tree.find({id: 3}));
+
+				tree.reorder();
 			});
 
 			App.start();

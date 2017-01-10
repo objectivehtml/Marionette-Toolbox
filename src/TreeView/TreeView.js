@@ -12,63 +12,23 @@
 
     'use strict';
 
-    Toolbox.TreeViewNode = Toolbox.CompositeView.extend({
-
-        getTemplate: function() {
-            if(!this.getOption('template')) {
-                throw new Error('A template option must be set.');
-            }
-
-            return this.getOption('template');
-        },
-
-        tagName: 'li',
-
-        options: {
-            idAttribute: 'id',
-            parentAttribute: 'parent_id',
-            childViewContainer: '.children'
-        },
-
-        attributes: function() {
-            return {
-                'data-id': this.model.get(this.getOption('idAttribute')),
-                'data-parent-id': this.model.get(this.getOption('parentAttribute'))
-            };
-        },
-
-        initialize: function() {
-            Toolbox.CompositeView.prototype.initialize.apply(this, arguments);
-
-            this.collection = this.model.children;
-
-            var options = _.extend({}, this.options);
-
-            delete options.model;
-
-            this.childViewOptions = _.extend({}, options, this.getOption('childViewOptions') || {});
-        },
-
-        templateHelpers: function() {
-            return {
-                hasChildren:  this.collection ? this.collection.length > 0 : false
-            };
-        }
-
-	});
-
     Toolbox.TreeView = Toolbox.CollectionView.extend({
 
         childView: Toolbox.TreeViewNode,
 
         tagName: 'ul',
 
+        defaultOptions: {
+            nestable: true
+        },
+
         initialize: function() {
             Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
 
             this.options.childViewOptions = _.extend({}, {
                 template: this.getOption('template'),
-                treeRoot: this
+                nestable: this.getOption('nestable'),
+                treeRoot: this,
             }, this.getOption('childViewOptions') || {});
         }
 

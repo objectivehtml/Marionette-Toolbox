@@ -1,13 +1,13 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore', 'jQuery', 'backbone.marionette', 'interact.js'], function(_, $, Marionette, interact) {
+        define(['underscore', 'jquery', 'backbone.marionette', 'interact.js'], function(_, $, Marionette, interact) {
             return factory(root.Toolbox, _, $, Marionette, interact);
         });
     } else if (typeof exports === 'object') {
         module.exports = factory(
             root.Toolbox,
             require('underscore'),
-            require('jQuery'),
+            require('jquery'),
             require('backbone.marionette'),
             require('interact.js')
         );
@@ -27,20 +27,9 @@
                 menuViewOptions: {
                     tagName: 'div'
                 },
-                menuItems: []
+                menuItems: [],
+                nestable: true
             });
-        },
-
-        initialize: function() {
-            Toolbox.CompositeView.prototype.initialize.apply(this, arguments);
-
-            this.collection = this.model.children;
-
-            var options = _.extend({}, this.options);
-
-            delete options.model;
-
-            this.childViewOptions = _.extend({}, options, this.getOption('childViewOptions') || {});
         },
 
         root: function() {
@@ -70,43 +59,57 @@
         onDrop: function(event) {
             var self = this;
 
-            Dropzones(event.dragEvent, event.target, {
+            var id = $(event.relatedTarget).data('id');
+            var node = self.root().collection.find({id: id});
+
+            var parentId = $(event.target).data('id');
+            var parent = self.root().collection.find({id: parentId})
+
+            self.root().collection.removeNode(node);
+
+            Toolbox.Dropzones(event.dragEvent, event.target, {
                 before: function($element) {
-                    $(event.relatedTarget).insertBefore($element);
+                    self.root().collection.appendNodeBefore(node, parent);
                     self.root().triggerMethod('drop:before', event, self);
                 },
                 after: function($element) {
-                    $(event.relatedTarget).insertAfter($element);
+                    self.root().collection.appendNodeAfter(node, parent);
                     self.root().triggerMethod('drop:after', event, self);
                 },
                 children: function($element) {
-                    var $children = $element.find('.children').first();
-                    if(!$children.length) {
-                        $element.prepend($children = $('<ul/>').addClass('children'));
+                    if(self.getOption('nestable')) {
+                        self.root().collection.appendNode(node, parent, {at: 0});
+                        self.root().triggerMethod('drop:children', event, self);
                     }
-                    $children.prepend(event.relatedTarget);
-                    self.root().triggerMethod('drop:children', event, self);
-                }
+                    else {
+                        self.root().collection.appendNodeAfter(node, parent, {at: 0});
+                        self.root().triggerMethod('drop:after', event, self);
+                    }
+                },
             });
 
             self.root().triggerMethod('drop', event, this);
         },
 
         onDropMove: function(event) {
-            Dropzones(event, event.dropzone.element(), {
+            var self = this;
+
+            Toolbox.Dropzones(event, event.dropzone.element(), {
                 before: function($element) {
-                    $element.addClass('droppable drop-before')
+                    $element.addClass('drop-before')
                         .removeClass('drop-after drop-children');
                 },
                 after: function($element) {
                     $(event.dropzone.element())
-                        .addClass('droppable drop-after')
+                        .addClass('drop-after')
                         .removeClass('drop-before drop-children');
                 },
                 children: function($element) {
-                    $(event.dropzone.element())
-                        .addClass('droppable drop-children')
-                        .removeClass('drop-after drop-before')
+                    if(self.getOption('nestable')) {
+                        $(event.dropzone.element())
+                            .addClass('drop-children')
+                            .removeClass('drop-after drop-before')
+                    }
                 }
             });
         },
@@ -130,11 +133,24 @@
         },
 
         onDragStart: function() {
+            this._ghostElement = $(event.target).parent().next()
+                .css({'margin-top': $(event.target).parent().outerHeight()});
+
+            if(this._ghostElement.length == 0) {
+                this._ghostElement = $(event.target).parent().prev()
+                    .css({'margin-bottom': $(event.target).parent().outerHeight()});
+            }
+
+            $(event.target).parent().css({left: event.clientX, top: event.clientY});
+
             this.root().triggerMethod('drag:start', event, this);
         },
 
         onDragEnd: function(event) {
             this.$el.removeClass('dragging');
+
+            this._ghostElement.attr('style', '');
+            this._ghostElement = false;
 
             $(event.target).attr({
                 'data-x': false,
@@ -150,13 +166,13 @@
         },
 
         onDragLeave: function(event) {
-            $(event.target).removeClass('droppable drop-before drop-after drop-children');
+            $(event.target).removeClass('drop-before drop-after drop-children');
 
             this.root().triggerMethod('drag:leave', event, this);
         },
 
         onDropDeactivate: function(event) {
-            $(event.target).removeClass('droppable drop-before drop-after drop-children');
+            $(event.target).removeClass('drop-before drop-after drop-children');
 
             this.root().triggerMethod('drop:deactivate', event, this);
         },
@@ -165,7 +181,6 @@
             var self = this, $el = this.$el;
 
             interact(this.$el.get(0))
-                .allowFrom('.drag-handle')
                 .draggable({
                     autoScroll: true,
                     onmove: function(event) {
@@ -177,9 +192,7 @@
                     onstart: function(event) {
                         self.triggerMethod('drag:start', event);
                     }
-                });
-
-            interact(this.$el.get(0))
+                })
                 .dropzone({
                     accept: '.' + this.className,
                     ondragenter: function (event) {
@@ -210,104 +223,18 @@
 
         childView: Toolbox.DraggableTreeNode,
 
-        className: 'draggable-tree'
+        className: 'draggable-tree',
+
+        childViewOptions: {
+            idAttribute: 'id',
+            parentAttribute: 'parent_id'
+        },
+
+        onDrop: function() {
+            this.collection.reorder();
+        }
 
     });
-
-    var ViewOffset = function(node, singleFrame) {
-        function addOffset(node, coords, view) {
-            var p = node.offsetParent;
-            coords.x += node.offsetLeft - (p ? p.scrollLeft : 0);
-            coords.y += node.offsetTop - (p ? p.scrollTop : 0);
-
-            if (p) {
-                if (p.nodeType == 1) {
-                    var parentStyle = view.getComputedStyle(p, '');
-
-                    if (parentStyle.position != 'static') {
-                        coords.x += parseInt(parentStyle.borderLeftWidth);
-                        coords.y += parseInt(parentStyle.borderTopWidth);
-
-                        if (p.localName == 'TABLE') {
-                            coords.x += parseInt(parentStyle.paddingLeft);
-                            coords.y += parseInt(parentStyle.paddingTop);
-                        }
-                        else if (p.localName == 'BODY') {
-                            var style = view.getComputedStyle(node, '');
-                            coords.x += parseInt(style.marginLeft);
-                            coords.y += parseInt(style.marginTop);
-                        }
-                    }
-                    else if (p.localName == 'BODY') {
-                        coords.x += parseInt(parentStyle.borderLeftWidth);
-                        coords.y += parseInt(parentStyle.borderTopWidth);
-                    }
-
-                    var parent = node.parentNode;
-
-                    while (p != parent) {
-                        coords.x -= parent.scrollLeft;
-                        coords.y -= parent.scrollTop;
-                        parent = parent.parentNode;
-                    }
-
-                    addOffset(p, coords, view);
-                }
-            }
-            else {
-                if (node.localName == 'BODY') {
-                    var style = view.getComputedStyle(node, '');
-                    coords.x += parseInt(style.borderLeftWidth);
-                    coords.y += parseInt(style.borderTopWidth);
-
-                    var htmlStyle = view.getComputedStyle(node.parentNode, '');
-                    coords.x -= parseInt(htmlStyle.paddingLeft);
-                    coords.y -= parseInt(htmlStyle.paddingTop);
-                }
-
-                if (node.scrollLeft)
-                    coords.x += node.scrollLeft;
-                if (node.scrollTop)
-                    coords.y += node.scrollTop;
-
-                var win = node.ownerDocument.defaultView;
-
-                if (win && (!singleFrame && win.frameElement))
-                    addOffset(win.frameElement, coords, win);
-            }
-        }
-
-        var coords = { x: 0, y: 0 };
-
-        if (node)
-            addOffset(node, coords, node.ownerDocument.defaultView);
-
-        return coords;
-    }
-
-    var Dropzones = function(event, element, callbacks) {
-        var offset = ViewOffset(element);
-        var top = offset.y;
-        var left = offset.x;
-        var height = element.offsetHeight;
-        var heightThreshold = height * .25;
-        var widthThreshold = 40;
-        var bottom = top + height;
-
-        if(heightThreshold > 20) {
-            heightThreshold = 20;
-        }
-
-        if(event.pageY < top + heightThreshold) {
-            callbacks.before ? callbacks.before.call(self, $(element)) : null;
-        }
-        else if(event.pageY > bottom - heightThreshold || event.pageX < left + widthThreshold) {
-            callbacks.after ? callbacks.after.call(self, $(element)) : null;
-        }
-        else {
-            callbacks.children ? callbacks.children.call(self, $(element)) : null;
-        }
-    };
 
     return Toolbox;
 

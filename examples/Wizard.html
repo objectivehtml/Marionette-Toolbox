@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
+		<link rel="stylesheet" href="../dist/marionette.toolbox.css">
+
+		<script src="../resources/vendor.js"></script>
+
+		<script type="text/javascript">
+			var $ = require('jquery');
+			var _ = require('underscore');
+			var Backbone = require('backbone');
+
+			require('backbone.radio');
+
+			var Marionette = require('backbone.marionette');
+			var Handlebars = require('handlebars');
+		</script>
+
+		<script src="../dist/marionette.toolbox.js"></script>
+	</head>
+	<body>
+		<div id="app-wrapper"></div>
+
+		<script type="text/javascript">
+			var App = new Backbone.Marionette.Application();
+
+			App.addRegions({
+				content: '#app-wrapper'
+			});
+
+			App.on('start', function() {
+
+				var Step1 = Toolbox.ItemView.extend({
+					title: 'Step 1',
+					template: function() {
+						return 'Step 1';
+					},
+					onClickNext: function() {
+						console.log('do validation here!');
+						return true;
+					}
+				});
+
+				var step1 = new Step1();
+
+				var Step2 = Toolbox.ItemView.extend({
+					title: 'Step 2',
+					template: function() {
+						return 'Step 2';
+					}
+				});
+
+				var step2 = new Step2();
+
+				var step3 = new Toolbox.ItemView({
+					title: 'Step 3',
+					template: function() {
+						return 'Step 3';
+					}
+				});
+
+				var success = new Toolbox.ItemView({
+					title: 'Success',
+					template: function() {
+						return 'Success!';
+					}
+				});
+
+				var view = new Toolbox.Wizard({
+					step: 1,
+					steps: [step1, step2, step3],
+					successView: success
+				});
+
+				App.content.show(view);
+
+			});
+
+			App.start();
+
+		</script>
+
+	</body>
+</html>

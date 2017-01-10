@@ -30,8 +30,6 @@
 
 	Toolbox.UnorderedListItem = Toolbox.ItemView.extend({
 
-		template: Toolbox.Template('unordered-list-item'),
-
 		className: 'unordered-list-item',
 
 		tagName: 'li',
@@ -44,7 +42,15 @@
 
 		templateHelpers: function() {
 			return this.options
-		}
+		},
+
+        getTemplate: function() {
+            if(!this.getOption('template')) {
+                return Toolbox.Template('unordered-list-item');
+            }
+
+            return this.getOption('template');
+        }
 
 	});
 

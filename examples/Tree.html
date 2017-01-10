@@ -13,9 +13,11 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
+
+			require('backbone.radio');
+
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
-			var Spinner = require('spin.js');
 		</script>
 
 		<script src="../dist/marionette.toolbox.js"></script>
@@ -85,13 +87,6 @@
 						parentAttribute: 'parent_id'
                     }
 				});
-
-				tree.appendNode({
-					"id":8,
-					"parent_id": 7,
-					"name": "Permission 8",
-					"order": 1
-				}, tree.findNodeById(7));
 
 				App.content.show(view);
 

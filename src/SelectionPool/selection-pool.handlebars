@@ -1,0 +1,14 @@
+<div class="row selection-pool-search">
+    <div class="col-sm-12">
+        <input type="text" value="" placeholder="Enter keywords to search the list" class="search form-control">
+    </div>
+</div>
+
+<div class="row selection-pool-lists">
+    <div class="col-sm-6">
+        <div class="available-pool droppable-pool" data-accept=".selected-pool .draggable-tree-node" style="{{#if height}}height:{{../height}};{{/if}}"></div>
+    </div>
+    <div class="col-sm-6">
+        <div class="selected-pool droppable-pool" data-accept=".available-pool .draggable-tree-node" style="{{#if height}}height:{{../height}};{{/if}}"></div>
+    </div>
+</div>

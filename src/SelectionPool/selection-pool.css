@@ -1,0 +1,41 @@
+.selection-pool-search {
+    background: #8ed359;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.selection-pool-search input {
+    border-radius: 100px;
+    width: 100%;
+    margin: 0;
+    font-size: 14px;
+}
+
+.selection-pool-search input:focus,
+.selection-pool-search input:active {
+    border-color: #8ed359;
+}
+
+.selection-pool-search > div {
+    padding: 0;
+}
+
+.selection-pool:not(.dropping) .selection-pool-lists > :first-child:after {
+    content: '';
+    width: 2px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-right: 2px solid #8ed359;
+}
+
+.selection-pool .droppable-pool {
+    border: 2px solid transparent;
+    overflow-y: auto;
+    height: 350px;
+}
+
+.selection-pool .droppable {
+    border: 2px solid #8ed359;
+}
