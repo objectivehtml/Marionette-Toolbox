@@ -14,7 +14,11 @@
     'use strict';
 
     function getSelectionPoolFromElement(element, view) {
-        var $parent = $(element).parents('.droppable-pool');
+        var $parent = $(element);
+
+        if(!$parent.hasClass('droppable-pool')) {
+            $parent = $parent.parents('.droppable-pool');
+        }
 
         return $parent.hasClass('available-pool') ?
             view.available.currentView :
@@ -274,8 +278,6 @@
 
                             self.$el.removeClass('dropping');
                             $pool.parent().removeClass('droppable');
-
-                            // self.available.currentView.render();
                         },
                         ondragenter: function (event) {
                             self.$el.addClass('dropping');
