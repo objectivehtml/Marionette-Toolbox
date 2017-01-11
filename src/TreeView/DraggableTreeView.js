@@ -133,6 +133,7 @@
         },
 
         onDragStart: function() {
+            /*
             this._ghostElement = $(event.target).parent().next()
                 .css({'margin-top': $(event.target).parent().outerHeight()});
 
@@ -140,6 +141,7 @@
                 this._ghostElement = $(event.target).parent().prev()
                     .css({'margin-bottom': $(event.target).parent().outerHeight()});
             }
+            */
 
             $(event.target).parent().css({left: event.clientX, top: event.clientY});
 
@@ -149,13 +151,12 @@
         onDragEnd: function(event) {
             this.$el.removeClass('dragging');
 
-            this._ghostElement.attr('style', '');
-            this._ghostElement = false;
+            //this._ghostElement.css('transform', '');
+            //this._ghostElement = false;
 
             $(event.target).attr({
                 'data-x': false,
                 'data-y': false,
-                'style': false
             });
 
             this.root().triggerMethod('drag:end', event, this);

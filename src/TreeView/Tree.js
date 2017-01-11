@@ -33,8 +33,6 @@
 
             this.options = Toolbox.Options(this.defaultOptions, this.options, this);
 
-            //console.log('options', this.options);
-
             if(!this.getOption('originalCollection')) {
                 this.options.originalCollection = collection;
             }
@@ -128,8 +126,7 @@
         },
 
         appendNode(child, parent, options) {
-            options = options || {};
-            child.children = child.children || this._createCollection();
+            child.children || (child.children = this._createCollection());
 
             if(this.getOption('comparator')) {
                 var comparator = (!_.isUndefined(options.at) ? options.at : (parent ? parent.children.length : this.length)) + 1;
@@ -190,6 +187,30 @@
             else {
                 this.remove(node);
             }
+        },
+
+        filter: function(iteratee, context) {
+            function filter(collection) {
+                var model = _.filter(collection.models, iteratee, context);
+
+                if(model) {
+                    return model;
+                }
+
+                for(var i in collection.models) {
+                    var model = collection.models[i];
+
+                    if(model.children && model.children.length) {
+                        var found = filter(model.children);
+
+                        if(found) {
+                            return found;
+                        }
+                    }
+                }
+            }
+
+            return filter(this);
         },
 
         find: function(iteratee, context) {

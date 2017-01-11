@@ -13,7 +13,18 @@
 
     'use strict';
 
-    function transferNodeAfter(event, from, to) {
+    function getSelectionPoolFromElement(element, view) {
+        var $parent = $(element).parents('.droppable-pool');
+
+        return $parent.hasClass('available-pool') ?
+            view.available.currentView :
+            view.selected.currentView;
+    }
+
+    function transferNodeAfter(event, view) {
+        var from = getSelectionPoolFromElement(event.relatedTarget, view);
+        var to = getSelectionPoolFromElement(event.target, view);
+
         var fromModel = from.collection.find({id: $(event.relatedTarget).data('id')});
         var toModel = to.collection.where({id: $(event.target).data('id')});
 
@@ -21,7 +32,10 @@
         to.collection.appendNodeAfter(fromModel, toModel);
     }
 
-    function transferNodeBefore(event, from, to) {
+    function transferNodeBefore(event, view) {
+        var from = getSelectionPoolFromElement(event.relatedTarget, view);
+        var to = getSelectionPoolFromElement(event.target, view);
+
         var fromModel = from.collection.find({id: $(event.relatedTarget).data('id')});
         var toModel = to.collection.where({id: $(event.target).data('id')});
 
@@ -29,7 +43,10 @@
         to.collection.appendNodeBefore(fromModel, toModel);
     }
 
-    function transferNodeChildren(event, from, to) {
+    function transferNodeChildren(event, view) {
+        var from = getSelectionPoolFromElement(event.relatedTarget, view);
+        var to = getSelectionPoolFromElement(event.target, view);
+
         var fromModel = from.collection.find({id: $(event.relatedTarget).data('id')});
         var toModel = to.collection.where({id: $(event.target).data('id')});
 
@@ -47,7 +64,8 @@
 
         regions: {
             available: '.available-pool',
-            selected: '.selected-pool'
+            selected: '.selected-pool',
+            activity: '.selection-pool-search-activity'
         },
 
         defaultOptions: {
@@ -55,12 +73,45 @@
             selected: [],
             height: false,
             // nestable: true,
-            doneTypingThreshold: 500,
-            likenessThreshold: 75
+            typingStoppedThreshold: 500,
+            likenessThreshold: 75,
+            searchIndicatorOptions: {
+                indicator: 'tiny'
+            }
+        },
+
+        events: {
+            'click .selection-pool-search-clear': function() {
+                this.clearSearch();
+            }
         },
 
         templateHelpers: function() {
             return this.options;
+        },
+
+        initialize: function() {
+            Toolbox.LayoutView.prototype.initialize.apply(this, arguments);
+
+            this.channel.on('detection:typing:started', function() {
+                this.triggerMethod('typing:started');
+            }, this);
+
+            this.channel.on('detection:typing:stopped', function(value) {
+                this.triggerMethod('typing:stopped', value);
+            }, this);
+        },
+
+        showSearchActivity: function() {
+            var view = new Toolbox.ActivityIndicator(this.getOption('searchIndicatorOptions'));
+
+            this.$el.addClass('show-activity');
+            this.activity.show(view);
+        },
+
+        hideSearchActivity: function() {
+            this.$el.removeClass('show-activity');
+            this.activity.empty();
         },
 
         showAvailablePool: function() {
@@ -71,21 +122,15 @@
 			});
 
             view.on('drop:before', function(event) {
-                transferNodeBefore(
-                    event, this.selected.currentView, this.available.currentView
-                );
+                transferNodeBefore(event, this);
             }, this);
 
             view.on('drop:after', function(event) {
-                transferNodeAfter(
-                    event, this.selected.currentView, this.available.currentView
-                );
+                transferNodeAfter(event, this);
             }, this);
 
             view.on('drop:children', function(event) {
-                transferNodeChildren(
-                    event, this.selected.currentView, this.available.currentView
-                );
+                transferNodeChildren(event, this);
             }, this);
 
             view.options.originalAvailableCollection = view.collection.clone();
@@ -102,85 +147,113 @@
 			});
 
             view.on('drop:before', function(event) {
-                transferNodeBefore(
-                    event, this.available.currentView, this.selected.currentView
-                );
+                transferNodeBefore(event, this);
             }, this);
 
             view.on('drop:after', function(event) {
-                transferNodeAfter(
-                    event, this.available.currentView, this.selected.currentView
-                );
+                transferNodeAfter(event, this);
             }, this);
 
             view.on('drop:children', function(event) {
-                transferNodeChildren(
-                    event, this.available.currentView, this.selected.currentView
-                );
+                transferNodeChildren(event, this);
             }, this);
 
             this.selected.show(view);
         },
 
-        contains: function(subject, string) {
-            var contains = false;
+        modelContains: function(model, query) {
+            var found = false;
 
-            _.each(string.split(' '), function(value) {
-                if(!contains && subject.toUpperCase().includes(value.toUpperCase())) {
-                    contains = true;
-                    return false;
-                }
-            }, this);
+            for(var i in model = model.toJSON()) {
+                var value = model[i];
 
-            if(!contains) {
-                var comparison = new Toolbox.Levenshtein(string.toUpperCase(), subject.toUpperCase());
-
-                if(comparison.distance / subject.length * 100 - 100 > this.getOption('likenessThreshold')) {
-                    contains = true;
+                if(this.contains.call(this, value, query)) {
+                    return true;
                 }
             }
 
-            return contains;
+            return false;
+        },
+
+        contains: function(subject, query) {
+            if(!_.isString(subject)) {
+                return false;
+            }
+
+            for(var i in query = query.split(' ')) {
+                var value = query[i];
+
+                if(subject.toUpperCase().includes(value.toUpperCase())) {
+                    return true;
+                }
+
+                var comparison = new Toolbox.Levenshtein(value.toUpperCase(), subject.toUpperCase());
+
+                var percent = comparison.distance / subject.length * 100 - 100;
+
+                if(percent > this.getOption('likenessThreshold')) {
+                    return true;
+                }
+            }
+
+            return false;
         },
 
         search: function(collection, query) {
-            return new Backbone.Collection(collection.filter(function(model) {
-                var found = false;
-
-                _.each(model.toJSON(), function(value, key) {
-                    if(this.contains.call(this, value, query)) {
-                        found = model;
-                    }
-                }, this);
-
-                if(found) {
-                    return true;
+            collection.filter(function(model) {
+                if(this.modelContains(model, query)) {
+                    model.set('hidden', false);
                 }
-            }, this));
+                else {
+                    model.set('hidden', true);
+                }
+
+                return true;
+            }, this);
         },
 
-        onDoneTyping: function(value) {
-            this.available.currentView.collection = this.search(this.available.currentView.getOption('originalCollection'), value);
+        clearSearch: function() {
+            var value = '';
+
+            this.$el.find('.selection-pool-search-field input').val(value).focus();
+            this.hideClearSearchButton();
+            this.triggerMethod('typing:stopped', value);
+        },
+
+        showClearSearchButton: function() {
+            this.$el.find('.selection-pool-search-clear').addClass('show');
+        },
+
+        hideClearSearchButton: function() {
+            this.$el.find('.selection-pool-search-clear').removeClass('show');
+        },
+
+        onTypingStarted: function() {
+            this.showSearchActivity();
+        },
+
+        onTypingStopped: function(value) {
+            this.hideSearchActivity();
+
+            if(value) {
+                this.showClearSearchButton();
+            }
+            else {
+                this.hideClearSearchButton();
+            }
+
+            this.search(this.available.currentView.collection, value);
             this.available.currentView.render();
         },
 
         onDomRefresh: function() {
             var self = this;
 
-            //setup before functions
-            var typingTimer;
-
-            this.$el.find('.selection-pool-search input').keyup(function () {
-                var value = $(this).val();
-                clearTimeout(typingTimer);
-                typingTimer = setTimeout(function() {
-                    self.triggerMethod('done:typing', value);
-                }, self.getOption('doneTypingThreshold'));
-            });
-
-            this.$el.find('.selection-pool-search keydown').keyup(function () {
-                clearTimeout(typingTimer);
-            });
+            var detection = new Toolbox.TypingDetection(
+                this.$el.find('.selection-pool-search input'),
+                this.getOption('typingStoppedThreshold'),
+                this.channel
+            );
 
             this.$el.find('.droppable-pool').each(function() {
                 var $pool = $(this);
@@ -189,13 +262,8 @@
                     .dropzone({
                         accept: $(this).data('accept'),
                         ondrop: function(event) {
-                            var from = self.selected.currentView;
-                            var to = self.available.currentView;
-
-                            if($(event.target).hasClass('selected-pool')) {
-                                from = self.available.currentView;
-                                to = self.selected.currentView;
-                            }
+                            var from = getSelectionPoolFromElement(event.relatedTarget, self);
+                            var to = getSelectionPoolFromElement(event.target, self);
 
                             var model = from.collection.where({
                                 id: $(event.relatedTarget).data('id')
@@ -206,6 +274,8 @@
 
                             self.$el.removeClass('dropping');
                             $pool.parent().removeClass('droppable');
+
+                            // self.available.currentView.render();
                         },
                         ondragenter: function (event) {
                             self.$el.addClass('dropping');

@@ -18,9 +18,17 @@
 
     Toolbox.SelectionPoolTreeNode = Toolbox.DraggableTreeNode.extend({
 
+        attributes: function() {
+            var attributes = Toolbox.DraggableTreeNode.prototype.attributes.call(this);
+
+            return attributes;
+        },
+
         onDrop: function(event) {
             var id = $(event.relatedTarget).data('id');
             var node = this.root().collection.find({id: id});
+
+            node.set('hidden', false);
 
             Toolbox.Dropzones(event.dragEvent, event.target, {
                 before: function($element) {
@@ -40,6 +48,17 @@
             }, this);
 
             this.root().triggerMethod('drop', event, this);
+        },
+
+        onDomRefresh: function() {
+            Toolbox.DraggableTreeNode.prototype.onDomRefresh.call(this);
+
+            if(this.model.get('hidden') === true) {
+                this.$el.hide();
+            }
+            else {
+                this.$el.show();
+            }
         }
 
     });

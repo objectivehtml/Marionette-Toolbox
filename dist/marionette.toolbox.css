@@ -671,7 +671,44 @@ table .light-switch {
     margin-bottom: 20px;
 }
 
-.selection-pool-search input {
+.selection-pool-search-activity {
+    position: absolute;
+    top: 17px;
+    right: 20px;
+}
+
+.selection-pool-search-clear {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 18px;
+    padding: 5px 10px;
+    color: gray;
+}
+
+.selection-pool-search-clear.show {
+    display: block;
+}
+
+.show-activity .selection-pool-search-clear.show {
+    display: none !important;
+}
+
+a.selection-pool-search-clear,
+a.selection-pool-search-clear:hover {
+    color: gray;
+}
+
+a.selection-pool-search-clear:hover {
+    color: #18181c;
+}
+
+.selection-pool-search-field {
+    position: relative;
+}
+
+.selection-pool-search-field input {
     border-radius: 100px;
     width: 100%;
     margin: 0;
