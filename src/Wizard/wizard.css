@@ -1,6 +1,6 @@
 .wizard-progress-wrapper {
     width: 100%;
-    padding: 30px;
+    padding: 30px 0;
 }
 
 .wizard-progress-wrapper:after {
@@ -54,12 +54,12 @@ a.wizard-step:hover {
 
 .wizard:not(.wizard-finished) .wizard-step.active:hover:before,
 .wizard:not(.wizard-finished) .wizard-step.complete:hover:before {
-    border-color: red;
-    color: red;
+    border-color: #b10805;
+    color: #b10805;
 }
 
 .wizard:not(.wizard-finished) .wizard-step.complete:hover + .wizard-step:after {
-    background-color: red;
+    background-color: #b10805;
 }
 
 .wizard-step:before {
@@ -75,6 +75,8 @@ a.wizard-step:hover {
     margin: 0 auto 10px auto;
     border-radius: 50%;
     background-color: white;
+    position: relative;
+    z-index: 1;
 }
 
 .wizard-step:after {
@@ -85,7 +87,6 @@ a.wizard-step:hover {
     background-color: #7d7d7d;
     top: 20px;
     left: -50%;
-    z-index: -1;
 }
 
 .wizard-step:first-child:after {
@@ -110,4 +111,75 @@ a.wizard-step:hover {
     font-family: FontAwesome;
     content: "\f00c";
     line-height: 40px;
+}
+
+.wizard-buttons-wrapper {
+	border-top: 1px solid #e6e6e6;
+    padding: 20px 0;
+}
+
+.wizard-panel .wizard-buttons-wrapper {
+	padding: 20px;
+}
+
+.wizard-buttons-wrapper .btn:last-child {
+    float: right;
+}
+
+.wizard-error,
+.wizard-success {
+    text-align: center;
+}
+
+.wizard-error h3,
+.wizard-success h3 {
+    font-size: 28px;
+    color: #55b776;
+}
+
+.wizard-error h3 {
+    color: #b10805;
+}
+
+.wizard-error-icon,
+.wizard-success-icon {
+    color: #55b776;
+    font-size: 60px;
+    border: 5px solid #55b776;
+    border-radius: 1000px;
+    text-align: center;
+    width: 120px;
+    height: 120px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.wizard-error-icon {
+    color: #b10805;
+    border-color: #b10805;
+}
+
+.wizard-error-icon i,
+.wizard-success-icon i {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    line-height: 0;
+}
+
+.wizard-header {
+    text-align: center;
+}
+
+.wizard .wizard-content {
+    padding: 20px 0;
+}
+
+.wizard-panel .panel-body .wizard-content {
+    padding: 0 20px;
+}
+
+.wizard .panel-body .wizard-content.fixed-height {
+    overflow: auto;
 }

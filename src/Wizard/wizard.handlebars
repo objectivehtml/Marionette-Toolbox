@@ -1,13 +1,26 @@
-{{#if header}}
-    <{{../headerTag}} class="{{../headerTagClassName}}">{{../header}}</{{../headerTag}}>
+{{#if panel}}
+<div class="{{../panelClassName}}">
+    <div class="panel-body">
+    {{/if}}
+
+        {{#if header}}
+            <{{../headerTag}} class="{{../headerTagClassName}}">{{../header}}</{{../headerTag}}>
+        {{/if}}
+
+        <div class="wizard-progress"></div>
+
+        {{#if description}}
+            <p>{{../description}}</p>
+        {{/if}}
+
+        <div class="wizard-content"></div>
+
+{{#if panel}}
+    </div>
+    <div class="wizard-buttons"></div>
+</div>
 {{/if}}
 
-{{#if description}}
-    <p>{{../description}}</p>
-{{/if}}
-
-<div id="wizard-progress"></div>
-    
-<div id="wizard-content"></div>
-
-<div id="wizard-buttons"></div>
+{{#not panel}}
+<div class="wizard-buttons"></div>
+{{/not}}

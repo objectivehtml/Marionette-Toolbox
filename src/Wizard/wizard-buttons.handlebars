@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-default back" {{#if isFirstStep}}disabled{{/if}}><i class="fa fa-long-arrow-left"></i> Back</button>
-<button {{#not isLastStep}}type="button"{{/not}} {{#if isLastStep}}type="submit"{{/if}} class="btn {{#not isLastStep}}btn-default next{{/not}} {{#if isLastStep}}btn-primary finish{{/if}}">
-    {{#not isLastStep}}Next <i class="fa fa-long-arrow-right"></i>{{/not}}{{#if isLastStep}}Finish{{/if}}
+<button type="button" class="{{defaultButtonClassName}} {{buttonSizeClassName}} back" {{#if isFirstStep}}disabled{{/if}}>{{#if backIcon}}<i class="{{../backIcon}}"></i> {{/if}}{{backLabel}}</button>
+<button {{#not isLastStep}}type="button"{{/not}} {{#if isLastStep}}type="submit"{{/if}} class="{{#not isLastStep}}{{../defaultButtonClassName}} next{{/not}} {{#if isLastStep}}{{../primaryButtonClassName}} finish{{/if}} {{buttonSizeClassName}}">
+    {{#not isLastStep}}{{../nextLabel}}{{#if ../nextIcon}} <i class="{{../../nextIcon}}"></i>{{/if}}{{/not}}{{#if isLastStep}}{{../finishLabel}}{{/if}}
 </button>

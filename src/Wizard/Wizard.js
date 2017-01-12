@@ -18,24 +18,31 @@
 
 		template: Toolbox.Template('wizard'),
 
-        defaultOptions: {
-            header: false,
-            headerTag: 'h2',
-            headerTagClassName: 'wizard-header',
-            finishedClassName: 'wizard-finished',
-            step: 1,
-            steps: [],
-            finished: false,
-            successView: false,
-            errorView: false,
-            showButtons: true,
-            showProgress: true
+        defaultOptions: function() {
+            return {
+                header: false,
+                headerTag: 'h2',
+                headerTagClassName: 'wizard-header',
+                finishedClassName: 'wizard-finished',
+                fixedHeightClassName: 'fixed-height',
+                hasPanelClassName: 'wizard-panel',
+                panelClassName: 'panel panel-default',
+                step: 1,
+                steps: [],
+                finished: false,
+                successView: Toolbox.WizardSuccess,
+                errorView: Toolbox.WizardError,
+                showButtons: true,
+                showProgress: true,
+                panel: false,
+                contentHeight: false
+            };
         },
 
         regions: {
-            progress: '#wizard-progress',
-            content: '#wizard-content',
-            buttons: '#wizard-buttons'
+            progress: '.wizard-progress',
+            content: '.wizard-content',
+            buttons: '.wizard-buttons'
         },
 
         initialize: function() {
@@ -77,15 +84,23 @@
             this.progress.currentView.render();
 
             if(view = this.getStep(this.options.step)) {
-                this.showView(view);
+                this.showContent(view);
             }
         },
 
-        showView: function(view) {
+        showView: function(View) {
+            if(View) {
+                this.showContent(new View());
+            }
+        },
+
+        showContent: function(view) {
             if(view) {
                 this.content.show(view, {
                     preventDestroy: true
                 });
+
+                this.triggerMethod('show:content', view);
             }
         },
 
@@ -128,13 +143,29 @@
             this.buttons.show(view);
         },
 
+        setContentHeight: function(height) {
+            height || (height = 400);
+
+            this.$el.find('.wizard-content')
+                .addClass(this.getOption('fixedHeightClassName'))
+                .css('height', height);
+        },
+
         onDomRefresh: function() {
+            if(this.getOption('contentHeight')) {
+                this.setContentHeight(this.getOption('contentHeight'));
+            }
+
             if(this.getOption('showProgress')) {
                 this.showProgress();
             }
 
             if(this.getOption('showButtons')) {
                 this.showButtons();
+            }
+
+            if(this.getOption('panel')) {
+                this.$el.addClass(this.getOption('hasPanelClassName'));
             }
 
             this.setStep(this.getOption('step'));

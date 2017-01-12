@@ -23,7 +23,13 @@
 		<script src="../dist/marionette.toolbox.js"></script>
 	</head>
 	<body>
-		<div id="app-wrapper"></div>
+		<div id="app-wrapper" class="container"></div>
+
+		<script type="text/handlebars" id="step-1">
+		<p>Nunc aliquet libero non dui maximus lacinia. Aliquam porta mi vel massa posuere, egestas bibendum justo congue. Nullam quis leo ut elit convallis sagittis sagittis vel diam. Curabitur vehicula vitae massa non ultrices. Maecenas tempor porta molestie. Pellentesque ac elit mi. Integer semper pharetra libero nec condimentum. Quisque ultrices id tortor non bibendum. Cras eget lorem hendrerit, faucibus velit ac, sollicitudin mi. Nulla id libero orci.</p>
+
+		<p>Vestibulum sed tincidunt tellus, non ultrices odio. Vivamus at nisi felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam tristique sem eu varius dictum. Aliquam tincidunt dapibus faucibus. Sed bibendum quam at massa cursus, vel vulputate purus vestibulum. Mauris tempor bibendum finibus. Suspendisse accumsan maximus urna, ac placerat mi rutrum placerat.</p>
+		</script>
 
 		<script type="text/javascript">
 			var App = new Backbone.Marionette.Application();
@@ -37,7 +43,7 @@
 				var Step1 = Toolbox.ItemView.extend({
 					title: 'Step 1',
 					template: function() {
-						return 'Step 1';
+						return $('#step-1').html();
 					},
 					onClickNext: function() {
 						console.log('do validation here!');
@@ -56,24 +62,18 @@
 
 				var step2 = new Step2();
 
-				var step3 = new Toolbox.ItemView({
-					title: 'Step 3',
+				var Step3 = Toolbox.ItemView.extend({
 					template: function() {
 						return 'Step 3';
 					}
 				});
 
-				var success = new Toolbox.ItemView({
-					title: 'Success',
-					template: function() {
-						return 'Success!';
-					}
-				});
+				var step3 = new Step3();
 
 				var view = new Toolbox.Wizard({
+					header: 'Step by Step',
 					step: 1,
-					steps: [step1, step2, step3],
-					successView: success
+					steps: [step1, step2, step3]
 				});
 
 				App.content.show(view);

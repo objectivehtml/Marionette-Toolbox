@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        factory(root.Toolbox);
+        define(['underscore'], function(_) {
+            return factory(root.Toolbox, _);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox);
+        module.exports = factory(root.Toolbox, require('underscore'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root._);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, _) {
 
     'use strict';
 
@@ -42,6 +44,8 @@
 
         templateHelpers: function() {
             _.each(this.getOption('wizard').getOption('steps'), function(step, i) {
+                step.label = step.getOption('label') || step.label;
+                step.title = step.getOption('title') || step.title;
                 step.step = i + 1;
             }, this);
 
@@ -50,13 +54,13 @@
 
         setComplete: function(step) {
             var view = this.getOption('wizard').getStep(step);
-            
+
             this.$el.find('.wizard-step:lt('+(step - 1)+')').addClass(this.getOption('completeClassName'));
         },
 
         setActive: function(step) {
             this.$el.find('.'+this.getOption('activeClassName')).removeClass(this.getOption('activeClassName'));
-            this.$el.find('.wizard-step:lt('+(step)+')').removeClass(this.getOption('disabledClassName'));
+            this.$el.find('.wizard-step:lt('+step+')').removeClass(this.getOption('disabledClassName'));
             this.$el.find('.wizard-step:nth-child('+step+')').addClass(this.getOption('activeClassName'));
         },
 

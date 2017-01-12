@@ -1,5 +1,16 @@
 <div class="wizard-progress-bar">
 {{#steps}}
-    <a title="{{options.title}}" class="wizard-step disabled {{#if complete}}{{../completeClassName}}{{/if}}" data-step="{{step}}"></a>
+    <div class="wizard-step disabled {{#if complete}}{{../completeClassName}}{{/if}}" data-step="{{step}}">
+
+        {{#if label}}
+            <span class="wizard-step-label">{{../label}}</span>
+        {{/if}}
+
+        {{#not title}}
+            <span class="wizard-step-label">{{../title}}</span>
+        {{/not}}
+
+        <a title="{{options.title}}"></a>
+    </div>
 {{/steps}}
 </div>

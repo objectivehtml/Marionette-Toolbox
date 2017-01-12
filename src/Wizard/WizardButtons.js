@@ -14,10 +14,20 @@
 
         template: Toolbox.Template('wizard-buttons'),
 
+        className: 'wizard-buttons-wrapper',
+
         channelName: 'toolbox.wizard',
 
         options: {
-            wizard: false
+            wizard: false,
+            buttonSizeClassName: 'btn-md',
+            defaultButtonClassName: 'btn btn-default',
+            primaryButtonClassName: 'btn btn-primary',
+            finishLabel: 'Finish',
+            nextLabel: 'Next',
+            nextIcon: 'fa fa-long-arrow-right',
+            backLabel: 'Back',
+            backIcon: 'fa fa-long-arrow-left'
         },
 
         triggers: {
@@ -30,7 +40,7 @@
             var step = this.getOption('wizard').getOption('step');
             var total =  this.getOption('wizard').getOption('steps').length
 
-            return _.extend({}, {
+            return _.extend({}, this.options, {
                 isFirstStep: step == 1,
                 isLastStep: step == total,
                 totalSteps: total

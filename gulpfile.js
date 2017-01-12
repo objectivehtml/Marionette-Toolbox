@@ -36,7 +36,9 @@ gulp.task('browserSync', function() {
 
 gulp.task('css', function() {
     gulp.src(['./src/**/*.css'])
+        .pipe(sourcemaps.init())
         .pipe(concat('marionette.toolbox.css'))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./dist'));
 });
 
