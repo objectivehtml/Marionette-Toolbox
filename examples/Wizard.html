@@ -63,6 +63,7 @@
 				var step2 = new Step2();
 
 				var Step3 = Toolbox.ItemView.extend({
+					title: 'Step 3',
 					template: function() {
 						return 'Step 3';
 					}
@@ -73,8 +74,10 @@
 				var view = new Toolbox.Wizard({
 					header: 'Step by Step',
 					step: 1,
-					steps: [step1, step2, step3]
+					steps: [step1, step2, step3],
+					panel: false
 				});
+				
 
 				App.content.show(view);
 

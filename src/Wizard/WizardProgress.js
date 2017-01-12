@@ -44,9 +44,11 @@
 
         templateHelpers: function() {
             _.each(this.getOption('wizard').getOption('steps'), function(step, i) {
-                step.label = step.getOption('label') || step.label;
-                step.title = step.getOption('title') || step.title;
-                step.step = i + 1;
+                step.options.label = step.getOption('label') || step.label;
+                step.options.title = step.getOption('title') || step.title;
+                step.options.step = i + 1;
+
+                console.log(step)
             }, this);
 
             return this.getOption('wizard').options;

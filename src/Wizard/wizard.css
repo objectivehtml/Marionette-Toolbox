@@ -183,3 +183,8 @@ a.wizard-step:hover {
 .wizard .panel-body .wizard-content.fixed-height {
     overflow: auto;
 }
+
+.wizard-success,
+.wizard-fail {
+    padding: 20px 0 40px;
+}
