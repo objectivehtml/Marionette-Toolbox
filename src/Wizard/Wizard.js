@@ -140,22 +140,6 @@
             return this.getOption('steps').length;
         },
 
-        disableNextButton: function() {
-            this.buttons.currentView.$el.find('.next').addClass(this.buttons.currentView.getOption('disabledClassName'));
-        },
-
-        disableBackButton: function() {
-            this.buttons.currentView.$el.find('.back').addClass(this.buttons.currentView.getOption('disabledClassName'));
-        },
-
-        enableNextButton: function() {
-            this.buttons.currentView.$el.find('.next').removeClass(this.buttons.currentView.getOption('disabledClassName'));
-        },
-
-        enableBackButton: function() {
-            this.buttons.currentView.$el.find('.back').removeClass(this.buttons.currentView.getOption('disabledClassName'));
-        },
-
         next: function() {
             this.channel.request('complete:step');
             this.setStep(this.getOption('step') + 1);

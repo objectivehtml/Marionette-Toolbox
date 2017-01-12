@@ -39,10 +39,6 @@
             'click .finish:not(.disabled)': 'click:finish'
         },
 
-        disableButton: function(button) {
-            this.$el.find('.'+button).addClass(this.getOption('disabledClassName'));
-        },
-
         templateHelpers: function() {
             var step = this.getOption('wizard').getOption('step');
             var total =  this.getOption('wizard').getOption('steps').length
@@ -72,6 +68,38 @@
 
         onClickFinish: function() {
             this.channel.request('wizard:success');
+        },
+
+        disableButtons: function() {
+            this.$el.find('button').addClass(this.getOption('disabledClassName'));
+        },
+
+        disableNextButton: function() {
+            this.$el.find('.next').addClass(this.getOption('disabledClassName'));
+        },
+
+        disableBackButton: function() {
+            this.$el.find('.back').addClass(this.getOption('disabledClassName'));
+        },
+
+        disableFinishButton: function() {
+            this.$el.find('.finish').addClass(this.getOption('disabledClassName'));
+        },
+
+        enableButtons: function() {
+            this.$el.find('button').removeClass(this.getOption('disabledClassName'));
+        },
+
+        enableNextButton: function() {
+            this.$el.find('.next').removeClass(this.getOption('disabledClassName'));
+        },
+
+        enableBackButton: function() {
+            this.$el.find('.back').removeClass(this.getOption('disabledClassName'));
+        },
+
+        enableFinishButton: function() {
+            this.$el.find('.finish').removeClass(this.getOption('disabledClassName'));
         }
 
     });
