@@ -16,7 +16,13 @@
 
         channelName: 'toolbox.wizard',
 
-		template: Toolbox.Template('wizard'),
+        template: Toolbox.Template('wizard'),
+
+        regions: {
+            progress: '.wizard-progress',
+            content: '.wizard-content',
+            buttons: '.wizard-buttons'
+        },
 
         defaultOptions: function() {
             return {
@@ -39,10 +45,8 @@
             };
         },
 
-        regions: {
-            progress: '.wizard-progress',
-            content: '.wizard-content',
-            buttons: '.wizard-buttons'
+        templateHelpers: function() {
+            return this.options;
         },
 
         initialize: function() {
@@ -66,8 +70,12 @@
             }, this);
         },
 
-        templateHelpers: function() {
-            return this.options;
+        setContentHeight: function(height) {
+            height || (height = 400);
+
+            this.$el.find('.wizard-content')
+                .addClass(this.getOption('fixedHeightClassName'))
+                .css('height', height);
         },
 
         setStep: function(step) {
@@ -85,7 +93,7 @@
                 this.buttons.currentView.render();
             }
 
-            if(view = this.getStep(this.options.step)) {
+            if(view = this.getStep()) {
                 this.showContent(view);
             }
         },
@@ -96,13 +104,31 @@
             }
         },
 
+        showProgress: function() {
+            var view = new Toolbox.WizardProgress({
+                wizard: this
+            });
+
+            this.progress.show(view);
+        },
+
+        showButtons: function() {
+            var view = new WizardButtons({
+                wizard: this,
+                channel: this.channel
+            });
+
+            this.buttons.show(view);
+        },
+
         showContent: function(view) {
             if(view) {
                 this.content.show(view, {
                     preventDestroy: true
                 });
 
-                this.triggerMethod('show:content', view);
+                view.triggerMethod('show:step', this.getOption('step'), this);
+                this.triggerMethod('show:step', this.getOption('step'), view);
             }
         },
 
@@ -112,6 +138,22 @@
 
         getTotalSteps: function() {
             return this.getOption('steps').length;
+        },
+
+        disableNextButton: function() {
+            this.buttons.currentView.$el.find('.next').addClass(this.buttons.currentView.getOption('disabledClassName'));
+        },
+
+        disableBackButton: function() {
+            this.buttons.currentView.$el.find('.back').addClass(this.buttons.currentView.getOption('disabledClassName'));
+        },
+
+        enableNextButton: function() {
+            this.buttons.currentView.$el.find('.next').removeClass(this.buttons.currentView.getOption('disabledClassName'));
+        },
+
+        enableBackButton: function() {
+            this.buttons.currentView.$el.find('.back').removeClass(this.buttons.currentView.getOption('disabledClassName'));
         },
 
         next: function() {
@@ -136,31 +178,6 @@
             else {
                 this.showView(this.getOption('errorView'));
             }
-        },
-
-        showProgress: function() {
-            var view = new Toolbox.WizardProgress({
-                wizard: this
-            });
-
-            this.progress.show(view);
-        },
-
-        showButtons: function() {
-            var view = new Toolbox.WizardButtons({
-                wizard: this,
-                channel: this.channel
-            });
-
-            this.buttons.show(view);
-        },
-
-        setContentHeight: function(height) {
-            height || (height = 400);
-
-            this.$el.find('.wizard-content')
-                .addClass(this.getOption('fixedHeightClassName'))
-                .css('height', height);
         },
 
         onDomRefresh: function() {

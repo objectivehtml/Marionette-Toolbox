@@ -1,4 +1,7 @@
-<button type="button" class="{{defaultButtonClassName}} {{buttonSizeClassName}} back" {{#if isFirstStep}}disabled{{/if}}>{{#if backIcon}}<i class="{{../backIcon}}"></i> {{/if}}{{backLabel}}</button>
-<button {{#not isLastStep}}type="button"{{/not}} {{#if isLastStep}}type="submit"{{/if}} class="{{#not isLastStep}}{{../defaultButtonClassName}} next{{/not}} {{#if isLastStep}}{{../primaryButtonClassName}} finish{{/if}} {{buttonSizeClassName}}">
+<button type="button" class="{{#if disableBackButton}}{{../disabledClassName}}{{/if}} {{defaultButtonClassName}} {{buttonSizeClassName}} back {{#if isFirstStep}}{{../disabledClassName}}{{/if}}">
+    {{#if backIcon}}<i class="{{../backIcon}}"></i> {{/if}}{{backLabel}}
+</button>
+
+<button {{#not isLastStep}}type="button"{{/not}} {{#if isLastStep}}type="submit"{{/if}} class="{{#if disableNextButton}}{{../disabledClassName}}{{/if}} {{#not isLastStep}}{{../defaultButtonClassName}} next{{/not}} {{#if isLastStep}}{{../primaryButtonClassName}} finish{{/if}} {{buttonSizeClassName}}">
     {{#not isLastStep}}{{../nextLabel}}{{#if ../nextIcon}} <i class="{{../../nextIcon}}"></i>{{/if}}{{/not}}{{#if isLastStep}}{{../finishLabel}}{{/if}}
 </button>

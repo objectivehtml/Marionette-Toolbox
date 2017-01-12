@@ -25,6 +25,7 @@
             buttonSizeClassName: 'btn-md',
             defaultButtonClassName: 'btn btn-default',
             primaryButtonClassName: 'btn btn-primary',
+            disabledClassName: 'disabled',
             finishLabel: 'Finish',
             nextLabel: 'Next',
             nextIcon: 'fa fa-long-arrow-right',
@@ -33,9 +34,13 @@
         },
 
         triggers: {
-            'click .back': 'click:back',
-            'click .next': 'click:next',
-            'click .finish': 'click:finish'
+            'click .back:not(.disabled)': 'click:back',
+            'click .next:not(.disabled)': 'click:next',
+            'click .finish:not(.disabled)': 'click:finish'
+        },
+
+        disableButton: function(button) {
+            this.$el.find('.'+button).addClass(this.getOption('disabledClassName'));
         },
 
         templateHelpers: function() {
@@ -47,17 +52,6 @@
                 isLastStep: step == total,
                 totalSteps: total
             }, this.getOption('wizard').options);
-        },
-
-        initialize: function() {
-            Toolbox.ItemView.prototype.initialize.apply(this, arguments);
-
-            /*
-            this.channel.reply('set:step', function(step) {
-                console.log('render');
-                this.render();
-            }, this);
-            */
         },
 
         onClickBack: function() {
