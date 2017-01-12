@@ -47,8 +47,6 @@
                 step.options.label = step.getOption('label') || step.label;
                 step.options.title = step.getOption('title') || step.title;
                 step.options.step = i + 1;
-
-                console.log(step)
             }, this);
 
             return this.getOption('wizard').options;
