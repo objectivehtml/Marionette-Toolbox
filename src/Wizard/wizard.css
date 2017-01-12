@@ -93,14 +93,22 @@ a.wizard-step:hover {
     content: none;
 }
 
-.wizard-step.active {
-    color: green;
-}
-
-.wizard-step.complete:before,
-.wizard-step.active:before {
+.wizard-step.complete:before {
     border-color: #55b776;
     color: #55b776;
+}
+
+.wizard-step.complete .wizard-step-label {
+    color: #55b776;
+}
+
+.wizard-step.active:before {
+    border-color: #b10805;
+    color: #b10805;
+}
+
+.wizard-step.active .wizard-step-label {
+    color: #b10805;
 }
 
 .wizard-step.complete + .wizard-step:after {

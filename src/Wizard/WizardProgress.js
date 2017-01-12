@@ -44,16 +44,22 @@
 
         templateHelpers: function() {
             _.each(this.getOption('wizard').getOption('steps'), function(step, i) {
+                console.log(1, step);
+
                 step.options.label = step.getOption('label') || step.label;
                 step.options.title = step.getOption('title') || step.title;
                 step.options.step = i + 1;
             }, this);
 
-            return this.getOption('wizard').options;
+            return _.extend({}, this.options, this.getOption('wizard').options);
         },
 
         setComplete: function(step) {
             var view = this.getOption('wizard').getStep(step);
+
+            view.options.complete = true;
+
+            console.log('complete', step, view);
 
             this.$el.find('.wizard-step:lt('+(step - 1)+')').addClass(this.getOption('completeClassName'));
         },
@@ -70,7 +76,7 @@
 
         onDomRefresh: function() {
             this.setWidth();
-            this.setComplete(this.getOption('wizard').getOption('step'));
+            //this.setComplete(this.getOption('wizard').getOption('step'));
             this.setActive(this.getOption('wizard').getOption('step'));
         }
 

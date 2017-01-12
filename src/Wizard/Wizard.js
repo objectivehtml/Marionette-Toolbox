@@ -48,6 +48,10 @@
         initialize: function() {
             Toolbox.LayoutView.prototype.initialize.apply(this, arguments);
 
+            this.channel.reply('complete:step', function(step) {
+                this.progress.currentView.setComplete(step || this.getOption('step'));
+            }, this);
+
             this.channel.reply('set:step', function(step) {
                 this.setStep(step);
             }, this);
@@ -58,9 +62,7 @@
             }, this);
 
             this.channel.reply('wizard:success', function() {
-                this.finish();
-                this.setStep(this.getTotalSteps() + 1);
-                this.showView(this.getOption('successView'));
+                this.finish(true);
             }, this);
         },
 
@@ -77,11 +79,11 @@
                 this.options.step = 1;
             }
 
+            this.progress.currentView.render();
+
             if(this.buttons.currentView) {
                 this.buttons.currentView.render();
             }
-
-            this.progress.currentView.render();
 
             if(view = this.getStep(this.options.step)) {
                 this.showContent(view);
@@ -113,17 +115,27 @@
         },
 
         next: function() {
-            this.channel.request('set:step', this.getOption('step') + 1);
+            this.channel.request('complete:step');
+            this.setStep(this.getOption('step') + 1);
         },
 
         back: function() {
-            this.channel.request('set:step', this.getOption('step') - 1);
+            this.setStep(this.getOption('step') - 1);
         },
 
-        finish: function() {
+        finish: function(success) {
             this.buttons.empty();
-            this.options.finished = true;
-            this.$el.addClass(this.getOption('finishedClassName'));
+
+            if(success) {
+                this.options.finished = true;
+                this.$el.addClass(this.getOption('finishedClassName'));
+                this.channel.request('complete:step');
+                this.setStep(this.getTotalSteps() + 1);
+                this.showView(this.getOption('successView'));
+            }
+            else {
+                this.showView(this.getOption('errorView'));
+            }
         },
 
         showProgress: function() {
