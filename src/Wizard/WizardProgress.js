@@ -1,14 +1,18 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore'], function(_) {
-            return factory(root.Toolbox, _);
+        define(['jquery', 'underscore'], function($, _) {
+            return factory(root.Toolbox, $, _);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'));
+        module.exports = factory(
+            root.Toolbox,
+            require('jquery'),
+            require('underscore')
+        );
     } else {
-        root.Toolbox = factory(root.Toolbox, root._);
+        root.Toolbox = factory(root.Toolbox, root.$, root._);
     }
-}(this, function (Toolbox, _) {
+}(this, function (Toolbox, $, _) {
 
     'use strict';
 
@@ -49,8 +53,6 @@
                 step.options.step = i + 1;
             }, this);
 
-            console.log(this.getOption('wizard').getOption('steps')[0].options);
-
             return _.extend({}, this.options, this.getOption('wizard').options);
         },
 
@@ -58,8 +60,6 @@
             var view = this.getOption('wizard').getStep(step);
 
             view.options.complete = true;
-
-            console.log('complete', step, view);
 
             this.$el.find('.wizard-step:lt('+(step - 1)+')').addClass(this.getOption('completeClassName'));
         },
