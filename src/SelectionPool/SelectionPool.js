@@ -1,18 +1,19 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['jquery', 'underscore'], function($, _) {
-            return factory(root.Toolbox, $, _);
+        define(['jquery', 'underscore', 'interact.js'], function($, _, interact) {
+            return factory(root.Toolbox, $, _, interact);
         });
     } else if (typeof exports === 'object') {
         module.exports = factory(
             root.Toolbox,
             require('jquery'),
-            require('underscore')
+            require('underscore'),
+            require('interact.js')
         );
     } else {
-        root.Toolbox = factory(root.Toolbox, root.$, root._);
+        root.Toolbox = factory(root.Toolbox, root.$, root._, root.interact);
     }
-}(this, function (Toolbox, $, _) {
+}(this, function (Toolbox, $, _, interact) {
 
     'use strict';
 
