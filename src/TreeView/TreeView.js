@@ -26,8 +26,6 @@
             Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
 
             this.options.childViewOptions = _.extend({}, {
-                template: this.getOption('template'),
-                nestable: this.getOption('nestable'),
                 treeRoot: this,
             }, this.getOption('childViewOptions') || {});
         }

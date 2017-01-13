@@ -134,8 +134,10 @@
 
             if(View) {
         		var view = new View(_.extend({
-                    template: this.getOption('availableTreeViewTemplate'),
-        			collection: this.getOption('availableTree'),
+                    collection: this.getOption('availableTree'),
+                    childViewOptions: {
+                        template: this.getOption('availableTreeViewTemplate')
+                    },
         		}, this.getOption('availableTreeViewOptions')));
 
                 view.on('drop:before', function(event) {
@@ -159,8 +161,10 @@
 
             if(View) {
         		var view = new View(_.extend({
-                    template: this.getOption('selectedTreeViewTemplate'),
-        			collection: this.getOption('selectedTree')
+                    collection: this.getOption('selectedTree'),
+                    childViewOptions: {
+                        template: this.getOption('selectedTreeViewTemplate')
+                    }
         		}, this.getOption('selectedTreeViewOptions')));
 
                 view.on('drop:before', function(event) {

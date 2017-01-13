@@ -126,13 +126,16 @@
         },
 
         appendNode(child, parent, options) {
+            options || (options = {});
             child.children || (child.children = this._createCollection());
 
+            /*
             if(this.getOption('comparator')) {
                 var comparator = (!_.isUndefined(options.at) ? options.at : (parent ? parent.children.length : this.length)) + 1;
 
                 child.set(this.getOption('comparator'), comparator);
             }
+            */ 
 
             if(parent) {
                 child.set(this.getOption('parentAttribute'), parent.get(this.getOption('idAttribute')));

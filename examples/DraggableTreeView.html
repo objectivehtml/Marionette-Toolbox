@@ -85,14 +85,6 @@
 				});
 
 				App.content.show(view);
-
-				var node = tree.find({id: 2})
-
-				tree.removeNode(node);
-
-				tree.appendNodeBefore(node, tree.find({id: 3}));
-
-				tree.reorder();
 			});
 
 			App.start();
