@@ -76,16 +76,23 @@
             activity: '.selection-pool-search-activity'
         },
 
-        defaultOptions: {
-            available: [],
-            selected: [],
-            height: false,
-            // nestable: true,
-            typingStoppedThreshold: 500,
-            likenessThreshold: 75,
-            searchIndicatorOptions: {
-                indicator: 'tiny'
-            }
+        defaultOptions: function() {
+            return {
+                availableTree: [],
+                availableTreeView: Toolbox.SelectionPoolTreeView,
+                availableTreeViewOptions: {},
+                availableTreeViewTemplate: Toolbox.Template('selection-pool-item'),
+                selectedTree: [],
+                selectedTreeView: Toolbox.SelectionPoolTreeView,
+                selectedTreeViewOptions: {},
+                selectedTreeViewTemplate: Toolbox.Template('selection-pool-item'),
+                height: false,
+                typingStoppedThreshold: 500,
+                likenessThreshold: 75,
+                searchIndicatorOptions: {
+                    indicator: 'tiny'
+                }
+            };
         },
 
         events: {
@@ -123,50 +130,53 @@
         },
 
         showAvailablePool: function() {
-			var view = new Toolbox.SelectionPoolTreeView({
-                template: Toolbox.Template('selection-pool-item'),
-				collection: this.getOption('available'),
-                nestable: false
-			});
+            var View = this.getOption('availableTreeView');
 
-            view.on('drop:before', function(event) {
-                transferNodeBefore(event, this);
-            }, this);
+            if(View) {
+        		var view = new View(_.extend({
+                    template: this.getOption('availableTreeViewTemplate'),
+        			collection: this.getOption('availableTree'),
+        		}, this.getOption('availableTreeViewOptions')));
 
-            view.on('drop:after', function(event) {
-                transferNodeAfter(event, this);
-            }, this);
+                view.on('drop:before', function(event) {
+                    transferNodeBefore(event, this);
+                }, this);
 
-            view.on('drop:children', function(event) {
-                transferNodeChildren(event, this);
-            }, this);
+                view.on('drop:after', function(event) {
+                    transferNodeAfter(event, this);
+                }, this);
 
-            view.options.originalAvailableCollection = view.collection.clone();
+                view.on('drop:children', function(event) {
+                    transferNodeChildren(event, this);
+                }, this);
 
-            this.available.show(view);
+                this.available.show(view);
+            }
         },
 
         showSelectedPool: function() {
-			var view = new Toolbox.SelectionPoolTreeView({
-                template: Toolbox.Template('selection-pool-item'),
-				collection: this.getOption('selected'),
-                nestable: false
-                //nestable: this.getOption('nestable'),
-			});
+            var View = this.getOption('selectedTreeView');
 
-            view.on('drop:before', function(event) {
-                transferNodeBefore(event, this);
-            }, this);
+            if(View) {
+        		var view = new View(_.extend({
+                    template: this.getOption('selectedTreeViewTemplate'),
+        			collection: this.getOption('selectedTree')
+        		}, this.getOption('selectedTreeViewOptions')));
 
-            view.on('drop:after', function(event) {
-                transferNodeAfter(event, this);
-            }, this);
+                view.on('drop:before', function(event) {
+                    transferNodeBefore(event, this);
+                }, this);
 
-            view.on('drop:children', function(event) {
-                transferNodeChildren(event, this);
-            }, this);
+                view.on('drop:after', function(event) {
+                    transferNodeAfter(event, this);
+                }, this);
 
-            this.selected.show(view);
+                view.on('drop:children', function(event) {
+                    transferNodeChildren(event, this);
+                }, this);
+
+                this.selected.show(view);
+            }
         },
 
         modelContains: function(model, query) {

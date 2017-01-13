@@ -39,6 +39,10 @@
             'click .finish:not(.disabled)': 'click:finish'
         },
 
+        disableButton: function(button) {
+            this.$el.find('.'+button).addClass(this.getOption('disabledClassName'));
+        },
+
         templateHelpers: function() {
             var step = this.getOption('wizard').getOption('step');
             var total =  this.getOption('wizard').getOption('steps').length
@@ -51,7 +55,9 @@
         },
 
         onClickBack: function() {
-            var response = this.getOption('wizard').getStep().triggerMethod('click:back');
+            var step = this.getOption('wizard').getOption('step');
+            var steps = this.getOption('wizard').getOption('steps');
+            var response = this.getOption('wizard').getStep().triggerMethod('wizard:click:back', steps[step - 1]);
 
             if(typeof response === "undefined" || response === true) {
                 this.getOption('wizard').back();
@@ -59,7 +65,9 @@
         },
 
         onClickNext: function() {
-            var response = this.getOption('wizard').getStep().triggerMethod('click:next');
+            var step = this.getOption('wizard').getOption('step');
+            var steps = this.getOption('wizard').getOption('steps');
+            var response = this.getOption('wizard').getStep().triggerMethod('wizard:click:next', steps[step + 1]);
 
             if(typeof response === "undefined" || response === true) {
                 this.getOption('wizard').next();

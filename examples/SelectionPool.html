@@ -58,12 +58,20 @@
 				parent_id: null
             }];
 
-			var selected = [];
+			var selected = [{
+				id: 11,
+				content: 'Sam Young',
+				parent_id: null
+			},{
+				id: 12,
+                content: 'Zach Smith',
+				parent_id: null
+            }];
 
 			App.on('start', function() {
 				var view = new Toolbox.SelectionPool({
-					available: new Toolbox.Tree(new Backbone.Collection(available)),
-					selected:  new Toolbox.Tree(new Backbone.Collection(selected)),
+					availableTree: new Toolbox.Tree(new Backbone.Collection(available)),
+					selectedTree: new Toolbox.Tree(new Backbone.Collection(selected)),
 					nestable: false
 				});
 

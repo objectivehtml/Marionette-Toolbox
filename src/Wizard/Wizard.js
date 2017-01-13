@@ -11,12 +11,12 @@
     'use strict';
 
 	Toolbox.Wizard = Toolbox.LayoutView.extend({
-
+    
         className: 'wizard',
 
         channelName: 'toolbox.wizard',
 
-        template: Toolbox.Template('wizard'),
+    	template: Toolbox.Template('wizard'),
 
         regions: {
             progress: '.wizard-progress',
@@ -127,8 +127,15 @@
                     preventDestroy: true
                 });
 
-                view.triggerMethod('show:step', this.getOption('step'), this);
-                this.triggerMethod('show:step', this.getOption('step'), view);
+                view.once('attach', function() {
+                    if(view.regionManager) {
+                        view.regionManager.emptyRegions();
+                        view.regionManager.addRegions(view.regions);
+                    }
+                });
+
+                view.triggerMethod('wizard:show:step', this.getOption('step'), this);
+                this.triggerMethod('wizard:show:step', this.getOption('step'), view);
             }
         },
 
@@ -183,6 +190,7 @@
 
             this.setStep(this.getOption('step'));
         }
+
 	});
 
     return Toolbox;
