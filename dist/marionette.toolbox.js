@@ -33,7 +33,7 @@
 
     Toolbox.Views = {};
 
-    Toolbox.VERSION = '0.7.13';
+    Toolbox.VERSION = '0.7.14';
 
     // Toolbox.Template
     // -------------------
