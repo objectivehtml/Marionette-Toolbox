@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        return factory(root.Toolbox);
+        return define(['jquery'], function($) {
+            return factory(root.Toolbox, $)
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox);
+        module.exports = factory(root.Toolbox, require('jquery'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.$);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, $) {
 
     'use strict';
 
