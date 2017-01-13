@@ -56,6 +56,10 @@
             return _.extend({}, this.options, this.getOption('wizard').options);
         },
 
+        setDisabled: function(step) {
+            this.$el.find('.wizard-step:lt('+step+')').removeClass(this.getOption('disabledClassName'));
+        },
+
         setComplete: function(step) {
             var view = this.getOption('wizard').getStep(step);
 
@@ -66,8 +70,9 @@
 
         setActive: function(step) {
             this.$el.find('.'+this.getOption('activeClassName')).removeClass(this.getOption('activeClassName'));
-            this.$el.find('.wizard-step:lt('+step+')').removeClass(this.getOption('disabledClassName'));
-            this.$el.find('.wizard-step:nth-child('+step+')').addClass(this.getOption('activeClassName'));
+            this.$el.find('.wizard-step:nth-child('+step+')')
+                .addClass(this.getOption('activeClassName'))
+                .removeClass(this.getOption('disabledClassName'));
         },
 
         setWidth: function() {
@@ -77,6 +82,7 @@
         onDomRefresh: function() {
             this.setWidth();
             //this.setComplete(this.getOption('wizard').getOption('step'));
+            this.setDisabled(this.getOption('wizard').getOption('highestStep'));
             this.setActive(this.getOption('wizard').getOption('step'));
         }
 

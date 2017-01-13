@@ -11,7 +11,7 @@
     'use strict';
 
 	Toolbox.Wizard = Toolbox.LayoutView.extend({
-    
+
         className: 'wizard',
 
         channelName: 'toolbox.wizard',
@@ -33,6 +33,7 @@
                 fixedHeightClassName: 'fixed-height',
                 hasPanelClassName: 'wizard-panel',
                 panelClassName: 'panel panel-default',
+                highestStep: 1,
                 step: 1,
                 steps: [],
                 finished: false,
@@ -87,6 +88,10 @@
                 this.options.step = 1;
             }
 
+            if(this.getOption('step') > this.getOption('highestStep')) {
+                this.options.highestStep = this.getOption('step');
+            }
+
             this.progress.currentView.render();
 
             if(this.buttons.currentView) {
@@ -113,7 +118,7 @@
         },
 
         showButtons: function() {
-            var view = new WizardButtons({
+            var view = new Toolbox.WizardButtons({
                 wizard: this,
                 channel: this.channel
             });
@@ -123,19 +128,21 @@
 
         showContent: function(view) {
             if(view) {
+                view.options.wizard = this;
+
                 this.content.show(view, {
                     preventDestroy: true
                 });
 
                 view.once('attach', function() {
-                    if(view.regionManager) {
+                    if(view.regions && view.regionManager) {
                         view.regionManager.emptyRegions();
                         view.regionManager.addRegions(view.regions);
                     }
                 });
 
                 view.triggerMethod('wizard:show:step', this.getOption('step'), this);
-                this.triggerMethod('wizard:show:step', this.getOption('step'), view);
+                this.triggerMethod('show:step', this.getOption('step'), view);
             }
         },
 
