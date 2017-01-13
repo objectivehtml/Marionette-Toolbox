@@ -24,12 +24,10 @@
 
         tagName: 'li',
 
-        defaultOptions: function() {
-            return {
-                idAttribute: 'id',
-                parentAttribute: 'parent_id',
-                childViewContainer: '.children'
-            };
+        defaultOptions:  {
+            idAttribute: 'id',
+            parentAttribute: 'parent_id',
+            childViewContainer: '.children'
         },
 
         attributes: function() {

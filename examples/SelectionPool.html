@@ -43,7 +43,7 @@
 			},{
 				id: 8,
 				content: 'Jane Doe',
-				parent_id: null
+				parent_id: 1
 			},{
 				id: 9,
 				content: 'George Dean',
@@ -71,8 +71,7 @@
 			App.on('start', function() {
 				var view = new Toolbox.SelectionPool({
 					availableTree: new Toolbox.Tree(new Backbone.Collection(available)),
-					selectedTree: new Toolbox.Tree(new Backbone.Collection(selected)),
-					nestable: false
+					selectedTree: new Toolbox.Tree(new Backbone.Collection(selected))
 				});
 
 				App.content.show(view);

@@ -55,6 +55,10 @@
         var from = getSelectionPoolFromElement(event.relatedTarget, view);
         var to = getSelectionPoolFromElement(event.target, view);
 
+        if($(event.target).find('.children').length == 0) {
+            $(event.target).append('<div class="children" />');
+        }
+
         var fromModel = from.collection.find({id: $(event.relatedTarget).data('id')});
         var toModel = to.collection.where({id: $(event.target).data('id')});
 
@@ -135,9 +139,9 @@
             if(View) {
         		var view = new View(_.extend({
                     collection: this.getOption('availableTree'),
-                    childViewOptions: {
+                    childViewOptions: _.extend({}, View.prototype.childViewOptions, {
                         template: this.getOption('availableTreeViewTemplate')
-                    },
+                    })
         		}, this.getOption('availableTreeViewOptions')));
 
                 view.on('drop:before', function(event) {
@@ -162,9 +166,9 @@
             if(View) {
         		var view = new View(_.extend({
                     collection: this.getOption('selectedTree'),
-                    childViewOptions: {
+                    childViewOptions: _.extend({}, View.prototype.childViewOptions, {
                         template: this.getOption('selectedTreeViewTemplate')
-                    }
+                    })
         		}, this.getOption('selectedTreeViewOptions')));
 
                 view.on('drop:before', function(event) {
