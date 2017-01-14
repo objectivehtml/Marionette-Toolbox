@@ -139,15 +139,18 @@
         },
 
         showSearchActivity: function() {
-            var view = new Toolbox.ActivityIndicator(this.getOption('searchIndicatorOptions'));
-
-            this.$el.addClass('show-activity');
-            this.activity.show(view);
+            if(this.activity) {
+                var view = new Toolbox.ActivityIndicator(this.getOption('searchIndicatorOptions'));
+                this.$el.addClass('show-activity');
+                this.activity.show(view);
+            }
         },
 
         hideSearchActivity: function() {
-            this.$el.removeClass('show-activity');
-            this.activity.empty();
+            if(this.activity) {
+                this.$el.removeClass('show-activity');
+                this.activity.empty();
+            }
         },
 
         showAvailablePool: function() {
@@ -284,8 +287,10 @@
                 this.hideClearSearchButton();
             }
 
-            this.search(this.available.currentView.collection, value);
-            this.available.currentView.render();
+            if(this.available) {
+                this.search(this.available.currentView.collection, value);
+                this.available.currentView.render();
+            }
         },
 
         onDomRefresh: function() {

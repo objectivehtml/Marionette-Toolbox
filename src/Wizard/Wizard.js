@@ -86,6 +86,13 @@
             }, this);
         },
 
+        resetRegions: function(view) {
+            if(view.regions && view.regionManager) {
+                view.regionManager.emptyRegions();
+                view.regionManager.addRegions(view.regions);
+            }
+        },
+
         setContentHeight: function(height) {
             height || (height = 400);
 
@@ -124,13 +131,15 @@
             }
         },
 
-        showActivityIndicator: function(options) {
+        showActivityIndicator: function(options, region) {
+            region || (region = this.content);
+
             var view = new Toolbox.ActivityIndicator(_.extend({
                 indicator: 'medium',
                 minHeight: '400px'
             }, options));
 
-            this.content.show(view);
+            region.show(view);
         },
 
         showProgress: function() {
@@ -171,12 +180,10 @@
                     preventDestroy: true
                 });
 
-                view.once('attach', function() {
-                    if(view.regions && view.regionManager) {
-                        view.regionManager.emptyRegions();
-                        view.regionManager.addRegions(view.regions);
-                    }
-                });
+                view.on('attach', function() {
+                    this.resetRegions(view);
+                    view.triggerMethod('wizard:attach');
+                }, this);
 
                 view.triggerMethod('wizard:show:step', this.getOption('step'), this);
                 this.triggerMethod('show:step', this.getOption('step'), view);
