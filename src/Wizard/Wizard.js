@@ -201,6 +201,8 @@
         },
 
         finish: function(success) {
+            success = (_.isUndefined(success) || success) ? true : false;
+
             this.buttons.empty();
 
             if(success) {
@@ -233,6 +235,38 @@
             }
 
             this.setStep(this.getOption('step'));
+        },
+
+        disableButtons: function() {
+            this.buttons.currentView.disableButtons();
+        },
+
+        disableNextButton: function() {
+            this.buttons.currentView.disableNextButton();
+        },
+
+        disableBackButton: function() {
+            this.buttons.currentView.disableBackButton();
+        },
+
+        disableFinishButton: function() {
+            this.buttons.currentView.disableFinishButton();
+        },
+
+        enableButtons: function() {
+            this.buttons.currentView.enableButtons();
+        },
+
+        enableNextButton: function() {
+            this.buttons.currentView.enableNextButton();
+        },
+
+        enableBackButton: function() {
+            this.buttons.currentView.enableBackButton();
+        },
+
+        enableFinishButton: function() {
+            this.buttons.currentView.enableFinishButton();
         }
 
 	});
