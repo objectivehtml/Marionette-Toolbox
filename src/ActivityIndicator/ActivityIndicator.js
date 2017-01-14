@@ -98,16 +98,21 @@
 
         positionLabel: function() {
             if(this.getOption('label')) {
-                var height = this.$el.find('.activity-indicator-label').outerHeight();
+                var $label = this.$el.find('.activity-indicator-label');
+                var height = $label.outerHeight();
 
-                this.$el.find('.activity-indicator-label').css({
-                    top: this.$el.find('.activity-indicator-label').offset().top +
+                $label.css({
+                    top: $label.offset().top +
                         this.spinner.opts.length +
                         this.spinner.opts.radius +
                         (height / 2) +
                         (this.spinner.opts.labelOffset || 0)
                 });
             }
+        },
+
+        setLabel: function(value) {
+            this.$el.find('.activity-indicator-label').html(this.options.label = value);
         },
 
         getSpinnerOptions: function() {
@@ -143,7 +148,7 @@
 
         onDomRefresh: function() {
             var self = this;
-            
+
             // create the spinner object
             this.spinner = new Spinner(this.getSpinnerOptions());
 
