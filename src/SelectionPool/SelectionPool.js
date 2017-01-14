@@ -318,14 +318,17 @@
 
                             self.$el.removeClass('dropping');
                             $pool.parent().removeClass('droppable');
+                            self.triggerMethod('pool:drop', event, model, from, to);
                         },
                         ondragenter: function (event) {
                             self.$el.addClass('dropping');
                             $pool.parent().addClass('droppable');
+                            self.triggerMethod('pool:drag:enter', event);
                         },
                         ondragleave: function (event) {
                             self.$el.removeClass('dropping');
                             $pool.parent().removeClass('droppable');
+                            self.triggerMethod('pool:drag:leave', event);
                         }
                     });
             });

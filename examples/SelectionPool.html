@@ -77,7 +77,8 @@
 			App.on('start', function() {
 				var view = new Toolbox.SelectionPool({
 					availableTree: new Toolbox.Tree(new Backbone.Collection(available)),
-					selectedTree: new Toolbox.Tree(new Backbone.Collection(selected))
+					selectedTree: new Toolbox.Tree(new Backbone.Collection(selected)),
+					height: '600px'
 				});
 
 				App.content.show(view);

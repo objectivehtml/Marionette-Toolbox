@@ -67,8 +67,6 @@
             var id = $(event.relatedTarget).data('id');
             var parentId = $(event.target).data('id');
 
-            console.log(id);
-
             nodeWhere[getIdAttribute(id)] = id;
             parentWhere[getIdAttribute(parentId)] = parentId;
 
@@ -152,11 +150,12 @@
             }
             */
 
-            var target = event.target, offset = $(target).offset();
+            var target = event.target; //, offset = $(target).offset();
 
             $(target).css({
-                'left': offset.left,
-                'top': offset.top
+                'left': event.clientX,
+                'top': event.clientY,
+                'width': $(target).width()
             });
 
             //$(event.target).parents('.' + this.className).css({left: event.clientX, top: event.clientY});
@@ -174,6 +173,7 @@
                 'data-y': false,
             })
             .css({
+                'width': '',
                 'left': '',
                 'top': '',
                 'transform': ''

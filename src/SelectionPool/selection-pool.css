@@ -1,7 +1,8 @@
 .selection-pool-search {
-    background: #8ed359;
-    padding: 5px;
+    background: #55b776;
+    padding: 2px;
     margin-bottom: 20px;
+    border-radius: 1000px;
 }
 
 .selection-pool-search-activity {
@@ -50,7 +51,7 @@ a.selection-pool-search-clear:hover {
 
 .selection-pool-search input:focus,
 .selection-pool-search input:active {
-    border-color: #8ed359;
+    border-color: #55b776;
 }
 
 .selection-pool-search > div {
@@ -64,7 +65,7 @@ a.selection-pool-search-clear:hover {
     position: absolute;
     top: 0;
     right: 0;
-    border-right: 2px solid #8ed359;
+    border-right: 2px solid #55b776;
 }
 
 .selection-pool .droppable-pool {
@@ -74,5 +75,5 @@ a.selection-pool-search-clear:hover {
 }
 
 .selection-pool .droppable {
-    border: 2px solid #8ed359;
+    border: 2px solid #55b776;
 }
