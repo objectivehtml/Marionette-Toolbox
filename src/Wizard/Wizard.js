@@ -124,6 +124,15 @@
             }
         },
 
+        showActivityIndicator: function(options) {
+            var view = new Toolbox.ActivityIndicator(_.extend({
+                indicator: 'medium',
+                minHeight: '400px'
+            }, options));
+
+            this.content.show(view);
+        },
+
         showProgress: function() {
             var View = this.getOption('progressView');
 
