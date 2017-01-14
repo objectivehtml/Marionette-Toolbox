@@ -305,12 +305,13 @@
                     .dropzone({
                         accept: $(this).data('accept'),
                         ondrop: function(event) {
+                            var where = {};
                             var from = getSelectionPoolFromElement(event.relatedTarget, self);
                             var to = getSelectionPoolFromElement(event.target, self);
 
-                            var model = from.collection.where({
-                                id: $(event.relatedTarget).data('id')
-                            });
+                            where[getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
+
+                            var model = from.collection.findWhere(where);
 
                             from.collection.removeNode(model);
                             to.collection.appendNode(model, null, {at: $(event.relatedTarget).index()});

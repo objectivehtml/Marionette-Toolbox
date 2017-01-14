@@ -132,7 +132,6 @@
             var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
             var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-            // translate the element
             target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
 
             // update the posiion attributes
@@ -142,7 +141,7 @@
             this.root().triggerMethod('drag:move', event, this);
         },
 
-        onDragStart: function() {
+        onDragStart: function(event) {
             /*
             this._ghostElement = $(event.target).parent().next()
                 .css({'margin-top': $(event.target).parent().outerHeight()});
@@ -153,7 +152,14 @@
             }
             */
 
-            $(event.target).parent().css({left: event.clientX, top: event.clientY});
+            var target = event.target, offset = $(target).offset();
+
+            $(target).css({
+                'left': offset.left,
+                'top': offset.top
+            });
+
+            //$(event.target).parents('.' + this.className).css({left: event.clientX, top: event.clientY});
 
             this.root().triggerMethod('drag:start', event, this);
         },
@@ -163,17 +169,15 @@
 
             //this._ghostElement.css('transform', '');
             //this._ghostElement = false;
-
             $(event.target).attr({
                 'data-x': false,
                 'data-y': false,
+            })
+            .css({
+                'left': '',
+                'top': '',
+                'transform': ''
             });
-
-                        $(event.target).css({
-                            'left': '',
-                            'top': '',
-                            'transform': ''
-                        });
 
             this.root().triggerMethod('drag:end', event, this);
         },
