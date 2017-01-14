@@ -32,7 +32,7 @@
 
         attributes: function() {
             return {
-                'data-id': this.model.get(this.getOption('idAttribute')),
+                'data-id': this.model.get(this.getOption('idAttribute')) || this.model.cid,
                 'data-parent-id': this.model.get(this.getOption('parentAttribute'))
             };
         },

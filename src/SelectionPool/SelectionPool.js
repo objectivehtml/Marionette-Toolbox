@@ -17,6 +17,10 @@
 
     'use strict';
 
+    function getIdAttribute(value) {
+        return _.isNull(new String(value).match(/^c\d+$/)) ? 'id' : 'cid';
+    }
+
     function getSelectionPoolFromElement(element, view) {
         var $parent = $(element);
 
@@ -30,28 +34,38 @@
     }
 
     function transferNodeAfter(event, view) {
+        var fromWhere = {}, toWhere = {};
         var from = getSelectionPoolFromElement(event.relatedTarget, view);
         var to = getSelectionPoolFromElement(event.target, view);
 
-        var fromModel = from.collection.find({id: $(event.relatedTarget).data('id')});
-        var toModel = to.collection.where({id: $(event.target).data('id')});
+        fromWhere[getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
+        toWhere[getIdAttribute($(event.target).data('id'))] = $(event.target).data('id');
+
+        var fromModel = from.collection.findWhere(fromWhere);
+        var toModel = to.collection.findWhere(toWhere);
 
         from.collection.removeNode(fromModel);
         to.collection.appendNodeAfter(fromModel, toModel);
     }
 
     function transferNodeBefore(event, view) {
+        var fromWhere = {}, toWhere = {};
         var from = getSelectionPoolFromElement(event.relatedTarget, view);
         var to = getSelectionPoolFromElement(event.target, view);
 
-        var fromModel = from.collection.find({id: $(event.relatedTarget).data('id')});
-        var toModel = to.collection.where({id: $(event.target).data('id')});
+
+        fromWhere[getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
+        toWhere[getIdAttribute($(event.target).data('id'))] = $(event.target).data('id');
+
+        var fromModel = from.collection.findWhere(fromWhere);
+        var toModel = to.collection.findWhere(toWhere);
 
         from.collection.removeNode(fromModel);
         to.collection.appendNodeBefore(fromModel, toModel);
     }
 
     function transferNodeChildren(event, view) {
+        var fromWhere = {}, toWhere = {};
         var from = getSelectionPoolFromElement(event.relatedTarget, view);
         var to = getSelectionPoolFromElement(event.target, view);
 
@@ -59,8 +73,11 @@
             $(event.target).append('<div class="children" />');
         }
 
-        var fromModel = from.collection.find({id: $(event.relatedTarget).data('id')});
-        var toModel = to.collection.where({id: $(event.target).data('id')});
+        fromWhere[getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
+        toWhere[getIdAttribute($(event.target).data('id'))] = $(event.target).data('id');
+
+        var fromModel = from.collection.findWhere(fromWhere);
+        var toModel = to.collection.findWhere(toWhere);
 
         from.collection.removeNode(fromModel);
         to.collection.appendNode(fromModel, toModel, {

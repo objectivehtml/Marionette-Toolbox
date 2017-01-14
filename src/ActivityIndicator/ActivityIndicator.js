@@ -1,14 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore', 'spin.js'], function(_, Spinner) {
-            return factory(root.Toolbox, _, Spinner);
+        define(['underscore', 'jquery', 'spin.js'], function(_, $, Spinner) {
+            return factory(root.Toolbox, _, $, Spinner);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'), require('spin.js'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('jquery'), require('spin.js'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root._, root.Spinner);
+        root.Toolbox = factory(root.Toolbox, root._, root.$, root.Spinner);
     }
-}(this, function (Toolbox, _, Spinner) {
+}(this, function (Toolbox, _, $, Spinner) {
 
     'use strict';
 
@@ -19,6 +19,8 @@
         spinning: false,
 
         defaultOptions: {
+            label: false,
+            labelFontSize: false,
             dimmedBgColor: false,
             dimmed: false,
             autoStart: true,
@@ -56,21 +58,21 @@
                     length: 4, // The length of each line
                     width: 1, // The line thickness
                     radius: 4, // The radius of the inner circle
-                    corners: 1, // Corner roundness (0..1)
+                    corners: 1 // Corner roundness (0..1)
                 },
                 'small': {
                     lines: 12, // The number of lines to draw
                     length: 7, // The length of each line
                     width: 1, // The line thickness
                     radius: 7, // The radius of the inner circle
-                    corners: 1, // Corner roundness (0..1)
+                    corners: 1 // Corner roundness (0..1)
                 },
                 'medium': {
                     lines: 12, // The number of lines to draw
                     length: 14, // The length of each line
                     width: 1, // The line thickness
                     radius: 11, // The radius of the inner circle
-                    corners: 1, // Corner roundness (0..1)
+                    corners: 1 // Corner roundness (0..1)
                 },
                 'large': {
                     lines: 12, // The number of lines to draw
@@ -78,8 +80,34 @@
                     width: 1, // The line thickness
                     radius: 20, // The radius of the inner circle
                     corners: 1, // Corner roundness (0..1)
+                    labelOffset: 10
                 }
             };
+        },
+
+        initialize: function() {
+            Toolbox.ItemView.prototype.initialize.apply(this, arguments);
+
+            var resizeTimer, self = this;
+
+            $(window).resize(function() {
+                self.$el.find('.activity-indicator-label').css({top: ''});
+                self.positionLabel();
+            });
+        },
+
+        positionLabel: function() {
+            if(this.getOption('label')) {
+                var height = this.$el.find('.activity-indicator-label').outerHeight();
+
+                this.$el.find('.activity-indicator-label').css({
+                    top: this.$el.find('.activity-indicator-label').offset().top +
+                        this.spinner.opts.length +
+                        this.spinner.opts.radius +
+                        (height / 2) +
+                        (this.spinner.opts.labelOffset || 0)
+                });
+            }
         },
 
         getSpinnerOptions: function() {
@@ -113,7 +141,9 @@
             this.triggerMethod('stop');
         },
 
-        onRender: function() {
+        onDomRefresh: function() {
+            var self = this;
+            
             // create the spinner object
             this.spinner = new Spinner(this.getSpinnerOptions());
 
@@ -121,8 +151,11 @@
             if(this.getOption('autoStart')) {
                 this.start();
             }
-        }
 
+            setTimeout(function() {
+                self.positionLabel();
+            });
+        }
     });
 
     return Toolbox;

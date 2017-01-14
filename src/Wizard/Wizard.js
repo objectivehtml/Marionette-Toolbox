@@ -61,9 +61,9 @@
                 this.setStep(step);
             }, this);
 
-            this.channel.reply('wizard:error', function() {
+            this.channel.reply('wizard:error', function(options) {
                 this.buttons.empty();
-                this.showView(this.getOption('errorView'));
+                this.showView(this.getOption('errorView'), options);
             }, this);
 
             this.channel.reply('wizard:success', function() {
@@ -89,7 +89,7 @@
             }
 
             if(this.getOption('step') > this.getOption('highestStep')) {
-                this.options.highestStep = this.getOption('step');
+                this.options.highestStep = this.getOption('step')
             }
 
             this.progress.currentView.render();
@@ -103,9 +103,9 @@
             }
         },
 
-        showView: function(View) {
+        showView: function(View, options) {
             if(View) {
-                this.showContent(new View());
+                this.showContent(new View(options));
             }
         },
 

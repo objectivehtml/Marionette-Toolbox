@@ -26,8 +26,6 @@
             var id = $(event.relatedTarget).data('id');
             var node = this.root().collection.find({id: id});
 
-            node.set('hidden', false);
-
             Toolbox.Dropzones(event.dragEvent, event.target, {
                 before: function($element) {
                     this.root().triggerMethod('drop:before', event, this);

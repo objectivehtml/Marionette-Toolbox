@@ -1,5 +1,5 @@
 <div class="activity-indicator-dimmer {{#if dimmed}}dimmed{{/if}}" style="{{#if minHeight}}min-height:{{../minHeight}};{{/if}} {{#if position}}position:{{../position}};{{/if}} {{#if dimmedBgColor}}background-color: {{../dimmedBgColor}};{{/if}}">
-	
-	<span class="activity-indicator"></span>
+
+	<span class="activity-indicator">{{#if label}}<span class="activity-indicator-label" style="{{#if ../labelFontSize}}font-size:{{../../labelFontSize}}{{/if}}">{{../label}}</span>{{/if}}</span>
 
 </div>

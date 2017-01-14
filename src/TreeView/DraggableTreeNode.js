@@ -16,6 +16,10 @@
     }
 }(this, function (Toolbox, _, $, Marionette, interact) {
 
+    function getIdAttribute(value) {
+        return _.isNull(new String(value).match(/^c\d+$/)) ? 'id' : 'cid';
+    }
+
     Toolbox.DraggableTreeNode = Toolbox.TreeViewNode.extend({
 
         className: 'draggable-tree-node',
@@ -58,12 +62,18 @@
 
         onDrop: function(event) {
             var self = this;
+            var nodeWhere = {}, parentWhere = {};
 
             var id = $(event.relatedTarget).data('id');
-            var node = self.root().collection.find({id: id});
-
             var parentId = $(event.target).data('id');
-            var parent = self.root().collection.find({id: parentId})
+
+            console.log(id);
+
+            nodeWhere[getIdAttribute(id)] = id;
+            parentWhere[getIdAttribute(parentId)] = parentId;
+
+            var node = self.root().collection.find(nodeWhere);
+            var parent = self.root().collection.find(parentWhere);
 
             self.root().collection.removeNode(node);
 
@@ -157,12 +167,13 @@
             $(event.target).attr({
                 'data-x': false,
                 'data-y': false,
-            })
-            .css({
-                'left': '',
-                'top': '',
-                'transform': ''
             });
+
+                        $(event.target).css({
+                            'left': '',
+                            'top': '',
+                            'transform': ''
+                        });
 
             this.root().triggerMethod('drag:end', event, this);
         },
