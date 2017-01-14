@@ -161,19 +161,7 @@
                     })
         		}, this.getOption('availableTreeViewOptions')));
 
-                view.on('drop:before', function(event) {
-                    transferNodeBefore(event, this);
-                }, this);
-
-                view.on('drop:after', function(event) {
-                    transferNodeAfter(event, this);
-                }, this);
-
-                view.on('drop:children', function(event) {
-                    transferNodeChildren(event, this);
-                }, this);
-
-                this.available.show(view);
+                this.showSelectionPoolView(this.available, view);
             }
         },
 
@@ -188,20 +176,31 @@
                     })
         		}, this.getOption('selectedTreeViewOptions')));
 
-                view.on('drop:before', function(event) {
-                    transferNodeBefore(event, this);
-                }, this);
-
-                view.on('drop:after', function(event) {
-                    transferNodeAfter(event, this);
-                }, this);
-
-                view.on('drop:children', function(event) {
-                    transferNodeChildren(event, this);
-                }, this);
-
-                this.selected.show(view);
+                this.showSelectionPoolView(this.selected, view);
             }
+        },
+
+        showSelectionPoolView: function(region, view) {
+            view.on('drop', function(event, view) {
+                this.triggerMethod('drop', event, view);
+            }, this);
+
+            view.on('drop:before', function(event, view) {
+                transferNodeBefore(event, this);
+                this.triggerMethod('drop:before', event, view);
+            }, this);
+
+            view.on('drop:after', function(event, view) {
+                transferNodeAfter(event, this);
+                this.triggerMethod('drop:after', event, view);
+            }, this);
+
+            view.on('drop:children', function(event, view) {
+                transferNodeChildren(event, this);
+                this.triggerMethod('drop:children', event, view);
+            }, this);
+
+            region.show(view);
         },
 
         modelContains: function(model, query) {

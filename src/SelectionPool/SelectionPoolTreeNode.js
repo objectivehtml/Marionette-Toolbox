@@ -16,12 +16,6 @@
 
     Toolbox.SelectionPoolTreeNode = Toolbox.DraggableTreeNode.extend({
 
-        attributes: function() {
-            var attributes = Toolbox.DraggableTreeNode.prototype.attributes.call(this);
-
-            return attributes;
-        },
-
         onDrop: function(event) {
             var id = $(event.relatedTarget).data('id');
             var node = this.root().collection.find({id: id});

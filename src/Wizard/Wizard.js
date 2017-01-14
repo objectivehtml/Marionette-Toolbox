@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        factory(root.Toolbox);
+        define(['underscore'], function(_) {
+            return factory(root.Toolbox, _);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox);
+        module.exports = factory(root.Toolbox, require('underscore'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root._);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, _) {
 
     'use strict';
 
@@ -33,6 +35,10 @@
                 fixedHeightClassName: 'fixed-height',
                 hasPanelClassName: 'wizard-panel',
                 panelClassName: 'panel panel-default',
+                buttonView: Toolbox.WizardButtons,
+                buttonViewOptions: {},
+                progressView: Toolbox.WizardProgress,
+                progressViewOptions: {},
                 highestStep: 1,
                 step: 1,
                 steps: [],
@@ -110,20 +116,33 @@
         },
 
         showProgress: function() {
-            var view = new Toolbox.WizardProgress({
-                wizard: this
-            });
+            var View = this.getOption('progressView');
 
-            this.progress.show(view);
+            if(View) {
+                var view = new View(_.extend({}, this.getOption('progressViewOptions'), {
+                    wizard: this
+                }));
+
+                this.progress.show(view);
+            }
+            else {
+                throw new Error('The button view is not a valid class.');
+            }
         },
 
         showButtons: function() {
-            var view = new Toolbox.WizardButtons({
-                wizard: this,
-                channel: this.channel
-            });
+            var View = this.getOption('buttonView');
 
-            this.buttons.show(view);
+            if(View) {
+                var view = new View(_.extend({}, this.getOption('buttonViewOptions'), {
+                    wizard: this
+                }));
+
+                this.buttons.show(view);
+            }
+            else {
+                throw new Error('The button view is not a valid class.');
+            }
         },
 
         showContent: function(view) {

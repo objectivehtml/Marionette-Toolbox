@@ -75,7 +75,12 @@
         },
 
         onClickFinish: function() {
-            this.channel.request('wizard:success');
+            var step = this.getOption('wizard').getStep();
+            var response = step.triggerMethod('wizard:click:finish', step);
+
+            if(typeof response === "undefined" || response === true) {
+                this.getOption('wizard').finish(true);
+            }
         },
 
         disableButtons: function() {
