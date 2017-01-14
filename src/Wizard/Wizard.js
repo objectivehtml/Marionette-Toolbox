@@ -26,6 +26,14 @@
             buttons: '.wizard-buttons'
         },
 
+        events: {
+            'keyup': function(event) {
+                if(this.getOption('submitFormOnEnter') && event.keyCode === 13) {
+                    this.$el.find('form').submit();
+                }
+            }
+        },
+
         defaultOptions: function() {
             return {
                 header: false,
@@ -48,7 +56,8 @@
                 showButtons: true,
                 showProgress: true,
                 panel: false,
-                contentHeight: false
+                contentHeight: false,
+                submitFormOnEnter: true
             };
         },
 
