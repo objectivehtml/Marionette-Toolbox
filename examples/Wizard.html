@@ -18,6 +18,7 @@
 
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
+			var Spinner = require('spin.js');
 		</script>
 
 		<script src="../dist/marionette.toolbox.js"></script>
@@ -67,6 +68,17 @@
 					title: 'Step 3',
 					template: function() {
 						return 'Step 3';
+					},
+					onWizardClickFinish: function() {
+						view.showActivityIndicator({
+							label: 'Testing...'
+						});
+
+						setTimeout(function() {
+							view.finish();
+						}, 2000);
+
+						return false;
 					}
 				});
 
