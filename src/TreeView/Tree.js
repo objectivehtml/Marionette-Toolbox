@@ -125,7 +125,7 @@
             }, this);
         },
 
-        appendNode(child, parent, options) {
+        appendNode: function(child, parent, options) {
             options || (options = {});
             child.children || (child.children = this._createCollection());
 
@@ -135,7 +135,7 @@
 
                 child.set(this.getOption('comparator'), comparator);
             }
-            */ 
+            */
 
             if(parent) {
                 child.set(this.getOption('parentAttribute'), parent.get(this.getOption('idAttribute')));
@@ -220,21 +220,23 @@
             function find(collection) {
                 var model = _.find(collection.models, iteratee, context);
 
-                if(!model) {
-                    for(var i in collection.models) {
-                        var model = collection.models[i];
+                if(model) {
+                    return model;
+                }
 
-                        if(model.children && model.children.length) {
-                            var found = find(model.children);
+                for(var i in collection.models) {
+                    var row = collection.models[i];
 
-                            if(found) {
-                                return found;
-                            }
+                    if(row.children && row.children.length) {
+                        var found = find(row.children);
+
+                        if(found) {
+                            return found;
                         }
                     }
                 }
 
-                return model;
+                return null;
             }
 
             return find(this);

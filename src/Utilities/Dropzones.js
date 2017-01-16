@@ -12,7 +12,9 @@
 
     'use strict';
 
-    Toolbox.Dropzones = function(event, element, callbacks, context) {
+    Toolbox.Dropzones = function(event, callbacks, context) {
+        var element = event.dropzone.element();
+        var $element = $(element);
         var offset = Toolbox.ViewOffset(element);
         var top = offset.y;
         var left = offset.x;
@@ -25,16 +27,19 @@
             heightThreshold = 20;
         }
 
-        var $elm = $(element);
+        console.log(event);
+
+
+        console.log(event.pageY, top + heightThreshold, bottom - heightThreshold);
 
         if(event.pageY < top + heightThreshold) {
-            callbacks.before ? callbacks.before.call(context, $elm) : null;
+            callbacks.before ? callbacks.before.call(context, $element) : null;
         }
         else if(event.pageY > bottom - heightThreshold || event.pageX < left + widthThreshold) {
-            callbacks.after ? callbacks.after.call(context, $elm) : null;
+            callbacks.after ? callbacks.after.call(context, $element) : null;
         }
         else {
-            callbacks.children ? callbacks.children.call(context, $elm) : null;
+            callbacks.children ? callbacks.children.call(context, $element) : null;
         }
     };
 

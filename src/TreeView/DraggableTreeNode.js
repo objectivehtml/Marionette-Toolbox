@@ -61,7 +61,9 @@
         },
 
         onDrop: function(event) {
-            var self = this;
+            console.log('drop');
+
+            var self = this, $target = $(event.target);
             var nodeWhere = {}, parentWhere = {};
 
             var id = $(event.relatedTarget).data('id');
@@ -75,6 +77,30 @@
 
             self.root().collection.removeNode(node);
 
+            if($target.hasClass('drop-before')) {
+                self.root().collection.appendNodeBefore(node, parent);
+                self.root().triggerMethod('drop:before', event, self);
+            }
+            else if($target.hasClass('drop-after')) {
+                self.root().collection.appendNodeAfter(node, parent);
+                self.root().triggerMethod('drop:after', event, self);
+            }
+            else if($target.hasClass('drop-children')) {
+                if($(event.target).find('.children').length == 0) {
+                    $(event.target).append('<div class="children" />');
+                }
+
+                if(self.getOption('nestable')) {
+                    self.root().collection.appendNode(node, parent, {at: 0});
+                    self.root().triggerMethod('drop:children', event, self);
+                }
+                else {
+                    self.root().collection.appendNodeAfter(node, parent, {at: 0});
+                    self.root().triggerMethod('drop:after', event, self);
+                }
+            }
+
+            /*
             Toolbox.Dropzones(event.dragEvent, event.target, {
                 before: function($element) {
                     self.root().collection.appendNodeBefore(node, parent);
@@ -94,15 +120,18 @@
                         self.root().triggerMethod('drop:after', event, self);
                     }
                 },
-            });
+            }, this, true);
+            */
 
             self.root().triggerMethod('drop', event, this);
         },
 
-        onDropMove: function(event) {
-            var self = this;
+        onDragEnter: function() {
+            this.root().triggerMethod('drag:enter', event, this);
+        },
 
-            Toolbox.Dropzones(event, event.dropzone.element(), {
+        onDropMove: function(event) {
+            Toolbox.Dropzones(event, {
                 before: function($element) {
                     $element.addClass('drop-before')
                         .removeClass('drop-after drop-children');
@@ -113,13 +142,15 @@
                         .removeClass('drop-before drop-children');
                 },
                 children: function($element) {
-                    if(self.getOption('nestable')) {
+                    if(this.getOption('nestable')) {
                         $(event.dropzone.element())
                             .addClass('drop-children')
                             .removeClass('drop-after drop-before')
                     }
                 }
-            });
+            }, this);
+
+            this.root().triggerMethod('drag:enter', event, this);
         },
 
         onDragMove: function(event) {
@@ -140,25 +171,22 @@
         },
 
         onDragStart: function(event) {
-            /*
-            this._ghostElement = $(event.target).parent().next()
-                .css({'margin-top': $(event.target).parent().outerHeight()});
+            var $target = $(event.target);
 
-            if(this._ghostElement.length == 0) {
-                this._ghostElement = $(event.target).parent().prev()
-                    .css({'margin-bottom': $(event.target).parent().outerHeight()});
-            }
-            */
-
-            var target = event.target; //, offset = $(target).offset();
-
-            $(target).css({
-                'left': event.clientX,
-                'top': event.clientY,
-                'width': $(target).width()
+            this._ghostElement = $target.next('.' + this.className).css({
+                'margin-top': $target.outerHeight()
             });
 
-            //$(event.target).parents('.' + this.className).css({left: event.clientX, top: event.clientY});
+            if(this._ghostElement.length == 0) {
+                this._ghostElement = $target.prev().length ? $target.prev() : $target.parent();
+                this._ghostElement.css({'margin-bottom': $target.outerHeight()});
+            }
+
+            $target.css({
+                'left': event.clientX - 50,
+                'top': event.clientY - 25,
+                'width': $target.width()
+            });
 
             this.root().triggerMethod('drag:start', event, this);
         },
@@ -166,8 +194,8 @@
         onDragEnd: function(event) {
             this.$el.removeClass('dragging');
 
-            //this._ghostElement.css('transform', '');
-            //this._ghostElement = false;
+            this._ghostElement.attr('style', '');
+
             $(event.target).attr({
                 'data-x': false,
                 'data-y': false,
@@ -180,10 +208,6 @@
             });
 
             this.root().triggerMethod('drag:end', event, this);
-        },
-
-        onDragEnter: function() {
-            this.root().triggerMethod('drag:enter', event, this);
         },
 
         onDragLeave: function(event) {
@@ -216,6 +240,7 @@
                 })
                 .dropzone({
                     accept: '.' + this.className,
+                    overlap: 'center',
                     ondragenter: function (event) {
                         self.triggerMethod('drag:enter', event);
                     },
@@ -229,7 +254,7 @@
                         self.triggerMethod('drop:deactivate', event);
                     }
                 })
-                .on('dragmove', function (event) {
+                .on('dragmove', function(event) {
                     if(event.dropzone) {
                         self.triggerMethod('drop:move', event);
                     }

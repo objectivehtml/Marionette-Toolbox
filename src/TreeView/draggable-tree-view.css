@@ -88,8 +88,6 @@
     display: inline-block;
 }
 
-
-
 .draggable-tree-node.drop-before {
     border-top: 2px solid #8ed359;
 }

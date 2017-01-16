@@ -99,6 +99,7 @@
 
         defaultOptions: function() {
             return {
+                nestable: true,
                 availableTree: [],
                 availableTreeView: Toolbox.SelectionPoolTreeView,
                 availableTreeViewOptions: {},
@@ -160,6 +161,7 @@
         		var view = new View(_.extend({
                     collection: this.getOption('availableTree'),
                     childViewOptions: _.extend({}, View.prototype.childViewOptions, {
+                        nestable: this.getOption('nestable'),
                         template: this.getOption('availableTreeViewTemplate')
                     })
         		}, this.getOption('availableTreeViewOptions')));
@@ -175,6 +177,7 @@
         		var view = new View(_.extend({
                     collection: this.getOption('selectedTree'),
                     childViewOptions: _.extend({}, View.prototype.childViewOptions, {
+                        nestable: this.getOption('nestable'),
                         template: this.getOption('selectedTreeViewTemplate')
                     })
         		}, this.getOption('selectedTreeViewOptions')));

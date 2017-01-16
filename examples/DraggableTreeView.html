@@ -64,7 +64,7 @@
 					"order": 3
 				}, {
 					"id":6,
-					"parent_id": 4,
+					"parent_id": 1,
 					"name": "Permission 6",
 					"order": 1
 				}];
@@ -74,7 +74,7 @@
 				var tree = new Toolbox.Tree(collection, {
 					comparator: 'order'
 				});
-
+				
 				var view = new Toolbox.DraggableTreeView({
 					collection: tree,
                     childViewOptions: {
@@ -85,6 +85,7 @@
 				});
 
 				App.content.show(view);
+
 			});
 
 			App.start();

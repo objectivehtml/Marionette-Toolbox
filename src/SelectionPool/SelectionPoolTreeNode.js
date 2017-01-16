@@ -17,9 +17,9 @@
     Toolbox.SelectionPoolTreeNode = Toolbox.DraggableTreeNode.extend({
 
         onDrop: function(event) {
-            var id = $(event.relatedTarget).data('id');
-            var node = this.root().collection.find({id: id});
+            var self = this, $target = $(event.target);
 
+            /*
             Toolbox.Dropzones(event.dragEvent, event.target, {
                 before: function($element) {
                     this.root().triggerMethod('drop:before', event, this);
@@ -36,6 +36,26 @@
                     }
                 },
             }, this);
+            */
+
+            if($target.hasClass('drop-before')) {
+                //this.root().collection.appendNodeBefore(node, parent);
+                this.root().triggerMethod('drop:before', event, self);
+            }
+            else if($target.hasClass('drop-after')) {
+                //this.root().collection.appendNodeAfter(node, parent);
+                this.root().triggerMethod('drop:after', event, self);
+            }
+            else if($target.hasClass('drop-children')) {
+                if(this.getOption('nestable')) {
+                    //this.root().collection.appendNode(node, parent, {at: 0});
+                    this.root().triggerMethod('drop:children', event, self);
+                }
+                else {
+                    //this.root().collection.appendNodeAfter(node, parent, {at: 0});
+                    this.root().triggerMethod('drop:after', event, self);
+                }
+            }
 
             this.root().triggerMethod('drop', event, this);
         },
