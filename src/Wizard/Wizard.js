@@ -52,7 +52,9 @@
                 steps: [],
                 finished: false,
                 successView: Toolbox.WizardSuccess,
+                successViewOptions: {},
                 errorView: Toolbox.WizardError,
+                errorViewOptions: {},
                 showButtons: true,
                 showProgress: true,
                 panel: false,
@@ -76,13 +78,22 @@
                 this.setStep(step);
             }, this);
 
-            this.channel.reply('wizard:error', function(options) {
+            this.channel.reply('wizard:error', function(options, errorView) {
+                options = _.extend({}, this.getOption('errorViewOptions'), options, {
+                    wizard: this
+                });
+
                 this.buttons.empty();
-                this.showView(this.getOption('errorView'), options);
+                this.showView(errorView || this.getOption('errorView'), options);
             }, this);
 
-            this.channel.reply('wizard:success', function() {
-                this.finish(true);
+            this.channel.reply('wizard:success', function(options, successView) {
+                options = _.extend({}, this.getOption('successViewOptions'), options, {
+                    wizard: this
+                });
+
+                this.buttons.empty();
+                this.showView(successView || this.getOption('successView'), options);
             }, this);
         },
 
@@ -139,7 +150,9 @@
                 minHeight: '400px'
             }, options));
 
-            region.show(view);
+            region.show(view, {
+                preventDestroy: true
+            });
         },
 
         showProgress: function() {
@@ -207,20 +220,18 @@
             this.setStep(this.getOption('step') - 1);
         },
 
-        finish: function(success) {
+        finish: function(success, options, View) {
             success = (_.isUndefined(success) || success) ? true : false;
-
-            this.buttons.empty();
 
             if(success) {
                 this.options.finished = true;
                 this.$el.addClass(this.getOption('finishedClassName'));
                 this.channel.request('complete:step');
                 this.setStep(this.getTotalSteps() + 1);
-                this.showView(this.getOption('successView'));
+                this.channel.request('wizard:success', options, View);
             }
             else {
-                this.showView(this.getOption('errorView'));
+                this.channel.request('wizard:error', options, View);
             }
         },
 
