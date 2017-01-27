@@ -2,4 +2,16 @@
 
 {{#if errorIcon}}<div class="wizard-error-icon"><i class="{{../errorIcon}}"></i></div>{{/if}}
 
-{{#if message}}{{../message}}{{/if}}
+{{#if message}}{{{../message}}}{{/if}}
+
+{{#if errors}}
+    <ul class="wizard-error-list">
+    {{#each ../errors}}
+        <li>{{this}}</li>
+    {{/each}}
+    </ul>
+{{/if}}
+
+{{#if showBackButton}}
+<button type="button" class="{{../backButtonClassName}}">{{#if ../backButtonIcon}}<i class="{{../../backButtonIcon}}"></i> {{/if}}{{../backButtonLabel}}</button>
+{{/if}}
