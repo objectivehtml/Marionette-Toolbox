@@ -59,7 +59,7 @@
             var steps = this.getOption('wizard').getOption('steps');
             var response = this.getOption('wizard').getStep().triggerMethod('wizard:click:back', steps[step - 1]);
 
-            if(typeof response === "undefined" || response === true) {
+            if(_.isUndefined(response) || response === true) {
                 this.getOption('wizard').back();
             }
         },
@@ -69,7 +69,7 @@
             var steps = this.getOption('wizard').getOption('steps');
             var response = this.getOption('wizard').getStep().triggerMethod('wizard:click:next', steps[step + 1]);
 
-            if(typeof response === "undefined" || response === true) {
+            if(_.isUndefined(response) || response === true) {
                 this.getOption('wizard').next();
             }
         },
@@ -78,7 +78,7 @@
             var step = this.getOption('wizard').getStep();
             var response = step.triggerMethod('wizard:click:finish', step);
 
-            if(typeof response === "undefined" || response === true) {
+            if(_.isUndefined(response) || response === true) {
                 this.getOption('wizard').finish();
             }
         },
