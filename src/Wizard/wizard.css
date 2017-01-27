@@ -207,7 +207,16 @@ a.wizard-step:hover {
     overflow: auto;
 }
 
+.wizard-error-list {
+    margin-bottom: 20px;
+}
+
 .wizard-success,
-.wizard-fail {
+.wizard-error {
     padding: 20px 0 40px;
+}
+
+.wizard-success ul,
+.wizard-error ul {
+    list-style: none;
 }
