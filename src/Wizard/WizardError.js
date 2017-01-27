@@ -22,11 +22,30 @@
             headerTag: 'h3',
             header: 'Error!',
             errorIcon: 'fa fa-times',
-            message: false
+            message: false,
+            showBackButton: true,
+            backButtonClassName: 'btn btn-lg btn-primary',
+            backButtonLabel: 'Go Back',
+            backButtonIcon: 'fa fa-long-arrow-left',
+            onClickBack: false
+        },
+
+        triggers: {
+            'click button': 'click:back'
         },
 
         templateHelpers: function() {
             return this.options;
+        },
+
+        onClickBack: function() {
+            if( this.getOption('onClickBack') && _.isFunction(this.getOption('onClickBack'))) {
+                this.getOption('onClickBack').call(this);
+            }
+            else {
+                this.getOption('wizard').showButtons();
+                this.getOption('wizard').setStep(this.getOption('wizard').getOption('step') - 1);
+            }
         }
 
 	});
