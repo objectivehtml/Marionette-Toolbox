@@ -213,13 +213,13 @@
 
             if(this.$indicator.length === 0) {
                 this.$indicator = $('<div class="form-indicator"></div>');
-            }
 
-            if(this.$el.find('footer').length) {
-                this.$el.find('footer').append(this.$indicator);
-            }
-            else {
-                this.$el.append(this.$indicator);
+                if(this.$el.find('footer').length) {
+                    this.$el.find('footer').append(this.$indicator);
+                }
+                else {
+                    this.$el.append(this.$indicator);
+                }
             }
 
             this.indicator = new Backbone.Marionette.Region({

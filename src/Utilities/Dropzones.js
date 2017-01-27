@@ -27,11 +27,6 @@
             heightThreshold = 20;
         }
 
-        console.log(event);
-
-
-        console.log(event.pageY, top + heightThreshold, bottom - heightThreshold);
-
         if(event.pageY < top + heightThreshold) {
             callbacks.before ? callbacks.before.call(context, $element) : null;
         }

@@ -17,6 +17,20 @@
 
     'use strict';
 
+    function find(id, collection) {
+        var where = getWhere(id);
+
+        return collection.find(where);
+    }
+
+    function getWhere(id) {
+        var where = {};
+
+        where[getIdAttribute(id)] = id;
+
+        return where;
+    }
+
     function getIdAttribute(value) {
         return _.isNull(new String(value).match(/^c\d+$/)) ? 'id' : 'cid';
     }

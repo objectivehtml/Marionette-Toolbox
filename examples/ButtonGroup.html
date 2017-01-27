@@ -37,7 +37,8 @@
 				var view = new Toolbox.ButtonGroup({
 					buttons: [{
 						icon: 'fa fa-check',
-						label: 'Ok'
+						label: 'Ok',
+						active: true
 					},{
 						icon: 'fa fa-times-circle',
 						label: 'Cancel'
@@ -49,8 +50,6 @@
 				});
 
 				App.content.show(view);
-
-				view.setActiveIndex(1);
 			});
 
 			App.start();

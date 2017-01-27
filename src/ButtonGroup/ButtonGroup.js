@@ -26,7 +26,7 @@
 
 		onDomRefresh: function() {
 			if(this.model.get('active')) {
-				this.$el.addClass('active');
+				this.$el.click();
 			}
 		}
 
