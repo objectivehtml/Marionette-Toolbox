@@ -55,13 +55,6 @@
 					title: 'Step 2',
 					template: function() {
 						return 'Step 2';
-					},
-					onWizardClickNext: function() {
-						view.channel.request('wizard:error', {
-							showBackButton: true
-						});
-
-						return false;
 					}
 				});
 

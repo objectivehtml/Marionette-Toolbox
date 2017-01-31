@@ -18,7 +18,7 @@
 
         className: 'wizard-success',
 
-        options: {
+        defaultOptions: {
             headerTagName: 'h3',
             header: 'Success!',
             successIcon: 'fa fa-check',

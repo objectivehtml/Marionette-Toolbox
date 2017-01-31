@@ -18,7 +18,7 @@
 
         className: 'wizard-error',
 
-        options: {
+        defaultOptions: {
             headerTagName: 'h3',
             header: 'Error!',
             errorIcon: 'fa fa-times',

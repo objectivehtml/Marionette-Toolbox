@@ -24,7 +24,7 @@
 
         channelName: 'toolbox.wizard',
 
-        options: {
+        defaultOptions: {
             wizard: false,
             content: {},
             activeClassName: 'active',
@@ -81,7 +81,6 @@
 
         onDomRefresh: function() {
             this.setWidth();
-            //this.setComplete(this.getOption('wizard').getOption('step'));
             this.setDisabled(this.getOption('wizard').getOption('highestStep'));
             this.setActive(this.getOption('wizard').getOption('step'));
         }

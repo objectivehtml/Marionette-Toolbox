@@ -20,7 +20,7 @@
 
         channelName: 'toolbox.wizard',
 
-        options: {
+        defaultOptions: {
             wizard: false,
             buttonSizeClassName: 'btn-md',
             defaultButtonClassName: 'btn btn-default',

@@ -21,21 +21,26 @@
 		className: 'btn btn-default',
 
 		triggers: {
-			'click :disabled': 'click'
+			'click': 'click'
 		},
 
-		onDomRefresh: function() {
-			if(this.model.get('active')) {
-				this.$el.click();
-			}
+        options: {
+			// (string) The disabled class name
+			disabledClassName: 'disabled'
+        },
 
-			if(this.model.get('disabled')) {
-				this.$el.addClass('disabled');
+		onDomRefresh: function() {
+			if(this.model.get(this.getOption('disabledClassName'))) {
+				this.$el.addClass(this.getOption('disabledClassName'));
 			}
 
             if(this.model.get('className')) {
                 this.$el.addClass(this.model.get('className'));
             }
+            
+			if(this.model.get('active')) {
+				this.$el.click();
+			}
 		}
 
 	});
@@ -64,6 +69,9 @@
 			// (string) The active class name
 			activeClassName: 'active',
 
+			// (string) The disabled class name
+			disabledClassName: 'disabled',
+
 			// (bool) Activate the button on click
 			activateOnClick: true,
 
@@ -90,16 +98,18 @@
 		},
 
 		onChildClick: function(child) {
-			this.trigger('click', child);
+            if(!child.$el.hasClass(this.getOption('disabledClassName'))) {
+    			this.trigger('click', child);
 
-			if(this.getOption('activateOnClick') && !child.$el.hasClass(this.getOption('activeClassName'))) {
-				this.$el.find('.'+this.getOption('activeClassName'))
-					.removeClass(this.getOption('activeClassName'));
+    			if(this.getOption('activateOnClick') && !child.$el.hasClass(this.getOption('activeClassName'))) {
+    				this.$el.find('.'+this.getOption('activeClassName'))
+    					.removeClass(this.getOption('activeClassName'));
 
-				child.$el.addClass(this.getOption('activeClassName'));
+    				child.$el.addClass(this.getOption('activeClassName'));
 
-				this.triggerMethod('activate', child);
-			}
+    				this.triggerMethod('activate', child);
+    			}
+            }
 		}
 
 	});
