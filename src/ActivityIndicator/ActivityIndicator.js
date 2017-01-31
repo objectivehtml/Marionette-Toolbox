@@ -27,6 +27,7 @@
             position: false,
             minHeight: '0px',
             indicator: {},
+            labelOffset: 0,
             defaultIndicator: {
                 lines: 11, // The number of lines to draw
                 length: 15, // The length of each line
@@ -58,21 +59,24 @@
                     length: 4, // The length of each line
                     width: 1, // The line thickness
                     radius: 4, // The radius of the inner circle
-                    corners: 1 // Corner roundness (0..1)
+                    corners: 1, // Corner roundness (0..1)
+                    labelOffset: 15,
                 },
                 'small': {
                     lines: 12, // The number of lines to draw
                     length: 7, // The length of each line
                     width: 1, // The line thickness
                     radius: 7, // The radius of the inner circle
-                    corners: 1 // Corner roundness (0..1)
+                    corners: 1, // Corner roundness (0..1)
+                    labelOffset: 20,
                 },
                 'medium': {
                     lines: 12, // The number of lines to draw
                     length: 14, // The length of each line
                     width: 1, // The line thickness
                     radius: 11, // The radius of the inner circle
-                    corners: 1 // Corner roundness (0..1)
+                    corners: 1, // Corner roundness (0..1)
+                    labelOffset: 30,
                 },
                 'large': {
                     lines: 12, // The number of lines to draw
@@ -80,7 +84,7 @@
                     width: 1, // The line thickness
                     radius: 20, // The radius of the inner circle
                     corners: 1, // Corner roundness (0..1)
-                    labelOffset: 10
+                    labelOffset: 60
                 }
             };
         },
@@ -100,13 +104,10 @@
             if(this.getOption('label')) {
                 var $label = this.$el.find('.activity-indicator-label');
                 var height = $label.outerHeight();
+                var offset = Toolbox.ViewOffset($label.get(0));
 
-                $label.css({
-                    top: $label.offset().top +
-                        this.spinner.opts.length +
-                        this.spinner.opts.radius +
-                        (height / 2) +
-                        (this.spinner.opts.labelOffset || 0)
+                $label.children().css({
+                    top: this.spinner.opts.labelOffset || 0
                 });
             }
         },
@@ -161,6 +162,7 @@
                 self.positionLabel();
             });
         }
+
     });
 
     return Toolbox;

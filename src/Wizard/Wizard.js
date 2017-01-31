@@ -37,8 +37,8 @@
         defaultOptions: function() {
             return {
                 header: false,
-                headerTag: 'h2',
-                headerTagClassName: 'wizard-header',
+                headerTagName: 'h2',
+                headerClassName: 'wizard-header',
                 finishedClassName: 'wizard-finished',
                 fixedHeightClassName: 'fixed-height',
                 hasPanelClassName: 'wizard-panel',
@@ -193,7 +193,7 @@
                     preventDestroy: true
                 });
 
-                view.on('attach', function() {
+                view.once('attach', function() {
                     this.resetRegions(view);
                     view.triggerMethod('wizard:attach');
                 }, this);

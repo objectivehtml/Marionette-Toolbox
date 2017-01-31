@@ -19,7 +19,7 @@
         className: 'wizard-success',
 
         options: {
-            headerTag: 'h3',
+            headerTagName: 'h3',
             header: 'Success!',
             successIcon: 'fa fa-check',
             message: false

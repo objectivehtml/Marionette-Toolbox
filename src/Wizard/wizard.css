@@ -197,6 +197,7 @@ a.wizard-step:hover {
 
 .wizard .wizard-content {
     padding: 20px 0;
+    position: relative;
 }
 
 .wizard-panel .panel-body .wizard-content {

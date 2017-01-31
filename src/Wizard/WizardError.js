@@ -19,7 +19,7 @@
         className: 'wizard-error',
 
         options: {
-            headerTag: 'h3',
+            headerTagName: 'h3',
             header: 'Error!',
             errorIcon: 'fa fa-times',
             message: false,

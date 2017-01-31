@@ -185,7 +185,7 @@
             header: false,
 
             // (string) The table header tag name
-            headerTag: 'h3',
+            headerTagName: 'h3',
 
             // (string) The table header class name
             headerClassName: 'table-header',

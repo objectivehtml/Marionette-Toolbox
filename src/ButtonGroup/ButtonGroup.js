@@ -21,13 +21,21 @@
 		className: 'btn btn-default',
 
 		triggers: {
-			'click': 'click'
+			'click :disabled': 'click'
 		},
 
 		onDomRefresh: function() {
 			if(this.model.get('active')) {
 				this.$el.click();
 			}
+
+			if(this.model.get('disabled')) {
+				this.$el.addClass('disabled');
+			}
+
+            if(this.model.get('className')) {
+                this.$el.addClass(this.model.get('className'));
+            }
 		}
 
 	});

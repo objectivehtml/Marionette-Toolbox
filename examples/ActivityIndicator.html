@@ -24,32 +24,33 @@
 		<script src="../dist/marionette.toolbox.js"></script>
 	</head>
 	<body>
-		<div id="app-wrapper"></div>
+		<div style="position:relative;min-height:400px;">
+			<div id="app-wrapper"></div>
 
-		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
+			<script type="text/javascript">
+				var App = new Backbone.Marionette.Application();
 
-			App.on('start', function() {
+				App.on('start', function() {
 
-				App.addRegions({
-					content: '#app-wrapper'
+					App.addRegions({
+						content: '#app-wrapper'
+					});
+
+					var view = new Toolbox.ActivityIndicator({
+						indicator: 'tiny',
+						dimmed: true,
+						dimmedBgColor: '#fff',
+						fixed: true,
+						label: 'Loading...',
+						labelFontSize: '22px'
+					});
+
+					App.content.show(view);
 				});
 
-				var view = new Toolbox.ActivityIndicator({
-					indicator: 'large',
-					dimmed: true,
-					dimmedBgColor: '#fff',
-					fixed: true,
-					label: 'Loading...',
-					labelFontSize: '22px'
-				});
+				App.start();
 
-				App.content.show(view);
-			});
-
-			App.start();
-
-		</script>
-
+			</script>
+		</div>
 	</body>
 </html>
