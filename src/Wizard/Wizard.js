@@ -150,9 +150,11 @@
                 minHeight: '400px'
             }, options));
 
-            region.show(view, {
-                preventDestroy: true
-            });
+            if(region.el) {
+                region.show(view, {
+                    preventDestroy: true
+                });
+            }
         },
 
         showProgress: function() {
