@@ -150,7 +150,7 @@
                 minHeight: '400px'
             }, options));
 
-            if(region.el) {
+            if(region.el && region.$el.length > 0) {
                 region.show(view, {
                     preventDestroy: true
                 });
