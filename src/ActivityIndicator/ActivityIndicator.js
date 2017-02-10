@@ -101,7 +101,7 @@
         },
 
         positionLabel: function() {
-            if(this.getOption('label')) {
+            if(this.spinner && this.getOption('label')) {
                 var $label = this.$el.find('.activity-indicator-label');
                 var height = $label.outerHeight();
                 var offset = Toolbox.ViewOffset($label.get(0));
