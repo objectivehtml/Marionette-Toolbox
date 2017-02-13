@@ -38,13 +38,31 @@
 
 			var available = [{
 				id: 1,
-				content: 'John Smith'
+				content: 'John Smith 1'
 			},{
 				id: 2,
-				content: 'Jane Doe'
+				content: 'Jane Doe 2'
 			},{
 				id: 3,
-				content: 'George Dean'
+				content: 'George Dean 3'
+			},{
+				id: 4,
+				content: 'John Smith 4'
+			},{
+				id: 5,
+				content: 'Jane Doe 5'
+			},{
+				id: 6,
+				content: 'George Dean 6'
+			},{
+				id: 7,
+				content: 'John Smith 7'
+			},{
+				id: 8,
+				content: 'Jane Doe 8'
+			},{
+				id: 9,
+				content: 'George Dean 9'
 			}];
 
 			var selected = [{
@@ -57,9 +75,19 @@
 
 			App.on('start', function() {
 				var view = new Toolbox.SelectionPool({
-					availableTree: new Toolbox.Tree(new Backbone.Collection(available)),
-					selectedTree: new Toolbox.Tree(new Backbone.Collection(selected)),
-					height: '600px'
+					availableTree: new Toolbox.Tree(new Backbone.Collection(available), {comparator: 'id'}),
+					selectedTree: new Toolbox.Tree(new Backbone.Collection(selected))
+				});
+
+				view.on('scroll:bottom', function(scrollTop) {
+					var data = available.slice(0);
+					var total = data.length;
+
+					_.each(data, function(item) {
+						item.id = item.id + total;
+					});
+					
+					view.getOption('availableTree').push(data);
 				});
 
 				App.content.show(view);

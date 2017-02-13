@@ -125,6 +125,7 @@
                 height: false,
                 typingStoppedThreshold: 500,
                 likenessThreshold: 75,
+                scrollBottomThreshold: 10,
                 searchIndicatorOptions: {
                     indicator: 'tiny'
                 }
@@ -169,7 +170,7 @@
         },
 
         showAvailablePool: function() {
-            var View = this.getOption('availableTreeView');
+            var self = this, View = this.getOption('availableTreeView');
 
             if(View) {
         		var view = new View(_.extend({
@@ -179,6 +180,12 @@
                         template: this.getOption('availableTreeViewTemplate')
                     })
         		}, this.getOption('availableTreeViewOptions')));
+
+                view.collection.on('add remove', function() {
+                    setTimeout(function() {
+                        self.resetScrollBottom.call(self);
+                    });
+                });
 
                 this.showSelectionPoolView(this.available, view);
             }
@@ -250,7 +257,6 @@
                 }
 
                 var comparison = new Toolbox.Levenshtein(value.toUpperCase(), subject.toUpperCase());
-
                 var percent = comparison.distance / subject.length * 100 - 100;
 
                 if(percent > this.getOption('likenessThreshold')) {
@@ -310,14 +316,41 @@
             }
         },
 
-        onDomRefresh: function() {
-            var self = this;
+        resetScrollBottom: function() {
+            this._scrollAtBottom = false;
+            this._scrollHeight = this.available.currentView.$el.parent().prop('scrollHeight');
+        },
 
-            var detection = new Toolbox.TypingDetection(
+        onDomRefresh: function() {
+            var self = this, detection = new Toolbox.TypingDetection(
                 this.$el.find('.selection-pool-search input'),
                 this.getOption('typingStoppedThreshold'),
                 this.channel
             );
+
+            var $availablePool = this.available.currentView.$el.parent();
+
+            this._lastScrollTop = 0;
+            this._scrollAtBottom = false;
+            self._scrollHeight = $availablePool.prop('scrollHeight');
+
+            $availablePool.scroll(function() {
+                var scrollTop = $(this).scrollTop();
+                var threshold = self.getOption('scrollBottomThreshold');
+
+                self._isScrollingDown = scrollTop > self._lastScrollTop;
+                self._isPastThreshold = scrollTop + $(this).height() >= self._scrollHeight - threshold;
+
+                if(self._isScrollingDown && self._isPastThreshold && !self._scrollAtBottom) {
+                    self._scrollAtBottom = true;
+                    self.triggerMethod('scroll:bottom', scrollTop);
+                }
+                else if (!self._isScrollingDown && !self._isPastThreshold){
+                    self._scrollAtBottom = false;
+                }
+
+                self._lastScrollTop = scrollTop;
+            });
 
             this.$el.find('.droppable-pool').each(function() {
                 var $pool = $(this);
