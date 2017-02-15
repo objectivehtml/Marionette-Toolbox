@@ -40,6 +40,9 @@
             if(this.getOption('value')) {
                 this.getInputField().val(this.getOption('value'));
             }
+            else {
+                this.getInputField().val(this.getInputField().find('option:first').val());
+            }
         }
 
     });
