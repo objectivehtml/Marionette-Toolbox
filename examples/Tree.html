@@ -36,6 +36,21 @@
 
 			App.on('start', function() {
 
+				var collection = new Backbone.Collection([
+					{id: 1},
+					{id: 5},
+					{id: 3}
+				]);
+
+				var tree = new Toolbox.Tree(collection, {
+					comparator: 'order'
+				});
+
+				console.log(tree.toJSON());
+
+
+				return;
+
 				var data = [{
 					"id": 1,
 					"parent_id": null,

@@ -70,20 +70,18 @@
             data = this._createCollection(data);
 
             while (data.length > 0) {
-                var parent = null, removeModels = [];
+                var child,
+                    parent = null,
+                    removeModels = [],
+                    model = data.first(),
+                    parentId = this.getParentId(model);
 
-                data.each(function(model) {
-                    var child, parentId = this.getParentId(model);
-
-                    if(model) {
-                        if(_.isNull(parentId)) {
-                            data.remove(this.appendNode(model));
-                        }
-                        else if (parent = this.findNodeById(parentId)) {
-                            data.remove(this.appendNode(model, parent));
-                        }
-                    }
-                }, this);
+                if(_.isNull(parentId)) {
+                    data.remove(this.appendNode(model));
+                }
+                else if (parent = this.findNodeById(parentId)) {
+                    data.remove(this.appendNode(model, parent));
+                }
             }
         },
 
@@ -296,6 +294,8 @@
             var Collection = this.getOption('collectionClass') || Backbone.Collection;
 
             data = new Collection(data || []);
+
+            data.comparator = false;
 
             if(this.getOption('comparator')) {
                 data.comparator = this.getOption('comparator');
