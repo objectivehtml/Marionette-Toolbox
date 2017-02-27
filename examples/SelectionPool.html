@@ -86,8 +86,14 @@
 					_.each(data, function(item) {
 						item.id = item.id + total;
 					});
-					
+
 					view.getOption('availableTree').push(data);
+				});
+
+				view.on('typing:stopped', function() {
+					console.log('stopped');
+						view.onDestroy();
+						view.channel.trigger('detection:typing:started');
 				});
 
 				App.content.show(view);

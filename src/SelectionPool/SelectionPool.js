@@ -142,6 +142,11 @@
             return this.options;
         },
 
+        onDestroy: function() {
+            this.channel.off('detection:typing:started', false, this);
+            this.channel.off('detection:typing:stopped', false, this);
+        },
+
         initialize: function() {
             Toolbox.LayoutView.prototype.initialize.apply(this, arguments);
 
@@ -276,6 +281,8 @@
                     model.set('hidden', true);
                 }
 
+                this.available.currentView.render();
+
                 return true;
             }, this);
         },
@@ -312,7 +319,6 @@
 
             if(this.available) {
                 this.search(this.available.currentView.collection, value);
-                this.available.currentView.render();
             }
         },
 
