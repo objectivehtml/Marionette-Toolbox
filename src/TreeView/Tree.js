@@ -139,7 +139,7 @@
             return child;
         },
 
-        appendNodeBefore(child, sibling) {
+        appendNodeBefore: function(child, sibling) {
             var parentId = this.getParentId(sibling);
             var parent = parentId ? this.find({id: parentId}) : null;
             var index = parent ? parent.children.indexOf(sibling) : this.indexOf(sibling);
@@ -151,7 +151,7 @@
             return child;
         },
 
-        appendNodeAfter(child, sibling) {
+        appendNodeAfter: function(child, sibling) {
             var parentId = this.getParentId(sibling);
             var parent = this.find({id: parentId});
 

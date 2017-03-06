@@ -414,11 +414,11 @@
             this.hideActivityIndicator();
         },
 
-        getCurrentPage(response) {
+        getCurrentPage: function(response) {
             return response.current_page || response.currentPage;
         },
 
-        getLastPage(response) {
+        getLastPage: function(response) {
             return response.last_page || response.lastPage;
         },
 
