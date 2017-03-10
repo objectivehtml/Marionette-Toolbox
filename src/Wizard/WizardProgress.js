@@ -33,8 +33,8 @@
         },
 
         events: {
-            'click .wizard-step': function(event) {
-                var $step = $(event.target);
+            'click a.wizard-step': function(event) {
+                var $step = $(event.currentTarget);
                 var step = $step.data('step');
 
                 if( !$step.hasClass(this.getOption('disabledClassName')) &&
