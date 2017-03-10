@@ -108,15 +108,7 @@
                 item.parent = this;
             }, this);
         },
-
-        /*
-        triggers: {
-            'click .back:not(.disabled)': 'click:back',
-            'click .next:not(.disabled)': 'click:next',
-            'click .finish:not(.disabled)': 'click:finish'
-        },
-        */
-
+        
         addRightButton: function(button, at) {
             if(_.isUndefined(at)) {
                 at = this.options.rightButtons.length;
