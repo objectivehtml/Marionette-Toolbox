@@ -173,7 +173,7 @@
             var View = this.getOption('buttonView');
 
             if(View) {
-                var view = new View(_.extend({}, this.getOption(''), {
+                var view = new View(_.extend({}, this.getOption('buttonViewOptions'), {
                     wizard: this
                 }));
 

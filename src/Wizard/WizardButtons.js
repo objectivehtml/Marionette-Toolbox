@@ -32,6 +32,8 @@
                 icon: 'fa fa-long-arrow-left',
                 label: 'Back',
                 className: function() {
+                    console.log(this.parent.getDefaultButtonClasses('back'));
+
                     return (
                         this.parent.getCurrentStep() == 1 ? 'disabled ' : ''
                     ) + this.parent.getDefaultButtonClasses('back');
@@ -111,8 +113,6 @@
 
         removeRightButton: function(index) {
             if(_.isObject(index)) {
-                console.log(index);
-                
                 _.each(this.options.rightButtons, function(button, i) {
                     if(button == index) {
                         this.removeRightButton(i);
