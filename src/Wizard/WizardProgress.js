@@ -33,7 +33,7 @@
         },
 
         events: {
-            'click a.wizard-step': function(event) {
+            'click .wizard-step': function(event) {
                 var $step = $(event.currentTarget);
                 var step = $step.data('step');
 
