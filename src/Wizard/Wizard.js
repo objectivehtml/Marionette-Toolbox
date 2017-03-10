@@ -56,7 +56,6 @@
                 errorView: Toolbox.WizardError,
                 errorViewOptions: {},
                 showButtons: true,
-                showProgress: true,
                 panel: false,
                 contentHeight: false,
                 submitFormOnEnter: true
@@ -174,7 +173,7 @@
             var View = this.getOption('buttonView');
 
             if(View) {
-                var view = new View(_.extend({}, this.getOption('buttonViewOptions'), {
+                var view = new View(_.extend({}, this.getOption(''), {
                     wizard: this
                 }));
 

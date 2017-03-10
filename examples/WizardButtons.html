@@ -53,18 +53,21 @@
                         return 'save ' + this.parent.getOption('defaultButtonClassName') + ' ' + this.parent.getOption('buttonSizeClassName');
                     },
                     onClick: function() {
-                        console.log('Save');
+                        view.removeRightButton(0);
                     }
                 }, 0);
 
-                view.addRightButton({
+
+                var button;
+
+                view.addRightButton(button = {
                     label: 'Refresh',
                     icon: 'fa fa-refresh',
                     className: function() {
                         return 'save ' + this.parent.getOption('defaultButtonClassName') + ' ' + this.parent.getOption('buttonSizeClassName');
                     },
                     onClick: function() {
-                        console.log('Refresh');
+                        view.removeRightButton(button);
                     }
                 }, 1);
 
@@ -75,7 +78,7 @@
                         return 'save ' + this.parent.getOption('defaultButtonClassName') + ' ' + this.parent.getOption('buttonSizeClassName');
                     },
                     onClick: function() {
-                        console.log('Save');
+                        view.removeLeftButton(1);
                     }
                 });
 

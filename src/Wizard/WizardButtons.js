@@ -108,7 +108,23 @@
                 item.parent = this;
             }, this);
         },
-        
+
+        removeRightButton: function(index) {
+            if(_.isObject(index)) {
+                console.log(index);
+                
+                _.each(this.options.rightButtons, function(button, i) {
+                    if(button == index) {
+                        this.removeRightButton(i);
+                    }
+                }, this)
+            }
+            else if(_.isNumber(index)) {
+                this.options.rightButtons.splice(index, 1);
+                this.render();
+            }
+        },
+
         addRightButton: function(button, at) {
             if(_.isUndefined(at)) {
                 at = this.options.rightButtons.length;
@@ -117,6 +133,21 @@
             button.parent = this;
 
             this.options.rightButtons.splice(at, 0, button);
+            this.render();
+        },
+
+        removeLeftButton: function(index) {
+            if(_.isObject(index)) {
+                _.each(this.options.leftButtons, function(button, i) {
+                    if(button == index) {
+                        this.removeLeftButton(i);
+                    }
+                }, this)
+            }
+            else if(_.isNumber(index)) {
+                this.options.leftButtons.splice(index, 1);
+                this.render();
+            }
         },
 
         addLeftButton: function(button, at) {
@@ -127,6 +158,7 @@
             button.parent = this;
 
             this.options.leftButtons.splice(at, 0, button);
+            this.render();
         },
 
         disableButton: function(button) {
