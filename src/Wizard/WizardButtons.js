@@ -32,8 +32,6 @@
                 icon: 'fa fa-long-arrow-left',
                 label: 'Back',
                 className: function() {
-                    console.log(this.parent.getDefaultButtonClasses('back'));
-
                     return (
                         this.parent.getCurrentStep() == 1 ? 'disabled ' : ''
                     ) + this.parent.getDefaultButtonClasses('back');
@@ -126,14 +124,17 @@
         },
 
         addRightButton: function(button, at) {
+			var buttons = _.clone(this.options.rightButtons);
+
             if(_.isUndefined(at)) {
-                at = this.options.rightButtons.length;
+                at = buttons.length;
             }
 
             button.parent = this;
+            buttons.splice(at, 0, button);
 
-            this.options.rightButtons.splice(at, 0, button);
-            this.render();
+			this.options.rightButtons = buttons;
+			this.render();
         },
 
         removeLeftButton: function(index) {
@@ -151,14 +152,17 @@
         },
 
         addLeftButton: function(button, at) {
+			var buttons = _.clone(this.options.leftButtons);
+
             if(_.isUndefined(at)) {
-                at = this.options.leftButtons.length;
+                at = buttons.length;
             }
 
             button.parent = this;
+            buttons.splice(at, 0, button);
 
-            this.options.leftButtons.splice(at, 0, button);
-            this.render();
+			this.options.leftButtons = buttons;
+			this.render();
         },
 
         disableButton: function(button) {
