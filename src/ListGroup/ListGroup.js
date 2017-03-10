@@ -20,6 +20,10 @@
 
 		defaultOptions: {
 			message: 'There are no items in the list.'
+		},
+
+		templateHelpers: function() {
+			return this.options;
 		}
 
 	});
@@ -32,14 +36,43 @@
 
 		tagName: 'li',
 
+        defaultOptions: {
+            badgeAttribute: false,
+            contentAttribute: false
+        },
+
 		events: {
 			'click': function(e) {
 				this.triggerMethod('click', e);
 			}
 		},
 
+        getBadge: function() {
+            return this.getOption('badgeAttribute') ?
+                this.model.get(this.getOption('badgeAttribute')) :
+                false;
+        },
+
+        getContent: function() {
+            return this.getOption('contentAttribute') ?
+                this.model.get(this.getOption('contentAttribute')) :
+                false;
+        },
+
 		templateHelpers: function() {
-			return this.options
+            var helper = {},
+                badge = this.getBadge(),
+                content = this.getContent();
+
+            if(badge) {
+                helper.badge = badge;
+            }
+
+            if(content) {
+                helper.content = content;
+            }
+
+            return helper;
 		}
 
 	});
@@ -66,7 +99,7 @@
 			emptyMessageView: Toolbox.NoListGroupItem,
 
 			// (bool) Show the empty message view
-			showEmptyMessage: true
+			showEmptyMessage: true,
 		},
 
 		childEvents: {
