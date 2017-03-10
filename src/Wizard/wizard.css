@@ -140,6 +140,14 @@ a.wizard-step:hover {
     padding: 20px 0;
 }
 
+.wizard-buttons-wrapper .wizard-left-buttons button:not(:first-child) {
+    margin-left: 10px;
+}
+
+.wizard-buttons-wrapper .wizard-right-buttons button:not(:last-child) {
+    margin-right: 10px;
+}
+
 .wizard-panel .wizard-buttons-wrapper {
 	padding: 20px;
 }

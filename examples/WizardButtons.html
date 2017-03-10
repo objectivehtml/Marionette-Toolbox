@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
+		<link rel="stylesheet" href="../dist/marionette.toolbox.css">
+
+		<script src="../resources/vendor.js"></script>
+
+		<script type="text/javascript">
+			var $ = require('jquery');
+			var _ = require('underscore');
+			var Backbone = require('backbone');
+
+			require('backbone.radio');
+
+			var Marionette = require('backbone.marionette');
+			var Handlebars = require('handlebars');
+			var Spinner = require('spin.js');
+		</script>
+
+		<script src="../dist/marionette.toolbox.js"></script>
+	</head>
+	<body>
+		<div id="app-wrapper" class="container"></div>
+
+		<script type="text/handlebars" id="step-1">
+		<p>Nunc aliquet libero non dui maximus lacinia. Aliquam porta mi vel massa posuere, egestas bibendum justo congue. Nullam quis leo ut elit convallis sagittis sagittis vel diam. Curabitur vehicula vitae massa non ultrices. Maecenas tempor porta molestie. Pellentesque ac elit mi. Integer semper pharetra libero nec condimentum. Quisque ultrices id tortor non bibendum. Cras eget lorem hendrerit, faucibus velit ac, sollicitudin mi. Nulla id libero orci.</p>
+
+		<p>Vestibulum sed tincidunt tellus, non ultrices odio. Vivamus at nisi felis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam tristique sem eu varius dictum. Aliquam tincidunt dapibus faucibus. Sed bibendum quam at massa cursus, vel vulputate purus vestibulum. Mauris tempor bibendum finibus. Suspendisse accumsan maximus urna, ac placerat mi rutrum placerat.</p>
+		</script>
+
+		<script type="text/javascript">
+			var App = new Backbone.Marionette.Application();
+
+			App.addRegions({
+				content: '#app-wrapper'
+			});
+
+			App.on('start', function() {
+
+				var view = new Toolbox.WizardButtons({
+                    step: 1,
+                    totalSteps: 4
+				});
+
+                view.addRightButton({
+                    label: 'Save',
+                    icon: 'fa fa-save',
+                    className: function() {
+                        return 'save ' + this.parent.getOption('defaultButtonClassName') + ' ' + this.parent.getOption('buttonSizeClassName');
+                    },
+                    onClick: function() {
+                        console.log('Save');
+                    }
+                }, 0);
+
+                view.addRightButton({
+                    label: 'Refresh',
+                    icon: 'fa fa-refresh',
+                    className: function() {
+                        return 'save ' + this.parent.getOption('defaultButtonClassName') + ' ' + this.parent.getOption('buttonSizeClassName');
+                    },
+                    onClick: function() {
+                        console.log('Refresh');
+                    }
+                }, 1);
+
+                view.addLeftButton({
+                    label: 'Save',
+                    icon: 'fa fa-save',
+                    className: function() {
+                        return 'save ' + this.parent.getOption('defaultButtonClassName') + ' ' + this.parent.getOption('buttonSizeClassName');
+                    },
+                    onClick: function() {
+                        console.log('Save');
+                    }
+                });
+
+
+				App.content.show(view);
+
+			});
+
+			App.start();
+
+		</script>
+
+	</body>
+</html>

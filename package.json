@@ -8,7 +8,7 @@
     "backbone",
     "marionette"
   ],
-  "version": "0.7.78",
+  "version": "0.7.79",
   "main": "./dist/marionette.toolbox.js",
   "dependencies": {
     "backbone": "^1.3.3",

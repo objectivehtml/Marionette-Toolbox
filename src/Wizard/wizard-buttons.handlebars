@@ -1,7 +1,15 @@
-<button type="button" class="{{#if disableBackButton}}{{../disabledClassName}}{{/if}} {{defaultButtonClassName}} {{buttonSizeClassName}} back {{#if isFirstStep}}{{../disabledClassName}}{{/if}}">
-    {{#if backIcon}}<i class="{{../backIcon}}"></i> {{/if}}{{backLabel}}
-</button>
+<div class="wizard-left-buttons pull-left">
+    {{#leftButtons}}
+        <button type="button" class="{{#if disabled}}{{../../disabledClassName}}{{/if}} {{className}}">
+            {{#if icon}}<i class="{{../icon}}"></i> {{/if}}{{label}}
+        </button>
+    {{/leftButtons}}
+</div>
 
-<button {{#not isLastStep}}type="button"{{/not}} {{#if isLastStep}}type="submit"{{/if}} class="{{#if disableNextButton}}{{../disabledClassName}}{{/if}} {{#not isLastStep}}{{../defaultButtonClassName}} next{{/not}} {{#if isLastStep}}{{../primaryButtonClassName}} finish{{/if}} {{buttonSizeClassName}}">
-    {{#not isLastStep}}{{../nextLabel}}{{#if ../nextIcon}} <i class="{{../../nextIcon}}"></i>{{/if}}{{/not}}{{#if isLastStep}}{{../finishLabel}}{{/if}}
-</button>
+<div class="wizard-right-buttons pull-right">
+    {{#rightButtons}}
+        <button type="button" class="{{#if disabled}}{{../../disabledClassName}}{{/if}} {{className}}">
+            {{label}}{{#if icon}} <i class="{{../icon}}"></i>{{/if}}
+        </button>
+    {{/rightButtons}}
+</div>
