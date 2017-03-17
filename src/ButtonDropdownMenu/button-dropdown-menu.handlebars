@@ -1,6 +1,6 @@
 <div class="btn-group {{#if dropUp}}dropup{{/if}}">
 	{{#if splitButton}}
-		<button type="button" class="{{../buttonClassName}}">{{../buttonLabel}}</button>
+		<button type="button" class="{{../buttonClassName}}">{{#if ../buttonIcon}}<i class="{{../../buttonIcon}}"></i>{{/if}} {{../buttonLabel}}</button>
 		<button type="button" class="{{../buttonClassName}} {{../buttonToggleClassName}}" data-toggle="dropdown" aria-expanded="false">
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
@@ -9,6 +9,7 @@
 
 	{{#not splitButton}}
 		<button type="button" class="{{../buttonClassName}} {{../buttonToggleClassName}}" data-toggle="dropdown" aria-expanded="false">
+			{{#if ../buttonIcon}}<i class="{{../../buttonIcon}}"></i>{{/if}}
 			{{../buttonLabel}}
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
@@ -16,5 +17,4 @@
 	{{/not}}
 
 	<ul class="{{#if menuClassName}}{{../menuClassName}}{{/if}}"></ul>
-
 </div>
