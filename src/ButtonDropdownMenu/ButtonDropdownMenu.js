@@ -34,7 +34,7 @@
 			buttonClassName: 'btn btn-default',
 
 			// (string) The dropdown toggle class name
-			toggleClassName: 'dropdown-toggle',
+			buttonToggleClassName: 'dropdown-toggle',
 
 			// (string) The dropdown menu class name
 			menuClassName: 'dropdown-menu',
