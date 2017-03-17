@@ -34,10 +34,10 @@
 			buttonClassName: 'btn btn-default',
 
 			// (string) The dropdown toggle class name
-			dropdownMenuToggleClassName: 'dropdown-toggle',
+			toggleClassName: 'dropdown-toggle',
 
 			// (string) The dropdown menu class name
-			dropdownMenuClassName: 'dropdown-menu',
+			menuClassName: 'dropdown-menu',
 
 			// (int|bool) The collection limit
 			limit: false,

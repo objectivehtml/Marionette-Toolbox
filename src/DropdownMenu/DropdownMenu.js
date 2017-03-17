@@ -93,13 +93,13 @@
 			toggleLabel: false,
 
 			// (string) The dropdown toggle class name
-			dropdownMenuToggleClassName: 'dropdown-toggle',
+			toggleClassName: 'dropdown-toggle',
 
 			// (string) The dropdown toggle icon class name
-			dropdownMenuToggleIconClassName: 'fa fa-caret-down',
+			toggleIconClassName: 'fa fa-caret-down',
 
 			// (string) The dropdown menu class name
-			dropdownMenuClassName: 'dropdown-menu',
+			menuClassName: 'dropdown-menu',
 
 			// (int|bool) The collection limit
 			limit: false,
@@ -170,17 +170,17 @@
 		},
 
 		showMenu: function() {
-			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().addClass(this.getOption('toggleClassName'));
-			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).attr('aria-expanded', 'true');
+			this.$el.find('.'+this.getOption('toggleClassName')).parent().addClass(this.getOption('toggleClassName'));
+			this.$el.find('.'+this.getOption('toggleClassName')).attr('aria-expanded', 'true');
 		},
 
 		hideMenu: function() {
-			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().removeClass(this.getOption('toggleClassName'));
-			this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).attr('aria-expanded', 'false');
+			this.$el.find('.'+this.getOption('toggleClassName')).parent().removeClass(this.getOption('toggleClassName'));
+			this.$el.find('.'+this.getOption('toggleClassName')).attr('aria-expanded', 'false');
 		},
 
 		isMenuVisible: function() {
-			return this.$el.find('.'+this.getOption('dropdownMenuToggleClassName')).parent().hasClass(this.getOption('toggleClassName'));
+			return this.$el.find('.'+this.getOption('toggleClassName')).parent().hasClass(this.getOption('toggleClassName'));
 		},
 
 		onToggleClick: function() {

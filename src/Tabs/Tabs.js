@@ -46,6 +46,8 @@
 
 			activeClassName: 'active',
 
+            tabClassName: 'nav nav-tabs',
+
 			tabPaneClassName: 'tab-pane',
 
 			content: []
@@ -57,25 +59,38 @@
             return this.options;
         },
 
+        getViewName: function(view) {
+            return view.getOption('tabName') ? view.getOption('tabName') : (
+                view.getOption('name') ? view.getOption('name') : null
+            );
+        },
+
+        getViewLabel: function(view) {
+            return view.getOption('tabLabel') ? view.getOption('tabLabel') : (
+                view.getOption('label') ? view.getOption('label') : null
+            );
+        },
+
         removeTab: function(view) {
-        	this.$el.find('.nav-tabs').find('[href="#'+view.getOption('name')+'"]').remove();
+            var name = this.getViewName(view);
 
-        	this.regionManager.removeRegion(view.getOption('name'));
+        	this.$el.find('.nav-tabs').find('[href="#'+name+'"]').parent().remove();
 
-        	this.$el.find('#'+view.getOption('name')).remove();
+        	this.regionManager.removeRegion(name);
+
+        	this.$el.find('#'+name).remove();
         },
 
         addTab: function(view, setActive) {
-        	var tab = '<li role="presentation"><a href="#'+view.getOption('name')+'" aria-controls="'+view.getOption('name')+'" role="tab" data-toggle="tab">'+view.getOption('label')+'</a></li>';
+            var name = this.getViewName(view);
+        	var tab = '<li role="presentation"><a href="#'+name+'" aria-controls="'+name+'" role="tab" data-toggle="tab">'+this.getViewLabel(view)+'</a></li>';
 
-        	var html = '<div role="tabpanel" class="'+this.getOption('tabPaneClassName')+'" id="'+view.getOption('name')+'" />';
+        	var html = '<div role="tabpanel" class="'+this.getOption('tabPaneClassName')+'" id="'+name+'" />';
 
         	this.$el.find('.nav-tabs').append(tab);
         	this.$el.find('.tab-content').append(html);
-
-			this.regionManager.addRegion(view.getOption('name'), '#'+view.getOption('name'));
-
-			this[view.getOption('name')].show(view);
+			this.regionManager.addRegion(name, '#'+name);
+			this[name].show(view);
 
 			if(setActive) {
 				this.setActiveTab(view);

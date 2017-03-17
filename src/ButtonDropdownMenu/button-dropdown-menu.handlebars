@@ -2,20 +2,20 @@
 
 	{{#if splitButton}}
 		<button type="button" class="{{../buttonClassName}}">{{../buttonLabel}}</button>
-		<button type="button" class="{{../buttonClassName}} {{../dropdownMenuToggleClassName}}" data-toggle="dropdown" aria-expanded="false">
+		<button type="button" class="{{../buttonClassName}} {{../toggleClassName}}" data-toggle="dropdown" aria-expanded="false">
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
 		</button>
 	{{/if}}
 
 	{{#not splitButton}}
-		<button type="button" class="{{../buttonClassName}} {{../dropdownMenuToggleClassName}}" data-toggle="dropdown" aria-expanded="false">
+		<button type="button" class="{{../buttonClassName}} {{../toggleClassName}}" data-toggle="dropdown" aria-expanded="false">
 			{{../buttonLabel}}
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
 		</button>
 	{{/not}}
 
-	<ul class="{{#if dropdownMenuClassName}}{{../dropdownMenuClassName}}{{/if}}"></ul>
+	<ul class="{{#if menuClassName}}{{../menuClassName}}{{/if}}"></ul>
 
 </div>

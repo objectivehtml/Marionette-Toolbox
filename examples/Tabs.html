@@ -41,12 +41,13 @@
 				});
 
 				var tabView = new TabView({
-					name: 'tab-1',
+					tabName: 'tab-1',
 					label: 'Tab 1',
 					content: '1'
 				});
 
 				var view = new Toolbox.Tabs({
+					tabClassName: 'nav nav-tabs nav-pills nav-justified',
 					content: [tabView, {
 						name: 'tab-2',
 						label: 'Tab 2',
