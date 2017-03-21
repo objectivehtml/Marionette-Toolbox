@@ -36,14 +36,19 @@
 
 			App.on('start', function() {
 				var data = [{
-					"id": 1,
-					"parent_id": null,
-					"name": "Permission 1",
+					"id":6,
+					"parent_id": 7,
+					"name": "Permission 6",
 					"order": 1
 				}, {
 					"id":2,
-					"parent_id": 1,
+					"parent_id": null,
 					"name": "Permission 2",
+					"order": 1
+				}, {
+					"id": 1,
+					"parent_id": null,
+					"name": "Permission 1",
 					"order": 1
 				}, {
 					"id":3,
@@ -61,13 +66,8 @@
 					"name": "Permission 5",
 					"order": 1
 				}, {
-					"id":6,
-					"parent_id": 5,
-					"name": "Permission 6",
-					"order": 1
-				}, {
 					"id":7,
-					"parent_id": 2,
+					"parent_id": 1,
 					"name": "Permission 7",
 					"order": 2
 				}];
