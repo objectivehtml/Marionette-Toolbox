@@ -141,71 +141,45 @@
         _errorViews: false,
 
         getFormData: function() {
-            var data = {};
+            var formData = {};
 
-            function stripBrackets(component) {
-                var matches = component.match(/[^\[\]]+/);
-
-                return matches ? matches[0] : false;
+            function isArray(key) {
+                return key && key.match(/\[(\d+)?\]/) ? true : false;
             }
 
-            function addComponent(subject, component, value) {
-                if(!subject[component]) {
-                    subject[component] = value;
-                }
+            _.each(this.$el.serializeArray(), function(field, x) {
+                var subject = formData, lastKey, matches = field.name.match(/^\w+|\[(\w+)?\]/g);
 
-                return subject[component];
-            }
+                _.each(matches, function(match, i) {
+                    var key = match.replace(/[\[\]]/g, '');
+                    var nextKey = matches[i + 1];
+                    var isLastMatch = matches.length - 1 == i;
 
-            function addComponents(subject, components, value) {
-                _.each(components, function(component, i) {
-                    var variable = stripBrackets(component);
-
-                    if(variable) {
-                        subject = addComponent(subject, variable, components.length > i + 1 ? {} : value);
+                    if(isArray(match)) {
+                        if(!key) {
+                            subject.push(field.value);
+                        }
+                        else {
+                            subject.splice(key, 0, field.value);
+                        }
                     }
                     else {
-                        // this is an array like []
+                        if(!subject[key]) {
+                            subject[key] = nextKey && isArray(nextKey) ? [] : {};
+                        }
+
+                        if(isLastMatch) {
+                            subject[key] = field.value;
+                        }
+
+                        subject = subject[key];
                     }
+
+                    lastKey = key;
                 });
-            }
-
-            function createObjects(root, components, value) {
-                if(!data[root]) {
-                    data[root] = {};
-                }
-
-                addComponents(data[root], components, value);
-            }
-
-            this.$el.find('input, select, textarea').each(function() {
-                var name = $(this).attr('name');
-
-                if(($(this).is(':radio') || $(this).is(':checkbox'))) {
-                    if($(this).is(':checked')) {
-                        var value = $(this).val();
-                    }
-                }
-                else {
-                    var value = $(this).val();
-                }
-
-                if(name && (!_.isNull(value) && !_.isUndefined(value))) {
-                    var matches = name.match(/(^\w+)?(\[.*!?\])/);
-
-                    if(matches) {
-                        var root = matches[1];
-                        var components = matches[2].match(/\[.*?\]/g);
-
-                        createObjects(root, components, value);
-                    }
-                    else {
-                        data[name] = value;
-                    }
-                }
             });
 
-            return data;
+            return formData;
         },
 
         showActivityIndicator: function() {
