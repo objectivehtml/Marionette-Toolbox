@@ -24,6 +24,8 @@
 
         tagName: 'li',
 
+        className: 'tree-view-node',
+
         defaultOptions:  {
             idAttribute: 'id',
             parentAttribute: 'parent_id',
