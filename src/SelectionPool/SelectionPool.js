@@ -99,7 +99,7 @@
         });
     }
 
-    Toolbox.SelectionPool = Toolbox.LayoutView.extend({
+    Toolbox.SelectionPool = Toolbox.View.extend({
 
         template: Toolbox.Template('selection-pool'),
 
@@ -138,7 +138,7 @@
             }
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 

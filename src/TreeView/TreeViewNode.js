@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.TreeViewNode = Toolbox.CompositeView.extend({
+    Toolbox.TreeViewNode = Toolbox.CollectionView.extend({
 
         getTemplate: function() {
             if(!this.getOption('template')) {
@@ -49,7 +49,7 @@
             this.childViewOptions = _.extend({}, options, this.getOption('childViewOptions') || {});
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             return {
                 hasChildren:  this.collection ? this.collection.length > 0 : false
             };

@@ -16,7 +16,7 @@
 
     'use strict';
 
-	Toolbox.WizardProgress = Toolbox.ItemView.extend({
+	Toolbox.WizardProgress = Toolbox.View.extend({
 
 		template: Toolbox.Template('wizard-progress'),
 
@@ -46,7 +46,7 @@
             }
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             _.each(this.getOption('wizard').getOption('steps'), function(step, i) {
                 step.options.label = step.getOption('label') || step.label;
                 step.options.title = step.getOption('title') || step.title;

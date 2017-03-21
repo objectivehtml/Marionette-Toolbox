@@ -29,7 +29,7 @@
 
     'use strict';
 
-    Toolbox.MonthlyCalendarDay = Toolbox.ItemView.extend({
+    Toolbox.MonthlyCalendarDay = Toolbox.View.extend({
 
         template: Toolbox.Template('calendar-monthly-day-view'),
 
@@ -53,7 +53,7 @@
             this.render();
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             return {
                 day: this.getOption('day'),
                 hasEvents: this.hasEvents()
@@ -182,7 +182,7 @@
 
         showCollection: function() {
             _.each(this.getOption('days'), function(day, i) {
-                this.addChild(this.getDayModel(), this.getChildView(), i);
+                this.addChild(this.getDayModel(), this.childView, i);
             }, this);
         },
 
@@ -192,7 +192,7 @@
 
     });
 
-    Toolbox.MonthlyCalendar = Toolbox.CompositeView.extend({
+    Toolbox.MonthlyCalendar = Toolbox.CollectionView.extend({
 
         template: Toolbox.Template('calendar-monthly-view'),
 
@@ -522,7 +522,7 @@
 
         showCollection: function() {
             _.each(this.getCalendarWeeks(), function(week, i) {
-                this.addChild(this.getWeekModel(), this.getChildView(), i);
+                this.addChild(this.getWeekModel(), this.childView, i);
             }, this);
         },
 

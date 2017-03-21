@@ -10,7 +10,7 @@
 
     'use strict';
 
-	Toolbox.NoListGroupItem = Toolbox.ItemView.extend({
+	Toolbox.NoListGroupItem = Toolbox.View.extend({
 
 		template: Toolbox.Template('no-list-group-item'),
 
@@ -22,13 +22,13 @@
 			message: 'There are no items in the list.'
 		},
 
-		templateHelpers: function() {
+		templateContext: function() {
 			return this.options;
 		}
 
 	});
 
-	Toolbox.ListGroupItem = Toolbox.ItemView.extend({
+	Toolbox.ListGroupItem = Toolbox.View.extend({
 
 		template: Toolbox.Template('list-group-item'),
 
@@ -59,7 +59,7 @@
                 false;
         },
 
-		templateHelpers: function() {
+		templateContext: function() {
             var helper = {},
                 badge = this.getBadge(),
                 content = this.getContent();

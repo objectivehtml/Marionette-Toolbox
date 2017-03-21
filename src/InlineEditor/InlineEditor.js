@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.InlineEditor = Toolbox.LayoutView.extend({
+    Toolbox.InlineEditor = Toolbox.View.extend({
 
         template: Toolbox.Template('inline-editor'),
 

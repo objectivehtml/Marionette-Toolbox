@@ -1,20 +1,21 @@
-var packageJson = require('./package.json');
 var gulp = require('gulp');
-var injectVersion = require('gulp-inject-version');
-var browserify = require('browserify');
+var _ = require('underscore');
+var globby = require('globby');
+var wrap = require('gulp-wrap');
 var watchify = require('watchify');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+var nodeResolve = require('resolve');
 var buffer = require('vinyl-buffer');
+var declare = require('gulp-declare');
+var browserify = require('browserify');
+var browserSync = require('browser-sync');
+var packageJson = require('./package.json');
 var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
 var handlebars = require('gulp-handlebars');
-var defineModule = require('gulp-define-module');
-var browserSync = require('browser-sync');
-var globby = require('globby');
-var nodeResolve = require('resolve');
-var _ = require('underscore');
+var injectVersion = require('gulp-inject-version');
 
 function getNPMPackageIds() {
   return _.keys(packageJson.dependencies) || [];
@@ -42,6 +43,7 @@ gulp.task('css', function() {
         .pipe(gulp.dest('./dist'));
 });
 
+/*
 gulp.task('templates', function() {
     var wrapper = [
         '(function (root, factory) {',
@@ -65,7 +67,7 @@ gulp.task('templates', function() {
         '}))'
     ].join('');
 
-    gulp.src(['./src/**/*.handlebars'])
+    gulp.src(['./src/ActivityIndicator/*.hbs'])
         .pipe(handlebars())
         .pipe(defineModule('plain', {
             require: {
@@ -76,6 +78,22 @@ gulp.task('templates', function() {
         .pipe(concat('templates.js'))
         .pipe(gulp.dest('./src/Core'));
 });
+*/
+
+gulp.task('templates', function() {
+    gulp.src('./src/**/*.hbs')
+        .pipe(handlebars({
+          handlebars: require('handlebars')
+        }))
+        .pipe(wrap('Handlebars.template(<%= contents %>)'))
+        .pipe(declare({
+          namespace: 'Toolbox.templates',
+          noRedeclare: true, // Avoid duplicate declarations
+        }))
+        .pipe(concat('templates.js'))
+        .pipe(gulp.dest('./src/Core'));
+});
+
 
 gulp.task('scripts', function() {
     return gulp.src([
@@ -84,9 +102,7 @@ gulp.task('scripts', function() {
         './src/Core/templates.*js',
         './src/Core/Handlebars/*.js',
         './src/TreeView/Tree.js',
-        './src/Core/ItemView.js',
-        './src/Core/LayoutView.js',
-        './src/Core/CompositeView.js',
+        './src/Core/View.js',
         './src/Core/CollectionView.js',
         './src/BaseForm/BaseField.js',
         './src/BaseForm/BaseForm.js',
@@ -127,7 +143,7 @@ gulp.task('vendor', function () {
 gulp.task('watch', function() {
     gulp.watch('./src/**/*.css', ['css']).on('change', browserSync.reload);
     gulp.watch('./src/**/*.js', ['scripts']);
-    gulp.watch('./src/**/*.handlebars', ['templates', 'scripts']);
+    gulp.watch('./src/**/*.hbs', ['templates', 'scripts']);
     gulp.watch('./examples/**/*.html').on('change', browserSync.reload);
 });
 

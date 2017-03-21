@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.DropdownMenuNoItems = Toolbox.ItemView.extend({
+    Toolbox.DropdownMenuNoItems = Toolbox.View.extend({
 
 		tagName: 'li',
 
@@ -22,7 +22,7 @@
 
 	});
 
-	Toolbox.DropdownMenuItem = Toolbox.ItemView.extend({
+	Toolbox.DropdownMenuItem = Toolbox.View.extend({
 
 		tagName: 'li',
 
@@ -57,7 +57,7 @@
 
 	});
 
-	Toolbox.DropdownMenu = Toolbox.CompositeView.extend({
+	Toolbox.DropdownMenu = Toolbox.CollectionView.extend({
 
 		childViewContainer: 'ul',
 
@@ -123,7 +123,7 @@
 			toggleClassName: 'open'
 		},
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 

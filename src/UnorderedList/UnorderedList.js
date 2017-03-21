@@ -12,7 +12,7 @@
 
     'use strict';
 
-	Toolbox.NoUnorderedListItem = Toolbox.ItemView.extend({
+	Toolbox.NoUnorderedListItem = Toolbox.View.extend({
 
 		template: Toolbox.Template('no-unordered-list-item'),
 
@@ -22,13 +22,13 @@
 			message: 'There are no items in the list.'
 		},
 
-		templateHelpers: function() {
+		templateContext: function() {
 			return this.options;
 		}
 
 	});
 
-	Toolbox.UnorderedListItem = Toolbox.ItemView.extend({
+	Toolbox.UnorderedListItem = Toolbox.View.extend({
 
 		className: 'unordered-list-item',
 
@@ -40,7 +40,7 @@
 			}
 		},
 
-		templateHelpers: function() {
+		templateContext: function() {
 			return this.options
 		},
 

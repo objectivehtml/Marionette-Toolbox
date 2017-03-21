@@ -12,7 +12,7 @@
 
 	'use strict';
 
-	Toolbox.NoBreadcrumbs = Toolbox.ItemView.extend({
+	Toolbox.NoBreadcrumbs = Toolbox.View.extend({
 
 		template: Toolbox.Template('no-breadcrumbs'),
 
@@ -22,7 +22,7 @@
 
 	});
 
-	Toolbox.Breadcrumb = Toolbox.ItemView.extend({
+	Toolbox.Breadcrumb = Toolbox.View.extend({
 
 		template: Toolbox.Template('breadcrumb'),
 

@@ -27,11 +27,15 @@
 
 		<script id="form-template" type="text/x-handlebars-template">
 
-			<!--
+			<label><input type="checkbox" name="options[color][]" value="Red" checked="checked"> Red</label><br>
+
 			<div class="form-group">
 				<label for="first">First Name</label>
 				<input type="text" name="firstName" id="firstName" value="Justin" class="form-control" />
 			</div>
+
+			<label><input type="checkbox" name="options[color][]" value="Green" checked="checked"> Green</label><br>
+			<label><input type="checkbox" name="options[color][]" value="Blue" checked="checked"> Blue</label><br>
 
 			<div class="form-group">
 				<label for="last">Last Name</label>
@@ -43,15 +47,15 @@
 				<input type="text" name="email" id="email" value="kimbrell@me.com" class="form-control" />
 			</div>
 
+
+			<label><input type="checkbox" name="options[color][]" value="Yellow" checked="checked"> Yellow</label><br>
+
 			<div class="form-group">
 				<label for="age">Option - Age</label>
 				<input type="text" name="options[age]" id="age" value="30" class="form-control" />
 			</div>
 
-			<div class="form-group">
-				<label for="favorite-color">Option - Favorite Color</label>
-				<input type="text" name="options[color]" id="favorite-color" value="green" class="form-control" />
-			</div>
+			<label><input type="checkbox" name="options[color][]" value="Orange" checked="checked"> Orange</label><br>
 
 			<div class="form-group">
 				<label for="favorite-color">Option - Birthday</label>
@@ -67,15 +71,6 @@
 			<input type="hidden" name="options[profile][test][a][b]" value="2">
 			<input type="hidden" name="options[profile][test][b][a]" value="3">
 			<input type="hidden" name="options[profile][test][b][b]" value="4">
-		-->
-
-					<div class="form-group">
-						<label for="gender">Option - Gender</label>
-						<select name="profile[gender]" id="gender">
-							<option value="male">Male</option>
-							<option value="" selected>Female</option>
-						</select>
-					</div>
 
 			<footer>
 				<button class="btn btn-primary">Update Profile</button>
@@ -86,21 +81,27 @@
 
 		<script type="text/javascript">
 
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#app-wrapper'
+			var App = new Marionette.Application({
+				region: '#app-wrapper'
 			});
 
 			App.on('start', function() {
-
-				var source = $("#form-template").html();
-
 				var View = Toolbox.BaseForm.extend({
-					template: Handlebars.compile(source)
+					template: "#form-template",
+					showActivityIndicator: function() {
+						//
+					},
+					hideActivityIndicator: function() {
+						//
+					},
+					onSubmit: function() {
+						var data = this.getFormData();
+
+						console.log('data', data);
+					}
 				});
 
-				App.content.show(new View());
+				App.showView(new View());
 
 			});
 

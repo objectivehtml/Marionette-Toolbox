@@ -12,7 +12,7 @@
 
     'use strict';
 
-	Toolbox.WizardButtons = Toolbox.ItemView.extend({
+	Toolbox.WizardButtons = Toolbox.View.extend({
 
         template: Toolbox.Template('wizard-buttons'),
 
@@ -98,7 +98,7 @@
         },
 
         initialize: function() {
-            Toolbox.ItemView.prototype.initialize.apply(this, arguments);
+            Toolbox.View.prototype.initialize.apply(this, arguments);
 
             _.each(this.options.rightButtons, function(item) {
                 item.parent = this;
@@ -187,7 +187,7 @@
             );
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             var step = this.getCurrentStep();
             var total = this.getTotalSteps();
 

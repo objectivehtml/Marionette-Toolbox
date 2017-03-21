@@ -10,7 +10,7 @@
 
     'use strict';
 
-	Toolbox.Pager = Toolbox.ItemView.extend({
+	Toolbox.Pager = Toolbox.View.extend({
 
 		template: Toolbox.Template('pager'),
 
@@ -56,7 +56,7 @@
 			prevLabel: 'Previous'
 		},
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 

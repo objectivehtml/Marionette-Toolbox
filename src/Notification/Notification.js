@@ -12,7 +12,7 @@
 
 	'use strict';
 
-	Toolbox.Notification = Toolbox.ItemView.extend({
+	Toolbox.Notification = Toolbox.View.extend({
 
 		className: 'notification clearfix',
 
@@ -58,7 +58,7 @@
 			'click .close': 'close:click'
 		},
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 

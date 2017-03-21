@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.BaseField = Toolbox.ItemView.extend({
+    Toolbox.BaseField = Toolbox.View.extend({
 
         formModel: false,
 
@@ -62,12 +62,12 @@
             updateModel: true
         },
 
-        templateHelpers: function() {
+        templateContext: function() {
             return this.options;
         },
 
         initialize: function() {
-            Toolbox.ItemView.prototype.initialize.apply(this, arguments);
+            Toolbox.View.prototype.initialize.apply(this, arguments);
 
             this.triggers = _.extend({}, this.getDefaultTriggers(), this.triggers);
         },

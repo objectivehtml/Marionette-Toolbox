@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.ButtonGroupItem = Toolbox.ItemView.extend({
+    Toolbox.ButtonGroupItem = Toolbox.View.extend({
 
 		template: Toolbox.Template('button-group-item'),
 
@@ -45,7 +45,7 @@
 
 	});
 
-	Toolbox.NoButtonGroupItems = Toolbox.ItemView.extend({
+	Toolbox.NoButtonGroupItems = Toolbox.View.extend({
 
 		template: Toolbox.Template('no-button-group-item')
 

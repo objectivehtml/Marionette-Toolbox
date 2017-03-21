@@ -12,7 +12,7 @@
 
     'use strict';
 
-	Toolbox.WizardSuccess = Toolbox.ItemView.extend({
+	Toolbox.WizardSuccess = Toolbox.View.extend({
 
 		template: Toolbox.Template('wizard-success'),
 
@@ -25,7 +25,7 @@
             message: false
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         }
 

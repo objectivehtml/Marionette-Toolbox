@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.TabContent = Toolbox.ItemView.extend({
+    Toolbox.TabContent = Toolbox.View.extend({
 
 		template: Toolbox.Template('tab-content'),
 
@@ -24,12 +24,12 @@
 			content: false
 		},
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         }
     });
 
-	Toolbox.Tabs = Toolbox.LayoutView.extend({
+	Toolbox.Tabs = Toolbox.View.extend({
 
 		template: Toolbox.Template('tabs'),
 
@@ -55,7 +55,7 @@
 
 		tabViews: [],
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 

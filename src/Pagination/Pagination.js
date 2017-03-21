@@ -12,7 +12,7 @@
 
     'use strict';
 
-	Toolbox.PaginationItem = Toolbox.ItemView.extend({
+	Toolbox.PaginationItem = Toolbox.View.extend({
 
 		tagName: 'li',
 
@@ -35,7 +35,7 @@
 
 	});
 
-	Toolbox.Pagination = Toolbox.CompositeView.extend({
+	Toolbox.Pagination = Toolbox.CollectionView.extend({
 
 		childViewContainer: 'ul',
 
@@ -77,7 +77,7 @@
 			page: 1
 		},
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 

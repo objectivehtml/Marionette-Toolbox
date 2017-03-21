@@ -12,7 +12,7 @@
 
     'use strict';
 
-	Toolbox.Wizard = Toolbox.LayoutView.extend({
+	Toolbox.Wizard = Toolbox.View.extend({
 
         className: 'wizard',
 
@@ -62,7 +62,7 @@
             };
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 

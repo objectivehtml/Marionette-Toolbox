@@ -18,7 +18,7 @@
 
     'use strict';
 
-    Toolbox.BlockFormError = Toolbox.ItemView.extend({
+    Toolbox.BlockFormError = Toolbox.View.extend({
 
         template: Toolbox.Template('form-error'),
 
@@ -37,7 +37,7 @@
             newline: true
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             var options = _.extend({}, this.options);
 
             if(!_.isArray(options.errors)) {
@@ -55,7 +55,7 @@
 
     });
 
-    Toolbox.BaseForm = Toolbox.LayoutView.extend({
+    Toolbox.BaseForm = Toolbox.View.extend({
 
         tagName: 'form',
 
@@ -141,6 +141,49 @@
         _errorViews: false,
 
         getFormData: function() {
+            var formData = {};
+
+            function isArray(key) {
+                return key && key.match(/\[(\d+)?\]/) ? true : false;
+            }
+
+            _.each(this.$el.serializeArray(), function(field, x) {
+                var subject = formData, lastKey, matches = field.name.match(/^\w+|\[(\w+)?\]/g);
+
+                _.each(matches, function(match, i) {
+                    var key = match.replace(/[\[\]]/g, '');
+                    var nextKey = matches[i + 1];
+                    var isLastMatch = matches.length - 1 == i;
+
+                    if(isArray(match)) {
+                        if(!key) {
+                            subject.push(field.value);
+                        }
+                        else {
+                            subject.splice(key, 0, field.value);
+                        }
+                    }
+                    else {
+                        if(!subject[key]) {
+                            subject[key] = nextKey && isArray(nextKey) ? [] : {};
+                        }
+
+                        if(isLastMatch) {
+                            subject[key] = field.value;
+                        }
+
+                        subject = subject[key];
+                    }
+
+                    lastKey = key;
+                });
+            });
+
+            return formData;
+        },
+
+        /*
+        getFormData: function() {
             var data = {};
 
             function stripBrackets(component) {
@@ -205,8 +248,11 @@
                 }
             });
 
+                    console.log('data', this.$el.serializeArray());
+
             return data;
         },
+        */
 
         showActivityIndicator: function() {
             this.$indicator = this.$el.find('.form-indicator');

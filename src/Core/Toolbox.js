@@ -53,7 +53,15 @@
     // Get the default options and options and merge the,
 
     Toolbox.Options = function(defaultOptions, options, context) {
-        return _.extend({}, Marionette._getValue(defaultOptions, context), Marionette._getValue(options, context));
+        if(_.isFunction(defaultOptions)) {
+            defaultOptions = defaultOptions.call(context);
+        }
+
+        if(_.isFunction(options)) {
+            options = options.call(context);
+        }
+
+        return _.extend({}, defaultOptions, options);
     };
 
     return root.Toolbox = Toolbox;

@@ -12,7 +12,7 @@
 
     'use strict';
 
-	Toolbox.WizardError = Toolbox.ItemView.extend({
+	Toolbox.WizardError = Toolbox.View.extend({
 
 		template: Toolbox.Template('wizard-error'),
 
@@ -35,7 +35,7 @@
             'click button': 'click:back'
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 

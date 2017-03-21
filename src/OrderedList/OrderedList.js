@@ -10,7 +10,7 @@
 
     'use strict';
 
-	Toolbox.NoOrderedListItem = Toolbox.ItemView.extend({
+	Toolbox.NoOrderedListItem = Toolbox.View.extend({
 
 		template: Toolbox.Template('no-ordered-list-item'),
 
@@ -20,13 +20,13 @@
 			message: 'There are no items in the list.'
 		},
 
-		templateHelpers: function() {
+		templateContext: function() {
 			return this.options;
 		}
 
 	});
 
-	Toolbox.OrderedListItem = Toolbox.ItemView.extend({
+	Toolbox.OrderedListItem = Toolbox.View.extend({
 
 		template: Toolbox.Template('ordered-list-item'),
 
@@ -40,7 +40,7 @@
 			}
 		},
 
-		templateHelpers: function() {
+		templateContext: function() {
 			return this.options
 		}
 

@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.Modal = Toolbox.LayoutView.extend({
+    Toolbox.Modal = Toolbox.View.extend({
 
         template: Toolbox.Template('modal-window'),
 
@@ -49,7 +49,7 @@
             }
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 

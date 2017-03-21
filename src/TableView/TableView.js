@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.TableNoItemsRow = Toolbox.ItemView.extend({
+    Toolbox.TableNoItemsRow = Toolbox.View.extend({
 
         tagName: 'tr',
 
@@ -28,13 +28,13 @@
             message: 'No rows found'
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         }
 
     });
 
-    Toolbox.TableViewRow = Toolbox.ItemView.extend({
+    Toolbox.TableViewRow = Toolbox.View.extend({
 
         tagName: 'tr',
 
@@ -56,7 +56,7 @@
             'click .delete': 'click:delete'
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 
@@ -104,7 +104,7 @@
 
     });
 
-    Toolbox.TableViewFooter = Toolbox.LayoutView.extend({
+    Toolbox.TableViewFooter = Toolbox.View.extend({
 
         tagName: 'tr',
 
@@ -123,13 +123,13 @@
             columns: false
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         }
 
     });
 
-    Toolbox.TableView = Toolbox.CompositeView.extend({
+    Toolbox.TableView = Toolbox.CollectionView.extend({
 
 		className: 'table-view',
 
@@ -241,7 +241,7 @@
             }
         },
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 
@@ -340,7 +340,7 @@
             this.addChild(this.model, Toolbox.ActivityIndicator.extend({
                 template: Toolbox.Template('table-activity-indicator-row'),
                 tagName: 'tr',
-                templateHelpers: function() {
+               templateContext: function() {
                     return this.options;
                 },
                 initialize: function() {

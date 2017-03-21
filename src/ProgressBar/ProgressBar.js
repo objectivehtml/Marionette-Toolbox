@@ -10,7 +10,7 @@
 
     'use strict';
 
-	Toolbox.ProgressBar = Toolbox.ItemView.extend({
+	Toolbox.ProgressBar = Toolbox.View.extend({
 
 		template: Toolbox.Template('progress-bar'),
 
@@ -24,7 +24,7 @@
 			progress: 0
 		},
 
-        templateHelpers: function() {
+       templateContext: function() {
             return this.options;
         },
 

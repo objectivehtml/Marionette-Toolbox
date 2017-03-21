@@ -12,7 +12,7 @@
 
     'use strict';
 
-    Toolbox.ActivityIndicator = Toolbox.ItemView.extend({
+    Toolbox.ActivityIndicator = Toolbox.View.extend({
 
         template: Toolbox.Template('activity-indicator'),
 
@@ -48,7 +48,7 @@
             }
         },
 
-        templateHelpers: function() {
+        templateContext: function() {
             return this.options;
         },
 
@@ -90,7 +90,7 @@
         },
 
         initialize: function() {
-            Toolbox.ItemView.prototype.initialize.apply(this, arguments);
+            Toolbox.View.prototype.initialize.apply(this, arguments);
 
             var resizeTimer, self = this;
 
