@@ -118,6 +118,8 @@
 
                 this.triggerMethod('show:edit', modal);
             }
+
+            e.preventDefault();
         },
 
         onClickDelete: function(e) {
@@ -140,6 +142,8 @@
 
                 this.triggerMethod('show:delete', modal);
             }
+
+            e.preventDefault();
         }
 
 	});
