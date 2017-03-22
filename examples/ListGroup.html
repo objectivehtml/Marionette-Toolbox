@@ -37,15 +37,30 @@
 				var view = new Toolbox.ListGroup({
 					activateOnClick: false,
 					childView: Toolbox.ListGroupItem.extend({
-						// template: Toolbox.Template('list-group-test')
+
 					}),
 					childViewOptions: {
 						contentAttribute: 'name',
-						badgeAttribute: 'age'
+						badgeAttribute: 'age',
+						editFormClass: Toolbox.BaseForm.extend({
+							template: function() { return '<button type="submit">Submit Edit</button>'; },
+							onSubmit: function() {
+								this.triggerMethod('submit:complete', true);
+								this.triggerMethod('submit:success', true);
+							}
+						}),
+						deleteFormClass: Toolbox.BaseForm.extend({
+							template: function() { return '<button type="submit">Submit Delete</button>'; },
+							onSubmit: function() {
+								this.triggerMethod('submit:complete', true);
+								this.triggerMethod('submit:success', true);
+							}
+						})
 					},
-					collection: new Backbone.Collection([
-						// {content: '123'}
-					])
+					collection: new Backbone.Collection([{
+						name: 'Justin',
+						age: 30
+					}])
 				});
 
 				view.on('item:click', function(child) {

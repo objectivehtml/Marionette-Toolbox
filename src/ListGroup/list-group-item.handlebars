@@ -1,3 +1,12 @@
+<div class="list-group-item-actions">
+	{{#if hasEditForm}}
+		<button type="button" class="edit-item {{../editButton.className}}"><i class="{{../editButton.icon}}"></i> {{../editButton.label}}</button>
+	{{/if}}
+	{{#if hasDeleteForm}}
+		<button type="button" class="delete-item {{../deleteButton.className}}"><i class="{{../deleteButton.icon}}"></i> {{../deleteButton.label}}</button>
+	{{/if}}
+</div>
+
 {{#if badge}}
 	<span class="badge">{{../badge}}</span>
 {{/if}}
