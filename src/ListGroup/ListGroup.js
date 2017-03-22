@@ -158,7 +158,7 @@
 
 		defaultOptions: {
 			// (bool) Activate list item on click
-			activateOnClick: true,
+			activateOnClick: false,
 
 			// (string) Active class name
 			activeClassName: 'active',
@@ -205,14 +205,6 @@
 
 	        return;
         }
-
-        /*,
-
-        getChildView: function() {
-            return this.childView.extend({
-                template: this.getOption('childViewTemplate') || this.childView.prototype.template
-            });
-        }*/
 
 	});
 
