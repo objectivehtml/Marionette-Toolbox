@@ -36,11 +36,16 @@
 
 				var view = new Toolbox.ListGroup({
 					activateOnClick: false,
+					childView: Toolbox.ListGroupItem.extend({
+						// template: Toolbox.Template('list-group-test')
+					}),
 					childViewOptions: {
 						contentAttribute: 'name',
 						badgeAttribute: 'age'
 					},
-					collection: new Backbone.Collection([])
+					collection: new Backbone.Collection([
+						// {content: '123'}
+					])
 				});
 
 				view.on('item:click', function(child) {

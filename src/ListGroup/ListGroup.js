@@ -135,6 +135,14 @@
 	        return;
         }
 
+        /*,
+
+        getChildView: function() {
+            return this.childView.extend({
+                template: this.getOption('childViewTemplate') || this.childView.prototype.template
+            });
+        }*/
+
 	});
 
     return Toolbox;
