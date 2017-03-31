@@ -116,59 +116,6 @@
 
     });
 
-    Toolbox.TableViewFooter = Toolbox.View.extend({
-
-        tagName: 'tr',
-
-        template: Toolbox.Template('table-view-footer'),
-
-        modelEvents: {
-            'change': 'render'
-        },
-
-        regions: {
-            pagination: '.table-pagination'
-        },
-
-        defaultOptions: {
-            // (int) The starting page
-            page: 1,
-
-            // (int) The total number of pages
-            totalPages: 1,
-
-            // (object) The pagination view class
-            paginationView: Toolbox.Pagination,
-
-            // (object) The pagination view options object
-            paginationViewOptions: false
-        },
-
-        templateContext: function() {
-            return this.options;
-        },
-
-        showPaginationView: function(View) {
-            View = View || this.getOption('paginationView');
-
-            var view = new View(_.extend({
-                page: this.getOption('page'),
-                totalPages: this.getOption('totalPages')
-            }, this.getOption('paginationViewOptions')));
-
-            view.on('paginate', function(page, view) {
-                this.triggerMethod('paginate', page, view);
-            }, this);
-
-            this.showChildView('pagination', view);
-        },
-
-        onRender: function() {
-            this.showPaginationView();
-        }
-
-    });
-
     Toolbox.TableView = Toolbox.View.extend({
 
 		className: 'table-view',
@@ -179,7 +126,7 @@
                 replaceElement: true
             },
             header: 'thead',
-            footer: 'tfoot'
+            footer: 'tfoot td'
         },
 
         template: Toolbox.Template('table-view-group'),
@@ -232,10 +179,10 @@
             // (object) The body view options object
             bodyViewOptions: false,
 
-            // (object) The footer view class
-            footerView: Toolbox.TableViewFooter,
+            // (object) The pagination view class
+            footerView: Toolbox.Pagination,
 
-            // (object) The footer view options object
+            // (object) The pagination view options object
             footerViewOptions: false,
 
             // (string) The table header
@@ -316,7 +263,6 @@
         onRender: function() {
             this.showHeaderView();
             this.showBodyView();
-            this.showFooterView();
 
             if(this.getOption('fetchOnShow')) {
                 this.fetch();
@@ -381,24 +327,17 @@
         showFooterView: function(View) {
             View = View || this.getOption('footerView');
 
-            if(View) {
-                var view = new View(_.extend({
-                    columns: this.getOption('columns'),
-                    page: this.getOption('page'),
-                    totalPages: this.getOption('totalPages')
-                }, this.getOption('footerViewOptions')));
+            var view = new View(_.extend({
+                page: this.getOption('page'),
+                totalPages: this.getOption('totalPages')
+            }, this.getOption('footerViewOptions')));
 
-                /*
-                view.on('paginate', function(page, view) {
-                    if(page != this.getOption('page')) {
-                        this.options.page = page;
-                        this.fetch(true);
-                    }
-                }, this);
-                */
+            view.on('paginate', function(page, view) {
+                this.options.page = page;
+                this.fetch(true);
+            }, this);
 
-                this.showChildView('footer', view);
-            }
+            this.showChildView('footer', view);
         },
 
         showActivityIndicator: function() {
@@ -477,11 +416,7 @@
             this.options.page = page;
             this.options.totalPages = totalPages;
 
-            var footerView = this.getRegion('footer').currentView;
-
-            if(footerView) {
-                footerView.render();
-            }
+            this.showFooterView();
         },
 
         onFetchComplete: function(status, collection, response) {

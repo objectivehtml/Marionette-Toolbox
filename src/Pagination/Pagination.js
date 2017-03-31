@@ -165,10 +165,7 @@
 
         onDomRefresh: function() {
 			this.$el.find('.'+this.getOption('activeClassName')).removeClass(this.getOption('activeClassName'));
-            console.log(	this.$el.find('[data-page="'+this.getOption('page')+'"]'));
-
             this.$el.find('[data-page="'+this.getOption('page')+'"]').addClass(this.getOption('activeClassName'));
-
 			this.$el.find('.prev-page').parent().removeClass(this.getOption('disabledClassName'));
 			this.$el.find('.next-page').parent().removeClass(this.getOption('disabledClassName'));
 
