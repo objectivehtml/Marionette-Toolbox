@@ -130,7 +130,7 @@
 
         tagName: 'tr',
 
-        childEvents: {
+        childViewEvents: {
             click: function(view, args) {
                 this.triggerMethod('day:click', view, args);
             }
@@ -171,6 +171,7 @@
             });
         },
 
+        /*
         _renderChildren: function() {
             this.destroyEmptyView();
             this.destroyChildren();
@@ -179,6 +180,7 @@
             this.showCollection();
             this.endBuffering();
         },
+        */
 
         showCollection: function() {
             _.each(this.getOption('days'), function(day, i) {
@@ -186,9 +188,11 @@
             }, this);
         },
 
+        /*
         _initialEvents: function() {
 
         }
+        */
 
     });
 
@@ -202,7 +206,7 @@
 
         childViewContainer: 'tbody',
 
-        childEvents: {
+        childViewEvents: {
             'click': function(week, args) {
                 this.triggerMethod('week:click', week, args);
             },
@@ -344,15 +348,17 @@
         },
 
         renderCollection: function() {
-            this.triggerMethod('before:render:collection');
-            this.collection.each(function(model, i) {
-                var event = this.createEvent(model);
-                var view = this.getViewByDate(event.start);
-                if(view) {
-                    view.addEvent(event);
-                }
-            }, this);
-            this.triggerMethod('after:render:collection');
+            if(this.collection) {
+                this.triggerMethod('before:render:collection');
+                this.collection.each(function(model, i) {
+                    var event = this.createEvent(model);
+                    var view = this.getViewByDate(event.start);
+                    if(view) {
+                        view.addEvent(event);
+                    }
+                }, this);
+                this.triggerMethod('after:render:collection');
+            }
         },
 
         getViewByDate: function(date) {
@@ -459,6 +465,8 @@
         },
 
         getFirstDate: function() {
+            console.log(this);
+
             return this.children.first().getFirstDate();
         },
 
@@ -526,6 +534,7 @@
             }, this);
         },
 
+        /*
         _renderChildren: function() {
             this.destroyEmptyView();
             this.destroyChildren();
@@ -538,6 +547,7 @@
         _initialEvents: function() {
 
         }
+        */
 
     });
 

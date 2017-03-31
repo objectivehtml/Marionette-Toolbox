@@ -1,16 +1,15 @@
 {{#if panel}}
-<div class="{{../panelClassName}}">
+<div class="{{panelClassName}}">
     <div class="panel-body">
-    {{/if}}
-
+{{/if}}
         {{#if header}}
-            <{{../headerTagName}} class="{{../headerClassName}}">{{../header}}</{{../headerTagName}}>
+            <{{headerTagName}} class="{{headerClassName}}">{{header}}</{{headerTagName}}>
         {{/if}}
 
         <div class="wizard-progress"></div>
 
         {{#if description}}
-            <p>{{../description}}</p>
+            <p>{{description}}</p>
         {{/if}}
 
         <div class="wizard-content"></div>
@@ -19,8 +18,6 @@
     </div>
     <div class="wizard-buttons"></div>
 </div>
-{{/if}}
-
-{{#not panel}}
+{{else}}
 <div class="wizard-buttons"></div>
-{{/not}}
+{{/if}}

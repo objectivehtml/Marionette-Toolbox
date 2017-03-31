@@ -13,9 +13,6 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
 			var Spinner = require('spin.js');
@@ -33,15 +30,13 @@
 		</script>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#app-wrapper'
+			var App = new Marionette.Application({
+				region: '#app-wrapper'
 			});
 
 			App.on('start', function() {
 
-				var Step1 = Toolbox.ItemView.extend({
+				var Step1 = Toolbox.View.extend({
 					template: function() {
 						return $('#step-1').html();
 					}
@@ -51,7 +46,7 @@
 					title: 'Step 1'
 				});
 
-				var Step2 = Toolbox.ItemView.extend({
+				var Step2 = Toolbox.View.extend({
 					title: 'Step 2',
 					template: function() {
 						return 'Step 2';
@@ -60,12 +55,14 @@
 
 				var step2 = new Step2();
 
-				var Step3 = Toolbox.ItemView.extend({
+				var Step3 = Toolbox.View.extend({
 					title: 'Step 3',
 					template: function() {
 						return 'Step 3';
 					},
 					onWizardClickFinish: function() {
+						view.disableFinishButton();
+						
 						view.showActivityIndicator({
 							label: 'Testing...'
 						});
@@ -91,7 +88,7 @@
 				});
 
 
-				App.content.show(view);
+				App.showView(view);
 
 			});
 

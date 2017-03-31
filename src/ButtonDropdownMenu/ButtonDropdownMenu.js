@@ -81,7 +81,6 @@
 			return this.$el.find('.'+this.getOption('toggleClassName')).length > 0;
 		}
 
-
 	});
 
     return Toolbox;

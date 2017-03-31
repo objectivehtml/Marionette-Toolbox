@@ -13,9 +13,6 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
 			var Spinner = require('spin.js');
@@ -30,25 +27,22 @@
 		</div>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#app-wrapper'
+			var App = new Marionette.Application({
+				region: '#app-wrapper'
 			});
 
 			App.on('start', function() {
 
 				var UsersCollection = Backbone.Collection.extend({
 
-					url: 'http://api.wedo.ws/deals',
+					url: 'http://toolbox.dev/api/v1/names',
 
-					parse: function(data, options) {
+					parse: function(response, options) {
+						return response.data;
+
 						var responses = [];
 
-						_.each(data.response.data, function(response, i) {
-							if(response.uid) {
-								response.id = response.uid;
-							}
+						_.each(response.data, function(row) {
 							responses.push(new this.model(response));
 						}, this);
 
@@ -61,17 +55,20 @@
 
 				var view = new Toolbox.TableView({
 					collection: collection,
-					order: 'name',
-					sort: 'asc',
-					header: 'WeDo Local Deals',
+					order: 'created_at',
+					sort: 'desc',
+					header: 'Names',
 					tableClassName: 'table table-striped',
 					paginationView: Toolbox.Pagination,
 					columns: [{
-						name: 'Name',
-						id: 'name'
+						name: 'First Name',
+						id: 'first'
+					},{
+						name: 'Last Name',
+						id: 'last'
 					},{
 						name: 'Created At',
-						id: 'createdAt'
+						id: 'created_at'
 					}],
 					limit: 10,
 					buttons: [{
@@ -93,7 +90,7 @@
 					view.fetch();
 				});
 
-				App.content.show(view);
+				App.showView(view);
 
 			});
 

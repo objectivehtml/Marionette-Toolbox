@@ -13,9 +13,6 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
 		</script>
@@ -26,16 +23,14 @@
 		<div id="app-wrapper"></div>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#app-wrapper'
+			var App = new Marionette.Application({
+				region: '#app-wrapper'
 			});
 
 			App.on('start', function() {
-				var TabView = Toolbox.ItemView.extend({
+				var TabView = Toolbox.View.extend({
 					template: Toolbox.Template('tab-content'),
-			        templateHelpers: function() {
+			        templateContext: function() {
 			            return this.options;
 			        }
 				});
@@ -60,7 +55,7 @@
 					}]
 				});
 
-				App.content.show(view);
+				App.showView(view);
 
 				var tab = new Toolbox.TabContent({
 					name: 'tab-4',
@@ -72,7 +67,7 @@
 
 				view.setActiveTab('#tab-3');
 
-				view.removeTab(view.getContentView('tab-2'));
+				//view.removeTab(view.getContentView('tab-2'));
 
 			});
 

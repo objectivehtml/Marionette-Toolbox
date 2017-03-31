@@ -43,8 +43,8 @@
         }
 
         return $parent.hasClass('available-pool') ?
-            view.available.currentView :
-            view.selected.currentView;
+            view.getRegion('available').currentView :
+            view.getRegion('selected').currentView;
     }
 
     function transferNodeAfter(event, view) {
@@ -148,7 +148,9 @@
         },
 
         initialize: function() {
-            Toolbox.LayoutView.prototype.initialize.apply(this, arguments);
+            Toolbox.View.prototype.initialize.apply(this, arguments);
+
+            console.log(this);
 
             this.channel.on('detection:typing:started', function() {
                 this.triggerMethod('typing:started');
@@ -192,7 +194,7 @@
                     });
                 });
 
-                this.showSelectionPoolView(this.available, view);
+                this.showSelectionPoolView(this.getRegion('available'), view);
             }
         },
 
@@ -208,7 +210,7 @@
                     })
         		}, this.getOption('selectedTreeViewOptions')));
 
-                this.showSelectionPoolView(this.selected, view);
+                this.showSelectionPoolView(this.getRegion('selected'), view);
             }
         },
 
@@ -281,7 +283,7 @@
                     model.set('hidden', true);
                 }
 
-                this.available.currentView.render();
+                this.getRegion('available').currentView.render();
 
                 return true;
             }, this);
@@ -318,13 +320,13 @@
             }
 
             if(this.available) {
-                this.search(this.available.currentView.collection, value);
+                this.search(this.getRegion('available').currentView.collection, value);
             }
         },
 
         resetScrollBottom: function() {
             this._scrollAtBottom = false;
-            this._scrollHeight = this.available.currentView.$el.parent().prop('scrollHeight');
+            this._scrollHeight = this.getRegion('available').currentView.$el.parent().prop('scrollHeight');
         },
 
         onDomRefresh: function() {
@@ -334,7 +336,7 @@
                 this.channel
             );
 
-            var $availablePool = this.available.currentView.$el.parent();
+            var $availablePool = this.getRegion('available').currentView.$el.parent();
 
             this._lastScrollTop = 0;
             this._scrollAtBottom = false;
@@ -394,7 +396,7 @@
             });
         },
 
-        onShow: function() {
+        onRender: function() {
             this.showAvailablePool();
             this.showSelectedPool();
         }

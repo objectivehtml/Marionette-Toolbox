@@ -89,15 +89,15 @@
 
         	this.$el.find('.nav-tabs').append(tab);
         	this.$el.find('.tab-content').append(html);
-			this.regionManager.addRegion(name, '#'+name);
-			this[name].show(view);
+			this.addRegion(name, '#'+name);
+            this.showChildView(name, view);
 
 			if(setActive) {
 				this.setActiveTab(view);
 			}
         },
 
-        onShow: function() {
+        onRender: function() {
         	_.each(this.getOption('content'), function(obj, i) {
         		if(obj.cid) {
         			this.addTab(obj);

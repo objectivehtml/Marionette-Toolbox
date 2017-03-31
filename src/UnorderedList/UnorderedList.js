@@ -73,7 +73,7 @@
 			showEmptyMessage: true
 		},
 
-		childEvents: {
+		childViewEvents: {
 			'click': function(view) {
 				this.triggerMethod('item:click', view);
 			}

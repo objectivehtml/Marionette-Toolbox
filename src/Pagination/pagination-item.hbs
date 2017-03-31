@@ -1,6 +1,7 @@
-{{#not divider}}
-	<a href="{{#if ../href}}{{../../href}}{{/if}}{{#not ../href}}#{{/not}}" data-page="{{../page}}">{{../page}}</a>
-{{/not}}
 {{#if divider}}
 	<a>&hellip;</a>
+{{else}}
+	<a href="{{#if href}}{{href}}{{else}}#{{/if}}" {{#if class}}class="{{class}}"{{/if}} {{#if label}}data-label="{{label}}"{{/if}}>
+		{{#if label}}<span aria-hidden="true">{{{label}}}</span>{{/if}}{{#if page}}{{page}}{{/if}}
+	</a>
 {{/if}}

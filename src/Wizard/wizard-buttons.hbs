@@ -1,15 +1,15 @@
 <div class="wizard-left-buttons pull-left">
     {{#leftButtons}}
-        <button type="button" class="{{#if disabled}}{{../../disabledClassName}}{{/if}} {{className}}">
-            {{#if icon}}<i class="{{../icon}}"></i> {{/if}}{{label}}
+        <button type="button" class="{{#if disabled}}{{../disabledClassName}}{{/if}} {{className}}">
+            {{#if icon}}<i class="{{icon}}"></i> {{/if}}{{label}}
         </button>
     {{/leftButtons}}
 </div>
 
 <div class="wizard-right-buttons pull-right">
     {{#rightButtons}}
-        <button type="button" class="{{#if disabled}}{{../../disabledClassName}}{{/if}} {{className}}">
-            {{label}}{{#if icon}} <i class="{{../icon}}"></i>{{/if}}
+        <button type="button" class="{{#if disabled}}{{../disabledClassName}}{{/if}} {{className}}">
+            {{label}}{{#if icon}} <i class="{{icon}}"></i>{{/if}}
         </button>
     {{/rightButtons}}
 </div>

@@ -13,9 +13,6 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
 			var Spinner = require('spin.js');
@@ -33,17 +30,20 @@
 		</script>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#app-wrapper'
+			var App = new Marionette.Application({
+				region: '#app-wrapper'
 			});
+
 
 			App.on('start', function() {
 
 				var view = new Toolbox.WizardButtons({
                     step: 1,
                     totalSteps: 4
+				});
+
+				view.on('click:finish', function() {
+					console.log('finish');
 				});
 
                 view.addRightButton({
@@ -83,7 +83,7 @@
                 });
 
 
-				App.content.show(view);
+				App.showView(view);
 
 			});
 

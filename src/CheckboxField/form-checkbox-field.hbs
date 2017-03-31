@@ -1,20 +1,19 @@
 {{#if header}}
-	<{{../headerTagName}}>{{../header}}</{{../headerTagName}}>
+	<{{headerTagName}}>{{header}}</{{headerTagName}}>
 {{/if}}
 
 {{#if description}}
-	<p {{#if ../descriptionClassName}}class="{{../../descriptionClassName}}"{{/if}}>{{../description}}</p>
+	<p {{#if descriptionClassName}}class="{{descriptionClassName}}"{{/if}}>{{description}}</p>
 {{/if}}
 
-{{#not options}}
-	<div class="{{../inputClassName}}">
-		<label {{#if ../labelClassName}}class="{{../../labelClassName}}"{{/if}}><input type="{{../type}}" name="{{../name}}" value="{{../value}}"></label>
-	</div>
-{{/not}}
 {{#if options}}
-	{{#../options}}
-	<div class="{{../../inputClassName}}">
-		<label {{#if ../../labelClassName}}class="{{../../../labelClassName}}"{{/if}}><input type="{{../../type}}" name="{{../../name}}[]" value="{{value}}"> {{label}}</label>
+	{{#options}}
+	<div class="{{../inputClassName}}">
+		<label {{#if ../labelClassName}}class="{{../labelClassName}}"{{/if}}><input type="{{../type}}" name="{{../name}}[]" value="{{value}}"> {{label}}</label>
 	</div>
-	{{/../options}}
+	{{/options}}
+{{else}}
+	<div class="{{inputClassName}}">
+		<label {{#if labelClassName}}class="{{labelClassName}}"{{/if}}><input type="{{type}}" name="{{name}}" value="{{value}}"> {{label}}</label>
+	</div>
 {{/if}}

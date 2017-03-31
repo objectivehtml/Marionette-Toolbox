@@ -61,7 +61,7 @@
 
 		tagName: 'div',
 
-		childEvents: {
+		childViewEvents: {
 			'click': 'onChildClick'
 		},
 

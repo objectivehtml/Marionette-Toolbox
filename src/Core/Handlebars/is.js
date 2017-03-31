@@ -88,26 +88,6 @@
 
     Handlebars.registerHelper('is', isHelper);
 
-    /*
-    Handlebars.registerHelper('nl2br', function(text) {
-        var nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2');
-        return new Handlebars.SafeString(nl2br);
-    });
-
-    Handlebars.registerHelper('log', function() {
-        console.log(['Values:'].concat(
-            Array.prototype.slice.call(arguments, 0, -1)
-        ));
-    });
-
-    Handlebars.registerHelper('debug', function() {
-        console.log('Context:', this);
-        console.log(['Values:'].concat(
-            Array.prototype.slice.call(arguments, 0, -1)
-        ));
-    });
-	*/
-
     return eR;
 
 }));

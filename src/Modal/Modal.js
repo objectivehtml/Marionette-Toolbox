@@ -58,38 +58,38 @@
         },
 
         setContentView: function(view) {
-            this.content.show(view);
+            this.showChildView('content', view);
         },
 
         getContentView: function() {
-            return this.getOption('contentView');
+            return this.getRegion('content').currentView;
         },
 
         show: function() {
-            var t = this, view = this.getContentView();
+            var self = this, view = this.getOption('contentView');
 
             this.render();
 
             view.on('cancel:click', function() {
-                t.hide();
-            });
+                this.hide();
+            }, this);
 
             $('body').append(this.$el);
 
-            this.content.show(view);
+            this.showChildView('content', view);
 
             setTimeout(function() {
-                t.$el.addClass('show');
+                self.$el.addClass('show');
             });
         },
 
         hide: function() {
-            var t = this;
+            var self = this;
 
             this.$el.removeClass('show');
 
             setTimeout(function() {
-                t.$el.remove();
+                self.$el.remove();
             }, this.getOption('closeAnimationRate'));
         },
 

@@ -93,7 +93,7 @@
                 indicator: 'tiny'
             });
 
-            this.indicator.show(view);
+            this.showChildView('indicator', view);
         },
 
         hideActivityIndicator: function() {
@@ -130,7 +130,7 @@
 
         focus: function() {
             this.$el.addClass(this.getOption('edittingClassName'));
-            this.input.currentView.focus();
+            this.getChildView('input').focus();
             this.triggerMethod('focus');
         },
 
@@ -139,7 +139,7 @@
         },
 
         getInputValue: function() {
-            return this.input.currentView.getInputValue();
+            return this.getChildView('input').getInputValue();
         },
 
         getFormData: function() {
@@ -196,10 +196,7 @@
 
         onRender: function() {
             this.setLabelHtml(this.getModelValue());
-        },
-
-        onShow: function() {
-            this.input.show(this.createFormInputView());
+            this.showChildView('input', this.createFormInputView());
         }
 
 	});

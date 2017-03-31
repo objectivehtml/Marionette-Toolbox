@@ -1,9 +1,9 @@
 {{#if header}}
-	<{{../headerTagName}}>{{../header}}</{{../headerTagName}}>
+	<{{headerTagName}}>{{header}}</{{headerTagName}}>
 {{/if}}
 
 {{#if label}}
-	<label {{#if ../id}}id="{{../../id}}"{{/if}} {{#if ../labelClassName}}class="{{../../labelClassName}}"{{/if}}>{{../label}}</label>
+	<label {{#if id}}id="{{id}}"{{/if}} {{#if labelClassName}}class="{{labelClassName}}"{{/if}}>{{label}}</label>
 {{/if}}
 
 {{#if description}}
@@ -12,6 +12,6 @@
 
 <select {{#if name}}name="{{../name}}"{{/if}} {{#if id}}id="{{../id}}"{{/if}} class="{{inputClassName}}" {{#if multiple}}multiple{{/if}}>
 {{#options}}
-	<option {{#is value "!==" undefined}}value="{{../value}}"{{/is}} {{#if selected}}selected="selected"{{/if}}>{{#if label}}{{{../label}}}{{/if}}{{#not label}}{{{../value}}}{{/not}}</option>
+	<option {{#is value "!==" undefined}}value="{{value}}"{{/is}} {{#if selected}}selected="selected"{{/if}}>{{#if label}}{{{label}}}{{else}}{{{value}}}{{/if}}</option>
 {{/options}}
 </select>

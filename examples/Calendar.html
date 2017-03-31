@@ -13,9 +13,6 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
 			var Spinner = require('spin.js');
@@ -30,51 +27,13 @@
 		</div>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#app-wrapper'
+			var App = new Marionette.Application({
+				region: '#app-wrapper'
 			});
 
 			App.on('start', function() {
 
-				var DealsCollection = Backbone.Collection.extend({
-
-					url: 'http://api.wedo.dev/deals',
-
-					parse: function(data, options) {
-						var responses = [];
-
-						if(data.success) {
-							var t = this;
-
-							if(data.response.data) {
-								data = data.response.data;
-							}
-							else {
-								data = data.response;
-							}
-
-							_.each(data, function(response, i) {
-								if(response.uid) {
-									response.id = response.uid;
-								}
-
-								responses.push(new t.model(response));
-							});
-
-							return responses;
-						}
-
-						return [];
-					}
-
-				});
-
-				var deals = new DealsCollection();
-
 				var view = new Toolbox.MonthlyCalendar({
-					collection: deals,
 					className: 'calendar calendar-shadow',
 					date: moment()
 				});
@@ -88,7 +47,7 @@
 					console.log(events);
 				});
 
-				App.content.show(view);
+				App.showView(view);
 
 			});
 

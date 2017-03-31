@@ -13,9 +13,6 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
             var interact = require('interact.js');
@@ -29,10 +26,8 @@
 		</div>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#app-wrapper'
+			var App = new Marionette.Application({
+				region: '#app-wrapper'
 			});
 
 			App.on('start', function() {
@@ -74,7 +69,7 @@
 				var tree = new Toolbox.Tree(collection, {
 					comparator: 'order'
 				});
-				
+
 				var view = new Toolbox.DraggableTreeView({
 					collection: tree,
                     childViewOptions: {
@@ -84,7 +79,7 @@
                     }
 				});
 
-				App.content.show(view);
+				App.showView(view);
 
 			});
 

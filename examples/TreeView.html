@@ -13,9 +13,6 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
 		</script>
@@ -28,7 +25,9 @@
 		</div>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
+			var App = new Marionette.Application({
+  region: '#app-wrapper'
+});
 
 			App.addRegions({
 				content: '#app-wrapper'
@@ -112,7 +111,7 @@
                     }
                 });
 
-				App.content.show(view);
+				App.showView(view);
 
 			});
 

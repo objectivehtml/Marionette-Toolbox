@@ -67,10 +67,10 @@
         },
 
         initialize: function() {
-            Toolbox.LayoutView.prototype.initialize.apply(this, arguments);
+            Toolbox.View.prototype.initialize.apply(this, arguments);
 
             this.channel.reply('complete:step', function(step) {
-                this.progress.currentView.setComplete(step || this.getOption('step'));
+                this.getRegion('progress').currentView.setComplete(step || this.getOption('step'));
             }, this);
 
             this.channel.reply('set:step', function(step) {
@@ -82,7 +82,7 @@
                     wizard: this
                 });
 
-                this.buttons.empty();
+                this.getRegion('buttons').empty();
                 this.showView(errorView || this.getOption('errorView'), options);
             }, this);
 
@@ -91,7 +91,7 @@
                     wizard: this
                 });
 
-                this.buttons.empty();
+                this.getRegion('buttons').empty();
                 this.showView(successView || this.getOption('successView'), options);
             }, this);
         },
@@ -124,10 +124,12 @@
                 this.options.highestStep = this.getOption('step')
             }
 
-            this.progress.currentView.render();
+            if(this.getRegion('progress').currentView) {
+                this.getRegion('progress').currentView.render();
+            }
 
-            if(this.buttons.currentView) {
-                this.buttons.currentView.render();
+            if(this.getRegion('buttons').currentView) {
+                this.getRegion('buttons').currentView.render();
             }
 
             if(view = this.getStep()) {
@@ -142,7 +144,7 @@
         },
 
         showActivityIndicator: function(options, region) {
-            region || (region = this.content);
+            region || (region = this.getRegion('content'));
 
             var view = new Toolbox.ActivityIndicator(_.extend({
                 indicator: 'medium',
@@ -162,7 +164,7 @@
                     wizard: this
                 }));
 
-                this.progress.show(view);
+                this.showChildView('progress', view);
             }
             else {
                 throw new Error('The button view is not a valid class.');
@@ -177,7 +179,7 @@
                     wizard: this
                 }));
 
-                this.buttons.show(view);
+                this.showChildView('buttons', view);
             }
             else {
                 throw new Error('The button view is not a valid class.');
@@ -188,7 +190,7 @@
             if(view) {
                 view.options.wizard = this;
 
-                this.content.show(view, {
+                this.showChildView('content', view, {
                     preventDestroy: true
                 });
 
@@ -255,35 +257,35 @@
         },
 
         disableButtons: function() {
-            this.buttons.currentView.disableButtons();
+            this.getRegion('buttons').currentView.disableButtons();
         },
 
         disableNextButton: function() {
-            this.buttons.currentView.disableNextButton();
+            this.getRegion('buttons').currentView.disableNextButton();
         },
 
         disableBackButton: function() {
-            this.buttons.currentView.disableBackButton();
+            this.getRegion('buttons').currentView.disableBackButton();
         },
 
         disableFinishButton: function() {
-            this.buttons.currentView.disableFinishButton();
+            this.getRegion('buttons').currentView.disableFinishButton();
         },
 
         enableButtons: function() {
-            this.buttons.currentView.enableButtons();
+            this.getRegion('buttons').currentView.enableButtons();
         },
 
         enableNextButton: function() {
-            this.buttons.currentView.enableNextButton();
+            this.getRegion('buttons').currentView.enableNextButton();
         },
 
         enableBackButton: function() {
-            this.buttons.currentView.enableBackButton();
+            this.getRegion('buttons').currentView.enableBackButton();
         },
 
         enableFinishButton: function() {
-            this.buttons.currentView.enableFinishButton();
+            this.getRegion('buttons').currentView.enableFinishButton();
         }
 
 	});

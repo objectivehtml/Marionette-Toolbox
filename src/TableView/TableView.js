@@ -104,6 +104,18 @@
 
     });
 
+    Toolbox.TableViewBody = Toolbox.CollectionView.extend({
+
+        tagName: 'tbody',
+
+        childView: Toolbox.TableViewRow,
+
+        onChildviewBeforeRender: function(child) {
+            child.options.columns = this.getOption('columns');
+        }
+
+    });
+
     Toolbox.TableViewFooter = Toolbox.View.extend({
 
         tagName: 'tr',
@@ -115,27 +127,60 @@
         },
 
         regions: {
-            content: 'td'
+            pagination: '.table-pagination'
         },
 
         defaultOptions: {
-            // (array) Array of array of column
-            columns: false
+            // (int) The starting page
+            page: 1,
+
+            // (int) The total number of pages
+            totalPages: 1,
+
+            // (object) The pagination view class
+            paginationView: Toolbox.Pagination,
+
+            // (object) The pagination view options object
+            paginationViewOptions: false
         },
 
-       templateContext: function() {
+        templateContext: function() {
             return this.options;
+        },
+
+        showPaginationView: function(View) {
+            View = View || this.getOption('paginationView');
+
+            var view = new View(_.extend({
+                page: this.getOption('page'),
+                totalPages: this.getOption('totalPages')
+            }, this.getOption('paginationViewOptions')));
+
+            view.on('paginate', function(page, view) {
+                this.triggerMethod('paginate', page, view);
+            }, this);
+
+            this.showChildView('pagination', view);
+        },
+
+        onRender: function() {
+            this.showPaginationView();
         }
 
     });
 
-    Toolbox.TableView = Toolbox.CollectionView.extend({
+    Toolbox.TableView = Toolbox.View.extend({
 
 		className: 'table-view',
 
-        childView: Toolbox.TableViewRow,
-
-        childViewContainer: 'tbody',
+        regions: {
+            body: {
+                el: 'tbody',
+                replaceElement: true
+            },
+            header: 'thead',
+            footer: 'tfoot'
+        },
 
         template: Toolbox.Template('table-view-group'),
 
@@ -175,11 +220,23 @@
             // (array) Additional options used to generate the query string
             requestDataOptions: [],
 
-            // (object) The pagination view class
-            paginationView: false,
+            // (object) The header view class
+            headerView: false,
 
-            // (object) The pagination view options object
-            paginationViewOptions: false,
+            // (object) The header view options object
+            headerViewOptions: false,
+
+            // (object) The body view class
+            bodyView: Toolbox.TableViewBody,
+
+            // (object) The body view options object
+            bodyViewOptions: false,
+
+            // (object) The footer view class
+            footerView: Toolbox.TableViewFooter,
+
+            // (object) The footer view options object
+            footerViewOptions: false,
 
             // (string) The table header
             header: false,
@@ -256,104 +313,122 @@
             return View;
         },
 
-        onShow: function() {
+        onRender: function() {
+            this.showHeaderView();
+            this.showBodyView();
+            this.showFooterView();
+
             if(this.getOption('fetchOnShow')) {
                 this.fetch();
             }
         },
 
         onSortClick: function(e) {
-            var t = this, orderBy = $(e.target).data('id');
+            var defaultSort = 'asc',
+                currentOrder = this.getOption('order'),
+                currentSort = this.getOption('sort'),
+                order = $(e.target).data('id');
 
-            if(t.getOption('order') === orderBy) {
-                if(!t.getOption('sort')) {
-                    t.options.sort = 'asc';
+            if(currentOrder == order) {
+                if(!currentSort) {
+                    this.options.sort = defaultSort;
                 }
-                else if(t.getOption('sort') === 'asc') {
-                    t.options.sort = 'desc';
+                else if(this.getOption('sort') === 'asc') {
+                    this.options.sort = 'desc';
                 }
                 else {
-                    t.options.orderBy = false;
-                    t.options.sort = false;
+                    this.options.order = false;
+                    this.options.sort = false;
                 }
             }
             else {
-                t.options.order = orderBy;
-                t.options.sort = 'asc';
+                this.options.order = order;
+                this.options.sort = defaultSort;
             }
 
-            t.$el.find('.sort').parent().removeClass('sort-asc').removeClass('sort-desc');
+            this.$el.find('.sort').parent()
+                .removeClass('sort-asc')
+                .removeClass('sort-desc');
 
-            if(t.getOption('sort')) {
-                $(e.target).parent().addClass('sort-'+t.getOption('sort'));
+            if(this.getOption('sort')) {
+                $(e.target).parent().addClass('sort-'+this.getOption('sort'));
             }
 
-            t.fetch(true);
+            this.fetch(true);
         },
 
-        showPagination: function(page, totalPages) {
-            var t = this, View = this.getOption('paginationView');
+        showHeaderView: function(View) {
+            View = View || this.getOption('headerView');
 
-            if(!View) {
-                View = Toolbox.Pager;
+            if(View) {
+                this.showChildView('header', new View(_.extend({}, this.options)));
             }
+        },
 
-            var paginationViewOptions = this.getOption('paginationViewOptions');
+        showBodyView: function(View) {
+            View = View || this.getOption('bodyView');
 
-            if(!_.isObject(paginationViewOptions)) {
-                paginationViewOptions = {};
+            if(View) {
+                var view = new View(_.extend({
+                    collection: this.collection,
+                    columns: this.getOption('columns')
+                }, this.getOption('bodyViewOptions')));
+
+                this.showChildView('body', view);
             }
+        },
 
-            var view = new View(_.extend({
-                page: page,
-                totalPages: totalPages,
-            }, paginationViewOptions));
+        showFooterView: function(View) {
+            View = View || this.getOption('footerView');
 
-            view.on('paginate', function(page, view) {
-                if(page != t.getOption('page')) {
-                    t.options.page = page;
-                    t.fetch(true);
-                }
-            });
+            if(View) {
+                var view = new View(_.extend({
+                    columns: this.getOption('columns'),
+                    page: this.getOption('page'),
+                    totalPages: this.getOption('totalPages')
+                }, this.getOption('footerViewOptions')));
 
-            var footerView = new Toolbox.TableViewFooter({
-                columns: this.getOption('columns')
-            });
+                /*
+                view.on('paginate', function(page, view) {
+                    if(page != this.getOption('page')) {
+                        this.options.page = page;
+                        this.fetch(true);
+                    }
+                }, this);
+                */
 
-            this.pagination = new Marionette.Region({
-                el: this.$el.find('tfoot')
-            });
-
-            this.pagination.show(footerView);
-
-            footerView.content.show(view);
+                this.showChildView('footer', view);
+            }
         },
 
         showActivityIndicator: function() {
-            var t = this;
+            var self = this;
 
-            this.destroyChildren();
-            this.destroyEmptyView();
+            this.getRegion('body').currentView.collection.reset();
 
             this.$el.find('table').addClass(this.getOption('loadingClassName'));
 
-            this.addChild(this.model, Toolbox.ActivityIndicator.extend({
+            var ActivityRow = Toolbox.ActivityIndicator.extend({
                 template: Toolbox.Template('table-activity-indicator-row'),
                 tagName: 'tr',
-               templateContext: function() {
+                templateContext: function() {
                     return this.options;
                 },
                 initialize: function() {
                     Toolbox.ActivityIndicator.prototype.initialize.apply(this, arguments);
 
                     // Set the activity indicator options
-                    _.extend(this.options, t.getOption('indicatorOptions'));
+                    _.extend(this.options, self.getOption('indicatorOptions'));
 
-                    this.options.columns = t.getOption('columns');
+                    this.options.columns = self.getOption('columns');
 
                     // Set the activity indicator instance to be removed later
-                    t._activityIndicator = this;
+                    self._activityIndicator = this;
                 }
+            });
+
+            this.getRegion('body').currentView.addChildView(new ActivityRow({
+                model: this.model
             }));
         },
 
@@ -361,13 +436,9 @@
            this.$el.find('table').removeClass(this.getOption('loadingClassName'));
 
             if(this._activityIndicator) {
-                this.removeChildView(this._activityIndicator);
+                this.getRegion('body').currentView.removeChildView(this._activityIndicator);
                 this._activityIndicator = false;
             }
-        },
-
-        onChildviewBeforeRender: function(child) {
-            child.options.columns = this.getOption('columns');
         },
 
         getRequestData: function() {
@@ -382,7 +453,9 @@
 
             _.each(([]).concat(defaultOptions, options), function(name) {
                 if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
-                    data[name] = this.getOption(name);
+                    if(this.getOption(name)) {
+                        data[name] = this.getOption(name);
+                    }
                 }
             }, this);
 
@@ -390,7 +463,6 @@
         },
 
         onFetch: function(collection, response) {
-            this.destroyEmptyView();
             this.showActivityIndicator();
         },
 
@@ -405,8 +477,10 @@
             this.options.page = page;
             this.options.totalPages = totalPages;
 
-            if(this.getOption('paginate')) {
-                this.showPagination(page, totalPages);
+            var footerView = this.getRegion('footer').currentView;
+
+            if(footerView) {
+                footerView.render();
             }
         },
 
@@ -423,7 +497,7 @@
         },
 
         fetch: function(reset) {
-            var t = this;
+            var self = this;
 
             if(reset) {
                 this.collection.reset();
@@ -432,19 +506,19 @@
             this.collection.fetch({
                 data: this.getRequestData(),
                 beforeSend: function(xhr) {
-                    if(t.getOption('requestHeaders')) {
-                        _.each(t.getOption('requestHeaders'), function(value, name) {
+                    if(self.getOption('requestHeaders')) {
+                        _.each(self.getOption('requestHeaders'), function(value, name) {
                             xhr.setRequestHeader(name, value);
                         });
                     }
                 },
                 success: function(collection, response) {
-                    t.triggerMethod('fetch:complete', true, collection, response);
-                    t.triggerMethod('fetch:success', collection, response);
+                    self.triggerMethod('fetch:complete', true, collection, response);
+                    self.triggerMethod('fetch:success', collection, response);
                 },
                 error: function(collection, response) {
-                    t.triggerMethod('fetch:complete', false, collection, response);
-                    t.triggerMethod('fetch:error', collection, response)
+                    self.triggerMethod('fetch:complete', false, collection, response);
+                    self.triggerMethod('fetch:error', collection, response)
                 }
             });
 

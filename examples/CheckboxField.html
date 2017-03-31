@@ -13,9 +13,6 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
 		</script>
@@ -28,10 +25,8 @@
 		</div>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#app-wrapper'
+			var App = new Marionette.Application({
+				region: '#app-wrapper'
 			});
 
 			App.on('start', function() {
@@ -41,7 +36,8 @@
 					value: ['test_item_1', 'test_item_3'],
 					options: [{
 						value: 'test_item_1',
-						label: 'Test Item 1'
+						label: 'Test Item 1',
+						name
 					},{
 						value: 'test_item_2',
 						label: 'Test Item 2'
@@ -55,7 +51,7 @@
 					console.log(child);
 				});
 
-				App.content.show(view);
+				App.showView(view);
 			});
 
 			App.start();

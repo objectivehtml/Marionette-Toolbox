@@ -1,36 +1,41 @@
+<div class="table-header"></div>
+
 {{#if buttons.length}}
 <div class="buttons-wrapper pull-right">
-	{{#../buttons}}
-		<a href="{{href}}" class="{{#if className}}{{../className}}{{/if}}{{#not className}}{{../../buttonClassName}}{{/not}}">{{#if icon}}<i class="{{../icon}}"></i>{{/if}} {{label}}</a>
-	{{/../buttons}}
+	{{#buttons}}
+		<a href="{{href}}" class="{{#if className}}{{className}}{{else}}{{../buttonClassName}}{{/if}}">{{#if icon}}<i class="{{icon}}"></i>{{/if}} {{label}}</a>
+	{{/buttons}}
 </div>
 {{/if}}
 
 {{#if header}}
-	<{{../headerTagName}} class="{{../headerClassName}}">{{../header}}</{{../headerTagName}}>
+	<{{headerTagName}} class="{{headerClassName}}">{{header}}</{{headerTagName}}>
 {{/if}}
 
 {{#if description}}
-	<{{../descriptionTag}} class="{{../descriptionClassName}}">{{../description}}</{{../descriptionTag}}>
+	<{{descriptionTag}} class="{{descriptionClassName}}">{{description}}</{{descriptionTag}}>
 {{/if}}
 
 <table class="{{tableClassName}}">
 	<thead>
 		<tr>
 		{{#columns}}
-			<th scope="col" {{#if width}}width="{{../width}}"{{/if}} class="{{#if className}}{{../className}}{{/if}} {{#is id ../order}}sort-{{../../sort}}{{/is}}">
+			<th scope="col" {{#if width}}width="{{width}}"{{/if}} class="{{#if className}}{{className}}{{/if}} {{#is id ../order}}sort-{{../sort}}{{/is}}">
 				{{#if id}}
-					<a href="#" data-id="{{../id}}" class="sort">{{{../name}}}</a>
+					<a href="#" data-id="{{id}}" class="sort">{{{name}}}</a>
 					<i class="sort-icon asc fa fa-sort-asc"></i>
 					<i class="sort-icon desc fa fa-sort-desc"></i>
+				{{else}}
+					{{{name}}}
 				{{/if}}
-				{{#not id}}
-					{{{../name}}}
-				{{/not}}
 			</th>
 		{{/columns}}
 		</tr>
 	</thead>
 	<tbody></tbody>
-	<tfoot></tfoot>
+	<tfoot>
+		<td colspan="{{columns.length}}" class="page-totals">
+		    Page {{page}} of {{#if totalPages}}{{totalPages}}{{else}}{{page}}{{/if}}
+		</td>
+	</tfoot>
 </table>

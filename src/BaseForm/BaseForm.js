@@ -474,7 +474,11 @@
         },
 
         redirect: function() {
-            window.location = this.getRedirect();
+            var redirect = this.getRedirect();
+
+            if(redirect) {
+                window.location = redirect;
+            }
         },
 
         showSuccessNotification: function() {

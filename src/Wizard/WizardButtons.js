@@ -248,11 +248,11 @@
         },
 
         getDefaultButtonClasses: function(append) {
-            return (append ? append : '') + ' ' + this.getOption('defaultButtonClassName') + ' ' + this.getOption('buttonSizeClassName');
+            return this.getOption('defaultButtonClassName') + ' ' + this.getOption('buttonSizeClassName') + ' ' + (append || '');
         },
 
-        getPrimaryButtonClasses: function() {
-            return this.getOption('primaryButtonClassName') + ' ' + this.getOption('buttonSizeClassName');
+        getPrimaryButtonClasses: function(append) {
+            return this.getOption('primaryButtonClassName') + ' ' + this.getOption('buttonSizeClassName') + ' ' + (append || '');
         },
 
         disableButtons: function() {

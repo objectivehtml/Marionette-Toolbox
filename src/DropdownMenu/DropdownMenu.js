@@ -18,7 +18,15 @@
 
 		template: Toolbox.Template('dropdown-menu-no-items'),
 
-		className: 'no-results'
+		className: 'no-results',
+
+        defaultOptions: {
+            message: 'There are no items in the dropdown menu',
+        },
+
+        templateContext: function() {
+            return this.options;
+        }
 
 	});
 
@@ -57,13 +65,26 @@
 
 	});
 
-	Toolbox.DropdownMenu = Toolbox.CollectionView.extend({
-
-		childViewContainer: 'ul',
+    Toolbox.DropdownMenuList = Toolbox.CollectionView.extend({
 
 		childView: Toolbox.DropdownMenuItem,
 
 		emptyView: Toolbox.DropdownMenuNoItems,
+
+        className: 'dropdown-menu',
+
+		tagName: 'ul',
+
+		childViewEvents: {
+			'click': function(view, event) {
+
+				this.triggerMethod('click', view, event);
+			}
+		}
+
+	});
+
+	Toolbox.DropdownMenu = Toolbox.View.extend({
 
 		template: Toolbox.Template('dropdown-menu'),
 
@@ -71,8 +92,17 @@
 
 		tagName: 'li',
 
-		childEvents: {
+        regions: {
+            menu: {
+                el: 'ul.dropdown-menu',
+                replaceElement: true
+            }
+        },
+
+		childViewEvents: {
 			'click': function(view) {
+                console.log('asd', arguments);
+
 				if(this.getOption('closeOnClick') === true) {
 					this.hideMenu()
 				}
@@ -101,6 +131,12 @@
 			// (string) The dropdown menu class name
 			menuClassName: 'dropdown-menu',
 
+			// (string) The open class name
+            openClassName: 'open',
+
+            // (object) The view used to generate the menu items lsit
+            menuViewClass: Toolbox.DropdownMenuList,
+
 			// (int|bool) The collection limit
 			limit: false,
 
@@ -117,18 +153,15 @@
 			fetchOnShow: false,
 
 			// (bool) Show an activity indicator when fetching the collection
-			showIndicator: true,
-
-			// (string) The dropdown toggle class name
-			toggleClassName: 'open'
+			showIndicator: true
 		},
 
-       templateContext: function() {
+        templateContext: function() {
             return this.options;
         },
 
 		initialize: function() {
-			Toolbox.CompositeView.prototype.initialize.apply(this, arguments);
+			Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
 
 			this.on('fetch', function() {
 				if(this.getOption('showIndicator')) {
@@ -170,17 +203,17 @@
 		},
 
 		showMenu: function() {
-			this.$el.find('.'+this.getOption('toggleClassName')).parent().addClass(this.getOption('toggleClassName'));
+			this.$el.find('.'+this.getOption('toggleClassName')).parent().addClass(this.getOption('openClassName'));
 			this.$el.find('.'+this.getOption('toggleClassName')).attr('aria-expanded', 'true');
 		},
 
 		hideMenu: function() {
-			this.$el.find('.'+this.getOption('toggleClassName')).parent().removeClass(this.getOption('toggleClassName'));
+			this.$el.find('.'+this.getOption('toggleClassName')).parent().removeClass(this.getOption('openClassName'));
 			this.$el.find('.'+this.getOption('toggleClassName')).attr('aria-expanded', 'false');
 		},
 
 		isMenuVisible: function() {
-			return this.$el.find('.'+this.getOption('toggleClassName')).parent().hasClass(this.getOption('toggleClassName'));
+			return this.$el.find('.'+this.getOption('toggleClassName')).parent().hasClass(this.getOption('openClassName'));
 		},
 
 		onToggleClick: function() {
@@ -192,16 +225,20 @@
 			}
 		},
 
-		onShow: function() {
-			var t = this;
+		onRender: function() {
+            var MenuView = this.getOption('menuViewClass') || Toolbox.DropdownMenuList;
 
-			if(this.getOption('fetchOnShow')) {
+            this.showChildView('menu', new MenuView({
+                collection: this.collection
+            }));
+
+            if(this.getOption('fetchOnShow')) {
 				this.fetch();
 			}
 		},
 
 		fetch: function() {
-			var t = this;
+			var self = this;
 
 			this.triggerMethod('fetch');
 
@@ -212,15 +249,15 @@
 					sort: this.getOption('sort'),
 				},
 				success: function(collection, response) {
-					if(t.getOption('showIndicator')) {
-						t.hideIndicator();
+					if(self.getOption('showIndicator')) {
+						self.hideIndicator();
 					}
 
-					t.render();
-					t.triggerMethod('fetch:success', collection, response);
+					self.render();
+					self.triggerMethod('fetch:success', collection, response);
 				},
 				error: function(collection, response) {
-					t.triggerMethod('fetch:error', collection, response);
+					self.triggerMethod('fetch:error', collection, response);
 				}
 			});
 		}

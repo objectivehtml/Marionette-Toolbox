@@ -13,9 +13,6 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
 		</script>
@@ -33,45 +30,26 @@
 		</nav>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#dashboard-menu'
+			var App = new Marionette.Application({
+				region: '#dashboard-menu'
 			});
 
 			App.on('start', function() {
 
 				var view = new Toolbox.DropdownMenu({
 					toggleLabel: 'My Account',
-					items: [{
-						href: '#1',
-						label: 'Dropdown Item #1',
-						onClick: function(event) {
-							console.log('clicked', event);
-						}
-					},{
-						href: '#2',
-						label: 'Dropdown Item #2'
-					},{
-						href: '#3',
-						label: 'Dropdown Item #3'
-					},{
-						divider: true
-					},{
-						href: '#4',
-						label: 'Dropdown Item #4'
-					}]
+					items: []
 				});
 
 				view.on('toggle:click', function() {
-					console.log('do something');
+					console.log('toggle click');
 				});
 
-				view.on('item:click', function(view) {
-					console.log(view);
+				view.on('item:click', function(view, event) {
+					console.log('item click', view, event);
 				});
 
-				App.content.show(view);
+				App.showView(view);
 
 			});
 

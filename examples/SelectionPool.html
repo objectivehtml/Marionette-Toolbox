@@ -13,9 +13,6 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
             var interact = require('interact.js');
@@ -30,10 +27,8 @@
 		</div>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#app-wrapper'
+			var App = new Marionette.Application({
+				region: '#app-wrapper'
 			});
 
 			var available = [{
@@ -91,12 +86,11 @@
 				});
 
 				view.on('typing:stopped', function() {
-					console.log('stopped');
 						view.onDestroy();
 						view.channel.trigger('detection:typing:started');
 				});
 
-				App.content.show(view);
+				App.showView(view);
 			});
 
 			App.start();

@@ -1,7 +1,7 @@
 <ul class="{{pagerClassName}}">
-	<li class="{{#if snapToEdges}}{{../prevClassName}}{{/if}}"><a href="#" class="prev-page"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{prevLabel}}</a></li>
+	<li class="{{#if snapToEdges}}{{prevClassName}}{{/if}}"><a href="#" class="prev-page"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> {{prevLabel}}</a></li>
 	{{#if includePageTotals}}
-		<li class="page-totals">Page {{../page}} of {{#if ../totalPages}}{{../../totalPages}}{{/if}}</li>
+		<li class="page-totals">Page {{page}} of {{#if totalPages}}{{totalPages}}{{/if}}</li>
 	{{/if}}
-	<li class="{{#if snapToEdges}}{{../nextClassName}}{{/if}}"><a href="#" class="next-page">{{nextLabel}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></li>
+	<li class="{{#if snapToEdges}}{{nextClassName}}{{/if}}"><a href="#" class="next-page">{{nextLabel}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></li>
 </ul>

@@ -40,7 +40,7 @@
         },
 
         initialize: function() {
-            Toolbox.CompositeView.prototype.initialize.apply(this, arguments);
+            Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
 
             this.collection = this.model.children;
 

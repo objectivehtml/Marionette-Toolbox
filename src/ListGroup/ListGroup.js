@@ -102,7 +102,7 @@
 			showEmptyMessage: true,
 		},
 
-		childEvents: {
+		childViewEvents: {
 			'click': function(view, e) {
 				if(this.getOption('activateOnClick')) {
 					if(view.$el.hasClass(this.getOption('activeClassName'))) {
@@ -119,7 +119,7 @@
 			}
 		},
 
-        getEmptyView: function() {
+        emptyView: function() {
         	if(this.getOption('showEmptyMessage')) {
 	            var View = this.getOption('emptyMessageView');
 

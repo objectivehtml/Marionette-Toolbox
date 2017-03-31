@@ -23,8 +23,8 @@
 
             this.options = Toolbox.Options(this.defaultOptions, this.options, this);
 
-            //this.channelName = _.result(this, 'channelName') || _.result(this.options, 'channelName') || 'global';
-            //this.channel = _.result(this, 'channel') || _.result(this.options, 'channel') || Radio.channel(this.channelName);
+            this.channelName = _.result(this, 'channelName') || _.result(this.options, 'channelName') || 'toolbox';
+            this.channel = _.result(this, 'channel') || _.result(this.options, 'channel') || Radio.channel(this.channelName);
         }
 
 	});

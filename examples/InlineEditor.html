@@ -13,11 +13,9 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
+			var Spinner = require('spin.js');
 		</script>
 
 		<script src="../dist/marionette.toolbox.js"></script>
@@ -26,84 +24,15 @@
 		<div id="app-wrapper"></div>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#app-wrapper'
+			var App = new Marionette.Application({
+			  region: '#app-wrapper'
 			});
 
 			App.on('start', function() {
 
-				var User = Backbone.Model.extend({
-
-					url: 'http://api.wedo.dev/auth/user',
-
-					rest: {
-						'read': ':uid',
-						'create': '',
-						'update': ':uid',
-						'delete': ':uid'
-					},
-
-					sync: function(method, model, options) {
-						options = options || {};
-						method  = method.toLowerCase();
-
-						if(method == 'update' && this.forcePost) {
-							method = arguments[0] = 'create';
-						}
-
-						var rest = this.rest[method];
-
-						var append = null, uid = model.get('uid');
-
-						model.set('id', model.get('uid'));
-
-						append = rest.replace(/\:uid/, (uid ? uid : ''));
-
-						options.url = this.getUrl(method, append);
-
-						options.beforeSend = function(xhr) {
-							xhr.setRequestHeader('X-Auth-Token', '89ac9e68-d09c-42e4-9acb-52423b28f4f7');
-						};
-
-						if ( method === 'delete' ) {
-					        options.data = JSON.stringify(this.toJSON());
-					        options.contentType = 'applicaton/json';
-					    }
-
-						return Backbone.sync.apply(this, arguments);
-					},
-
-					getUrl: function(method, append) {
-						if(!method) {
-							method = 'read';
-						}
-
-						var url = this.url;
-
-						if(_.isObject(url)) {
-							if(url[method]) {
-								url = url[method];
-							}
-						}
-
-						return url;
-					},
-
-					parse: function(data, options) {
-						if(data.success) {
-							if(data.response.id) {
-								data.response.id = data.response.id;
-							}
-
-							this.set(data.response);
-						}
-					}
-
+				var model = new Backbone.Model({
+					email: 'test@test.com'
 				});
-
-				var model = new User();
 
 				var view = new Toolbox.InlineEditor({
 					attribute: 'email',
@@ -111,17 +40,7 @@
 					formInputView: Toolbox.InputField
 				});
 
-				var activity = new Toolbox.ActivityIndicator({
-					indicator: 'medium'
-				});
-
-				model.fetch({
-					success: function() {
-						App.content.show(view);
-					}
-				});
-
-				App.content.show(activity);
+				App.showView(view);
 
 			});
 

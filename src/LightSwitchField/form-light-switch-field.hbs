@@ -1,16 +1,16 @@
 {{#if header}}
-	<{{../headerTagName}}>{{../header}}</{{../headerTagName}}>
+	<{{headerTagName}}>{{header}}</{{headerTagName}}>
 {{/if}}
 
 {{#if label}}
-	<label for="{{../id}}" class="{{../labelClassName}}">{{../label}}</label>
+	<label for="{{id}}" class="{{labelClassName}}">{{label}}</label>
 {{/if}}
 
 {{#if description}}
-	<p {{#if ../descriptionClassName}}class="{{../../descriptionClassName}}"{{/if}}>{{../description}}</p>
+	<p {{#if descriptionClassName}}class="{{descriptionClassName}}"{{/if}}>{{description}}</p>
 {{/if}}
 
-<div class="{{inputClassName}} {{#is value 1}}{{../activeClassName}}{{/is}}" tabindex="0">
+<div class="{{inputClassName}} {{#is value 1}}{{activeClassName}}{{/is}}" tabindex="0">
 	<div class="light-switch-container">
 		<div class="light-switch-label on"></div>
 		<div class="light-switch-handle"></div>

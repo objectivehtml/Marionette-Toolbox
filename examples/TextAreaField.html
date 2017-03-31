@@ -13,9 +13,6 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
-
-			require('backbone.radio');
-
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
 		</script>
@@ -28,14 +25,11 @@
 		</div>
 
 		<script type="text/javascript">
-			var App = new Backbone.Marionette.Application();
-
-			App.addRegions({
-				content: '#app-wrapper'
+			var App = new Marionette.Application({
+				region: '#app-wrapper'
 			});
 
 			App.on('start', function() {
-
 				var view = new Toolbox.TextAreaField({
 					label: 'Field Name',
 					name: 'field_name',
@@ -54,8 +48,7 @@
 					console.log('blur');
 				});
 
-				App.content.show(view);
-
+				App.showView(view);
 			});
 
 			App.start();
