@@ -1,8 +1,5 @@
 .selection-pool-search {
-    background: #55b776;
-    padding: 2px;
-    margin-bottom: 20px;
-    border-radius: 1000px;
+    position: relative;
 }
 
 .selection-pool-search-activity {
@@ -40,10 +37,14 @@ a.selection-pool-search-clear:hover {
 
 .selection-pool-search-field {
     position: relative;
+    background: #55b776;
+    padding: 2px;
+    margin-bottom: 20px;
+    border-radius: 1000px;
 }
 
 .selection-pool-search-field input {
-    border-radius: 100px;
+    border-radius: 1000px;
     width: 100%;
     margin: 0;
     font-size: 14px;
