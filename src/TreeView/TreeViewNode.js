@@ -12,11 +12,11 @@
 
     'use strict';
 
-    Toolbox.TreeViewNode = Toolbox.CollectionView.extend({
+    Toolbox.TreeViewNode = Toolbox.View.extend({
 
         getTemplate: function() {
             if(!this.getOption('template')) {
-                throw new Error('A template option must be set.');
+                return Toolbox.Template('tree-view-node');
             }
 
             return this.getOption('template');
@@ -29,7 +29,11 @@
         defaultOptions:  {
             idAttribute: 'id',
             parentAttribute: 'parent_id',
-            childViewContainer: '.children'
+            //childViewContainer: '.children'
+        },
+
+        regions: {
+            nodes: '.children'
         },
 
         attributes: function() {
@@ -40,7 +44,7 @@
         },
 
         initialize: function() {
-            Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
+            Toolbox.View.prototype.initialize.apply(this, arguments);
 
             this.collection = this.model.children;
 
@@ -55,6 +59,26 @@
             return {
                 hasChildren:  this.collection ? this.collection.length > 0 : false
             };
+        },
+
+        getNodesFromModel: function(model) {
+            return model.children;
+        },
+
+        showNodes: function() {
+            var nodes = this.getNodesFromModel(this.model);
+
+            if(nodes && nodes.length) {
+                this.showChildView('nodes', new Toolbox.TreeView({
+                    template: this.getOption('template'),
+                    collection: nodes,
+                    childViewOptions: this.childViewOptions
+                }));
+            }
+        },
+
+        onRender: function() {
+            this.showNodes();
         }
 
     });

@@ -26,15 +26,10 @@
 
 		<script type="text/javascript">
 			var App = new Marionette.Application({
-  region: '#app-wrapper'
-});
-
-			App.addRegions({
-				content: '#app-wrapper'
+				region: '#app-wrapper'
 			});
 
 			App.on('start', function() {
-
                 var TreeNode = Backbone.Model.extend({
                     initialize: function() {
                         var children = this.get("children") || this.children;
@@ -105,10 +100,7 @@
                 }];
 
                 var view = new Toolbox.TreeView({
-                    collection: new TreeNodeCollection(data),
-                    childViewOptions: {
-                        template: Toolbox.Template('tree-view-node')
-                    }
+                    collection: new TreeNodeCollection(data)
                 });
 
 				App.showView(view);

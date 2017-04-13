@@ -26,22 +26,18 @@
 
 		<script type="text/javascript">
 			var App = new Marionette.Application({
-  region: '#app-wrapper'
-});
-
-			App.addRegions({
-				content: '#app-wrapper'
+				region: '#app-wrapper'
 			});
 
 			App.on('start', function() {
 				var data = [{
 					"id":6,
-					"parent_id": 7,
+					"parent_id": 2,
 					"name": "Permission 6",
 					"order": 1
 				}, {
 					"id":2,
-					"parent_id": null,
+					"parent_id": 1,
 					"name": "Permission 2",
 					"order": 1
 				}, {
@@ -51,7 +47,7 @@
 					"order": 1
 				}, {
 					"id":3,
-					"parent_id": 2,
+					"parent_id": 6,
 					"name": "Permission 3",
 					"order": 1
 				}, {
@@ -80,7 +76,6 @@
 				var view = new Toolbox.TreeView({
 					collection: tree,
                     childViewOptions: {
-                        template: Toolbox.Template('tree-view-node'),
 						className: 'node',
 						parentAttribute: 'parent_id'
                     }
