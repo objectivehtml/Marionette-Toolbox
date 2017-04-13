@@ -5,16 +5,14 @@
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
 		</button>
-	{{/if}}
-
-	{{#not splitButton}}
+	{{else}}
 		<button type="button" class="{{../buttonClassName}} {{../buttonToggleClassName}}" data-toggle="dropdown" aria-expanded="false">
 			{{#if ../buttonIcon}}<i class="{{../../buttonIcon}}"></i>{{/if}}
 			{{../buttonLabel}}
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
 		</button>
-	{{/not}}
+	{{/if}}
 
 	<ul class="{{#if menuClassName}}{{../menuClassName}}{{/if}}"></ul>
 </div>

@@ -46,6 +46,9 @@
                     this.model.get('onClick').call(this, event);
                     event.preventDefault();
                 }
+                else if(!this.model.get('href')) {
+                    event.preventDefault();
+                }
             }
         },
 
