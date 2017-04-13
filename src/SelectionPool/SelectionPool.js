@@ -108,7 +108,7 @@
         regions: {
             available: '.available-pool',
             selected: '.selected-pool',
-            activity: '.selection-pool-search-activity'
+            //activity: '.selection-pool-search-activity'
         },
 
         defaultOptions: function() {
@@ -159,19 +159,30 @@
             }, this);
         },
 
-        showSearchActivity: function() {
-            if(this.activity) {
-                var view = new Toolbox.ActivityIndicator(this.getOption('searchIndicatorOptions'));
-                this.$el.addClass('show-activity');
-                this.activity.show(view);
-            }
+        showSearchActivity: function(message) {
+            var self = this;
+
+            this.$el.find('.selection-pool-search').append([
+                '<div class="selection-pool-search-activity">',
+                    '<div class="selection-pool-search-activity-label">',
+                        (message || 'Loading...'),
+                    '</div>',
+                '</div>'
+            ].join(''));
+
+            setTimeout(function() {
+                self.$el.addClass('show-activity');
+            }, 50);
         },
 
         hideSearchActivity: function() {
-            if(this.activity) {
-                this.$el.removeClass('show-activity');
-                this.activity.empty();
-            }
+            var self = this;
+
+            this.$el.removeClass('show-activity');
+
+            setTimeout(function() {
+                self.$el.find('.selection-pool-search-activity').remove();
+            }, 250);
         },
 
         showAvailablePool: function() {
@@ -288,11 +299,9 @@
         },
 
         clearSearch: function() {
-            var value = '';
-
-            this.$el.find('.selection-pool-search-field input').val(value).focus();
+            this.$el.find('.selection-pool-search-field input').val('').focus();
             this.hideClearSearchButton();
-            this.triggerMethod('typing:stopped', value);
+            this.triggerMethod('typing:stopped', '');
         },
 
         showClearSearchButton: function() {

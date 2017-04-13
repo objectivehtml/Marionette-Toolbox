@@ -79,6 +79,10 @@
 					selectedTree: new Toolbox.Tree(new Backbone.Collection(selected))
 				});
 
+				view.on('show', function() {
+
+				});
+
 				view.on('scroll:bottom', function(scrollTop) {
 					var data = available.slice(0);
 					var total = data.length;
@@ -88,12 +92,6 @@
 					});
 
 					view.getOption('availableTree').push(data);
-				});
-
-				view.on('typing:stopped', function() {
-					console.log('stopped');
-						view.onDestroy();
-						view.channel.trigger('detection:typing:started');
 				});
 
 				App.content.show(view);
