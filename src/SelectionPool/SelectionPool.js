@@ -133,8 +133,9 @@
         },
 
         events: {
-            'click .selection-pool-search-clear': function() {
+            'click .selection-pool-search-clear': function(event) {
                 this.clearSearch();
+                event.preventDefault();
             }
         },
 
@@ -162,6 +163,7 @@
         showSearchActivity: function(message) {
             var self = this;
 
+            this.$el.find('.selection-pool-search-activity').remove();
             this.$el.find('.selection-pool-search').append([
                 '<div class="selection-pool-search-activity">',
                     '<div class="selection-pool-search-activity-label">',
@@ -292,10 +294,10 @@
                     model.set('hidden', true);
                 }
 
-                this.available.currentView.render();
-
                 return true;
             }, this);
+
+            this.available.currentView.render();
         },
 
         clearSearch: function() {
@@ -313,12 +315,9 @@
         },
 
         onTypingStarted: function() {
-            this.showSearchActivity();
         },
 
         onTypingStopped: function(value) {
-            this.hideSearchActivity();
-
             if(value) {
                 this.showClearSearchButton();
             }
