@@ -16,8 +16,6 @@
 
         className: 'wizard',
 
-        channelName: 'toolbox.wizard',
-
     	template: Toolbox.Template('wizard'),
 
         regions: {
@@ -66,36 +64,6 @@
             return this.options;
         },
 
-        initialize: function() {
-            Toolbox.LayoutView.prototype.initialize.apply(this, arguments);
-
-            this.channel.reply('complete:step', function(step) {
-                this.progress.currentView.setComplete(step || this.getOption('step'));
-            }, this);
-
-            this.channel.reply('set:step', function(step) {
-                this.setStep(step);
-            }, this);
-
-            this.channel.reply('wizard:error', function(options, errorView) {
-                options = _.extend({}, this.getOption('errorViewOptions'), options, {
-                    wizard: this
-                });
-
-                this.buttons.empty();
-                this.showView(errorView || this.getOption('errorView'), options);
-            }, this);
-
-            this.channel.reply('wizard:success', function(options, successView) {
-                options = _.extend({}, this.getOption('successViewOptions'), options, {
-                    wizard: this
-                });
-
-                this.buttons.empty();
-                this.showView(successView || this.getOption('successView'), options);
-            }, this);
-        },
-
         resetRegions: function(view) {
             if(view.regions && view.regionManager) {
                 view.regionManager.emptyRegions();
@@ -120,11 +88,11 @@
                 this.options.step = 1;
             }
 
+            this.progress.currentView.setActive(this.getOption('step'));
+
             if(this.getOption('step') > this.getOption('highestStep')) {
                 this.options.highestStep = this.getOption('step')
             }
-
-            this.progress.currentView.render();
 
             if(this.buttons.currentView) {
                 this.buttons.currentView.render();
@@ -197,8 +165,8 @@
                     view.triggerMethod('wizard:attach');
                 }, this);
 
-                view.triggerMethod('wizard:show:step', this.getOption('step'), this);
-                this.triggerMethod('show:step', this.getOption('step'), view);
+                view.triggerMethod('wizard:show:step', this.getOption('step'), view);
+                this.triggerMethod('show:step', this.getOption('step'), this);
             }
         },
 
@@ -211,7 +179,7 @@
         },
 
         next: function() {
-            this.channel.request('complete:step');
+            this.triggerMethod('complete:step', this.getOption('step'));
             this.setStep(this.getOption('step') + 1);
         },
 
@@ -219,18 +187,43 @@
             this.setStep(this.getOption('step') - 1);
         },
 
-        finish: function(success, options, View) {
-            success = (_.isUndefined(success) || success) ? true : false;
+        onShowStep: function(step) {
+            this.progress.currentView.setActive(step);
+            this.progress.currentView.render();
+        },
 
-            if(success) {
-                this.options.finished = true;
-                this.$el.addClass(this.getOption('finishedClassName'));
-                this.channel.request('complete:step');
-                this.setStep(this.getTotalSteps() + 1);
-                this.channel.request('wizard:success', options, View);
+        onCompleteStep: function(step) {
+            this.progress.currentView.setComplete(step);
+            this.progress.currentView.render();
+        },
+
+        onWizardError: function(options, ErrorView) {
+            options = _.extend({
+                wizard: this
+            }, this.getOption('errorViewOptions'), options);
+
+            this.showView(ErrorView || this.getOption('errorView'), options);
+        },
+
+        onWizardSuccess: function(options, SuccessView) {
+            options = _.extend({
+                wizard: this
+            }, this.getOption('successViewOptions'), options);
+
+            this.buttons.empty();
+            this.options.step++;
+            this.options.finished = true;
+            this.$el.addClass(this.getOption('finishedClassName'));
+            this.showView(SuccessView || this.getOption('successView'), options);
+        },
+
+        finish: function(success, options, View) {
+            if(_.isUndefined(success) || success) {
+                this.triggerMethod('complete:step', this.getTotalSteps());
+                this.triggerMethod('wizard:success', options, View);
             }
             else {
-                this.channel.request('wizard:error', options, View);
+                this.triggerMethod('wizard:error', options, View);
             }
         },
 
