@@ -80,7 +80,7 @@
         },
 
         setStep: function(step) {
-            var view = false;
+            var view = false, prevStep = this.getStep();
 
             this.options.step = parseInt(step);
 
@@ -98,8 +98,8 @@
 
             if(view = this.getStep()) {
                 this.showContent(view);
-                view.triggerMethod('wizard:show:step', this.getStep(), view);
-                this.triggerMethod('show:step', this.getStep(), this);
+                view.triggerMethod('wizard:show:step', this.getStep(), prevStep, view);
+                this.triggerMethod('show:step', this.getStep(), prevStep, this);
             }
         },
 
