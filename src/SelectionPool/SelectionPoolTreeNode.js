@@ -19,40 +19,17 @@
         onDrop: function(event) {
             var self = this, $target = $(event.target);
 
-            /*
-            Toolbox.Dropzones(event.dragEvent, event.target, {
-                before: function($element) {
-                    this.root().triggerMethod('drop:before', event, this);
-                },
-                after: function($element) {
-                    this.root().triggerMethod('drop:after', event, this);
-                },
-                children: function($element) {
-                    if(this.getOption('nestable')) {
-                        this.root().triggerMethod('drop:children', event, this);
-                    }
-                    else {
-                        this.root().triggerMethod('drop:after', event, this);
-                    }
-                },
-            }, this);
-            */
-
             if($target.hasClass('drop-before')) {
-                //this.root().collection.appendNodeBefore(node, parent);
                 this.root().triggerMethod('drop:before', event, self);
             }
             else if($target.hasClass('drop-after')) {
-                //this.root().collection.appendNodeAfter(node, parent);
                 this.root().triggerMethod('drop:after', event, self);
             }
             else if($target.hasClass('drop-children')) {
                 if(this.getOption('nestable')) {
-                    //this.root().collection.appendNode(node, parent, {at: 0});
                     this.root().triggerMethod('drop:children', event, self);
                 }
                 else {
-                    //this.root().collection.appendNodeAfter(node, parent, {at: 0});
                     this.root().triggerMethod('drop:after', event, self);
                 }
             }

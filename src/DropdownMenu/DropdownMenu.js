@@ -23,10 +23,12 @@
 	});
 
 	Toolbox.DropdownMenuItem = Toolbox.ItemView.extend({
+        
+		template: Toolbox.Template('dropdown-menu-item'),
 
 		tagName: 'li',
 
-		template: Toolbox.Template('dropdown-menu-item'),
+        className: 'dropdown-menu-item',
 
 		defaultOptions: {
 			dividerClassName: 'divider'
@@ -123,7 +125,7 @@
 			showIndicator: true,
 
 			// (string) The dropdown toggle class name
-			toggleClassName: 'open'
+			openClassName: 'open'
 		},
 
         templateHelpers: function() {
@@ -173,17 +175,17 @@
 		},
 
 		showMenu: function() {
-			this.$el.find('.'+this.getOption('toggleClassName')).parent().addClass(this.getOption('toggleClassName'));
+			this.$el.find('.'+this.getOption('toggleClassName')).parent().addClass(this.getOption('openClassName'));
 			this.$el.find('.'+this.getOption('toggleClassName')).attr('aria-expanded', 'true');
 		},
 
 		hideMenu: function() {
-			this.$el.find('.'+this.getOption('toggleClassName')).parent().removeClass(this.getOption('toggleClassName'));
+			this.$el.find('.'+this.getOption('toggleClassName')).parent().removeClass(this.getOption('openClassName'));
 			this.$el.find('.'+this.getOption('toggleClassName')).attr('aria-expanded', 'false');
 		},
 
 		isMenuVisible: function() {
-			return this.$el.find('.'+this.getOption('toggleClassName')).parent().hasClass(this.getOption('toggleClassName'));
+			return this.$el.find('.'+this.getOption('toggleClassName')).parent().hasClass(this.getOption('openClassName'));
 		},
 
 		onToggleClick: function() {

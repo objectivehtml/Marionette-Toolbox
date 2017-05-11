@@ -24,6 +24,12 @@
             nestable: true
         },
 
+        emptyView: Toolbox.ItemView,
+
+        emptyViewOptions: {
+            template: Toolbox.Template('no-tree-view-nodes')
+        },
+        
         initialize: function() {
             Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
 

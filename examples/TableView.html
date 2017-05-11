@@ -65,6 +65,11 @@
 					sort: 'asc',
 					header: 'WeDo Local Deals',
 					tableClassName: 'table table-striped',
+					headerView: Toolbox.ItemView.extend({
+						template: function() {
+							return 'test';
+						}
+					}),
 					paginationView: Toolbox.Pagination,
 					columns: [{
 						name: 'Name',

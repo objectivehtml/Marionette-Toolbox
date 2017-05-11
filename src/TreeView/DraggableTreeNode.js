@@ -100,29 +100,6 @@
                 }
             }
 
-            /*
-            Toolbox.Dropzones(event.dragEvent, event.target, {
-                before: function($element) {
-                    self.root().collection.appendNodeBefore(node, parent);
-                    self.root().triggerMethod('drop:before', event, self);
-                },
-                after: function($element) {
-                    self.root().collection.appendNodeAfter(node, parent);
-                    self.root().triggerMethod('drop:after', event, self);
-                },
-                children: function($element) {
-                    if(self.getOption('nestable')) {
-                        self.root().collection.appendNode(node, parent, {at: 0});
-                        self.root().triggerMethod('drop:children', event, self);
-                    }
-                    else {
-                        self.root().collection.appendNodeAfter(node, parent, {at: 0});
-                        self.root().triggerMethod('drop:after', event, self);
-                    }
-                },
-            }, this, true);
-            */
-
             self.root().triggerMethod('drop', event, this);
         },
 

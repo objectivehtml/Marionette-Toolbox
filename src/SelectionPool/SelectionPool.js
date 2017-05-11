@@ -226,10 +226,6 @@
         },
 
         showSelectionPoolView: function(region, view) {
-            view.on('drop', function(event, view) {
-                this.triggerMethod('drop', event, view);
-            }, this);
-
             view.on('drop:before', function(event, view) {
                 transferNodeBefore(event, this);
                 this.triggerMethod('drop:before', event, view);
@@ -243,6 +239,10 @@
             view.on('drop:children', function(event, view) {
                 transferNodeChildren(event, this);
                 this.triggerMethod('drop:children', event, view);
+            }, this);
+
+            view.on('drop', function(event, view) {
+                this.triggerMethod('drop', event, view);
             }, this);
 
             region.show(view);

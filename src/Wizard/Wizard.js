@@ -58,7 +58,7 @@
                 showButtons: true,
                 panel: false,
                 contentHeight: false,
-                submitFormOnEnter: true
+                submitFormOnEnter: false
             };
         },
 

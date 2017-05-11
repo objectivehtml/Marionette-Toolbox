@@ -34,7 +34,7 @@
 
     });
 
-    Toolbox.TableViewRow = Toolbox.ItemView.extend({
+    Toolbox.TableViewRow = Toolbox.LayoutView.extend({
 
         tagName: 'tr',
 
@@ -190,6 +190,12 @@
             // (string) The table header class name
             headerClassName: 'table-header',
 
+            // (object) The header view class
+            headerView: false,
+
+            // (object) The header view options object
+            headerViewOptions: false,
+
             // (string) The table description
             description: false,
 
@@ -245,6 +251,14 @@
             return this.options;
         },
 
+        getCurrentPage: function(response) {
+            return response.current_page || response.currentPage;
+        },
+
+        getLastPage: function(response) {
+            return response.last_page || response.lastPage;
+        },
+
         getEmptyView: function() {
             var View = Toolbox.TableNoItemsRow.extend({
                 options: {
@@ -256,39 +270,57 @@
             return View;
         },
 
-        onShow: function() {
-            if(this.getOption('fetchOnShow')) {
-                this.fetch();
-            }
+        getRequestData: function() {
+            var options = this.getOption('requestDataOptions');
+            var data = _.extend({}, this.getOption('requestData') || {});
+            var defaultOptions = this.getOption('defaultRequestDataOptions');
+
+            _.each(([]).concat(defaultOptions, options), function(name) {
+                if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
+                    data[name] = this.getOption(name);
+                }
+            }, this);
+
+            return data;
         },
 
-        onSortClick: function(e) {
-            var t = this, orderBy = $(e.target).data('id');
+        fetch: function(reset) {
+            var t = this;
 
-            if(t.getOption('order') === orderBy) {
-                if(!t.getOption('sort')) {
-                    t.options.sort = 'asc';
-                }
-                else if(t.getOption('sort') === 'asc') {
-                    t.options.sort = 'desc';
-                }
-                else {
-                    t.options.orderBy = false;
-                    t.options.sort = false;
-                }
-            }
-            else {
-                t.options.order = orderBy;
-                t.options.sort = 'asc';
+            if(reset) {
+                this.collection.reset();
             }
 
-            t.$el.find('.sort').parent().removeClass('sort-asc').removeClass('sort-desc');
+            this.collection.fetch({
+                data: this.getRequestData(),
+                beforeSend: function(xhr) {
+                    if(t.getOption('requestHeaders')) {
+                        _.each(t.getOption('requestHeaders'), function(value, name) {
+                            xhr.setRequestHeader(name, value);
+                        });
+                    }
+                },
+                success: function(collection, response) {
+                    t.triggerMethod('fetch:complete', true, collection, response);
+                    t.triggerMethod('fetch:success', collection, response);
+                },
+                error: function(collection, response) {
+                    t.triggerMethod('fetch:complete', false, collection, response);
+                    t.triggerMethod('fetch:error', collection, response)
+                }
+            });
 
-            if(t.getOption('sort')) {
-                $(e.target).parent().addClass('sort-'+t.getOption('sort'));
+            this.triggerMethod('fetch');
+        },
+
+        showHeader: function(HeaderView) {
+            if(HeaderView) {
+                this.header = new Marionette.Region({
+                    el: this.$el.find('.table-header-view').get(0)
+                });
+
+                this.header.show(new HeaderView(this.getOption('headerViewOptions')))
             }
-
-            t.fetch(true);
         },
 
         showPagination: function(page, totalPages) {
@@ -316,17 +348,19 @@
                 }
             });
 
+            this.tfoot = new Marionette.Region({
+                el: this.$el.find('tfoot').get(0)
+            });
+
             var footerView = new Toolbox.TableViewFooter({
                 columns: this.getOption('columns')
             });
 
-            this.pagination = new Marionette.Region({
-                el: this.$el.find('tfoot')
+            footerView.on('dom:refresh', function() {
+                this.content.show(view);
             });
 
-            this.pagination.show(footerView);
-
-            footerView.content.show(view);
+            this.tfoot.show(footerView);
         },
 
         showActivityIndicator: function() {
@@ -366,32 +400,49 @@
             }
         },
 
-        onChildviewBeforeRender: function(child) {
-            child.options.columns = this.getOption('columns');
-        },
-
-        getRequestData: function() {
-            var data = {};
-            var options = this.getOption('requestDataOptions');
-            var defaultOptions = this.getOption('defaultRequestDataOptions');
-            var requestData = this.getOption('requestData');
-
-            if(requestData) {
-                data = requestData;
-            }
-
-            _.each(([]).concat(defaultOptions, options), function(name) {
-                if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
-                    data[name] = this.getOption(name);
-                }
-            }, this);
-
-            return data;
-        },
-
         onFetch: function(collection, response) {
             this.destroyEmptyView();
             this.showActivityIndicator();
+        },
+
+        onShow: function() {
+        },
+
+        onSortClick: function(e) {
+            var t = this, orderBy = $(e.target).data('id');
+
+            if(t.getOption('order') === orderBy) {
+                if(!t.getOption('sort')) {
+                    t.options.sort = 'asc';
+                }
+                else if(t.getOption('sort') === 'asc') {
+                    t.options.sort = 'desc';
+                }
+                else {
+                    t.options.orderBy = false;
+                    t.options.sort = false;
+                }
+            }
+            else {
+                t.options.order = orderBy;
+                t.options.sort = 'asc';
+            }
+
+            t.$el.find('.sort').parent().removeClass('sort-asc').removeClass('sort-desc');
+
+            if(t.getOption('sort')) {
+                $(e.target).parent().addClass('sort-'+t.getOption('sort'));
+            }
+
+            t.fetch(true);
+        },
+
+        onDomRefresh: function() {
+            if(this.getOption('fetchOnShow')) {
+                this.fetch();
+            }
+
+            this.showHeader(this.getOption('headerView'));
         },
 
         onFetchSuccess: function(collection, response) {
@@ -414,41 +465,8 @@
             this.hideActivityIndicator();
         },
 
-        getCurrentPage: function(response) {
-            return response.current_page || response.currentPage;
-        },
-
-        getLastPage: function(response) {
-            return response.last_page || response.lastPage;
-        },
-
-        fetch: function(reset) {
-            var t = this;
-
-            if(reset) {
-                this.collection.reset();
-            }
-
-            this.collection.fetch({
-                data: this.getRequestData(),
-                beforeSend: function(xhr) {
-                    if(t.getOption('requestHeaders')) {
-                        _.each(t.getOption('requestHeaders'), function(value, name) {
-                            xhr.setRequestHeader(name, value);
-                        });
-                    }
-                },
-                success: function(collection, response) {
-                    t.triggerMethod('fetch:complete', true, collection, response);
-                    t.triggerMethod('fetch:success', collection, response);
-                },
-                error: function(collection, response) {
-                    t.triggerMethod('fetch:complete', false, collection, response);
-                    t.triggerMethod('fetch:error', collection, response)
-                }
-            });
-
-            this.triggerMethod('fetch');
+        onChildviewBeforeRender: function(child) {
+            child.options.columns = this.getOption('columns');
         }
 
     });
