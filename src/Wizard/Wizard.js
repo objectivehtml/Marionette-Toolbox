@@ -179,7 +179,7 @@
         },
 
         next: function() {
-            this.triggerMethod('complete:step', this.getOption('step'));
+            this.triggerMethod('complete:step', this.getStep());
             this.setStep(this.getOption('step') + 1);
         },
 
@@ -193,7 +193,7 @@
         },
 
         onCompleteStep: function(step) {
-            this.progress.currentView.setComplete(step);
+            this.progress.currentView.setComplete(step.getOption('step'));
             this.progress.currentView.render();
         },
 
