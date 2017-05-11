@@ -88,8 +88,6 @@
                 this.options.step = 1;
             }
 
-            this.progress.currentView.setActive(this.getOption('step'));
-
             if(this.getOption('step') > this.getOption('highestStep')) {
                 this.options.highestStep = this.getOption('step')
             }
@@ -100,6 +98,8 @@
 
             if(view = this.getStep()) {
                 this.showContent(view);
+                view.triggerMethod('wizard:show:step', this.getStep(), view);
+                this.triggerMethod('show:step', this.getStep(), this);
             }
         },
 
@@ -164,9 +164,6 @@
                     this.resetRegions(view);
                     view.triggerMethod('wizard:attach');
                 }, this);
-
-                view.triggerMethod('wizard:show:step', this.getOption('step'), view);
-                this.triggerMethod('show:step', this.getOption('step'), this);
             }
         },
 
@@ -188,8 +185,7 @@
         },
 
         onShowStep: function(step) {
-            this.progress.currentView.setActive(step);
-            this.progress.currentView.render();
+            this.progress.currentView.setActive(step.getOption('step'));
         },
 
         onCompleteStep: function(step) {
@@ -213,13 +209,14 @@
             this.buttons.empty();
             this.options.step++;
             this.options.finished = true;
+            this.progress.currentView.setActive(this.getOption('step'));
             this.$el.addClass(this.getOption('finishedClassName'));
             this.showView(SuccessView || this.getOption('successView'), options);
         },
 
         finish: function(success, options, View) {
             if(_.isUndefined(success) || success) {
-                this.triggerMethod('complete:step', this.getTotalSteps());
+                this.triggerMethod('complete:step', this.getStep());
                 this.triggerMethod('wizard:success', options, View);
             }
             else {
