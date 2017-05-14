@@ -271,8 +271,8 @@
         },
 
         getRequestData: function() {
+            var data = {}, requestData = _.extend({}, this.getOption('requestData'));
             var options = this.getOption('requestDataOptions');
-            var data = _.extend({}, this.getOption('requestData') || {});
             var defaultOptions = this.getOption('defaultRequestDataOptions');
 
             _.each(([]).concat(defaultOptions, options), function(name) {
@@ -281,7 +281,7 @@
                 }
             }, this);
 
-            return data;
+            return _.extend(data, requestData);
         },
 
         fetch: function(reset) {
