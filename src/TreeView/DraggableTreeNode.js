@@ -26,6 +26,7 @@
 
         defaultOptions: function() {
             return _.extend({}, Toolbox.TreeViewNode.prototype.defaultOptions, {
+                draggingClassName: 'dragging',
                 menuClassName: 'menu',
                 menuView: Toolbox.DropdownMenu,
                 menuViewOptions: {
@@ -61,73 +62,24 @@
         },
 
         onDrop: function(event) {
-            console.log('drop');
-
             var self = this, $target = $(event.target);
-            var nodeWhere = {}, parentWhere = {};
-
-            var id = $(event.relatedTarget).data('id');
-            var parentId = $(event.target).data('id');
-
-            nodeWhere[getIdAttribute(id)] = id;
-            parentWhere[getIdAttribute(parentId)] = parentId;
-
-            var node = self.root().collection.find(nodeWhere);
-            var parent = self.root().collection.find(parentWhere);
-
-            self.root().collection.removeNode(node);
 
             if($target.hasClass('drop-before')) {
-                self.root().collection.appendNodeBefore(node, parent);
-                self.root().triggerMethod('drop:before', event, self);
+                this.root().triggerMethod('drop:before', event, self);
             }
             else if($target.hasClass('drop-after')) {
-                self.root().collection.appendNodeAfter(node, parent);
-                self.root().triggerMethod('drop:after', event, self);
+                this.root().triggerMethod('drop:after', event, self);
             }
             else if($target.hasClass('drop-children')) {
-                if($(event.target).find('.children').length == 0) {
-                    $(event.target).append('<div class="children" />');
-                }
-
-                if(self.getOption('nestable')) {
-                    self.root().collection.appendNode(node, parent, {at: 0});
-                    self.root().triggerMethod('drop:children', event, self);
+                if(this.getOption('nestable')) {
+                    this.root().triggerMethod('drop:children', event, self);
                 }
                 else {
-                    self.root().collection.appendNodeAfter(node, parent, {at: 0});
-                    self.root().triggerMethod('drop:after', event, self);
+                    this.root().triggerMethod('drop:after', event, self);
                 }
             }
 
-            /*
-            Toolbox.Dropzones(event.dragEvent, event.target, {
-                before: function($element) {
-                    self.root().collection.appendNodeBefore(node, parent);
-                    self.root().triggerMethod('drop:before', event, self);
-                },
-                after: function($element) {
-                    self.root().collection.appendNodeAfter(node, parent);
-                    self.root().triggerMethod('drop:after', event, self);
-                },
-                children: function($element) {
-                    if(self.getOption('nestable')) {
-                        self.root().collection.appendNode(node, parent, {at: 0});
-                        self.root().triggerMethod('drop:children', event, self);
-                    }
-                    else {
-                        self.root().collection.appendNodeAfter(node, parent, {at: 0});
-                        self.root().triggerMethod('drop:after', event, self);
-                    }
-                },
-            }, this, true);
-            */
-
-            self.root().triggerMethod('drop', event, this);
-        },
-
-        onDragEnter: function() {
-            this.root().triggerMethod('drag:enter', event, this);
+            this.root().triggerMethod('drop', event, this);
         },
 
         onDropMove: function(event) {
@@ -150,11 +102,11 @@
                 }
             }, this);
 
-            this.root().triggerMethod('drag:enter', event, this);
+            this.root().triggerMethod('drop:move', event, this);
         },
 
         onDragMove: function(event) {
-            this.$el.addClass('dragging');
+            this.$el.addClass(this.getOption('draggingClassName'));
 
             var target = event.target;
 
@@ -171,31 +123,10 @@
         },
 
         onDragStart: function(event) {
-            var $target = $(event.target);
-
-            this._ghostElement = $target.next('.' + this.className).css({
-                'margin-top': $target.outerHeight()
-            });
-
-            if(this._ghostElement.length == 0) {
-                this._ghostElement = $target.prev().length ? $target.prev() : $target.parent();
-                this._ghostElement.css({'margin-bottom': $target.outerHeight()});
-            }
-
-            $target.css({
-                'left': event.clientX - 50,
-                'top': event.clientY - 25,
-                'width': $target.width()
-            });
-
             this.root().triggerMethod('drag:start', event, this);
         },
 
         onDragEnd: function(event) {
-            this.$el.removeClass('dragging');
-
-            this._ghostElement.attr('style', '');
-
             $(event.target).attr({
                 'data-x': false,
                 'data-y': false,
@@ -207,7 +138,12 @@
                 'transform': ''
             });
 
+            this.$el.removeClass(this.getOption('draggingClassName'));
             this.root().triggerMethod('drag:end', event, this);
+        },
+
+        onDragEnter: function(event) {
+            this.root().triggerMethod('drag:enter', event, this);
         },
 
         onDragLeave: function(event) {
@@ -223,9 +159,13 @@
         },
 
         onDomRefresh: function() {
+            Toolbox.TreeViewNode.prototype.onDomRefresh.call(this);
+
             var self = this, $el = this.$el;
 
-            interact(this.$el.get(0))
+            interact(this.$el.get(0), {
+                    allowFrom: '.drag-handle'
+                })
                 .draggable({
                     autoScroll: true,
                     onmove: function(event) {
@@ -240,7 +180,7 @@
                 })
                 .dropzone({
                     accept: '.' + this.className,
-                    overlap: 'center',
+                    overlap: 'pointer',
                     ondragenter: function (event) {
                         self.triggerMethod('drag:enter', event);
                     },

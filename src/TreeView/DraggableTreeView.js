@@ -24,11 +24,28 @@
 
         childViewOptions: {
             idAttribute: 'id',
-            parentAttribute: 'parent_id'
+            parentAttribute: 'parent_id',
+            childView: Toolbox.DraggableTreeView
         },
 
-        onDrop: function() {
-            this.collection.reorder();
+        onDropAfter: function(event, parent) {
+            var node = this.collection.findNodeById($(event.dragEvent.target).data('id'));
+
+            this.collection.appendNodeAfter(node, parent.model);
+        },
+
+        onDropBefore: function(event, parent) {
+            var node = this.collection.findNodeById($(event.dragEvent.target).data('id'));
+
+            this.collection.appendNodeBefore(node, parent.model);
+        },
+
+        onDropChildren: function(event, parent) {
+            var node = this.collection.findNodeById($(event.dragEvent.target).data('id'));
+
+            this.collection.appendNode(node, parent.model, {
+                at: 0
+            });
         }
 
     });

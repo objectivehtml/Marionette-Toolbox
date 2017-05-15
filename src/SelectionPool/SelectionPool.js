@@ -150,8 +150,6 @@
         initialize: function() {
             Toolbox.View.prototype.initialize.apply(this, arguments);
 
-            console.log(this);
-
             this.channel.on('detection:typing:started', function() {
                 this.triggerMethod('typing:started');
             }, this);
@@ -345,7 +343,7 @@
             $availablePool.scroll(function() {
                 var scrollTop = $(this).scrollTop();
                 var threshold = self.getOption('scrollBottomThreshold');
-                
+
                 self._isScrollingDown = scrollTop > self._lastScrollTop;
                 self._isPastThreshold = scrollTop + $(this).height() >= self._scrollHeight - threshold;
 

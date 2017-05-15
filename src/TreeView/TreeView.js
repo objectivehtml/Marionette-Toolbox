@@ -27,7 +27,11 @@
         initialize: function() {
             Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
 
-            this.options.childViewOptions = _.extend({}, {
+            if(this.getOption('tree')) {
+                this.collection = this.getOption('tree');
+            }
+
+            this.childViewOptions = _.extend({}, {
                 treeRoot: this,
             }, this.getOption('childViewOptions') || {});
         }

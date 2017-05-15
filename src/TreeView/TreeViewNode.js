@@ -29,7 +29,8 @@
         defaultOptions:  {
             idAttribute: 'id',
             parentAttribute: 'parent_id',
-            //childViewContainer: '.children'
+            childView: false,
+            childViewOptions: false
         },
 
         regions: {
@@ -46,13 +47,19 @@
         initialize: function() {
             Toolbox.View.prototype.initialize.apply(this, arguments);
 
-            this.collection = this.model.children;
-
             var options = _.extend({}, this.options);
 
             delete options.model;
 
             this.childViewOptions = _.extend({}, options, this.getOption('childViewOptions') || {});
+
+            if(this.collection = this.getNodesFromModel(this.model)) {
+                if(!this.$el.find('.children').html()) {
+                    this.collection.once('add', function() {
+                        this.showNodes();
+                    }, this);
+                }
+            }
         },
 
        templateContext: function() {
@@ -69,15 +76,25 @@
             var nodes = this.getNodesFromModel(this.model);
 
             if(nodes && nodes.length) {
-                this.showChildView('nodes', new Toolbox.TreeView({
-                    template: this.getOption('template'),
+                if(!this.$el.find('.children').length) {
+                    this.$el.append('<div class="children"/>');
+                }
+
+                if(!this.hasRegion('nodes')) {
+                    this.addRegion('nodes', '.children');
+                }
+
+                var ChildView = this.getOption('childView') || Toolbox.TreeView;
+
+                this.showChildView('nodes', new ChildView({
                     collection: nodes,
+                    template: this.getOption('template'),
                     childViewOptions: this.childViewOptions
                 }));
             }
         },
 
-        onRender: function() {
+        onDomRefresh: function() {
             this.showNodes();
         }
 

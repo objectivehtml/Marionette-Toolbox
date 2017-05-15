@@ -44,12 +44,12 @@
 					"order": 1
 				}, {
 					"id":3,
-					"parent_id": null,
+					"parent_id": 2,
 					"name": "Permission 3",
 					"order": 2
 				}, {
 					"id":4,
-					"parent_id": 2,
+					"parent_id": null,
 					"name": "Permission 4",
 					"order": 2
 				}, {
@@ -59,7 +59,7 @@
 					"order": 3
 				}, {
 					"id":6,
-					"parent_id": 1,
+					"parent_id": null,
 					"name": "Permission 6",
 					"order": 1
 				}];
@@ -75,11 +75,14 @@
                     childViewOptions: {
 						idAttribute: 'id',
 						parentAttribute: 'parent_id',
-                        template: Toolbox.Template('draggable-tree-view-node')
+                        template: Toolbox.Template('draggable-tree-view-node'),
+						childView: Toolbox.DraggableTreeView
                     }
 				});
 
 				App.showView(view);
+
+				return;
 
 			});
 

@@ -118,7 +118,7 @@
             collection = collection || this;
 
             collection.each(function(model, i) {
-                model.set('order', i + 1);
+                model.set(this.comparator, i + 1);
 
                 if(model.children && model.children.length) {
                     this.reorder(model.children);
@@ -135,6 +135,8 @@
         appendNode: function(child, parent, options) {
             options || (options = {});
             child.children || (child.children = this._createCollection());
+
+            this.removeNode(child);
 
             if(parent) {
                 child.set(this.getOption('parentAttribute'), parent.get(this.getOption('idAttribute')));
