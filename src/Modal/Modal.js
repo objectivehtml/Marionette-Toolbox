@@ -49,7 +49,7 @@
             }
         },
 
-       templateContext: function() {
+        templateContext: function() {
             return this.options;
         },
 
@@ -70,11 +70,21 @@
 
             this.render();
 
+            view.on('before:detach', function() {
+                $('body').off('keyup', keyupHandler);
+            });
+
             view.on('cancel:click', function() {
                 this.hide();
             }, this);
 
-            $('body').append(this.$el);
+            var keyupHandler = function(e) {
+                if(e.keyCode == 27) {
+                    self.hide();
+                }
+            }
+
+            $('body').append(this.$el).on('keyup', keyupHandler);
 
             this.showChildView('content', view);
 
@@ -89,6 +99,7 @@
             this.$el.removeClass('show');
 
             setTimeout(function() {
+                self.getRegion('content').empty();
                 self.$el.remove();
             }, this.getOption('closeAnimationRate'));
         },

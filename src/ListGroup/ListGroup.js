@@ -1,14 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore'], function(_) {
-            return factory(root.Toolbox, _);
+        define(['underscore', 'backbone'], function(_, Backbone) {
+            return factory(root.Toolbox, _, Backbone);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root._);
+        root.Toolbox = factory(root.Toolbox, root._, root.Backbone);
     }
-}(this, function (Toolbox, _) {
+}(this, function (Toolbox, _, Backbone) {
 
     'use strict';
 
@@ -58,14 +58,14 @@
 		events: {
 			'click': function(e) {
                 if(e.target == this.$el.get(0)) {
-    				this.triggerMethod('click', e);
+    				this.triggerMethod('click', this, e);
                 }
 			},
             'click .edit-item': function(e) {
-                this.triggerMethod('click:edit', e);
+                this.triggerMethod('click:edit', this, e);
             },
             'click .delete-item': function(e) {
-                this.triggerMethod('click:delete', e);
+                this.triggerMethod('click:delete', this, e);
             }
 		},
 
@@ -80,7 +80,7 @@
                 this.model.get(this.getOption('contentAttribute')) :
                 false;
         },
-        
+
 		templateContext: function() {
             var badge, content, helper = _.extend({
                 hasEditForm: this.getOption('editFormClass') ? true : false,
@@ -160,6 +160,9 @@
 			// (bool) Activate list item on click
 			activateOnClick: false,
 
+			// (bool) Activate only a single item in the list item at once
+			activateSingleItem: false,
+
 			// (string) Active class name
 			activeClassName: 'active',
 
@@ -174,19 +177,24 @@
 		},
 
 		childViewEvents: {
-			'click': function(view, e) {
-				if(this.getOption('activateOnClick')) {
-					if(view.$el.hasClass(this.getOption('activeClassName'))) {
-						view.$el.removeClass(this.getOption('activeClassName'));
-					}
-					else {
-						view.$el.addClass(this.getOption('activeClassName'));
+			'click': function(child, e) {
+                if(this.getOption('activateOnClick')) {
+                    if(child.$el.hasClass(this.getOption('activeClassName'))) {
+                        child.$el.removeClass(this.getOption('activeClassName'));
+                    }
+                    else {
+                        if(this.getOption('activateSingleItem')) {
+                            this.$el.find('.'+this.getOption('activeClassName'))
+                                .removeClass(this.getOption('activeClassName'));
+                        }
 
-						this.triggerMethod('activate', view);
-					}
-				}
+                        child.$el.addClass(this.getOption('activeClassName'));
 
-				this.triggerMethod('item:click', view, e);
+                        this.triggerMethod('activate', e);
+                    }
+                }
+
+				this.triggerMethod('item:click', child, e);
 			}
 		},
 
