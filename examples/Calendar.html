@@ -38,17 +38,30 @@
 					date: moment()
 				});
 
-				view.on('create:event', function(event) {
-					event.start = moment(event.model.get('createdAt'));
-		            event.end = moment(event.model.get('createdAt')).add(1, 'hour');
+				view.on('day:click', function() {
+					// console.log(arguments);
 				});
 
 				view.on('show:events', function(view, events) {
 					console.log(events);
 				});
 
+				/*
+				view.on('create:event', function(event) {
+					event.start = moment(event.model.get('createdAt'));
+		            event.end = moment(event.model.get('createdAt')).add(1, 'hour');
+				});
+				*/
+
 				App.showView(view);
 
+				view.renderCollection(new Backbone.Collection([{
+					start: new Date('2017-05-01 07:00:00'),
+					end: new Date('2017-05-01 09:00:00')
+				}, {
+					start: new Date('2017-05-02 07:00:00'),
+					end: new Date('2017-05-02 09:00:00')
+				}]));
 			});
 
 			App.start();

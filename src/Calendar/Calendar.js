@@ -45,17 +45,12 @@
             'change': 'modelChanged'
         },
 
-        defaultOptions: {
-            date: false
-        },
-
         modelChanged: function() {
             this.render();
         },
 
        templateContext: function() {
             return {
-                day: this.getOption('day'),
                 hasEvents: this.hasEvents()
             }
         },
@@ -65,16 +60,20 @@
         },
 
         getDate: function() {
-            return this.getOption('date');
+            var date = this.model.get('date');
+
+            if(!date instanceof moment) {
+                date = moment(date);
+            }
+
+            return date;
         },
 
         hasEvents: function() {
-            return this.model.get('events').length > 0 ? true : false;
+            return this.model.get('events') && this.model.get('events').length > 0 ? true : false;
         },
 
         onRender: function() {
-            var t = this;
-
             if(this.getDate().isSame(new Date(), 'day')) {
                 this.$el.addClass('calendar-today');
             }
@@ -131,14 +130,22 @@
         tagName: 'tr',
 
         childViewEvents: {
-            click: function(view, args) {
-                this.triggerMethod('day:click', view, args);
+            click: function(view, event) {
+                this.triggerMethod('day:click', view, this, event);
             }
         },
 
         defaultOptions: {
             days: false,
             events: false
+        },
+
+        initialize: function() {
+            Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
+
+            if(!this.collection) {
+                this.collection = new Backbone.Collection(this.model.get('days'));
+            }
         },
 
         childViewOptions: function(child, index) {
@@ -163,64 +170,32 @@
 
         getLastDate: function() {
             return this.children.last().getDate();
-        },
-
-        getDayModel: function() {
-            return new Backbone.Model({
-                events: []
-            });
-        },
-
-        /*
-        _renderChildren: function() {
-            this.destroyEmptyView();
-            this.destroyChildren();
-
-            this.startBuffering();
-            this.showCollection();
-            this.endBuffering();
-        },
-        */
-
-        showCollection: function() {
-            _.each(this.getOption('days'), function(day, i) {
-                this.addChild(this.getDayModel(), this.childView, i);
-            }, this);
-        },
-
-        /*
-        _initialEvents: function() {
-
         }
-        */
 
     });
 
-    Toolbox.MonthlyCalendar = Toolbox.CollectionView.extend({
+    Toolbox.MonthlyCalendar = Toolbox.View.extend({
 
         template: Toolbox.Template('calendar-monthly-view'),
 
         className: 'calendar',
 
-        childView: Toolbox.MonthlyCalendarWeek,
-
-        childViewContainer: 'tbody',
-
-        childViewEvents: {
-            'click': function(week, args) {
-                this.triggerMethod('week:click', week, args);
-            },
-            'day:click': function(week, day) {
-                this.setDate(day.getDate());
-                this.triggerMethod('day:click', week, day);
-            }
-        },
-
         defaultOptions: {
             collection: false,
-            date: false,
             alwaysShowSixWeeks: true,
             fetchOnRender: true,
+            bodyView: Toolbox.CollectionView.extend({
+                tagName: 'tbody',
+                childView: Toolbox.MonthlyCalendarWeek,
+                childViewEvents: {
+                    'click': function(view, event) {
+                        this.triggerMethod('week:click', view, event);
+                    },
+                    'day:click': function(view, week, event) {
+                        this.getOption('calendar').triggerMethod('day:click', view, week, event);
+                    }
+                }
+            }),
             indicatorOptions: {
                 indicator: 'small',
                 dimmed: true,
@@ -231,6 +206,13 @@
         triggers: {
             'click .calendar-navigation-prev': 'prev:click',
             'click .calendar-navigation-next': 'next:click'
+        },
+
+        regions: {
+            body: {
+                el: 'tbody',
+                replaceElement: true
+            }
         },
 
         childViewOptions: function(child, index) {
@@ -247,7 +229,7 @@
         },
 
         fetch: function() {
-            var t = this, params = this.getQueryVariables();
+            var self = this, params = this.getQueryVariables();
 
             if(this.getCacheResponse(params)) {
                 this.restoreCacheResponse(params);
@@ -258,13 +240,13 @@
                 this.collection.fetch({
                     data: params,
                     success: function(collection, response) {
-                        t.setCacheResponse(params, collection);
-                        t.triggerMethod('fetch:complete', true, collection, response);
-                        t.triggerMethod('fetch:success', collection, response);
+                        self.setCacheResponse(params, collection);
+                        self.triggerMethod('fetch:complete', true, collection, response);
+                        self.triggerMethod('fetch:success', collection, response);
                     },
                     error: function(model, response) {
-                        t.triggerMethod('fetch:complete', false, collection, response);
-                        t.triggerMethod('fetch:error', collection, response);
+                        self.triggerMethod('fetch:complete', false, collection, response);
+                        self.triggerMethod('fetch:error', collection, response);
                     }
                 });
             }
@@ -290,13 +272,33 @@
             return event;
         },
 
+        showBodyView: function() {
+            var BodyView = this.getOption('bodyView');
+            var bodyView = new BodyView(_.extend({}, {
+                calendar: this
+            }, this.getOption('bodyViewOptions')));
+
+            this.showChildView('body', bodyView);
+
+            _.each(this.getCalendarWeeks(), function(week, i) {
+                bodyView.addChildView(bodyView.buildChildView(new Backbone.Model({
+                    days: week
+                }), bodyView.childView), i);
+            }, this);
+        },
+
+        onDayClick: function(day, week, event) {
+            this.setDate(day.getDate());
+        },
+
         onRender: function() {
+            this.showBodyView();
+
             this.$el.find('.calendar-header').html(this.getCalendarHeader());
             this.$el.find('.calendar-sub-header').html(this.getCalendarSubHeader());
-            this.renderCollection();
 
             if(this.getOption('fetchOnRender')) {
-                this.fetch();
+                //this.fetch();
             }
         },
 
@@ -347,18 +349,16 @@
             this.triggerMethod('indicator:hide');
         },
 
-        renderCollection: function() {
-            if(this.collection) {
-                this.triggerMethod('before:render:collection');
-                this.collection.each(function(model, i) {
-                    var event = this.createEvent(model);
-                    var view = this.getViewByDate(event.start);
-                    if(view) {
-                        view.addEvent(event);
-                    }
-                }, this);
-                this.triggerMethod('after:render:collection');
-            }
+        renderCollection: function(collection) {
+            this.triggerMethod('before:render:collection', collection);
+            collection.each(function(model, i) {
+                var event = this.createEvent(model);
+                var view = this.getViewByDate(event.start);
+                if(view) {
+                    view.addEvent(event);
+                }
+            }, this);
+            this.triggerMethod('after:render:collection', collection);
         },
 
         getViewByDate: function(date) {
@@ -368,7 +368,7 @@
 
             var view = null;
 
-            this.children.each(function(week, x) {
+            this.getRegion('body').currentView.children.each(function(week, x) {
                 week.children.each(function(day, y) {
                     if(day.getDate().isSame(date, 'day')) {
                         if(_.isNull(view)) {
@@ -465,8 +465,6 @@
         },
 
         getFirstDate: function() {
-            console.log(this);
-
             return this.children.first().getFirstDate();
         },
 
@@ -530,24 +528,9 @@
 
         showCollection: function() {
             _.each(this.getCalendarWeeks(), function(week, i) {
-                this.addChild(this.getWeekModel(), this.childView, i);
+                this.addChildView(this.buildChildView(this.getWeekModel(), this.childView), i);
             }, this);
-        },
-
-        /*
-        _renderChildren: function() {
-            this.destroyEmptyView();
-            this.destroyChildren();
-            this.startBuffering();
-            this.showCollection();
-            this.endBuffering();
-        },
-
-        // Must override core method to do nothing
-        _initialEvents: function() {
-
         }
-        */
 
     });
 
