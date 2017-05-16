@@ -29,9 +29,10 @@
 .draggable-tree,
 .draggable-tree ul {
     list-style: none;
-    padding: 5px;
+    padding: 0 5px;
     font-size: 16px;
     margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .draggable-tree > .draggable-tree-node {
