@@ -70,10 +70,10 @@
     border-bottom: 2px solid #8ed359;
 }
 
-.draggable-tree-node.dragging {
+.draggable-tree.dragging {
     opacity: .5;
     z-index: 9999999;
-    position: relative;
+    position: fixed;
 }
 
 .draggable-tree-node .drag-handle {

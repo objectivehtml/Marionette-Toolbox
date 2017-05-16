@@ -106,9 +106,7 @@
         },
 
         onDragMove: function(event) {
-            this.$el.addClass(this.getOption('draggingClassName'));
-
-            var target = event.target;
+            var target = this._ghostElement.get(0);
 
             var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
             var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
@@ -123,22 +121,26 @@
         },
 
         onDragStart: function(event) {
+            var $target = $(event.target);
+
+            this._ghostElement = $('<ul class="draggable-tree" />')
+                .append($target.clone())
+                .addClass(this.getOption('draggingClassName'))
+                .css({
+                    left: event.interaction.curCoords.client.x - event.interaction.downEvent.offsetX,
+                    top: event.interaction.curCoords.client.y - event.interaction.downEvent.offsetY
+                });
+
+            $target.css('opacity', 0);
+            $('body').append(this._ghostElement);
+
             this.root().triggerMethod('drag:start', event, this);
         },
 
         onDragEnd: function(event) {
-            $(event.target).attr({
-                'data-x': false,
-                'data-y': false,
-            })
-            .css({
-                'width': '',
-                'left': '',
-                'top': '',
-                'transform': ''
-            });
+            $(event.target).css('opacity', 100);
 
-            this.$el.removeClass(this.getOption('draggingClassName'));
+            this._ghostElement.remove();
             this.root().triggerMethod('drag:end', event, this);
         },
 
@@ -164,7 +166,7 @@
             var self = this, $el = this.$el;
 
             interact(this.$el.get(0), {
-                    allowFrom: '.drag-handle'
+                    // allowFrom: '.drag-handle'
                 })
                 .draggable({
                     autoScroll: true,
