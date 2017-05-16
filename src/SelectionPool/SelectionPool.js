@@ -113,6 +113,7 @@
                     parent: this,
                     collection: this.getOption('availableTree'),
                     childViewOptions: _.extend({}, AvailableTreeView.prototype.childViewOptions, {
+                        childView: Toolbox.DraggableTreeView,
                         nestable: this.getOption('nestable'),
                         template: this.getOption('availableTreeViewTemplate')
                     })
@@ -136,6 +137,7 @@
                     parent: this,
                     collection: this.getOption('selectedTree'),
                     childViewOptions: _.extend({}, SelectedTreeView.prototype.childViewOptions, {
+                        childView: Toolbox.DraggableTreeView,
                         nestable: this.getOption('nestable'),
                         template: this.getOption('selectedTreeViewTemplate')
                     })

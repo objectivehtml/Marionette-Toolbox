@@ -67,8 +67,6 @@
 
     Toolbox.SelectionPoolTreeView = Toolbox.DraggableTreeView.extend({
 
-        childView: Toolbox.SelectionPoolTreeNode,
-
         onDropAfter: function(event, parent) {
             transferNodeAfter(event, this.getOption('parent'));
         },
