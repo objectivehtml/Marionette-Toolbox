@@ -127,8 +127,8 @@
                 .append($target.clone())
                 .addClass(this.getOption('draggingClassName'))
                 .css({
-                    left: event.interaction.curCoords.client.x - event.interaction.downEvent.offsetX,
-                    top: event.interaction.curCoords.client.y - event.interaction.downEvent.offsetY
+                    left: event.interaction.curCoords.client.x - ($target.find('.drag-handle').outerWidth() / 2),
+                    top: event.interaction.curCoords.client.y - ($target.find('.drag-handle').outerHeight() / 2)
                 });
 
             $target.css('opacity', 0);
