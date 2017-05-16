@@ -167,12 +167,6 @@
             // (array) Additional options used to generate the query string
             requestDataOptions: [],
 
-            // (object) The header view class
-            headerView: false,
-
-            // (object) The header view options object
-            headerViewOptions: false,
-
             // (object) The body view class
             bodyView: Toolbox.TableViewBody,
 
@@ -395,8 +389,7 @@
         },
 
         getRequestData: function() {
-            var data = {}, requestData = _.extend({}, this.getOption('requestData'));
-            var options = this.getOption('requestDataOptions');
+            var data = {}, options = this.getOption('requestDataOptions');
             var defaultOptions = this.getOption('defaultRequestDataOptions');
 
             _.each(([]).concat(defaultOptions, options), function(name) {
@@ -405,11 +398,11 @@
                 }
             }, this);
 
-            return _.extend(data, requestData);
+            return _.extend(data, this.getOption('requestData'));
         },
 
         onSortClick: function(e) {
-            var t = this, orderBy = $(e.target).data('id');
+            var self = this, orderBy = $(e.target).data('id');
 
             _.each(([]).concat(defaultOptions, options), function(name) {
                 if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
@@ -417,26 +410,22 @@
                         data[name] = this.getOption(name);
                     }
                 }
-                else if(t.getOption('sort') === 'asc') {
-                    t.options.sort = 'desc';
+                else if(self.getOption('sort') === 'asc') {
+                    self.options.sort = 'desc';
                 }
                 else {
-                    t.options.orderBy = false;
-                    t.options.sort = false;
+                    self.options.orderBy = false;
+                    self.options.sort = false;
                 }
-            }
-            else {
-                t.options.order = orderBy;
-                t.options.sort = 'asc';
-            }
+            });
 
-            t.$el.find('.sort').parent().removeClass('sort-asc').removeClass('sort-desc');
+            this.$el.find('.sort').parent().removeClass('sort-asc').removeClass('sort-desc');
 
-            if(t.getOption('sort')) {
-                $(e.target).parent().addClass('sort-'+t.getOption('sort'));
+            if(self.getOption('sort')) {
+                $(e.target).parent().addClass('sort-'+self.getOption('sort'));
             }
 
-            t.fetch(true);
+            self.fetch(true);
         },
 
         onFetch: function(collection, response) {

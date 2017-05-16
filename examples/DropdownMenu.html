@@ -38,7 +38,24 @@
 
 				var view = new Toolbox.DropdownMenu({
 					toggleLabel: 'My Account',
-					items: []
+					items: [{
+						href: '#1',
+						label: 'Dropdown Item #1',
+						onClick: function(event) {
+							console.log('clicked', event);
+						}
+					},{
+						href: '#2',
+						label: 'Dropdown Item #2'
+					},{
+						href: '#3',
+						label: 'Dropdown Item #3'
+					},{
+						divider: true
+					},{
+						href: '#4',
+						label: 'Dropdown Item #4'
+					}]
 				});
 
 				view.on('toggle:click', function() {

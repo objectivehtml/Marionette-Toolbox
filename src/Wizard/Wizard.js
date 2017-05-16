@@ -92,8 +92,8 @@
                 this.options.highestStep = this.getOption('step')
             }
 
-            if(this.buttons.currentView) {
-                this.buttons.currentView.render();
+            if(this.getRegion('buttons').currentView) {
+                this.getRegion('buttons').currentView.render();
             }
 
             if(view = this.getStep()) {
@@ -185,12 +185,12 @@
         },
 
         onShowStep: function(step) {
-            this.progress.currentView.setActive(step.getOption('step'));
+            this.getRegion('progress').currentView.setActive(step.getOption('step'));
         },
 
         onCompleteStep: function(step) {
-            this.progress.currentView.setComplete(step.getOption('step'));
-            this.progress.currentView.render();
+            this.getRegion('progress').currentView.setComplete(step.getOption('step'));
+            this.getRegion('progress').currentView.render();
         },
 
         onWizardError: function(options, ErrorView) {
@@ -206,11 +206,11 @@
                 wizard: this
             }, this.getOption('successViewOptions'), options);
 
-            this.buttons.empty();
+            this.getRegion('buttons').empty();
             this.options.step++;
             this.options.finished = true;
-            this.progress.currentView.setActive(this.getOption('step'));
             this.$el.addClass(this.getOption('finishedClassName'));
+            this.getRegion('progress').currentView.setActive(this.getOption('step'));
             this.showView(SuccessView || this.getOption('successView'), options);
         },
 

@@ -36,6 +36,8 @@
 
         className: 'dropdown-menu-item',
 
+		template: Toolbox.Template('dropdown-menu-item'),
+
 		defaultOptions: {
 			dividerClassName: 'divider'
 		},
