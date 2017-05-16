@@ -1,0 +1,9 @@
+.list-group-item-actions {
+    float: right;
+    margin-left: 20px;
+    display: none;
+}
+
+.list-group-item:hover .list-group-item-actions {
+    display: block;
+}

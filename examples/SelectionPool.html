@@ -61,17 +61,21 @@
 			}];
 
 			var selected = [{
-				id: 4,
-				content: 'Sam Young'
+				id: 10,
+				content: 'Sam Young 10'
 			},{
-				id: 5,
-			    content: 'Zach Smith'
+				id: 11,
+			    content: 'Zach Smith 11'
             }];
 
 			App.on('start', function() {
 				var view = new Toolbox.SelectionPool({
 					availableTree: new Toolbox.Tree(new Backbone.Collection(available), {comparator: 'id'}),
 					selectedTree: new Toolbox.Tree(new Backbone.Collection(selected))
+				});
+
+				view.on('show', function() {
+
 				});
 
 				view.on('scroll:bottom', function(scrollTop) {
@@ -85,12 +89,7 @@
 					view.getOption('availableTree').push(data);
 				});
 
-				view.on('typing:stopped', function() {
-						view.onDestroy();
-						view.channel.trigger('detection:typing:started');
-				});
-
-				App.showView(view);
+				App.content.show(view);
 			});
 
 			App.start();

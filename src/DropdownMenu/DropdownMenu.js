@@ -34,7 +34,7 @@
 
 		tagName: 'li',
 
-		template: Toolbox.Template('dropdown-menu-item'),
+        className: 'dropdown-menu-item',
 
 		defaultOptions: {
 			dividerClassName: 'divider'
@@ -52,6 +52,9 @@
             'click a': function(event) {
                 if(_.isFunction(this.model.get('onClick'))) {
                     this.model.get('onClick').call(this, event);
+                    event.preventDefault();
+                }
+                else if(!this.model.get('href')) {
                     event.preventDefault();
                 }
             }
@@ -153,7 +156,10 @@
 			fetchOnShow: false,
 
 			// (bool) Show an activity indicator when fetching the collection
-			showIndicator: true
+			showIndicator: true,
+
+			// (string) The dropdown toggle class name
+			openClassName: 'open'
 		},
 
         templateContext: function() {

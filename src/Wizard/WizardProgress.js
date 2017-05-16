@@ -39,7 +39,7 @@
 
                 if( !$step.hasClass(this.getOption('disabledClassName')) &&
                     !this.getOption('wizard').getOption('finished')) {
-                    this.channel.request('set:step', step);
+                    this.getOption('wizard').setStep(step);
                 }
 
                 event.preventDefault();

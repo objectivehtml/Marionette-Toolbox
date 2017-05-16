@@ -76,8 +76,7 @@
 				var view = new Toolbox.TreeView({
 					collection: tree,
                     childViewOptions: {
-						className: 'node',
-						parentAttribute: 'parent_id'
+                        template: Toolbox.Template('tree-view-node')
                     }
 				});
 

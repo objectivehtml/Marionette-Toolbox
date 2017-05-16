@@ -194,6 +194,12 @@
             // (string) The table header class name
             headerClassName: 'table-header',
 
+            // (object) The header view class
+            headerView: false,
+
+            // (object) The header view options object
+            headerViewOptions: false,
+
             // (string) The table description
             description: false,
 
@@ -247,6 +253,14 @@
 
        templateContext: function() {
             return this.options;
+        },
+
+        getCurrentPage: function(response) {
+            return response.current_page || response.currentPage;
+        },
+
+        getLastPage: function(response) {
+            return response.last_page || response.lastPage;
         },
 
         getEmptyView: function() {
@@ -381,14 +395,21 @@
         },
 
         getRequestData: function() {
-            var data = {};
+            var data = {}, requestData = _.extend({}, this.getOption('requestData'));
             var options = this.getOption('requestDataOptions');
             var defaultOptions = this.getOption('defaultRequestDataOptions');
-            var requestData = this.getOption('requestData');
 
-            if(requestData) {
-                data = requestData;
-            }
+            _.each(([]).concat(defaultOptions, options), function(name) {
+                if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
+                    data[name] = this.getOption(name);
+                }
+            }, this);
+
+            return _.extend(data, requestData);
+        },
+
+        onSortClick: function(e) {
+            var t = this, orderBy = $(e.target).data('id');
 
             _.each(([]).concat(defaultOptions, options), function(name) {
                 if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
@@ -396,9 +417,26 @@
                         data[name] = this.getOption(name);
                     }
                 }
-            }, this);
+                else if(t.getOption('sort') === 'asc') {
+                    t.options.sort = 'desc';
+                }
+                else {
+                    t.options.orderBy = false;
+                    t.options.sort = false;
+                }
+            }
+            else {
+                t.options.order = orderBy;
+                t.options.sort = 'asc';
+            }
 
-            return data;
+            t.$el.find('.sort').parent().removeClass('sort-asc').removeClass('sort-desc');
+
+            if(t.getOption('sort')) {
+                $(e.target).parent().addClass('sort-'+t.getOption('sort'));
+            }
+
+            t.fetch(true);
         },
 
         onFetch: function(collection, response) {

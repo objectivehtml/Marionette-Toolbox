@@ -72,19 +72,21 @@
             var count = 0, totalAttempts = data.length;
 
             while (data.length > 0) {
-                data.each(function(model) {
-                    if(model) {
-                        var parentId = this.getParentId(model);
+                var items = data.toArray();
+
+                for(var i in items) {
+                    if(items[i]) {
+                        var parentId = this.getParentId(items[i]);
                         var parent = this.findNodeById(parentId);
 
                         if(_.isNull(parentId)) {
-                            data.remove(this.appendNode(model));
+                            data.remove(this.appendNode(items[i]));
                         }
                         else if (parent = this.findNodeById(parentId)) {
-                            data.remove(this.appendNode(model, parent));
+                            data.remove(this.appendNode(items[i], parent));
                         }
                     }
-                }, this);
+                }
 
                 if(count > totalAttempts) {
                     throw new Error('The tree could not be generated. Infinite loop detected with the remaining models: "'+data.pluck('id')+'"');

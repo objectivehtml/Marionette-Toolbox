@@ -217,15 +217,13 @@ a.wizard-step:hover {
 }
 
 .wizard-error-list {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: left;
     margin-bottom: 20px;
 }
 
 .wizard-success,
 .wizard-error {
     padding: 20px 0 40px;
-}
-
-.wizard-success ul,
-.wizard-error ul {
-    list-style: none;
 }

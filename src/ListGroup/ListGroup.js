@@ -1,12 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        factory(root.Toolbox);
+        define(['underscore'], function(_) {
+            return factory(root.Toolbox, _);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox);
+        module.exports = factory(root.Toolbox, require('underscore'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root._);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, _) {
 
     'use strict';
 
@@ -38,13 +40,33 @@
 
         defaultOptions: {
             badgeAttribute: false,
-            contentAttribute: false
+            contentAttribute: false,
+            editFormClass: false,
+            deleteFormClass: false,
+            editButton: {
+                className: 'btn btn-warning btn-xs',
+                label: 'Edit',
+                icon: 'fa fa-edit',
+            },
+            deleteButton: {
+                className: 'btn btn-danger btn-xs',
+                label: 'Delete',
+                icon: 'fa fa-trash-o',
+            }
         },
 
 		events: {
 			'click': function(e) {
-				this.triggerMethod('click', e);
-			}
+                if(e.target == this.$el.get(0)) {
+    				this.triggerMethod('click', e);
+                }
+			},
+            'click .edit-item': function(e) {
+                this.triggerMethod('click:edit', e);
+            },
+            'click .delete-item': function(e) {
+                this.triggerMethod('click:delete', e);
+            }
 		},
 
         getBadge: function() {
@@ -58,22 +80,71 @@
                 this.model.get(this.getOption('contentAttribute')) :
                 false;
         },
-
+        
 		templateContext: function() {
-            var helper = {},
-                badge = this.getBadge(),
-                content = this.getContent();
+            var badge, content, helper = _.extend({
+                hasEditForm: this.getOption('editFormClass') ? true : false,
+                hasDeleteForm: this.getOption('deleteFormClass') ? true : false
+            }, this.options);
 
-            if(badge) {
+            if(badge = this.getBadge()) {
                 helper.badge = badge;
             }
 
-            if(content) {
+            if(content = this.getContent()) {
                 helper.content = content;
             }
 
             return helper;
-		}
+		},
+
+        onClickEdit: function(e) {
+            var View = this.getOption('editFormClass');
+
+            if(View) {
+                var view = new View({
+                    model: this.model
+                });
+
+                view.on('submit:success', function() {
+                    modal.hide();
+                }, this);
+
+                var modal = new Toolbox.Modal({
+                    contentView: view
+                });
+
+                modal.show();
+
+                this.triggerMethod('show:edit', modal);
+            }
+
+            e.preventDefault();
+        },
+
+        onClickDelete: function(e) {
+            var View = this.getOption('deleteFormClass');
+
+            if(View) {
+                var view = new View({
+                    model: this.model
+                });
+
+                view.on('submit:success', function() {
+                    modal.hide();
+                });
+
+                var modal = new Toolbox.Modal({
+                    contentView: view
+                });
+
+                modal.show();
+
+                this.triggerMethod('show:delete', modal);
+            }
+
+            e.preventDefault();
+        }
 
 	});
 
@@ -87,7 +158,7 @@
 
 		defaultOptions: {
 			// (bool) Activate list item on click
-			activateOnClick: true,
+			activateOnClick: false,
 
 			// (string) Active class name
 			activeClassName: 'active',

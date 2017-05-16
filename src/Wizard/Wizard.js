@@ -16,8 +16,6 @@
 
         className: 'wizard',
 
-        channelName: 'toolbox.wizard',
-
     	template: Toolbox.Template('wizard'),
 
         regions: {
@@ -58,42 +56,12 @@
                 showButtons: true,
                 panel: false,
                 contentHeight: false,
-                submitFormOnEnter: true
+                submitFormOnEnter: false
             };
         },
 
        templateContext: function() {
             return this.options;
-        },
-
-        initialize: function() {
-            Toolbox.View.prototype.initialize.apply(this, arguments);
-
-            this.channel.reply('complete:step', function(step) {
-                this.getRegion('progress').currentView.setComplete(step || this.getOption('step'));
-            }, this);
-
-            this.channel.reply('set:step', function(step) {
-                this.setStep(step);
-            }, this);
-
-            this.channel.reply('wizard:error', function(options, errorView) {
-                options = _.extend({}, this.getOption('errorViewOptions'), options, {
-                    wizard: this
-                });
-
-                this.getRegion('buttons').empty();
-                this.showView(errorView || this.getOption('errorView'), options);
-            }, this);
-
-            this.channel.reply('wizard:success', function(options, successView) {
-                options = _.extend({}, this.getOption('successViewOptions'), options, {
-                    wizard: this
-                });
-
-                this.getRegion('buttons').empty();
-                this.showView(successView || this.getOption('successView'), options);
-            }, this);
         },
 
         resetRegions: function(view) {
@@ -112,7 +80,7 @@
         },
 
         setStep: function(step) {
-            var view = false;
+            var view = false, prevStep = this.getStep();
 
             this.options.step = parseInt(step);
 
@@ -124,16 +92,14 @@
                 this.options.highestStep = this.getOption('step')
             }
 
-            if(this.getRegion('progress').currentView) {
-                this.getRegion('progress').currentView.render();
-            }
-
-            if(this.getRegion('buttons').currentView) {
-                this.getRegion('buttons').currentView.render();
+            if(this.buttons.currentView) {
+                this.buttons.currentView.render();
             }
 
             if(view = this.getStep()) {
                 this.showContent(view);
+                view.triggerMethod('wizard:show:step', this.getStep(), prevStep, view);
+                this.triggerMethod('show:step', this.getStep(), prevStep, this);
             }
         },
 
@@ -198,9 +164,6 @@
                     this.resetRegions(view);
                     view.triggerMethod('wizard:attach');
                 }, this);
-
-                view.triggerMethod('wizard:show:step', this.getOption('step'), this);
-                this.triggerMethod('show:step', this.getOption('step'), view);
             }
         },
 
@@ -213,7 +176,7 @@
         },
 
         next: function() {
-            this.channel.request('complete:step');
+            this.triggerMethod('complete:step', this.getStep());
             this.setStep(this.getOption('step') + 1);
         },
 
@@ -221,18 +184,43 @@
             this.setStep(this.getOption('step') - 1);
         },
 
-        finish: function(success, options, View) {
-            success = (_.isUndefined(success) || success) ? true : false;
+        onShowStep: function(step) {
+            this.progress.currentView.setActive(step.getOption('step'));
+        },
 
-            if(success) {
-                this.options.finished = true;
-                this.$el.addClass(this.getOption('finishedClassName'));
-                this.channel.request('complete:step');
-                this.setStep(this.getTotalSteps() + 1);
-                this.channel.request('wizard:success', options, View);
+        onCompleteStep: function(step) {
+            this.progress.currentView.setComplete(step.getOption('step'));
+            this.progress.currentView.render();
+        },
+
+        onWizardError: function(options, ErrorView) {
+            options = _.extend({
+                wizard: this
+            }, this.getOption('errorViewOptions'), options);
+
+            this.showView(ErrorView || this.getOption('errorView'), options);
+        },
+
+        onWizardSuccess: function(options, SuccessView) {
+            options = _.extend({
+                wizard: this
+            }, this.getOption('successViewOptions'), options);
+
+            this.buttons.empty();
+            this.options.step++;
+            this.options.finished = true;
+            this.progress.currentView.setActive(this.getOption('step'));
+            this.$el.addClass(this.getOption('finishedClassName'));
+            this.showView(SuccessView || this.getOption('successView'), options);
+        },
+
+        finish: function(success, options, View) {
+            if(_.isUndefined(success) || success) {
+                this.triggerMethod('complete:step', this.getStep());
+                this.triggerMethod('wizard:success', options, View);
             }
             else {
-                this.channel.request('wizard:error', options, View);
+                this.triggerMethod('wizard:error', options, View);
             }
         },
 

@@ -311,13 +311,9 @@
 			}
 		},
 
-		events: {
-			'click .next-page': function() {
-				this.nextPage();
-			},
-			'click .prev-page': function() {
-				this.prevPage();
-			}
+		triggers: {
+			'click .next-page': 'next:page:click',
+			'click .prev-page': 'prev:page:click'
 		},
 
        templateContext: function() {

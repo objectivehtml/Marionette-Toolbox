@@ -79,7 +79,7 @@
                 }
             }
 
-            this.root().triggerMethod('drop', event, this);
+            self.root().triggerMethod('drop', event, this);
         },
 
         onDropMove: function(event) {
