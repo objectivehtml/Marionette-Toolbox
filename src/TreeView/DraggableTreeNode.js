@@ -62,24 +62,24 @@
         },
 
         onDrop: function(event) {
-            var self = this, $target = $(event.target);
+            var $target = $(event.target);
 
             if($target.hasClass('drop-before')) {
-                this.root().triggerMethod('drop:before', event, self);
+                this.root().triggerMethod('drop:before', event, this);
             }
             else if($target.hasClass('drop-after')) {
-                this.root().triggerMethod('drop:after', event, self);
+                this.root().triggerMethod('drop:after', event, this);
             }
             else if($target.hasClass('drop-children')) {
                 if(this.getOption('nestable')) {
-                    this.root().triggerMethod('drop:children', event, self);
+                    this.root().triggerMethod('drop:children', event, this);
                 }
                 else {
-                    this.root().triggerMethod('drop:after', event, self);
+                    this.root().triggerMethod('drop:after', event, this);
                 }
             }
 
-            self.root().triggerMethod('drop', event, this);
+            this.root().triggerMethod('drop', event, this);
         },
 
         onDropMove: function(event) {

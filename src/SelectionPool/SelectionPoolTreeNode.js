@@ -16,27 +16,6 @@
 
     Toolbox.SelectionPoolTreeNode = Toolbox.DraggableTreeNode.extend({
 
-        onDrop: function(event) {
-            var self = this, $target = $(event.target);
-
-            if($target.hasClass('drop-before')) {
-                this.root().triggerMethod('drop:before', event, self);
-            }
-            else if($target.hasClass('drop-after')) {
-                this.root().triggerMethod('drop:after', event, self);
-            }
-            else if($target.hasClass('drop-children')) {
-                if(this.getOption('nestable')) {
-                    this.root().triggerMethod('drop:children', event, self);
-                }
-                else {
-                    this.root().triggerMethod('drop:after', event, self);
-                }
-            }
-
-            this.root().triggerMethod('drop', event, this);
-        },
-
         onDomRefresh: function() {
             Toolbox.DraggableTreeNode.prototype.onDomRefresh.call(this);
 

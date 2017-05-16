@@ -17,88 +17,6 @@
 
     'use strict';
 
-    function find(id, collection) {
-        var where = getWhere(id);
-
-        return collection.find(where);
-    }
-
-    function getWhere(id) {
-        var where = {};
-
-        where[getIdAttribute(id)] = id;
-
-        return where;
-    }
-
-    function getIdAttribute(value) {
-        return _.isNull(new String(value).match(/^c\d+$/)) ? 'id' : 'cid';
-    }
-
-    function getSelectionPoolFromElement(element, view) {
-        var $parent = $(element);
-
-        if(!$parent.hasClass('droppable-pool')) {
-            $parent = $parent.parents('.droppable-pool');
-        }
-
-        return $parent.hasClass('available-pool') ?
-            view.getRegion('available').currentView :
-            view.getRegion('selected').currentView;
-    }
-
-    function transferNodeAfter(event, view) {
-        var fromWhere = {}, toWhere = {};
-        var from = getSelectionPoolFromElement(event.relatedTarget, view);
-        var to = getSelectionPoolFromElement(event.target, view);
-
-        fromWhere[getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
-        toWhere[getIdAttribute($(event.target).data('id'))] = $(event.target).data('id');
-
-        var fromModel = from.collection.findWhere(fromWhere);
-        var toModel = to.collection.findWhere(toWhere);
-
-        from.collection.removeNode(fromModel);
-        to.collection.appendNodeAfter(fromModel, toModel);
-    }
-
-    function transferNodeBefore(event, view) {
-        var fromWhere = {}, toWhere = {};
-        var from = getSelectionPoolFromElement(event.relatedTarget, view);
-        var to = getSelectionPoolFromElement(event.target, view);
-
-
-        fromWhere[getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
-        toWhere[getIdAttribute($(event.target).data('id'))] = $(event.target).data('id');
-
-        var fromModel = from.collection.findWhere(fromWhere);
-        var toModel = to.collection.findWhere(toWhere);
-
-        from.collection.removeNode(fromModel);
-        to.collection.appendNodeBefore(fromModel, toModel);
-    }
-
-    function transferNodeChildren(event, view) {
-        var fromWhere = {}, toWhere = {};
-        var from = getSelectionPoolFromElement(event.relatedTarget, view);
-        var to = getSelectionPoolFromElement(event.target, view);
-
-        if($(event.target).find('.children').length == 0) {
-            $(event.target).append('<div class="children" />');
-        }
-
-        fromWhere[getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
-        toWhere[getIdAttribute($(event.target).data('id'))] = $(event.target).data('id');
-
-        var fromModel = from.collection.findWhere(fromWhere);
-        var toModel = to.collection.findWhere(toWhere);
-
-        from.collection.removeNode(fromModel);
-        to.collection.appendNode(fromModel, toModel, {
-            at: 0
-        });
-    }
-
     Toolbox.SelectionPool = Toolbox.View.extend({
 
         template: Toolbox.Template('selection-pool'),
@@ -188,12 +106,13 @@
         },
 
         showAvailablePool: function() {
-            var self = this, View = this.getOption('availableTreeView');
+            var self = this, AvailableTreeView = this.getOption('availableTreeView');
 
-            if(View) {
-        		var view = new View(_.extend({
+            if(AvailableTreeView) {
+        		var view = new AvailableTreeView(_.extend({
+                    parent: this,
                     collection: this.getOption('availableTree'),
-                    childViewOptions: _.extend({}, View.prototype.childViewOptions, {
+                    childViewOptions: _.extend({}, AvailableTreeView.prototype.childViewOptions, {
                         nestable: this.getOption('nestable'),
                         template: this.getOption('availableTreeViewTemplate')
                     })
@@ -205,47 +124,25 @@
                     });
                 });
 
-                this.showSelectionPoolView(this.getRegion('available'), view);
+                this.showChildView('available', view);
             }
         },
 
         showSelectedPool: function() {
-            var View = this.getOption('selectedTreeView');
+            var SelectedTreeView = this.getOption('selectedTreeView');
 
-            if(View) {
-        		var view = new View(_.extend({
+            if(SelectedTreeView) {
+        		var view = new SelectedTreeView(_.extend({
+                    parent: this,
                     collection: this.getOption('selectedTree'),
-                    childViewOptions: _.extend({}, View.prototype.childViewOptions, {
+                    childViewOptions: _.extend({}, SelectedTreeView.prototype.childViewOptions, {
                         nestable: this.getOption('nestable'),
                         template: this.getOption('selectedTreeViewTemplate')
                     })
         		}, this.getOption('selectedTreeViewOptions')));
 
-                this.showSelectionPoolView(this.getRegion('selected'), view);
+                this.showChildView('selected', view);
             }
-        },
-
-        showSelectionPoolView: function(region, view) {
-            view.on('drop:before', function(event, view) {
-                transferNodeBefore(event, this);
-                this.triggerMethod('drop:before', event, view);
-            }, this);
-
-            view.on('drop:after', function(event, view) {
-                transferNodeAfter(event, this);
-                this.triggerMethod('drop:after', event, view);
-            }, this);
-
-            view.on('drop:children', function(event, view) {
-                transferNodeChildren(event, this);
-                this.triggerMethod('drop:children', event, view);
-            }, this);
-
-            view.on('drop', function(event, view) {
-                this.triggerMethod('drop', event, view);
-            }, this);
-
-            region.show(view);
         },
 
         modelContains: function(model, query) {
@@ -374,10 +271,10 @@
                         accept: $(this).data('accept'),
                         ondrop: function(event) {
                             var where = {};
-                            var from = getSelectionPoolFromElement(event.relatedTarget, self);
-                            var to = getSelectionPoolFromElement(event.target, self);
+                            var from = self.getSelectionPoolFromElement(event.relatedTarget);
+                            var to = self.getSelectionPoolFromElement(event.target);
 
-                            where[getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
+                            where[self.getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
 
                             var model = from.collection.findWhere(where);
 
@@ -400,6 +297,22 @@
                         }
                     });
             });
+        },
+
+        getIdAttribute: function(value) {
+            return _.isNull(new String(value).match(/^c\d+$/)) ? 'id' : 'cid';
+        },
+
+        getSelectionPoolFromElement: function(element) {
+            var $parent = $(element);
+
+            if(!$parent.hasClass('droppable-pool')) {
+                $parent = $parent.parents('.droppable-pool');
+            }
+
+            return $parent.hasClass('available-pool') ?
+                this.getRegion('available').currentView :
+                this.getRegion('selected').currentView;
         },
 
         onRender: function() {
