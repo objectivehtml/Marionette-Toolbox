@@ -47,7 +47,7 @@
                 indicator: 'small'
             },
 
-            // (string) A valid alignment position (top|bottom|left|right)
+            // (string) The default alignment position (top|bottom|left|right)
             alignment: 'top',
 
             // (object) The content view instance
@@ -85,6 +85,34 @@
             return this.options;
         },
 
+        getAlignmentFromPosition: function(position) {
+            function isValid(value) {
+                return [
+                    'top',
+                    'bottom',
+                    'left',
+                    'right'
+                ].indexOf(value) >= 0;
+            }
+
+            if(position.alignment) {
+                return position.alignment;
+            }
+
+            if(position.targetAttachment) {
+                var parts = position.targetAttachment.split(' ');
+
+                while(parts.length) {
+                    var part = parts.shift();
+
+                    if(isValid(part)) {
+                        return part;
+                    }
+                }
+            }
+
+            return this.getOption('alignment');
+        },
 
         getContentHeight: function() {
             return this.getRegion('content').currentView.$el.outerHeight();
@@ -130,7 +158,7 @@
             Backbone.$('body').append(this.$el).on('keyup', function(e) {
                 self._keyupHandler(e);
             });
-            
+
             this.showContentView();
         },
 
@@ -159,13 +187,12 @@
                 });
             }
 
+            this.options.alignment = this.getAlignmentFromPosition(position);
             this._parentRegion.show(this);
-            this._tether = new Tether({
+            this._tether = new Tether(_.extend({
                 target: el,
-                element: this.$el.get(0),
-                attachment: 'bottom center',
-                targetAttachment: 'top center'
-            });
+                element: this.$el.get(0)
+            }, position));
         },
 
         hide: function() {
