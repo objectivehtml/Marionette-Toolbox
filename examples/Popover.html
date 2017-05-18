@@ -23,7 +23,7 @@
 	</head>
 	<body>
 
-		<div id="app-wrapper" style="position: absolute; top: 50%; left: 50%">
+		<div id="app-wrapper" style="position: absolute; top: 45%; width: 100%; text-align: center;">
 			<a href="#" class="show-popover btn btn-lg btn-default">Show Popover</a>
 		</div>
 
@@ -66,8 +66,9 @@
 						width: 400
 					});
 
-					view.show(e.target, function() {
-						view.destroy();
+					view.show(e.target, {
+		                attachment: 'center left',
+		                targetAttachment: 'center right'
 					});
 
 					e.preventDefault();
