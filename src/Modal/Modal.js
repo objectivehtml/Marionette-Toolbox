@@ -30,6 +30,9 @@
             // (array) An array of button objects to add to the modal window
             buttons: [],
 
+            // (object) The content view class
+            contentView: false,
+
             // (string) The modal window header text
             header: false,
 
@@ -54,11 +57,12 @@
         },
 
         showContentView: function(view) {
-            this.setContentView(view);
+            this.showChildView('content', view);
         },
 
         setContentView: function(view) {
-            this.showChildView('content', view);
+            this.options.contentView = view;
+            this.showContentView(view);
         },
 
         getContentView: function() {

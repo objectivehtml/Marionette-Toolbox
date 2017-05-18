@@ -158,6 +158,10 @@
                 this.start();
             }
 
+            if(this.getOption('minHeight')) {
+                this.$el.css('min-height', this.getOption('minHeight'));
+            }
+
             setTimeout(function() {
                 self.positionLabel();
             });

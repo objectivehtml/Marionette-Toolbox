@@ -20,6 +20,7 @@
     "moment": "^2.16.0",
     "nouislider": "^9.0.0",
     "spin.js": "^2.3.2",
+    "tether": "^1.4.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
