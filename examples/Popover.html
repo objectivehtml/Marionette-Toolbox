@@ -64,6 +64,10 @@
 						}
 					});
 
+					content.on('dom:refresh', function() {
+						console.log('asd');
+					});
+
 					view = new Toolbox.Popover({
 						header: 'Some Header',
 						contentView: content,
