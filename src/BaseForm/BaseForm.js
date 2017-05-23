@@ -73,7 +73,7 @@
             },
 
             // (bool) Should auto focus on the first empty field in the form
-            autoFocus: false,
+            autoFocus: true,
 
             // (object) The error view object
             errorView: Toolbox.BlockFormError,
