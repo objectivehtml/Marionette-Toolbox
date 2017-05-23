@@ -29,6 +29,12 @@
 			disabledClassName: 'disabled'
         },
 
+        onClick: function(e) {
+            if(this.model.get('onClick')) {
+                this.model.get('onClick').call(this, e);
+            }
+        },
+
 		onDomRefresh: function() {
 			if(this.model.get(this.getOption('disabledClassName'))) {
 				this.$el.addClass(this.getOption('disabledClassName'));

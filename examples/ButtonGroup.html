@@ -42,7 +42,10 @@
 						active: true
 					},{
 						icon: 'fa fa-times-circle',
-						label: 'Cancel'
+						label: 'Cancel',
+						onClick: function(e) {
+							console.log('onClick', e);
+						}
 					}]
 				});
 
