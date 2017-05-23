@@ -72,6 +72,9 @@
                 indicator: 'small'
             },
 
+            // (bool) Should auto focus on the first empty field in the form
+            autoFocus: false,
+
             // (object) The error view object
             errorView: Toolbox.BlockFormError,
 
@@ -421,6 +424,14 @@
             ));
 
             notification.show();
+        },
+
+        onDomRefresh: function() {
+            if(this.getOption('autoFocus')) {
+        	    this.$el.find(':input').filter(function(index, input) {
+        			return input.value === '' ? true : false;
+        		}).first().focus();
+            }
         },
 
         onRender: function() {
