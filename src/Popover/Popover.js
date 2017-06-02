@@ -41,8 +41,10 @@
 
         defaultOptions: {
 
+            // (mixed) A view class to override the default ActivityIndicator view
             activityIndicatorView: false,
 
+            // (object) An object of options to pass to the view
             activityIndicatorOptions: {
                 indicator: 'small'
             },
@@ -68,7 +70,7 @@
 
             // (bool) Should show the close button
             showCloseButton: true,
-            
+
             // (mixed) Define a set width for the popover
             width: false
 

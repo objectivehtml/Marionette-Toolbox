@@ -43,43 +43,6 @@ gulp.task('css', function() {
         .pipe(gulp.dest('./dist'));
 });
 
-/*
-gulp.task('templates', function() {
-    var wrapper = [
-        '(function (root, factory) {',
-            'if (typeof define === \'function\' && define.amd) {',
-                'define([\'handlebars\'], function(Handlebars) {',
-                    'return factory(root.Toolbox, Handlebars)',
-                '});',
-            '} else if (typeof exports === \'object\') {',
-                'module.exports = factory(root.Toolbox, require(\'handlebars\'));',
-            '} else {',
-                'factory(root.Toolbox, root.Handlebars);',
-            '}',
-        '}(this, function (Toolbox, Handlebars) {',
-            'if(typeof Toolbox === "undefined") {',
-                'throw Error(\'Handlebars is not defined.\')',
-            '}',
-            'if(typeof Toolbox.templates !== "object") {',
-                'Toolbox.templates = {}',
-            '}',
-            'Toolbox.templates[\'<%= name %>\'] = <%= handlebars %>',
-        '}))'
-    ].join('');
-
-    gulp.src(['./src/ActivityIndicator/*.hbs'])
-        .pipe(handlebars())
-        .pipe(defineModule('plain', {
-            require: {
-                Handlebars: 'handlebars'
-            },
-            wrapper: wrapper
-        }))
-        .pipe(concat('templates.js'))
-        .pipe(gulp.dest('./src/Core'));
-});
-*/
-
 gulp.task('templates', function() {
     gulp.src('./src/**/*.hbs')
         .pipe(handlebars({

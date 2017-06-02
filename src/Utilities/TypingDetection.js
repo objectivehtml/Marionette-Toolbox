@@ -1,68 +1,89 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        return factory(root.Toolbox);
+        define(['backbone', 'backbone.marionette'], function(Backbone, Marionette) {
+            return factory(root.Toolbox, Backbone, Marionette);
+        });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox);
+        module.exports = factory(root.Toolbox, require('backbone'), require('backbone.marionette'));
     } else {
-        root.Toolbox = factory(root.Toolbox);
+        root.Toolbox = factory(root.Toolbox, root.Backbone, root.Marionette);
     }
-}(this, function (Toolbox) {
+}(this, function (Toolbox, Backbone, Marionette) {
 
     'use strict';
 
-    Toolbox.TypingDetection = function($element, typingStoppedThreshold, radioChannel) {
-        typingStoppedThreshold || (typingStoppedThreshold = 500);
+    Toolbox.TypingDetection = Marionette.Object.extend({
 
-        var self = this;
-        var typingTimer, lastValue;
-        var hasTypingStarted = false;
+        $el: false,
 
-        this.getValue = function() {
-            return $element.val();
-        };
+        _lastValue: false,
 
-        this.hasTypingStarted = function() {
-            return this;
-        };
+        _typingTimer: false,
 
-        this.getLastValue = function() {
-            return lastValue;
-        };
+        _typingStarted: false,
 
-        this.clearTimer = function() {
-            if(typingTimer) {
-                clearTimeout(typingTimer);
-                typingTimer = undefined;
-            }
-        };
+        _typingStoppedThreshold: false,
 
-        $element.keyup(function () {
-            if(!typingTimer) {
-                typingTimer = setTimeout(function() {
-                    if(radioChannel) {
-                        radioChannel.trigger('detection:typing:stopped', self.getValue());
-                    }
-                    lastValue = self.getValue();
-                    hasTypingStarted = false;
-                }, typingStoppedThreshold);
-            }
-        });
+        initialize: function(el, typingStoppedThreshold, channel) {
+            var self = this;
 
-        $element.keydown(function () {
-            setTimeout(function() {
-                if(!hasTypingStarted && self.getValue() != lastValue) {
-                    if(radioChannel) {
-                        radioChannel.trigger('detection:typing:started');
-                    }
-                    hasTypingStarted = true;
+            self.$el = Backbone.$(el);
+
+            self.$el.keyup(function () {
+                if(!self._typingTimer) {
+                    self._typingTimer = setTimeout(function() {
+                        self.triggerMethod('typing:stopped', self.getValue(), self._lastValue);
+
+                        if(channel) {
+                            channel.trigger('typing:stopped', self.getValue(), self._lastValue);
+                        }
+
+                        self._lastValue = self.getValue();
+                        self._typingStarted = false;
+                    }, self._typingStoppedThreshold = (typingStoppedThreshold || 500));
                 }
             });
 
-            self.clearTimer();
-        });
+            self.$el.keydown(function () {
+                setTimeout(function() {
+                    if(!self._typingStarted && self.getValue() != self._lastValue) {
+                        self._typingStarted = true;
+                        self.triggerMethod('typing:started');
 
-        return this;
-    };
+                        if(channel) {
+                            channel.trigger('typing:started');
+                        }
+                    }
+                });
+
+                self.clearTimer();
+            });
+        },
+
+        getValue: function() {
+            return this.$el.val();
+        },
+
+        getLastValue: function() {
+            return this._lastValue;
+        },
+
+        hasTypingStarted: function() {
+            return this._typingStarted;
+        },
+
+        clearTimer: function() {
+            if(this._typingTimer) {
+                clearTimeout(this._typingTimer);
+                this._typingTimer = false;
+            }
+        },
+
+        clearLastValue: function() {
+            this._lastValue = false;
+        }
+
+    });
 
     return Toolbox;
 

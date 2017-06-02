@@ -164,6 +164,9 @@
                 'sort'
             ],
 
+            // (object) An option to pass an object with request data
+            requestData: {},
+
             // (array) Additional options used to generate the query string
             requestDataOptions: [],
 

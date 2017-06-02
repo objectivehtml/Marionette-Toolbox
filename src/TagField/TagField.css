@@ -1,0 +1,175 @@
+.tag-field:focus {
+    outline: none;
+}
+
+.tag-field.tag-field-single .tag {
+    display: block;
+    width: 100%;
+    margin: 0;
+    position: relative;
+}
+
+.tag-field.tag-field-single .tag .fa {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.tag-field.max-limit-reached .tag-field-input-wrapper {
+    display: none;
+}
+
+.tag-field.tag-field-single .tag-clear {
+    display: block;
+    width: 100%;
+}
+
+.tag-field .activity-indicator {
+    position: absolute;
+    right: 17px;
+    top: 17px;
+}
+
+.tag-field .form-control {
+    padding: 6px;
+    height: auto;
+    position: relative;
+    background: white;
+    overflow: hidden;
+}
+
+.tag-field.has-focus .form-control,
+.tag.has-focus .tag-clear {
+    outline-color: rgb(77, 144, 254);
+    outline-offset: -2px;
+    outline-style: auto;
+    outline-width: 5px;
+}
+
+.tag-field-label {
+    width: 100%;
+}
+
+.tag-field-input-wrapper {
+    float: left;
+    position: relative;
+}
+
+.tag-field-cursor-predictions {
+    position: absolute;
+    top: 0;
+    padding: 1px 0 0 1px;
+    list-style: none;
+}
+
+.tag-field-cursor-predictions .tag-input-value {
+    display: none;
+}
+
+.tag-field-cursor-predictions .tag-field-cursor-prediction:not(.active) {
+    display: none;
+}
+
+.tag-field-cursor,
+.tag-field-input {
+    border: none;
+    outline-style: none;
+    font-weight: normal;
+    font-size: 14px;
+    background: transparent;
+}
+
+.tag-field-input {
+    display: inline-block;
+    width: auto;
+    min-width: 1px;
+}
+
+.tag-field-input:focus {
+
+}
+
+.tag-field-cursor {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    width: auto;
+    font-weight: normal;
+    display: inline-block;
+}
+
+.tag-field .tags {
+    margin: 0;
+    padding: 0;
+}
+
+.tag-field ul.tags {
+    list-style: none;
+}
+
+.tag-field .tag {
+    padding: 0;
+    margin: 0;
+    float: left;
+    background: #55b776;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.tag-field .tag-label {
+    padding: 5px 0 5px 5px;
+    display: inline-block;
+}
+
+.tag-field .tag-clear {
+    padding: 0 5px;
+    display: inline-block;
+}
+
+.tag-field .tag .tag-clear:hover {
+    background: #459260;
+    border-radius: 5px;
+}
+
+.tag-field .tag,
+.tag-field .tag a {
+    color: white;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.tag-field-cursor-prediction {
+    height: 20px;
+}
+
+.tag-field-search-results {
+    margin-left: 1px;
+    margin-right: 1px;
+    padding: 0;
+    list-style: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+}
+
+.tag-field-search-results a,
+.tag-field-result-label {
+    padding: 8px 5px;
+    display: block;
+}
+
+.tag-field-search-result.active a {
+    background: #3879d9;
+    color: white;
+    text-decoration: none;
+}
+
+.tag-field-search-result:not(.active) a:hover,
+.tag-field-search-result:not(.active) a:focus,
+.tag-field-search-result:not(.active) a:active {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.tag-field-search-result:not(.last) {
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
+}

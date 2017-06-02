@@ -35,6 +35,9 @@
     // Constructor
     matrix = this._matrix = []
 
+    this._a = str_m;
+    this._b = str_n;
+
     // Sanity checks
     if ( str_m == str_n )
       return this.distance = 0
@@ -104,7 +107,15 @@
   }
 
   Levenshtein.prototype.valueOf = function() {
-      return this.distance
+      return this.distance;
+  }
+
+  Levenshtein.prototype.likeness = function() {
+      if(this.distance === 0) {
+          return 100;
+      }
+
+      return Math.abs(this.distance / this._b.length * 100 - 100);
   }
 
   Toolbox.Levenshtein = Levenshtein;

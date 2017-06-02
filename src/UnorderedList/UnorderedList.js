@@ -34,11 +34,9 @@
 
 		tagName: 'li',
 
-		events: {
-			'click': function(e, obj) {
-				this.triggerMethod('click', obj);
-			}
-		},
+		triggers: {
+            'click': 'click'
+        },
 
 		templateContext: function() {
 			return this.options
@@ -73,10 +71,8 @@
 			showEmptyMessage: true
 		},
 
-		childViewEvents: {
-			'click': function(view) {
-				this.triggerMethod('item:click', view);
-			}
+		childViewTriggers: {
+			'click': 'item:click'
 		},
 
 		initialize: function() {

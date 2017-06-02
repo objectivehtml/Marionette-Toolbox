@@ -19,6 +19,10 @@
         className: 'form-group',
 
         defaultTriggers: {
+            'change {{triggerSelector}}': {
+                event: 'change',
+                preventDefault: false
+            },
             'focus {{triggerSelector}}': {
                 event: 'focus',
                 preventDefault: false
@@ -32,20 +36,18 @@
                 preventDefault: false
             },
             'keyup {{triggerSelector}}': {
-                event: 'key:up',
+                event: 'keyup',
                 preventDefault: false
             },
             'keydown {{triggerSelector}}': {
-                event: 'key:down',
+                event: 'keydown',
                 preventDefault: false
             },
             'keypress {{triggerSelector}}': {
-                event: 'key:press',
+                event: 'keypress',
                 preventDefault: false
             }
         },
-
-        triggers: {},
 
         defaultOptions: {
             id: false,
@@ -58,7 +60,7 @@
             inputClassName: 'form-control',
             descriptionClassName: 'description',
             headerTagName: 'h4',
-            triggerSelector: 'input',
+            triggerSelector: '.form-control',
             updateModel: true
         },
 
@@ -70,6 +72,7 @@
             Toolbox.View.prototype.initialize.apply(this, arguments);
 
             this.triggers = _.extend({}, this.getDefaultTriggers(), this.triggers);
+            this.delegateEvents(this.triggers);
         },
 
         getDefaultTriggers: function() {
@@ -96,8 +99,10 @@
             this.getInputField().focus();
         },
 
-        onRender: function() {
-            this.setInputValue(this.getOption('value'));
+        onDomRefresh: function() {
+            if(this.getOption('value')) {
+                this.setInputValue(this.getOption('value'));
+            }
         },
 
         onBlur: function() {
