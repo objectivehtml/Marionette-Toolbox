@@ -15,6 +15,7 @@ var packageJson = require('./package.json');
 var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
 var handlebars = require('gulp-handlebars');
+var defineModule = require('gulp-define-module');
 var injectVersion = require('gulp-inject-version');
 
 function getNPMPackageIds() {
@@ -44,6 +45,22 @@ gulp.task('css', function() {
 });
 
 gulp.task('templates', function() {
+    var wrapper = [
+        '(function (factory) {\n',
+        '   if (typeof define === \'function\' && define.amd) {\n',
+        '       define([\'handlebars\'], function(Handlebars) {\n',
+        '           return factory(Handlebars)\n',
+        '       });\n',
+        '   } else if (typeof exports === \'object\') {\n',
+        '       module.exports = factory(require(\'handlebars\'));\n',
+        '   } else {\n',
+        '       factory(Handlebars);\n',
+        '   }\n',
+        '}(function (Handlebars) {\n',
+        '   <%= contents %>\n',
+        '}))\n'
+    ].join('');
+
     gulp.src('./src/**/*.hbs')
         .pipe(handlebars({
           handlebars: require('handlebars')
@@ -52,6 +69,12 @@ gulp.task('templates', function() {
         .pipe(declare({
           namespace: 'Toolbox.templates',
           noRedeclare: true, // Avoid duplicate declarations
+        }))
+        .pipe(defineModule('plain', {
+            require: {
+                Handlebars: 'handlebars'
+            },
+            wrapper: wrapper
         }))
         .pipe(concat('templates.js'))
         .pipe(gulp.dest('./src/Core'));
