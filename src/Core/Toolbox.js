@@ -29,9 +29,7 @@
 
     var Toolbox = {};
 
-    Toolbox.handlebars = {};
-
-    Toolbox.Views = {};
+    Toolbox.templates = {};
 
     Toolbox.VERSION = '%%GULP_INJECT_VERSION%%';
 

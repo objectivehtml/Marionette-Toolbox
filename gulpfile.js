@@ -46,29 +46,30 @@ gulp.task('css', function() {
 
 gulp.task('templates', function() {
     var wrapper = [
-        '(function (factory) {\n',
-        '   if (typeof define === \'function\' && define.amd) {\n',
-        '       define([\'handlebars\'], function(Handlebars) {\n',
-        '           return factory(Handlebars)\n',
-        '       });\n',
-        '   } else if (typeof exports === \'object\') {\n',
-        '       module.exports = factory(require(\'handlebars\'));\n',
-        '   } else {\n',
-        '       factory(Handlebars);\n',
-        '   }\n',
-        '}(function (Handlebars) {\n',
-        '   <%= contents %>\n',
-        '}))\n'
-    ].join('');
+        '(function (root, factory) {',
+        '   if (typeof define === \'function\' && define.amd) {',
+        '       define([\'handlebars\'], function(Handlebars) {',
+        '           return factory(root.Toolbox, Handlebars)',
+        '       });',
+        '   } else if (typeof exports === \'object\') {',
+        '       module.exports = factory(root.Toolbox, require(\'handlebars\'));',
+        '   } else {',
+        '       factory(root.Toolbox, root.Handlebars);',
+        '   }',
+        '}(this, function (Toolbox, Handlebars) {',
+        '   if(typeof Handlebars === "undefined") {',
+        '       throw Error(\'Handlebars is not defined.\')',
+        '   }',
+        '   if(typeof Toolbox.templates !== "object") {',
+        '       Toolbox.templates = {}',
+        '   }',
+        '   Toolbox.templates[\'<%= name %>\'] = <%= handlebars %>',
+        '}))'
+    ].join('\n');
 
     gulp.src('./src/**/*.hbs')
         .pipe(handlebars({
-          handlebars: require('handlebars')
-        }))
-        .pipe(wrap('Handlebars.template(<%= contents %>)'))
-        .pipe(declare({
-          namespace: 'Toolbox.templates',
-          noRedeclare: true, // Avoid duplicate declarations
+            handlebars: require('handlebars')
         }))
         .pipe(defineModule('plain', {
             require: {
@@ -84,8 +85,8 @@ gulp.task('templates', function() {
 gulp.task('scripts', function() {
     return gulp.src([
         './src/Core/Toolbox.js',
-        './src/Utilities/*.js',
         './src/Core/templates.*js',
+        './src/Utilities/*.js',
         './src/Core/Handlebars/*.js',
         './src/TreeView/Tree.js',
         './src/Core/View.js',
