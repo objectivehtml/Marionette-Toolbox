@@ -39,17 +39,34 @@
 		tagName: 'li',
 
         defaultOptions: {
+            // (mixed) The model attribute for the badge value. Defaults to false if no badge attribute.
             badgeAttribute: false,
+
+            // (mixed) The model attribute for the content value. Defaults to false if no content attribute.
             contentAttribute: false,
-            editFormClass: false,
-            deleteFormClass: false,
+
+            // (mixed) The edit form view class. Defaults to false if not edit form.
+            editFormView: false,
+
+            // (mixed) The JSON object of options for the instantiated view. Defaults to false if no options.
+            editFormViewOptions: false,
+
+            // (mixed) The delete form view class. Defaults to false if not delete form.
+            deleteFormView: false,
+
+            // (mixed) The JSON object of options for the instantiated view. Defaults to false if no options.
+            deleteFormViewOptions: false,
+
+            // (object) An object of key/values for the edit button
             editButton: {
-                className: 'btn btn-warning btn-xs',
+                className: 'edit btn btn-warning btn-xs',
                 label: 'Edit',
                 icon: 'fa fa-edit',
             },
+
+            // (object) An object of key/values for the delete button
             deleteButton: {
-                className: 'btn btn-danger btn-xs',
+                className: 'delete btn btn-danger btn-xs',
                 label: 'Delete',
                 icon: 'fa fa-trash-o',
             }
@@ -61,12 +78,11 @@
     				this.triggerMethod('click', this, e);
                 }
 			},
-            'click .edit-item': function(e) {
-                this.triggerMethod('click:edit', this, e);
-            },
-            'click .delete-item': function(e) {
-                this.triggerMethod('click:delete', this, e);
-            }
+        },
+
+        triggers: {
+            'click .edit': 'click:edit',
+            'click .delete': 'click:delete'
 		},
 
         getBadge: function() {
@@ -83,8 +99,8 @@
 
 		templateContext: function() {
             var badge, content, helper = _.extend({
-                hasEditForm: this.getOption('editFormClass') ? true : false,
-                hasDeleteForm: this.getOption('deleteFormClass') ? true : false
+                hasEditForm: this.getOption('editFormView') ? true : false,
+                hasDeleteForm: this.getOption('deleteFormView') ? true : false,
             }, this.options);
 
             if(badge = this.getBadge()) {
@@ -95,16 +111,20 @@
                 helper.content = content;
             }
 
+            if(helper.hasEditForm || helper.hasDeleteForm) {
+                helper.showActionButtons = true;
+            }
+
             return helper;
 		},
 
-        onClickEdit: function(e) {
-            var View = this.getOption('editFormClass');
+        onClickEdit: function(child, e) {
+            var View = this.getOption('editFormView');
 
             if(View) {
-                var view = new View({
+                var view = new View(_.extend({
                     model: this.model
-                });
+                }, this.getOption('editFormViewOptions')));
 
                 view.on('submit:success', function() {
                     modal.hide();
@@ -122,13 +142,13 @@
             e.preventDefault();
         },
 
-        onClickDelete: function(e) {
-            var View = this.getOption('deleteFormClass');
+        onClickDelete: function(child, e) {
+            var View = this.getOption('deleteFormView');
 
             if(View) {
-                var view = new View({
+                var view = new View(_.extend({
                     model: this.model
-                });
+                }, this.getOption('deleteFormViewOptions')));
 
                 view.on('submit:success', function() {
                     modal.hide();

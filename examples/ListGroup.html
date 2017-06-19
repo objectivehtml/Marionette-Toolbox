@@ -32,20 +32,17 @@
 				var view = new Toolbox.ListGroup({
 					activateOnClick: true,
 					activateSingleItem: true,
-					childView: Toolbox.ListGroupItem.extend({
-
-					}),
 					childViewOptions: {
 						contentAttribute: 'name',
 						badgeAttribute: 'age',
-						editFormClass: Toolbox.BaseForm.extend({
+						editFormView: Toolbox.BaseForm.extend({
 							template: function() { return '<button type="submit">Submit Edit</button>'; },
 							onSubmit: function() {
 								this.triggerMethod('submit:complete', true);
 								this.triggerMethod('submit:success', true);
 							}
 						}),
-						deleteFormClass: Toolbox.BaseForm.extend({
+						deleteFormView: Toolbox.BaseForm.extend({
 							template: function() { return '<button type="submit">Submit Delete</button>'; },
 							onSubmit: function() {
 								this.triggerMethod('submit:complete', true);

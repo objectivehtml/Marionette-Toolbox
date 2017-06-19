@@ -57,12 +57,6 @@ gulp.task('templates', function() {
         '       factory(root.Toolbox, root.Handlebars);',
         '   }',
         '}(this, function (Toolbox, Handlebars) {',
-        '   if(typeof Handlebars === "undefined") {',
-        '       throw Error(\'Handlebars is not defined.\')',
-        '   }',
-        '   if(typeof Toolbox.templates !== "object") {',
-        '       Toolbox.templates = {}',
-        '   }',
         '   Toolbox.templates[\'<%= name %>\'] = <%= handlebars %>',
         '}))'
     ].join('\n');
@@ -72,9 +66,6 @@ gulp.task('templates', function() {
             handlebars: require('handlebars')
         }))
         .pipe(defineModule('plain', {
-            require: {
-                Handlebars: 'handlebars'
-            },
             wrapper: wrapper
         }))
         .pipe(concat('templates.js'))

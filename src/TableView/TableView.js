@@ -44,11 +44,17 @@
             // (array) Array of array of column
             columns: false,
 
-            // (mixed) If not false, pass a valid View prototype
-            editFormClass: false,
+            // (mixed) The edit form view class. Defaults to false if not edit form.
+            editFormView: false,
 
-            // (mixed) If not false, pass a valid View prototype
-            deleteFormClass: false
+            // (mixed) The JSON object of options for the instantiated view. Defaults to false if no options.
+            editFormViewOptions: false,
+
+            // (mixed) The delete form view class. Defaults to false if not delete form.
+            deleteFormView: false,
+
+            // (mixed) The JSON object of options for the instantiated view. Defaults to false if no options.
+            deleteFormViewOptions: false,
         },
 
         triggers: {
@@ -61,12 +67,12 @@
         },
 
         onClickEdit: function() {
-            var View = this.getOption('editFormClass');
+            var View = this.getOption('editFormView');
 
             if(View) {
-                var view = new View({
+                var view = new View(_.extend({
                     model: this.model
-                });
+                }, this.getOption('editFormViewOptions')));
 
                 view.on('submit:success', function() {
                     this.render();
@@ -77,12 +83,12 @@
         },
 
         onClickDelete: function() {
-            var View = this.getOption('deleteFormClass');
+            var View = this.getOption('deleteFormView');
 
             if(View) {
-                var view = new View({
+                var view = new View(_.extend({
                     model: this.model
-                });
+                }, this.getOption('deleteFormViewOptions')));
 
                 this.showViewInModal(view);
             }
