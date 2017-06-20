@@ -9,7 +9,7 @@
 }(this, function (Handlebars, _) {
 
     Handlebars.registerHelper('not', function(value, options) {
-    	return !value || value == 0 ? options.fn(value) : false;
+    	return !value || value === 0 ? options.fn(value) : options.inverse(value);
     });
-    
+
 }));
