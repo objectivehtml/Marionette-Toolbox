@@ -389,10 +389,12 @@
         },
 
         hideActivityIndicator: function() {
-           this.$el.find('table').removeClass(this.getOption('loadingClassName'));
+            var bodyView = this.getRegion('body').currentView;
 
-            if(this._activityIndicator) {
-                this.getRegion('body').currentView.removeChildView(this._activityIndicator);
+            this.$el.find('table').removeClass(this.getOption('loadingClassName'));
+
+            if(this._activityIndicator && bodyView) {
+                bodyView.removeChildView(this._activityIndicator);
                 this._activityIndicator = false;
             }
         },

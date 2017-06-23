@@ -63,74 +63,33 @@
 		},
 
 		getBreadcrumbs: function() {
-			var breadcrumbs = this.collection ? this.collection.toJSON() : [];
-
-			if(!_.isArray(breadcrumbs)) {
-				breadcrumbs = [];
-			}
-
-			return breadcrumbs;
+		    return this.collection.length > 0 ? this.collection.toJSON() : [];
 		},
 
-		addBreadcrumbs: function(breadcrumbs) {
-			if(_.isArray(breadcrumbs)) {
-				_.each(breadcrumbs, function(breadcrumb) {
-					this.addBreadcrumb(breadcrumb);
-				}, this);
-			}
-			else {
-				throw Error('Adding multiple breadcrumbs must done by passing an array');
-			}
+        setBreadcrumbs: function(breadcrumbs, options) {
+            this.collection.set(breadcrumbs, options);
+        },
 
-			return this;
-		},
+        addBreadcrumbs: function(breadcrumbs, options) {
+            this.collection.add(breadcrumbs, options);
+        },
 
-		addBreadcrumb: function(breadcrumb) {
-			if(_.isObject(breadcrumb)) {
-				this.collection.add(breadcrumb);
-			}
-			else {
-				throw Error('A breadcrumb must be passed as an object');
-			}
+        addBreadcrumb: function(breadcrumb, options) {
+            this.addBreadcrumbs([breadcrumb], options);
+        },
 
-			return this;
-		},
+        insertBreadcrumb: function(breadcrumb, index, options) {
+            this.insertBreadcrumbs([breadcrumb], index, options);
+        },
 
-		setBreadcrumbs: function(breadcrumbs) {
-			if(_.isArray(breadcrumbs)) {
-				this.collection.set(breadcrumbs);
-			}
-			else {
-				throw Error('You must pass an array to set the breadcrumbs');
-			}
+        insertBreadcrumbs: function(breadcrumb, index, options) {
+            this.collection.add(breadcrumb, _.extend({
+                at: (index || 0)
+            }, options));
+        },
 
-			return this;
-		},
-
-		insertBreadcrumb: function(breadcrumb) {
-			if(_.isObject(breadcrumb)) {
-				this.collection.unshift(breadcrumb);
-			}
-			else {
-				throw Error('A breadcrumb must be passed as an object');
-			}
-
-			return this;
-		},
-
-		insertBreadcrumbs: function(breadcrumbs) {
-			var t = this;
-
-			if(_.isArray(breadcrumbs)) {
-				_.each(breadcrumbs, function(breadcrumb) {
-					t.insertBreadcrumb(breadcrumb);
-				});
-			}
-			else {
-				throw Error('Inserting multiple breadcrumbs must done by passing an array');
-			}
-
-			return this;
+		removeBreadcrumb: function(breadcrumb, options) {
+			this.collection.remove(breadcrumb, options);
 		},
 
 		removeBreadcrumbs: function() {
@@ -142,10 +101,6 @@
 				this.$el.parent().show();
 				this.$el.find('.active').removeClass(this.getOption('activeClassName'));
 				this.$el.find('li:last-child').addClass(this.getOption('activeClassName'));
-
-				if(this.$el.find('li:last-child a').length) {
-					this.$el.find('li:last-child').html(this.$el.find('li:last-child a').html());
-				}
 			}
 			else {
 				this.$el.parent().hide();

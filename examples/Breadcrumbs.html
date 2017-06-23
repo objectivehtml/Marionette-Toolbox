@@ -33,21 +33,19 @@
 					collection: new Backbone.Collection([{
 						href: '#1',
 						label: 'Breadcrumb 1'
+					},{
+						href: '#2',
+						label: 'Breadcrumb 2'
+					},{
+						href: '#3',
+						label: 'Breadcrumb 3'
 					}])
 				});
 
-				view.addBreadcrumbs([{
-					href: '#2',
-					label: 'Breadcrumb 2'
-				},{
-					href: '#3',
-					label: 'Breadcrumb 3'
-				}]);
-
-				view.insertBreadcrumb([{
+				view.insertBreadcrumb({
 					href: '#4',
 					label: 'Breadcrumb 4'
-				}]);
+				});
 
 				App.showView(view);
 			});
