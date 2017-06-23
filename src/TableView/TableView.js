@@ -321,80 +321,86 @@
         },
 
         showHeaderView: function(View) {
-            View = View || this.getOption('headerView');
+            if(this.getRegion('header')) {
+                View = View || this.getOption('headerView');
 
-            if(View) {
-                this.showChildView('header', new View(_.extend({}, this.options)));
+                if(View) {
+                    this.showChildView('header', new View(_.extend({}, this.options)));
+                }
             }
         },
 
         showBodyView: function(View) {
-            View = View || this.getOption('bodyView');
+            if(this.getRegion('body')) {
+                View = View || this.getOption('bodyView');
 
-            if(View) {
-                var view = new View(_.extend({
-                    collection: this.collection,
-                    columns: this.getOption('columns')
-                }, this.getOption('bodyViewOptions')));
+                if(View) {
+                    var view = new View(_.extend({
+                        collection: this.collection,
+                        columns: this.getOption('columns')
+                    }, this.getOption('bodyViewOptions')));
 
-                this.showChildView('body', view);
+                    this.showChildView('body', view);
+                }
             }
         },
 
         showFooterView: function(View) {
-            View = View || this.getOption('footerView');
+            if(this.getRegion('footer')) {
+                View = View || this.getOption('footerView');
 
-            var view = new View(_.extend({
-                page: this.getOption('page'),
-                totalPages: this.getOption('totalPages')
-            }, this.getOption('footerViewOptions')));
+                var view = new View(_.extend({
+                    page: this.getOption('page'),
+                    totalPages: this.getOption('totalPages')
+                }, this.getOption('footerViewOptions')));
 
-            view.on('paginate', function(page, view) {
-                this.options.page = page;
-                this.fetch(true);
-            }, this);
+                view.on('paginate', function(page, view) {
+                    this.options.page = page;
+                    this.fetch(true);
+                }, this);
 
-            this.showChildView('footer', view);
+                this.showChildView('footer', view);
+            }
         },
 
         showActivityIndicator: function() {
             var self = this;
 
-            this.getRegion('body').currentView.collection.reset();
+            if(this.getRegion('body')) {
+                this.getRegion('body').currentView.collection.reset();
 
-            this.$el.find('table').addClass(this.getOption('loadingClassName'));
+                this.$el.find('table').addClass(this.getOption('loadingClassName'));
 
-            var ActivityRow = Toolbox.ActivityIndicator.extend({
-                template: Toolbox.Template('table-activity-indicator-row'),
-                tagName: 'tr',
-                templateContext: function() {
-                    return this.options;
-                },
-                initialize: function() {
-                    Toolbox.ActivityIndicator.prototype.initialize.apply(this, arguments);
+                var ActivityRow = Toolbox.ActivityIndicator.extend({
+                    template: Toolbox.Template('table-activity-indicator-row'),
+                    tagName: 'tr',
+                    templateContext: function() {
+                        return this.options;
+                    },
+                    initialize: function() {
+                        Toolbox.ActivityIndicator.prototype.initialize.apply(this, arguments);
 
-                    // Set the activity indicator options
-                    _.extend(this.options, self.getOption('indicatorOptions'));
+                        // Set the activity indicator options
+                        _.extend(this.options, self.getOption('indicatorOptions'));
 
-                    this.options.columns = self.getOption('columns');
+                        this.options.columns = self.getOption('columns');
 
-                    // Set the activity indicator instance to be removed later
-                    self._activityIndicator = this;
-                }
-            });
+                        // Set the activity indicator instance to be removed later
+                        self._activityIndicator = this;
+                    }
+                });
 
-            this.getRegion('body').currentView.addChildView(new ActivityRow({
-                model: this.model
-            }));
+                this.getRegion('body').currentView.addChildView(new ActivityRow({
+                    model: this.model
+                }));
+            }
         },
 
         hideActivityIndicator: function() {
-            var bodyView = this.getRegion('body').currentView;
-
             this.$el.find('table').removeClass(this.getOption('loadingClassName'));
 
-            if(this._activityIndicator && bodyView) {
-                bodyView.removeChildView(this._activityIndicator);
+            if((this.getRegion('body') && this.getRegion('body').currentView) && this._activityIndicator) {
+                this.getRegion('body').currentView.removeChildView(this._activityIndicator);
                 this._activityIndicator = false;
             }
         },
