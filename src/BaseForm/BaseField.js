@@ -53,12 +53,12 @@
             id: false,
             label: false,
             description: false,
+            descriptionClassName: 'description',
             name: false,
             value: false,
             header: false,
             labelClassName: 'control-label',
             inputClassName: 'form-control',
-            descriptionClassName: 'description',
             headerTagName: 'h4',
             triggerSelector: '.form-control',
             updateModel: true

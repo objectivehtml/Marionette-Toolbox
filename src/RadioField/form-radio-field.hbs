@@ -9,11 +9,15 @@
 {{#if options}}
 	{{#options}}
 	<div class="{{../inputClassName}}">
-		<label {{#if ../labelClassName}}class="{{../labelClassName}}"{{/if}}><input type="{{../type}}" name="{{../name}}[]" value="{{value}}"> {{label}}</label>
+		<label {{#if id}}for="{{id}}"{{/if}} {{#if ../labelClassName}}class="{{../labelClassName}}"{{/if}}>
+			<input type="{{../type}}" name="{{../name}}[]" {{#if ../id}}id="{{../id}}"{{/if}} value="{{value}}"> {{label}}
+		</label>
 	</div>
 	{{/options}}
 {{else}}
 	<div class="{{inputClassName}}">
-		<label {{#if labelClassName}}class="{{labelClassName}}"{{/if}}><input type="{{type}}" name="{{name}}" value="{{value}}"></label>
+		<label {{#if id}}for="{{id}}"{{/if}} {{#if labelClassName}}class="{{labelClassName}}"{{/if}}>
+			<input type="{{type}}" name="{{name}}" {{#if id}}id="{{id}}"{{/if}} value="{{value}}">
+		</label>
 	</div>
 {{/if}}

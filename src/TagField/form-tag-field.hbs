@@ -1,5 +1,10 @@
-<label class="tag-field-label">
+<label class="tag-field-label" {{#if id}}id="{{id}}"{{/if}} {{#if labelClassName}}class="{{labelClassName}}"{{/if}}>
     {{#if label}}{{label}}{{/if}}
+
+    {{#if description}}
+    	<p {{#if descriptionClassName}}class="{{descriptionClassName}}"{{/if}}>{{description}}</p>
+    {{/if}}
+
     <div class="form-control">
         <div class="tag-field-cursor"></div>
         <div class="tags-container"></div>
