@@ -706,7 +706,6 @@
         },
 
         onBlur: function() {
-            return;
             this.$el.removeClass('has-focus');
             this.hidePredictionsElement();
             this.hideResultsElement();
