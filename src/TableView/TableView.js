@@ -454,7 +454,7 @@
             var totalPages = this.getLastPage(response);
 
             if(collection.length === 0) {
-                this.showEmptyView();
+                this._showEmptyView();
             }
 
             this.options.page = page;

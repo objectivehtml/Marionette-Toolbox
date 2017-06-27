@@ -65,6 +65,7 @@
 						var self = this;
 
 						var field1 = new Toolbox.TagField({
+							limit: 0,
 							name: 'field_name',
 							label: 'Field Name (Asynchronous)',
 							valueProperty: 'id',
@@ -73,7 +74,7 @@
 							collection: new UsersCollection,
 							ajaxSearch: true,
 							multiple: true,
-							limit: 0
+							showResultsOnFocus: false
 						});
 
 						this.showChildView('field1', field1);
@@ -85,13 +86,13 @@
 							success: function() {
 
 								var field2 = new Toolbox.TagField({
+									multiple: true,
 									name: 'field_name',
 									label: 'Field Name',
 									valueProperty: 'id',
 									labelProperty: 'name',
 									searchProperty: 'name',
 									collection: collection,
-									multiple: true,
 									showResultsOnFocus: true
 								});
 

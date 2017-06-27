@@ -235,7 +235,7 @@
                 if(e.target.value) {
                     self.addTag(self.findPrediction(e.target.value) || e.target.value);
                     self.hideResultsElement();
-                    self._predictions.reset();
+                    //self._predictions.reset();
                     e.preventDefault();
                 }
             });
@@ -691,7 +691,12 @@
             this.$el.addClass('has-focus');
 
             if(this.getOption('showResultsOnFocus')) {
-                this._predictions.add(this.collection.models);
+                if(this._predictions.length === 0 && this.collection.length > 0) {
+                    this._predictions.add(this.collection.filter(function(model) {
+                        return !this.doesTagExist(model.toJSON());
+                    }, this));
+                }
+
                 this.hidePredictionsElement();
                 this.showResultsElement();
             }
@@ -701,7 +706,7 @@
             this.$el.removeClass('has-focus');
             this.hidePredictionsElement();
             this.hideResultsElement();
-            this._predictions.reset();
+            //this._predictions.reset();
         },
 
         onKeydown: function(child, event) {
@@ -727,7 +732,7 @@
             if(!event.target.value && event.keyCode !== 9) {
                 this.hideResultsElement();
                 this.hidePredictionsElement();
-                this._predictions.reset()
+                //this._predictions.reset()
             }
             else if(event.target.value) {
                 this.showResultsElement();
