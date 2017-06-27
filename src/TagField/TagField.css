@@ -58,6 +58,7 @@
 .tag-field-input-wrapper {
     float: left;
     position: relative;
+    width: 100%;
 }
 
 .tag-field-cursor-predictions {

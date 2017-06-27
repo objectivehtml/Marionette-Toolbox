@@ -83,7 +83,10 @@
 						var collection = new UsersCollection;
 
 						collection.fetch({
-							limit: 100,
+							data: {
+								sort: 'desc',
+								limit: 100
+							},
 							success: function() {
 
 								var field2 = new Toolbox.TagField({

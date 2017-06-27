@@ -269,6 +269,8 @@
                     }
                 }
 
+                self._lastVerticalKeyPress = 'up';
+
                 e.preventDefault();
             });
 
@@ -286,6 +288,8 @@
                         resultsView.activate(resultsView.children.first());
                     }
                 }
+
+                self._lastVerticalKeyPress = 'down';
 
                 e.preventDefault();
             });
@@ -537,6 +541,23 @@
             return new collection.constructor(results);
         },
 
+        resetPredictions: function(collection) {
+            collection || (collection = this.collection);
+
+            if(collection.length) {
+                var models = collection.filter(function(model) {
+                    return !this.doesTagExist(model.toJSON());
+                }, this);
+
+                this._predictions.reset();
+                this._predictions.add(models, {
+                    sort: false
+                });
+            }
+
+            this._lastVerticalKeyPress = false;
+        },
+
         startTypingDetection: function() {
             this._detection = new Toolbox.TypingDetection(
                 this.getInputField(),
@@ -706,6 +727,8 @@
                 this.$el.addClass('max-limit-reached');
                 this.hideResultsElement();
             }
+
+            this.resetPredictions();
         },
 
         onAfterTagRemove: function(tag) {
@@ -724,13 +747,7 @@
 
             if(this.getOption('showResultsOnFocus')) {
                 if(this._predictions.length === 0 && this.collection.length > 0) {
-                    var models = this.collection.filter(function(model) {
-                        return !this.doesTagExist(model.toJSON());
-                    }, this);
-
-                    this._predictions.add(models, {
-                        sort: false
-                    });
+                    this.resetPredictions();
                 }
                 else {
                     this._predictions.sort();
@@ -776,12 +793,10 @@
 
             if(!event.target.value && ignoreKeyCodes.indexOf(event.keyCode) < 0) {
                 this.hidePredictionsElement();
+                this.resetPredictions();
 
                 if(!this.getOption('showResultsOnFocus')) {
                     this.hideResultsElement();
-                }
-                else {
-                    this._predictions.sort();
                 }
             }
             else if(event.target.value) {
