@@ -49,6 +49,10 @@
                 triggers: {
                     'mouseenter': 'mouseenter',
                     'mouseleave': 'mouseleave',
+                    'mousedown': 'mousedown',
+                    'mouseup': 'mouseup',
+                    'touchstart': 'touchstart',
+                    'touchend': 'touchend',
                     'click': 'click'
                 },
 
@@ -70,6 +74,10 @@
         childViewTriggers: {
             'mouseenter': 'result:mouseenter',
             'mouseleave': 'result:mouseleave',
+            'mousedown': 'result:mousedown',
+            'mouseup': 'result:mouseup',
+            'touchstart': 'result:touchstart',
+            'touchend': 'result:touchend',
             'click': 'result:click'
         },
 
@@ -83,25 +91,6 @@
 
         getActiveElement: function() {
             return this.$el.find('.active');
-        },
-
-        findChildView: function(child) {
-            var view = null;
-
-            if(_.isNumber(child) && (view = this.child.findByIndex(child))) {
-                return view;
-            }
-            else if(_.isString(child) && child.match(/^c\d+/) && (view = this.children.findByCid(child))) {
-                return view;
-            }
-            else if(view = this.children.find(child)) {
-                return view;
-            }
-            else if(view = this.children.findByModel(child.model)) {
-                return view;
-            }
-
-            return view;
         },
 
         getActiveView: function() {

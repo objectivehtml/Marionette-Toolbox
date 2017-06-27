@@ -13,6 +13,7 @@
 			var $ = require('jquery');
 			var _ = require('underscore');
 			var Backbone = require('backbone');
+			var Radio = require('backbone.radio');
 			var Marionette = require('backbone.marionette');
 			var Handlebars = require('handlebars');
 			var Mousetrap = require('mousetrap');
@@ -48,23 +49,59 @@
 				}
 
 			});
+
+
 			App.on('start', function() {
 
-				var view = new Toolbox.TagField({
-					name: 'field_name',
-					label: 'Field Name',
-					valueProperty: 'id',
-					labelProperty: 'name',
-					searchProperty: 'name',
-					collection: new UsersCollection,
-					ajaxSearch: true,
-					multiple: true,
-					limit: 0,
-					showResultsList: false,
-					showTextPredictions: true
+				var LayoutView = Toolbox.View.extend({
+					template: function() {
+						return '<div id="field-1"></div><div id="field-2"></div>'
+					},
+					regions: {
+						field1: '#field-1',
+						field2: '#field-2'
+					},
+					onRender: function() {
+						var self = this;
+
+						var field1 = new Toolbox.TagField({
+							name: 'field_name',
+							label: 'Field Name (Asynchronous)',
+							valueProperty: 'id',
+							labelProperty: 'name',
+							searchProperty: 'name',
+							collection: new UsersCollection,
+							ajaxSearch: true,
+							multiple: true,
+							limit: 0
+						});
+
+						this.showChildView('field1', field1);
+
+						var collection = new UsersCollection;
+
+						collection.fetch({
+							limit: 20,
+							success: function() {
+
+								var field2 = new Toolbox.TagField({
+									name: 'field_name',
+									label: 'Field Name',
+									valueProperty: 'id',
+									labelProperty: 'name',
+									searchProperty: 'name',
+									collection: collection,
+									multiple: true,
+									showResultsOnFocus: true
+								});
+
+								self.showChildView('field2', field2);
+							}
+						});
+					}
 				});
 
-				App.showView(view);
+				App.showView(new LayoutView);
 
 			});
 

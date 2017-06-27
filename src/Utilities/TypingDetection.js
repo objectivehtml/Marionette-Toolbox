@@ -29,13 +29,13 @@
 
             self.$el = Backbone.$(el);
 
-            self.$el.keyup(function () {
+            self.$el.keyup(function (event) {
                 if(!self._typingTimer) {
                     self._typingTimer = setTimeout(function() {
-                        self.triggerMethod('typing:stopped', self.getValue(), self._lastValue);
+                        self.triggerMethod('typing:stopped', self.getValue(), self._lastValue, event);
 
                         if(channel) {
-                            channel.trigger('typing:stopped', self.getValue(), self._lastValue);
+                            channel.trigger('typing:stopped', self.getValue(), self._lastValue, event);
                         }
 
                         self._lastValue = self.getValue();
@@ -44,14 +44,14 @@
                 }
             });
 
-            self.$el.keydown(function () {
+            self.$el.keydown(function (event) {
                 setTimeout(function() {
                     if(!self._typingStarted && self.getValue() != self._lastValue) {
                         self._typingStarted = true;
-                        self.triggerMethod('typing:started');
+                        self.triggerMethod('typing:started', self.getValue(), self._lastValue, event);
 
                         if(channel) {
-                            channel.trigger('typing:started');
+                            channel.trigger('typing:started', self.getValue(), self._lastValue, event);
                         }
                     }
                 });

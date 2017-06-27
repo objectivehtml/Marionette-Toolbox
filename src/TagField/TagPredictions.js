@@ -61,6 +61,7 @@
             var child = this.children.findByModel(view.model);
 
             this.deactivate(this.getActiveView());
+
             child.activate();
 
             this.triggerMethod('activate', child);
@@ -113,25 +114,6 @@
             this.triggerMethod('change:prediction:down', text, next);
         },
 
-        findChildView: function(child) {
-            var view = null;
-
-            if(_.isNumber(child) && (view = this.child.findByIndex(child))) {
-                return view;
-            }
-            else if(_.isString(child) && child.match(/^c\d+/) && (view = this.children.findByCid(child))) {
-                return view;
-            }
-            else if(view = this.children.find(child)) {
-                return view;
-            }
-            else if(view = this.children.findByModel(child.model)) {
-                return view;
-            }
-
-            return view;
-        },
-
         getActiveElement: function() {
             return this.$el.find('.active');
         },
@@ -172,16 +154,16 @@
         },
 
         onAddChild: function() {
-            this._ensureActiveElement();
+            // this._ensureActiveElement();
         },
 
         onRemoveChild: function() {
-            this._ensureActiveElement();
+            // this._ensureActiveElement();
         },
 
         _ensureActiveElement: function() {
-            if(!this.$el.find('.tag-field-cursor-prediction.active').length) {
-                this.$el.find('.tag-field-cursor-prediction:first').addClass('active');
+            if(!this.getActiveView() && this.children.first()) {
+                this.children.first().activate();
             }
         }
 

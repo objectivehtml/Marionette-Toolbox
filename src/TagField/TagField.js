@@ -1,16 +1,31 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore', 'backbone', 'backbone.marionette', 'mousetrap'], function(_, Backbone, Marionette, Mousetrap) {
-            return factory(root.Toolbox, _, Backbone, Marionette, Mousetrap);
+        define([
+            'underscore',
+            'backbone',
+            'backbone.radio',
+            'backbone.marionette',
+            'mousetrap'
+        ], function(_, Backbone, Radio, Marionette, Mousetrap) {
+            return factory(root.Toolbox, _, Backbone, Radio, Marionette, Mousetrap);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'), require('backbone'), require('backbone.marionette'), require('mousetrap'));
+        module.exports = factory(
+            root.Toolbox,
+            require('underscore'),
+            require('backbone'),
+            require('backbone.radio'),
+            require('backbone.marionette'),
+            require('mousetrap')
+        );
     } else {
-        root.Toolbox = factory(root.Toolbox, root._, root.Backbone, root.Marionette, root.Mousetrap);
+        root.Toolbox = factory(root.Toolbox, root._, root.Backbone, root.Radio, root.Marionette, root.Mousetrap);
     }
-}(this, function (Toolbox, _, Backbone, Marionette, Mousetrap) {
+}(this, function (Toolbox, _, Backbone, Radio, Marionette, Mousetrap) {
 
     'use strict';
+
+    var channel = Radio.channel('toolbox:tagfield')
 
     Toolbox.TagField = Toolbox.BaseField.extend({
 
@@ -82,9 +97,11 @@
             // (object) The input view options object
             inputViewOptions: {
                 inputClassName: 'tag-field-input tag-focusable'
-            }
-        },
+            },
 
+            // (bool) Should show search results on focus
+            showResultsOnFocus: false
+        },
 
         // TODO: Need to create a Mixin for these methods that were taken from TableView
         getRequestData: function() {
@@ -217,6 +234,8 @@
             this._inputMousetrap.bind(['tab', 'enter'], function(e) {
                 if(e.target.value) {
                     self.addTag(self.findPrediction(e.target.value) || e.target.value);
+                    self.hideResultsElement();
+                    self._predictions.reset();
                     e.preventDefault();
                 }
             });
@@ -500,7 +519,7 @@
                 this.triggerMethod('typing:started');
             }, this);
 
-            this._detection.on('typing:stopped', function(newValue, oldValue) {
+            this._detection.on('typing:stopped', function(newValue, oldValue, event) {
                 if(newValue !== oldValue) {
                     this.triggerMethod('typing:stopped', newValue, oldValue);
                 }
@@ -545,7 +564,7 @@
         },
 
         showSearchResults: function() {
-            var view = new Toolbox.TagSearchResults({
+            var self = this, view = new Toolbox.TagSearchResults({
                 tags: this._tags,
                 collection: this._predictions,
                 labelProperty: this.getOption('labelProperty'),
@@ -562,19 +581,20 @@
             });
 
             view.on('result:click', function(child, e) {
-                var next = view.children.findByIndex(child.$el.next().index());
+                var nextView = view.children.findByIndex(child.$el.next().index());
 
                 this.addTag(child.model);
                 this.focus();
 
-                if(next) {
-                    view.activate(next);
+                if(nextView) {
+                    view.activate(nextView);
                 }
             }, this);
 
             view.on('activate', function(child) {
                 if(this.getRegion('predictions').currentView) {
-                    var childView = this.getRegion('predictions').currentView.findChildView(child);
+                    var predictionsView = this.getRegion('predictions').currentView;
+                    var childView = predictionsView.children.findByModel(child.model);
 
                     if(childView) {
                         this.getRegion('predictions').currentView.deactivate();
@@ -640,7 +660,7 @@
                 });
             }
             else {
-                deferred.resolveWith(self, this.showMatches(this.collection, query));
+                deferred.resolveWith(self, [this.findLiteralMatches(this.collection, query)]);
             }
 
             return deferred.promise();
@@ -669,10 +689,19 @@
         onFocus: function() {
             this.$el.find('.tag').removeClass('has-focus');
             this.$el.addClass('has-focus');
+
+            if(this.getOption('showResultsOnFocus')) {
+                this._predictions.add(this.collection.models);
+                this.hidePredictionsElement();
+                this.showResultsElement();
+            }
         },
 
         onBlur: function() {
             this.$el.removeClass('has-focus');
+            this.hidePredictionsElement();
+            this.hideResultsElement();
+            this._predictions.reset();
         },
 
         onKeydown: function(child, event) {
@@ -695,11 +724,12 @@
             this.setInputFieldWidth();
             this.positionCursorPredictions();
 
-            if(!event.target.value) {
+            if(!event.target.value && event.keyCode !== 9) {
                 this.hideResultsElement();
                 this.hidePredictionsElement();
+                this._predictions.reset()
             }
-            else {
+            else if(event.target.value) {
                 this.showResultsElement();
                 this.showPredictionsElement();
                 this.hideTextInPrediction(event.target.value);
@@ -707,10 +737,15 @@
         },
 
         onTypingStopped: function(value) {
-            if(value && (
-                !this.getRegion('results').currentView.$el.hasClass('hide') ||
-                !this.getRegion('predictions').currentView.$el.hasClass('hide')
-            )) {
+            var predictionsView = this.getRegion('predictions').currentView;
+
+            if(value) {
+                if(this.getOption('ajaxSearch') && this._predictions.length > 0) {
+                    this.showPredictionsElement();
+                    this.getRegion('predictions').currentView.children.first().activate();
+                    this.hideTextInPrediction();
+                }
+
                 this.search(value).progress(function(requestData) {
                     this.showActivityIndicator();
                 })
@@ -720,6 +755,7 @@
                 })
                 .done(function(matches, response) {
                     this.hideActivityIndicator();
+
                     if(matches.length) {
                         if(!this._arraysEqual(
                             matches.pluck(this.getOption('searchProperty')),
@@ -729,15 +765,16 @@
                             this._predictions.add(matches.models);
                         }
 
+                        if(!predictionsView.getActiveView() && predictionsView.children.length > 0) {
+                            predictionsView.children.first().activate();
+                        }
+
                         this.hideTextInPrediction();
                     }
                     else {
                         this._predictions.reset();
                     }
                 });
-            }
-            else {
-                this._predictions.reset();
             }
         },
 
