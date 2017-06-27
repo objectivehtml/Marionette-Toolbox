@@ -51,6 +51,10 @@
     position: relative;
 }
 
+.tag-field-label p {
+    font-weight: normal;
+}
+
 .tag-field-input-wrapper {
     float: left;
     position: relative;
