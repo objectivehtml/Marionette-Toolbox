@@ -152,8 +152,8 @@
 
         fetch: function(reset) {
             var self = this,
-                deferred = $.Deferred(),
-                data = this.getRequestData();
+                data = this.getRequestData(),
+                deferred = Backbone.$.Deferred();
 
             deferred.notifyWith(self, [data]);
 
@@ -651,7 +651,7 @@
         },
 
         search: function(query) {
-            var self = this, deferred = $.Deferred();
+            var self = this, deferred = Backbone.$.Deferred();
 
             if(this.getOption('ajaxSearch')) {
                 this.fetch().progress(function(data) {
