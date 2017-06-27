@@ -48,6 +48,7 @@
 
 .tag-field-label {
     width: 100%;
+    position: relative;
 }
 
 .tag-field-input-wrapper {
@@ -149,6 +150,14 @@
     padding: 0;
     list-style: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+    position: absolute;
+    width: 99.55%;
+    left: 0;
+    z-index: 100;
+}
+
+.tag-field-search-result {
+    background: white;
 }
 
 .tag-field-search-results a,

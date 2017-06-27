@@ -36,7 +36,10 @@
         regions: {
             tags: '.tags-container',
             activity: '.tag-field-activity',
-            results: '.tag-field-search-results'
+            results: {
+                el: '.tag-field-search-results',
+                replaceElement: true
+            }
         },
 
         defaultOptions: {
@@ -703,6 +706,7 @@
         },
 
         onBlur: function() {
+            return;
             this.$el.removeClass('has-focus');
             this.hidePredictionsElement();
             this.hideResultsElement();
