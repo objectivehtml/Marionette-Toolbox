@@ -235,17 +235,38 @@
             });
 
             this._inputMousetrap.bind(['tab', 'enter'], function(e) {
+                var resultsView = self.getRegion('results').currentView;
+
                 if(e.target.value) {
                     self.addTag(self.findPrediction(e.target.value) || e.target.value);
-                    self.hideResultsElement();
-                    //self._predictions.reset();
+
+                    if(!self.getOption('showResultsOnFocus')) {
+                        self.hideResultsElement();
+                        self._predictions.reset();
+                    }
+
+                    e.preventDefault();
+                }
+                else if(!resultsView.$el.hasClass('hide') && resultsView.getActiveText()) {
+                    self.addTag(self.findPrediction(resultsView.getActiveText()));
+
                     e.preventDefault();
                 }
             });
 
             this._globalMousetrap.bind('up', function(e) {
                 if(self.getRegion('predictions').currentView.getActiveText()) {
-                    self.changePredictionUp(self.getInputValue());
+                    self.getRegion('predictions').currentView.changePredictionUp(self.getInputValue());
+                }
+                else if(self.getOption('showResultsOnFocus')) {
+                    var resultsView = self.getRegion('results').currentView;
+
+                    if(resultsView.getActiveText()) {
+                        resultsView.changePredictionUp(self.getInputValue());
+                    }
+                    else {
+                        resultsView.activate(resultsView.children.last());
+                    }
                 }
 
                 e.preventDefault();
@@ -253,7 +274,17 @@
 
             this._globalMousetrap.bind('down', function(e) {
                 if(self.getRegion('predictions').currentView.getActiveText()) {
-                    self.changePredictionDown(self.getInputValue());
+                    self.getRegion('predictions').currentView.changePredictionDown(self.getInputValue());
+                }
+                else if(self.getOption('showResultsOnFocus')) {
+                    var resultsView = self.getRegion('results').currentView;
+
+                    if(resultsView.getActiveText()) {
+                        resultsView.changePredictionDown(self.getInputValue());
+                    }
+                    else {
+                        resultsView.activate(resultsView.children.first());
+                    }
                 }
 
                 e.preventDefault();
@@ -312,7 +343,9 @@
                 this.triggerMethod('before:tag:add', tag);
                 this.hidePredictionsElement();
                 this.clearInputValue();
-                this._predictions.remove(this._tags.add(tag, options));
+                this._predictions.remove(this._tags.add(tag, options), {
+                    sort: false
+                });
                 this.triggerMethod('after:tag:add', tag);
             }
         },
@@ -332,9 +365,9 @@
         },
 
         removeTag: function(tag) {
-            this.triggerMethod('before:tag:remove');
+            this.triggerMethod('before:tag:remove', tag);
             this._tags.remove(tag);
-            this.triggerMethod('after:tag:remove');
+            this.triggerMethod('after:tag:remove', tag);
         },
 
         hideResultsElement: function() {
@@ -351,14 +384,6 @@
 
         showPredictionsElement: function() {
             this.getRegion('predictions').currentView.$el.removeClass('hide');
-        },
-
-        changePredictionUp: function(text) {
-            this.getRegion('predictions').currentView.changePredictionUp(text);
-        },
-
-        changePredictionDown: function(text) {
-            this.getRegion('predictions').currentView.changePredictionDown(text);
         },
 
         setFocusOnElement: function($el) {
@@ -669,11 +694,11 @@
             return deferred.promise();
         },
 
-        onBeforeTagAdd: function() {
+        onBeforeTagAdd: function(tag) {
             this.cancelHttpRequest();
         },
 
-        onAfterTagAdd: function() {
+        onAfterTagAdd: function(tag) {
             this._detection.clearTimer();
             this._detection.clearLastValue();
 
@@ -683,9 +708,13 @@
             }
         },
 
-        onAfterTagRemove: function() {
+        onAfterTagRemove: function(tag) {
             if(!this.hasReachedMaxLimit()) {
                 this.$el.removeClass('max-limit-reached');
+            }
+
+            if(this._predictions.length > 0) {
+                this._predictions.add(tag);
             }
         },
 
@@ -695,13 +724,21 @@
 
             if(this.getOption('showResultsOnFocus')) {
                 if(this._predictions.length === 0 && this.collection.length > 0) {
-                    this._predictions.add(this.collection.filter(function(model) {
+                    var models = this.collection.filter(function(model) {
                         return !this.doesTagExist(model.toJSON());
-                    }, this));
+                    }, this);
+
+                    this._predictions.add(models, {
+                        sort: false
+                    });
+                }
+                else {
+                    this._predictions.sort();
                 }
 
                 this.hidePredictionsElement();
                 this.showResultsElement();
+                //this.getRegion('results').currentView.ensureActiveElement();
             }
         },
 
@@ -709,7 +746,10 @@
             this.$el.removeClass('has-focus');
             this.hidePredictionsElement();
             this.hideResultsElement();
-            //this._predictions.reset();
+
+            if(!this.getOption('showResultsOnFocus')) {
+                this._predictions.reset();
+            }
         },
 
         onKeydown: function(child, event) {
@@ -728,14 +768,21 @@
         },
 
         onKeyup: function(child, event) {
+            var ignoreKeyCodes = [9, 38, 40];
+
             this.setCursorValue(event.target.value);
             this.setInputFieldWidth();
             this.positionCursorPredictions();
 
-            if(!event.target.value && event.keyCode !== 9) {
-                this.hideResultsElement();
+            if(!event.target.value && ignoreKeyCodes.indexOf(event.keyCode) < 0) {
                 this.hidePredictionsElement();
-                //this._predictions.reset()
+
+                if(!this.getOption('showResultsOnFocus')) {
+                    this.hideResultsElement();
+                }
+                else {
+                    this._predictions.sort();
+                }
             }
             else if(event.target.value) {
                 this.showResultsElement();
@@ -770,11 +817,13 @@
                             this._predictions.pluck(this.getOption('searchProperty'))
                         )) {
                             this._predictions.reset();
-                            this._predictions.add(matches.models);
+                            this._predictions.add(matches.models, {
+                                sort: false
+                            });
                         }
 
-                        if(!predictionsView.getActiveView() && predictionsView.children.length > 0) {
-                            predictionsView.children.first().activate();
+                        if(!predictionsView.getActiveView()) {
+                            predictionsView.activate(predictionsView.children.first());
                         }
 
                         this.hideTextInPrediction();
@@ -787,7 +836,14 @@
         },
 
         onDomRefresh: function() {
-            this._predictions = new Backbone.Collection;
+            this._predictions = new Backbone.Collection([], {
+                comparator: (this.getOption('order') || (
+                    this.getOption('labelProperty') ||
+                    this.getOption('valueProperty') ||
+                    this.getOption('searchProperty')
+                ))
+            });
+
             this.em = this._getCharacterSize('M');
             this.showTags();
             this.setInputFieldWidth();

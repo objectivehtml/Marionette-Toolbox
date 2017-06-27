@@ -151,20 +151,6 @@
 
         onReset: function() {
             this.$el.removeClass('hide');
-        },
-
-        onAddChild: function() {
-            // this._ensureActiveElement();
-        },
-
-        onRemoveChild: function() {
-            // this._ensureActiveElement();
-        },
-
-        _ensureActiveElement: function() {
-            if(!this.getActiveView() && this.children.first()) {
-                this.children.first().activate();
-            }
         }
 
     });

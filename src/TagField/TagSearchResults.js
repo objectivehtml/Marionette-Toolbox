@@ -81,16 +81,22 @@
             'click': 'result:click'
         },
 
+        /*
         collectionEvents: {
             'add remove update': function() {
                 if(this.children.first()) {
-                    this.children.first().activate();
+                    //this.children.first().activate();
                 }
             }
         },
+        */
 
         getActiveElement: function() {
             return this.$el.find('.active');
+        },
+
+        getActiveText: function() {
+            return this.getActiveElement().text().trim();
         },
 
         getActiveView: function() {
@@ -126,6 +132,40 @@
                 });
 
                 this.triggerMethod('deactivate');
+            }
+        },
+
+        changePredictionUp: function(text) {
+            var active = this.getActiveView();
+            var index = active.$el.index() - 1;
+
+            if(index < 0) {
+                index = this.children.length - 1;
+            }
+
+            var next = this.children.findByIndex(index);
+
+            this.activate(next);
+            this.triggerMethod('change:prediction:up', text, next);
+        },
+
+        changePredictionDown: function(text) {
+            var active = this.getActiveView();
+            var index = active.$el.index() + 1;
+
+            if(index > this.children.length - 1) {
+                index = 0;
+            }
+
+            var next = this.children.findByIndex(index);
+
+            this.activate(next);
+            this.triggerMethod('change:prediction:down', text, next);
+        },
+
+        ensureActiveElement: function() {
+            if(!this.getActiveView() && this.children.first()) {
+                this.activate(this.children.first());
             }
         }
 
