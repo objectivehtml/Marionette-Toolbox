@@ -158,6 +158,9 @@
             deferred.notifyWith(self, [data]);
 
             this.collection.reset();
+
+            this.triggerMethod('fetch', data);
+
             this.collection.fetch({
                 data: data,
                 beforeSend: function(xhr) {
@@ -168,6 +171,8 @@
                             xhr.setRequestHeader(name, value);
                         });
                     }
+
+                    self.triggerMethod('fetch:before:send', xhr);
                 },
                 success: function(collection, response) {
                     deferred.resolveWith(self, [collection, response]);
@@ -180,8 +185,6 @@
                     self.triggerMethod('fetch:error', collection, response)
                 }
             });
-
-            this.triggerMethod('fetch');
 
             return deferred.promise();
         },

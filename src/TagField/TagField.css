@@ -46,6 +46,10 @@
     outline-width: 5px;
 }
 
+.tag-prediction-label {
+    white-space: nowrap;
+}
+
 .tag-field-label {
     width: 100%;
     position: relative;
@@ -158,7 +162,7 @@
     position: absolute;
     width: 99.55%;
     left: 0;
-    z-index: 100;
+    z-index: 200;
 }
 
 .tag-field-search-result {
