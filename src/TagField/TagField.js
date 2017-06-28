@@ -582,10 +582,6 @@
         showTags: function() {
             this._tags = new Backbone.Collection;
 
-            if(this.getOption('value')) {
-                this._tags.add(this.getOption('value'));
-            }
-
             var view = new Toolbox.TagList({
                 collection: this._tags,
                 name: this.getOption('name'),
@@ -602,6 +598,10 @@
             view.addChildView(this.getInputView(), 1000);
 
             this.showChildView('tags', view);
+
+            if(this.getOption('value')) {
+                this._tags.add(this.getOption('value'));
+            }
         },
 
         getCursorPredictionElement: function() {
