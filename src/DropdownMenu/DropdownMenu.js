@@ -106,8 +106,6 @@
 
 		childViewEvents: {
 			'click': function(view) {
-                console.log('asd', arguments);
-
 				if(this.getOption('closeOnClick') === true) {
 					this.hideMenu()
 				}

@@ -65,7 +65,8 @@
 						var self = this;
 
 						var field1 = new Toolbox.TagField({
-							limit: 0,
+							limit: 100,
+							value: [],
 							name: 'field_name',
 							label: 'Field Name (Asynchronous)',
 							description: 'This is a description.',
@@ -75,17 +76,22 @@
 							collection: new UsersCollection,
 							ajaxSearch: true,
 							multiple: true,
-							showResultsOnFocus: true
+							showResultsOnFocus: true,
+							requestData: function() {
+								return {
+									name: field1.getInputValue()
+								};
+							}
 						});
 
-						this.showChildView('field1', field1);
+						//this.showChildView('field1', field1);
 
 						var collection = new UsersCollection;
 
 						collection.fetch({
 							data: {
 								sort: 'desc',
-								limit: 50
+								limit: 100
 							},
 							success: function() {
 								var field2 = new Toolbox.TagField({

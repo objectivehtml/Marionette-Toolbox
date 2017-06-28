@@ -53,7 +53,7 @@
             },
 
             // (mixed) The current value of the field. Should be array if multiple
-            // or a string if not multiple. False if no value.
+            // or a object if not multiple. False if no value.
             value: false,
 
             // (bool) Does the field allow for multiple tags
@@ -108,16 +108,18 @@
 
         // TODO: Need to create a Mixin for these methods that were taken from TableView
         getRequestData: function() {
-            var data = {}, options = this.getOption('requestDataOptions');
-            var defaultOptions = this.getOption('defaultRequestDataOptions');
+            var data = {}, options = _.result(this.options, 'requestDataOptions');
+            var defaultOptions = _.result(this.options, 'defaultRequestDataOptions');
 
             _.each(([]).concat(defaultOptions, options), function(name) {
-                if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
-                    data[name] = this.getOption(name);
+                var option = _.result(this.options, name);
+
+                if(!_.isNull(option) && !_.isUndefined(option)) {
+                    data[name] = option;
                 }
             }, this);
 
-            return _.extend(data, this.getOption('requestData'));
+            return _.extend(data, _.result(this.options, 'requestData'));
         },
         //end mixin
 
@@ -150,10 +152,8 @@
             }
         },
 
-        fetch: function(reset) {
-            var self = this,
-                data = this.getRequestData(),
-                deferred = Backbone.$.Deferred();
+        fetch: function() {
+            var self = this, data = this.getRequestData(), deferred = Backbone.$.Deferred();
 
             deferred.notifyWith(self, [data]);
 
@@ -552,8 +552,7 @@
                     return !this.doesTagExist(model.toJSON());
                 }, this);
 
-                this._predictions.reset();
-                this._predictions.add(models, {
+                this._predictions.set(models, {
                     sort: false
                 });
             }
@@ -583,6 +582,10 @@
         showTags: function() {
             this._tags = new Backbone.Collection;
 
+            if(this.getOption('value')) {
+                this._tags.add(this.getOption('value'));
+            }
+
             var view = new Toolbox.TagList({
                 collection: this._tags,
                 name: this.getOption('name'),
@@ -594,7 +597,6 @@
 
             view.on('click:clear', function(child, event) {
                 this.removeTag(child.model);
-                this.focus();
             }, this);
 
             view.addChildView(this.getInputView(), 1000);
@@ -637,7 +639,6 @@
                 var nextView = view.children.findByIndex(child.$el.next().index());
 
                 this.addTag(child.model);
-                this.focus();
 
                 if(nextView) {
                     view.activate(nextView);
@@ -707,7 +708,7 @@
                 this.fetch().progress(function(data) {
                     deferred.notifyWith(self, [data]);
                 }).done(function(collection, response) {
-                    deferred.resolveWith(self, [this.findLiteralMatches(collection, query), response]);
+                    deferred.resolveWith(self, [query ? this.findLiteralMatches(collection, query): collection, response]);
                 }).fail(function(collection, response) {
                     deferred.rejectWith(self, [collection, response]);
                 });
@@ -732,7 +733,9 @@
                 this.hideResultsElement();
             }
 
-            this.resetPredictions();
+            if(!this._predictions.length) {
+                this.resetPredictions();
+            }
         },
 
         onAfterTagRemove: function(tag) {
@@ -740,7 +743,7 @@
                 this.$el.removeClass('max-limit-reached');
             }
 
-            if(this._predictions.length > 0) {
+            if(this._predictions.length) {
                 this._predictions.add(tag);
             }
         },
@@ -750,15 +753,9 @@
             this.$el.addClass('has-focus');
 
             if(this.getOption('showResultsOnFocus')) {
-                if(this._predictions.length === 0 && this.collection.length > 0) {
-                    this.resetPredictions();
-                }
-                else {
-                    this._predictions.sort();
-                }
-
                 this.hidePredictionsElement();
                 this.showResultsElement();
+                this.resetPredictions();
                 //this.getRegion('results').currentView.ensureActiveElement();
             }
         },
@@ -856,11 +853,12 @@
 
         onDomRefresh: function() {
             this._predictions = new Backbone.Collection([], {
-                comparator: (this.getOption('order') || (
+                comparator: (
+                    this.getOption('order') ||
                     this.getOption('labelProperty') ||
                     this.getOption('valueProperty') ||
                     this.getOption('searchProperty')
-                ))
+                )
             });
 
             this.em = this._getCharacterSize('M');

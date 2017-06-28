@@ -51,8 +51,8 @@
                     'mouseleave': 'mouseleave',
                     'mousedown': 'mousedown',
                     'mouseup': 'mouseup',
-                    'touchstart': 'touchstart',
-                    'touchend': 'touchend',
+                    //'touchstart': 'touchstart',
+                    //'touchend': 'touchend',
                     'click': 'click'
                 },
 
@@ -76,8 +76,8 @@
             'mouseleave': 'result:mouseleave',
             'mousedown': 'result:mousedown',
             'mouseup': 'result:mouseup',
-            'touchstart': 'result:touchstart',
-            'touchend': 'result:touchend',
+            //'touchstart': 'result:touchstart',
+            //'touchend': 'result:touchend',
             'click': 'result:click'
         },
 
