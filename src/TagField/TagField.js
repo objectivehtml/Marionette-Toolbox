@@ -592,8 +592,9 @@
                 searchProperty: this.getOption('searchProperty')
             });
 
-            view.on('click:tag:clear', function(child, event) {
+            view.on('click:clear', function(child, event) {
                 this.removeTag(child.model);
+                this.focus();
             }, this);
 
             view.addChildView(this.getInputView(), 1000);

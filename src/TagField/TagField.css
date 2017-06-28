@@ -62,7 +62,13 @@
 .tag-field-input-wrapper {
     float: left;
     position: relative;
-    width: 100%;
+    width: auto;
+}
+
+.tag-clear-prediction {
+    position: absolute;
+    right: -15px;
+    top: 1px;
 }
 
 .tag-field-cursor-predictions {

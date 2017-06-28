@@ -21,7 +21,7 @@
         _focusDirection: false,
 
         childView: function(model) {
-            var name = this.getOption('name');
+            var self = this, name = this.getOption('name');
 
             if(this.getOption('multiple') && !name.match(/\[\]$/)) {
                 name = name + '[]';
@@ -48,7 +48,7 @@
                 template: Toolbox.Template('form-tag-list-item'),
 
                 triggers: {
-                    'click': 'click:tag:clear'
+                    'click': 'click:clear'
                 },
 
                 templateContext: {
@@ -78,20 +78,9 @@
             }
         },
 
-        childViewEvents: {
-            'click:tag:clear': function(child, event) {
-                this.triggerMethod('click:tag:clear', child, event);
-                event.preventDefault();
-            }
+        childViewTriggers: {
+            'click:clear': 'click:clear'
         },
-
-        /*
-        collectionEvents: {
-            'add remove update': function(event) {
-                this._triggerResize();
-            }
-        },
-        */
 
         setFocusOnElement: function($el) {
             if($el.length) {
