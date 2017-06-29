@@ -66,7 +66,7 @@
         },
 
         getContentView: function() {
-            return this.getRegion('content').currentView;
+            return this.getRegion('content').currentView || this.getOption('content');
         },
 
         show: function() {

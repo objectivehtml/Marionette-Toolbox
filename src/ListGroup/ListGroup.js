@@ -119,10 +119,10 @@
 		},
 
         onClickEdit: function(child, e) {
-            var View = this.getOption('editFormView');
+            var EditFormView = this.getOption('editFormView');
 
-            if(View) {
-                var view = new View(_.extend({
+            if(EditFormView) {
+                var view = new EditFormView(_.extend({
                     model: this.model
                 }, this.getOption('editFormViewOptions')));
 
@@ -131,7 +131,7 @@
                 }, this);
 
                 var modal = new Toolbox.Modal({
-                    contentView: view
+                    content: view
                 });
 
                 modal.show();
@@ -143,10 +143,10 @@
         },
 
         onClickDelete: function(child, e) {
-            var View = this.getOption('deleteFormView');
+            var DeleteFormView = this.getOption('deleteFormView');
 
-            if(View) {
-                var view = new View(_.extend({
+            if(DeleteFormView) {
+                var view = new DeleteFormView(_.extend({
                     model: this.model
                 }, this.getOption('deleteFormViewOptions')));
 
@@ -155,7 +155,7 @@
                 });
 
                 var modal = new Toolbox.Modal({
-                    contentView: view
+                    content: view
                 });
 
                 modal.show();

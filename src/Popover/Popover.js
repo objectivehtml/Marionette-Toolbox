@@ -53,7 +53,7 @@
             alignment: 'top',
 
             // (object) The content view instance
-            contentView: false,
+            content: false,
 
             // (string) The popover header text
             header: false,
@@ -138,11 +138,15 @@
         },
 
         showContentView: function(view) {
-            this.showChildView('content', view || this.getOption('contentView'));
+            this.showChildView('content', view || this.getContentView());
+        },
+
+        getContentView: function() {
+            return this.getRegion('content').currentView || this.getOption('content');
         },
 
         setContentView: function(view) {
-            this.options.contentView = view;
+            this.options.content = view;
             this.showContentView();
         },
 

@@ -96,7 +96,7 @@
 
         showViewInModal: function(view) {
             var modal = new Toolbox.Modal({
-                contentView: view
+                content: view
             });
 
             view.on('submit:success', function() {
