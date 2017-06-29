@@ -808,7 +808,8 @@
         },
 
         onFetchSuccess: function() {
-            if(this.$el.hasClass('has-focus')) {
+            if(this.$el.hasClass('has-focus') && this.collection.length) {
+                this.resetPredictions();
                 this.showResultsElement();
             }
         },
@@ -817,7 +818,7 @@
             var predictionsView = this.getRegion('predictions').currentView;
 
             if(value) {
-                if(this.getOption('ajaxSearch') && this._predictions.length > 0) {
+                if(this.getOption('ajaxSearch') && this._predictions.length) {
                     this.showPredictionsElement();
                     this.getRegion('predictions').currentView.children.first().activate();
                     this.hideTextInPrediction();

@@ -64,6 +64,7 @@
 					onRender: function() {
 						var self = this;
 
+						/*
 						var field1 = new Toolbox.TagField({
 							limit: 100,
 							value: [],
@@ -83,37 +84,35 @@
 								};
 							}
 						});
+						*/
 
 						//this.showChildView('field1', field1);
 
-						var collection = new UsersCollection;
-
-						collection.fetch({
-							data: {
-								sort: 'desc',
-								limit: 100
-							},
-							success: function() {
-
-
-								var field2 = new Toolbox.TagField({
-									value: [
-										{id: 385, name: "Zula Shanahan"},
-										{id: 264, name: "Zora Donnelly"}
-									],
-									multiple: true,
-									name: 'field_name',
-									label: 'Field Name',
-									valueProperty: 'id',
-									labelProperty: 'name',
-									searchProperty: 'name',
-									collection: collection,
-									showResultsOnFocus: true
-								});
-
-								self.showChildView('field2', field2);
-							}
+						var field2 = new Toolbox.TagField({
+							value: [
+								{id: 385, name: "Zula Shanahan"},
+								{id: 264, name: "Zora Donnelly"}
+							],
+							multiple: true,
+							name: 'field_name',
+							label: 'Field Name',
+							valueProperty: 'id',
+							labelProperty: 'name',
+							searchProperty: 'name',
+							collection: new UsersCollection,
+							showResultsOnFocus: true
 						});
+
+						field2.on('render', function() {
+							field2.fetch().progress(function() {
+								this.showActivityIndicator();
+							})
+							.done(function() {
+								this.hideActivityIndicator();
+							});
+						});
+
+						this.showChildView('field2', field2);
 					}
 				});
 
