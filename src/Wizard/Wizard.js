@@ -104,7 +104,7 @@
         showView: function(View, options) {
             var view;
 
-            if(View || (view = new View(options))) {
+            if(View && (view = new View(options))) {
                 this.showContent(view);
             }
         },
