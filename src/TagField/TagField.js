@@ -547,6 +547,8 @@
         resetPredictions: function(collection) {
             collection || (collection = this.collection);
 
+            // this.hideResultsElement();
+
             if(collection.length) {
                 var models = collection.filter(function(model) {
                     return !this.doesTagExist(model.toJSON());
@@ -874,6 +876,7 @@
             this.startTypingDetection();
             this.showCursorPredictions();
             this.showSearchResults();
+            this.hideResultsElement();
             this.unbindHotkeys();
             this.bindHotkeys();
 
