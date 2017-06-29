@@ -28,6 +28,7 @@
     position: absolute;
     right: 17px;
     top: 17px;
+    z-index: 100;
 }
 
 .tag-field .form-control {

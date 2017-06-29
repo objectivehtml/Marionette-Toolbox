@@ -81,16 +81,6 @@
             'click': 'result:click'
         },
 
-        /*
-        collectionEvents: {
-            'add remove update': function() {
-                if(this.children.first()) {
-                    //this.children.first().activate();
-                }
-            }
-        },
-        */
-
         getActiveElement: function() {
             return this.$el.find('.active');
         },

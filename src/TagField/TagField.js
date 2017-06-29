@@ -807,6 +807,12 @@
             }
         },
 
+        onFetchSuccess: function() {
+            if(this.$el.hasClass('has-focus')) {
+                this.showResultsElement();
+            }
+        },
+
         onTypingStopped: function(value) {
             var predictionsView = this.getRegion('predictions').currentView;
 
