@@ -31,7 +31,7 @@
             buttons: [],
 
             // (object) The content view class
-            contentView: false,
+            content: false,
 
             // (string) The modal window header text
             header: false,
@@ -61,7 +61,7 @@
         },
 
         setContentView: function(view) {
-            this.options.contentView = view;
+            this.options.content = view;
             this.showContentView(view);
         },
 
@@ -70,7 +70,7 @@
         },
 
         show: function() {
-            var self = this, view = this.getOption('contentView');
+            var self = this, view = this.getOption('content');
 
             this.render();
 
