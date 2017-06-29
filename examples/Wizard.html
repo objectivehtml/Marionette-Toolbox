@@ -39,6 +39,17 @@
 				var Step1 = Toolbox.View.extend({
 					template: function() {
 						return $('#step-1').html();
+					},
+					onWizardClickNext: function() {
+						var wizard = this.getOption('wizard');
+
+						wizard.showActivityIndicator();
+
+						setTimeout(function() {
+							wizard.next();
+						}, 500);
+
+						return false;
 					}
 				});
 
@@ -48,8 +59,34 @@
 
 				var Step2 = Toolbox.View.extend({
 					title: 'Step 2',
+					regions: {
+						view1: '.view-1',
+						view2: '.view-2'
+					},
 					template: function() {
-						return 'Step 2';
+						return [
+							'<h2>Step 2</h2>',
+							'<div class="row">',
+								'<div class="col-sm-6 view-1"></div>',
+								'<div class="col-sm-6 view-2"></div>',
+							'</div>'
+						].join('');
+					},
+					onDomRefresh: function() {
+						var View1 = Toolbox.View.extend({
+							template: function() {
+								return 'View 1';
+							}
+						});
+
+						var View2 = Toolbox.View.extend({
+							template: function() {
+								return 'View 2';
+							}
+						});
+
+						this.showChildView('view1', new View1);
+						this.showChildView('view2', new View2);
 					}
 				});
 
@@ -62,7 +99,7 @@
 					},
 					onWizardClickFinish: function() {
 						view.disableFinishButton();
-						
+
 						view.showActivityIndicator({
 							label: 'Testing...'
 						});

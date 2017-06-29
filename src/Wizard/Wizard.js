@@ -1,14 +1,14 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore'], function(_) {
-            return factory(root.Toolbox, _);
+        define(['underscore', 'backbone'], function(_, Backbone) {
+            return factory(root.Toolbox, _, Backbone);
         });
     } else if (typeof exports === 'object') {
-        module.exports = factory(root.Toolbox, require('underscore'));
+        module.exports = factory(root.Toolbox, require('underscore'), require('backbone'));
     } else {
-        root.Toolbox = factory(root.Toolbox, root._);
+        root.Toolbox = factory(root.Toolbox, root._, root.Backbone);
     }
-}(this, function (Toolbox, _) {
+}(this, function (Toolbox, _, Backbone) {
 
     'use strict';
 
@@ -60,15 +60,8 @@
             };
         },
 
-       templateContext: function() {
+        templateContext: function() {
             return this.options;
-        },
-
-        resetRegions: function(view) {
-            if(view.regions && view.regionManager) {
-                view.regionManager.emptyRegions();
-                view.regionManager.addRegions(view.regions);
-            }
         },
 
         setContentHeight: function(height) {
@@ -80,32 +73,39 @@
         },
 
         setStep: function(step) {
-            var view = false, prevStep = this.getStep();
+            var view = false, prevStepView = this.getStepView();
 
-            this.options.step = parseInt(step);
+            if(step instanceof Backbone.View) {
+                this.options.step = step.getOption('step');
+            }
+            else {
+                this.options.step = parseInt(step);
+            }
 
-            if(this.options.step < 1) {
+            if(!this.options.step || this.options.step < 1) {
                 this.options.step = 1;
             }
 
             if(this.getOption('step') > this.getOption('highestStep')) {
-                this.options.highestStep = this.getOption('step')
+                this.options.highestStep = this.getOption('step');
             }
 
             if(this.getRegion('buttons').currentView) {
                 this.getRegion('buttons').currentView.render();
             }
 
-            if(view = this.getStep()) {
+            if(view = this.getStepView()) {
                 this.showContent(view);
-                view.triggerMethod('wizard:show:step', this.getStep(), prevStep, view);
-                this.triggerMethod('show:step', this.getStep(), prevStep, this);
+                view.triggerMethod('wizard:show:step', this.getStepView(), prevStepView, view);
+                this.triggerMethod('show:step', this.getStepView(), prevStepView, this);
             }
         },
 
         showView: function(View, options) {
-            if(View) {
-                this.showContent(new View(options));
+            var view;
+
+            if(View || (view = new View(options))) {
+                this.showContent(view);
             }
         },
 
@@ -117,16 +117,15 @@
                 minHeight: '400px'
             }, options));
 
-            region.show(view, {
-                preventDestroy: true
-            });
+            region.detachView();
+            region.show(view);
         },
 
         showProgress: function() {
-            var View = this.getOption('progressView');
+            var ProgressView = this.getOption('progressView');
 
-            if(View) {
-                var view = new View(_.extend({}, this.getOption('progressViewOptions'), {
+            if(ProgressView) {
+                var view = new ProgressView(_.extend({}, this.getOption('progressViewOptions'), {
                     wizard: this
                 }));
 
@@ -138,10 +137,10 @@
         },
 
         showButtons: function() {
-            var View = this.getOption('buttonView');
+            var ButtonView = this.getOption('buttonView');
 
-            if(View) {
-                var view = new View(_.extend({}, this.getOption('buttonViewOptions'), {
+            if(ButtonView) {
+                var view = new ButtonView(_.extend({}, this.getOption('buttonViewOptions'), {
                     wizard: this
                 }));
 
@@ -153,21 +152,21 @@
         },
 
         showContent: function(view) {
-            if(view) {
-                view.options.wizard = this;
+            view.options.wizard = this;
 
-                this.showChildView('content', view, {
-                    preventDestroy: true
-                });
+            this.getRegion('content').detachView();
+            this.showChildView('content', view);
 
-                view.once('attach', function() {
-                    this.resetRegions(view);
-                    view.triggerMethod('wizard:attach');
-                }, this);
-            }
+            view.once('attach', function() {
+                view.triggerMethod('wizard:attach');
+            }, this);
         },
 
-        getStep: function(step) {
+        getStep: function() {
+            return this.getOption('step');
+        },
+
+        getStepView: function(step) {
             return this.getOption('steps')[(step || this.getOption('step')) - 1];
         },
 
@@ -176,7 +175,7 @@
         },
 
         next: function() {
-            this.triggerMethod('complete:step', this.getStep());
+            this.triggerMethod('complete:step', this.getStepView());
             this.setStep(this.getOption('step') + 1);
         },
 
@@ -216,7 +215,7 @@
 
         finish: function(success, options, View) {
             if(_.isUndefined(success) || success) {
-                this.triggerMethod('complete:step', this.getStep());
+                this.triggerMethod('complete:step', this.getStepView());
                 this.triggerMethod('wizard:success', options, View);
             }
             else {

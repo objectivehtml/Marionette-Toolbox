@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../resources/bootstrap-3.3.2-dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="../resources/font-awesome-4.3.0/css/font-awesome.css">
+		<link rel="stylesheet" href="../dist/marionette.toolbox.css">
+
+		<script src="../resources/vendor.js"></script>
+
+		<script type="text/javascript">
+			var $ = require('jquery');
+			var _ = require('underscore');
+			var Backbone = require('backbone');
+			var Marionette = require('backbone.marionette');
+			var Handlebars = require('handlebars');
+		</script>
+
+		<script src="../dist/marionette.toolbox.js"></script>
+	</head>
+	<body>
+		<div id="app-wrapper" style="position: absolute; top: 45%; width: 100%; text-align: center;">
+			<a href="#" class="show-overlay btn btn-lg btn-default">Show Overlay</a>
+		</div>
+
+		<script type="text/javascript">
+			var App = new Marionette.Application({
+				region: '#app-wrapper'
+			});
+
+			App.on('start', function() {
+				var View = Toolbox.View.extend({
+					template: function() {
+                        return 'Overlay content goes here';
+                    }
+				});
+
+				var view = new Toolbox.Overlay({
+					content: new View
+				});
+
+				$('.show-overlay').click(function() {
+					view.show();
+				});
+			});
+
+			App.start();
+
+		</script>
+
+	</body>
+</html>

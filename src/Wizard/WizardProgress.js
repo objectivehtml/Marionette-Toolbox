@@ -61,7 +61,7 @@
         },
 
         setComplete: function(step) {
-            var view = this.getOption('wizard').getStep(step);
+            var view = this.getOption('wizard').getStepView(step);
 
             view.options.complete = true;
 

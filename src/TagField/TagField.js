@@ -25,8 +25,6 @@
 
     'use strict';
 
-    var channel = Radio.channel('toolbox:tagfield')
-
     Toolbox.TagField = Toolbox.BaseField.extend({
 
         className: 'tag-field',

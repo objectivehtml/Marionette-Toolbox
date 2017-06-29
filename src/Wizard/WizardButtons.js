@@ -203,7 +203,7 @@
             var steps = this.getSteps();
 
             if(this.getOption('wizard')) {
-                var response = this.getOption('wizard').getStep().triggerMethod('wizard:click:back', steps[step - 1]);
+                var response = this.getOption('wizard').getStepView().triggerMethod('wizard:click:back', steps[step - 1]);
 
                 if(_.isUndefined(response) || response === true) {
                     this.getOption('wizard').back();
@@ -220,7 +220,7 @@
             var steps = this.getSteps();
 
             if(this.getOption('wizard')) {
-                var response = this.getOption('wizard').getStep().triggerMethod('wizard:click:next', steps[step + 1]);
+                var response = this.getOption('wizard').getStepView().triggerMethod('wizard:click:next', steps[step + 1]);
 
                 if(_.isUndefined(response) || response === true) {
                     this.getOption('wizard').next();
@@ -234,7 +234,7 @@
 
         onClickFinish: function() {
             if(this.getOption('wizard')) {
-                var step = this.getOption('wizard').getStep();
+                var step = this.getOption('wizard').getStepView();
                 var response = step.triggerMethod('wizard:click:finish', step);
 
                 if(_.isUndefined(response) || response === true) {
