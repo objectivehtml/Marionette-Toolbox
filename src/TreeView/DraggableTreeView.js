@@ -18,14 +18,16 @@
 
     Toolbox.DraggableTreeView = Toolbox.TreeView.extend({
 
-        childView: Toolbox.DraggableTreeNode,
-
         className: 'draggable-tree',
 
         childViewOptions: {
             idAttribute: 'id',
             parentAttribute: 'parent_id',
             childView: Toolbox.DraggableTreeView
+        },
+
+        childView: function() {
+            return Toolbox.DraggableTreeNode;
         },
 
         onDropAfter: function(event, parent) {

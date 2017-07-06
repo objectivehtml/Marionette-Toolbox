@@ -81,14 +81,12 @@ gulp.task('scripts', function() {
         './src/Core/Handlebars/*.js',
         './src/TreeView/Tree.js',
         './src/Core/View.js',
+        './src/Core/EmptyView.js',
         './src/Core/CollectionView.js',
         './src/BaseForm/BaseField.js',
-        './src/BaseForm/BaseForm.js',
         './src/UnorderedList/UnorderedList.js',
         './src/DropdownMenu/DropdownMenu.js',
-        './src/TreeView/TreeViewNode.js',
         './src/TreeView/TreeView.js',
-        './src/TreeView/DraggableTreeNode.js',
         './src/TreeView/DraggableTreeView.js',
         './src/**/*.js'
     ])

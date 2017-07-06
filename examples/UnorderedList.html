@@ -20,7 +20,10 @@
 		<script src="../dist/marionette.toolbox.js"></script>
 	</head>
 	<body>
-		<div id="app-wrapper"></div>
+		<div class="container">
+			<h2>Unordered List</h2>
+			<div id="app-wrapper"></div>
+		</di>
 
 		<script type="text/javascript">
 			var App = new Marionette.Application({
@@ -30,7 +33,6 @@
 			App.on('start', function() {
 
 				var view = new Toolbox.UnorderedList({
-					showEmptyMessage: false,
 					collection: new Backbone.Collection([{
 						content: 'List Item #1'
 					},{
@@ -41,7 +43,7 @@
 						content: 'List Item #4'
 					},{
 						content: 'List Item #5'
-					}])
+					}]),
 				});
 
 				view.on('item:click', function(child) {

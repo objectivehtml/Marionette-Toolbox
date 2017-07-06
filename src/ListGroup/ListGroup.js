@@ -184,54 +184,39 @@
 			activateSingleItem: false,
 
 			// (string) Active class name
-			activeClassName: 'active',
-
-			// (string) The message to display if there are no list items
-			emptyMessage: 'There are no items in the list.',
-
-			// (object) The view object to use for the empty message
-			emptyMessageView: Toolbox.NoListGroupItem,
-
-			// (bool) Show the empty message view
-			showEmptyMessage: true,
+			activeClassName: 'active'
 		},
 
-		childViewEvents: {
-			'click': function(child, e) {
-                if(this.getOption('activateOnClick')) {
-                    if(child.$el.hasClass(this.getOption('activeClassName'))) {
-                        child.$el.removeClass(this.getOption('activeClassName'));
-                    }
-                    else {
-                        if(this.getOption('activateSingleItem')) {
-                            this.$el.find('.'+this.getOption('activeClassName'))
-                                .removeClass(this.getOption('activeClassName'));
-                        }
-
-                        child.$el.addClass(this.getOption('activeClassName'));
-
-                        this.triggerMethod('activate', e);
-                    }
-                }
-
-				this.triggerMethod('item:click', child, e);
-			}
-		},
+        childViewTriggers: {
+            'click': 'item:click'
+        },
 
         emptyView: function() {
-        	if(this.getOption('showEmptyMessage')) {
-	            var View = this.getOption('emptyMessageView');
+            return Toolbox.EmptyView.extend({
+                className: 'list-group-item',
+                options: {
+                    message: Toolbox.EmptyView.prototype.defaultOptions.message,
+                    messageTagName: false
+                }
+            });
+        },
 
-	            View = View.extend({
-	                options: {
-	                    message: this.getOption('emptyMessage')
-	                }
-	            });
+        onChildviewClick: function(child, event) {
+            if(this.getOption('activateOnClick')) {
+                if(child.$el.hasClass(this.getOption('activeClassName'))) {
+                    child.$el.removeClass(this.getOption('activeClassName'));
+                }
+                else {
+                    if(this.getOption('activateSingleItem')) {
+                        this.$el.find('.'+this.getOption('activeClassName'))
+                            .removeClass(this.getOption('activeClassName'));
+                    }
 
-	            return View;
-	        }
+                    child.$el.addClass(this.getOption('activeClassName'));
 
-	        return;
+                    this.triggerMethod('activate', event);
+                }
+            }
         }
 
 	});

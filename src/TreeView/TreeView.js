@@ -14,22 +14,20 @@
 
     Toolbox.TreeView = Toolbox.CollectionView.extend({
 
-        childView: Toolbox.TreeViewNode,
+        className: 'tree-view',
 
         tagName: 'ul',
-
-        className: 'tree-view',
 
         defaultOptions: {
             nestable: true
         },
 
-        emptyView: Toolbox.ItemView,
-
-        emptyViewOptions: {
-            template: Toolbox.Template('no-tree-view-nodes')
+        childView: function() {
+            return Toolbox.TreeViewNode;
         },
-        
+
+        emptyView: Toolbox.EmptyView,
+
         initialize: function() {
             Toolbox.CollectionView.prototype.initialize.apply(this, arguments);
 

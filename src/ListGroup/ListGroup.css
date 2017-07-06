@@ -1,3 +1,7 @@
+.list-group.pointer .list-group-item {
+    cursor: pointer;
+}
+
 .list-group-item-actions {
     float: right;
     margin-left: 20px;

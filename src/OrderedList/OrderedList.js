@@ -10,22 +10,6 @@
 
     'use strict';
 
-	Toolbox.NoOrderedListItem = Toolbox.View.extend({
-
-		template: Toolbox.Template('no-ordered-list-item'),
-
-		tagName: 'li',
-
-		defaultOptions: {
-			message: 'There are no items in the list.'
-		},
-
-		templateContext: function() {
-			return this.options;
-		}
-
-	});
-
 	Toolbox.OrderedListItem = Toolbox.View.extend({
 
 		template: Toolbox.Template('ordered-list-item'),
@@ -48,42 +32,15 @@
 
 		childView: Toolbox.OrderedListItem,
 
-    	emptyView: Toolbox.NoUnorderedListItem,
+        emptyView: Toolbox.EmptyView,
 
 		className: 'ordered-list',
 
 		tagName: 'ol',
 
-		defaultOptions: {
-			// (object) The view object to use for the empty message
-			emptyMessageView: Toolbox.NoOrderedListItem,
-
-			// (string) The message to display if there are no list items
-			emptyMessage: 'There are no items in the list.',
-
-			// (bool) Show the empty message view
-			showEmptyMessage: true
-		},
-
 		childViewTriggers: {
-            'click': 'item:click'
-        },
-
-        getEmptyView: function() {
-        	if(this.getOption('showEmptyMessage')) {
-	            var View = this.getOption('emptyMessageView');
-
-	            View = View.extend({
-	                options: {
-	                    message: this.getOption('emptyMessage')
-	                }
-	            });
-
-	            return View;
-	        }
-
-	        return;
-        }
+			'click': 'item:click'
+		}
 
 	});
 
