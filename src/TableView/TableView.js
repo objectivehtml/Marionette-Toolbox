@@ -263,11 +263,9 @@
                 data[name] = _.result(this.options, name);
             }, this);
 
-            /*
-            data = _.filter(data, function(item) {
-                return !(_.isUndefined(item) || _.isNull(item) || item === false)
+            data = _.pick(data, function(value, key) {
+                return !(_.isUndefined(value) || _.isNull(value))
             });
-            */
 
             return _.extend(data, _.result(this.options, 'requestData'));
         },
