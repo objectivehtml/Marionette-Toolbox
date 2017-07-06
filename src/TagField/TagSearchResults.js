@@ -18,6 +18,8 @@
 
         className: 'tag-field-search-results',
 
+        emptyView: false,
+
         childView: function(model) {
             var label = model.get(
                 this.getOption('labelProperty') ||

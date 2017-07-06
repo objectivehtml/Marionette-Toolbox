@@ -29,6 +29,8 @@
             }
         },
 
+        emptyView: false,
+
         childView: function(model) {
             var searchProperty = this.getOption('searchProperty');
 
@@ -57,7 +59,7 @@
             });
         },
 
-        activate: function(view) {            
+        activate: function(view) {
             var child = this.children.findByModel(view.model);
 
             this.deactivate(this.getActiveView());

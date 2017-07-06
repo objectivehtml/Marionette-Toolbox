@@ -20,6 +20,8 @@
 
         _focusDirection: false,
 
+        emptyView: false,
+
         childView: function(model) {
             var self = this, name = this.getOption('name');
 

@@ -595,13 +595,13 @@
                 this.removeTag(child.model);
             }, this);
 
-            view.addChildView(this.getInputView(), 1000);
-
-            this.showChildView('tags', view);
-
             if(this.getOption('value')) {
                 this._tags.add(this.getOption('value'));
             }
+
+            this.showChildView('tags', view);
+
+            view.addChildView(this.getInputView(), 1000);
         },
 
         getCursorPredictionElement: function() {
