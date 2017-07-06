@@ -21,7 +21,6 @@
         template: Toolbox.Template('generic-empty-view'),
 
         defaultOptions: {
-
             // (mixed) The message that appear if the CollectionView is empty.
             // Use `false` if no message should be displayed.
             message: 'There are no items in the list.',
@@ -29,12 +28,9 @@
             // (mixed) The HTML tag element for the message content. Use `false`
             // if there is no wrapping tag.
             messageTagName: 'p'
-
         },
 
         templateContext: function() {
-            console.log(this.options);
-            
             return this.options;
         }
 

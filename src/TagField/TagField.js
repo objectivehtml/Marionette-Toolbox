@@ -110,12 +110,12 @@
             var defaultOptions = _.result(this.options, 'defaultRequestDataOptions');
 
             _.each(([]).concat(defaultOptions, options), function(name) {
-                var option = _.result(this.options, name);
-
-                if(!_.isNull(option) && !_.isUndefined(option)) {
-                    data[name] = option;
-                }
+                data[name] = _.result(this.options, name);
             }, this);
+
+            data = _.filter(data, function(item) {
+                return !(_.isUndefined(item) || _.isNull(item) || item === false)
+            });
 
             return _.extend(data, _.result(this.options, 'requestData'));
         },

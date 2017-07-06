@@ -244,7 +244,7 @@
             }
         },
 
-       templateContext: function() {
+        templateContext: function() {
             return this.options;
         },
 
@@ -256,47 +256,56 @@
             return response.last_page || response.lastPage;
         },
 
-        onRender: function() {
-            this.showHeaderView();
-            this.showBodyView();
+        getRequestData: function() {
+            var data = {}, options = _.result(this.options, 'requestDataOptions');
+            var defaultOptions = _.result(this.options, 'defaultRequestDataOptions');
 
-            if(this.getOption('fetchOnRender')) {
-                this.fetch();
-            }
+            _.each(([]).concat(defaultOptions, options), function(name) {
+                data[name] = _.result(this.options, name);
+            }, this);
+
+            data = _.filter(data, function(item) {
+                return !(_.isUndefined(item) || _.isNull(item) || item === false)
+            });
+
+            return _.extend(data, _.result(this.options, 'requestData'));
         },
 
-        onSortClick: function(e) {
-            var defaultSort = 'asc',
-                currentOrder = this.getOption('order'),
-                currentSort = this.getOption('sort'),
-                order = $(e.target).data('id');
+        getCurrentPage: function(response) {
+            return response.current_page || response.currentPage;
+        },
 
-            if(currentOrder == order) {
-                if(!currentSort) {
-                    this.options.sort = defaultSort;
-                }
-                else if(this.getOption('sort') === 'asc') {
-                    this.options.sort = 'desc';
-                }
-                else {
-                    this.options.order = false;
-                    this.options.sort = false;
-                }
-            }
-            else {
-                this.options.order = order;
-                this.options.sort = defaultSort;
+        getLastPage: function(response) {
+            return response.last_page || response.lastPage;
+        },
+
+        fetch: function(reset) {
+            var self = this;
+
+            if(reset) {
+                this.collection.reset();
             }
 
-            this.$el.find('.sort').parent()
-                .removeClass('sort-asc')
-                .removeClass('sort-desc');
+            this.collection.fetch({
+                data: this.getRequestData(),
+                beforeSend: function(xhr) {
+                    if(self.getOption('requestHeaders')) {
+                        _.each(self.getOption('requestHeaders'), function(value, name) {
+                            xhr.setRequestHeader(name, value);
+                        });
+                    }
+                },
+                success: function(collection, response) {
+                    self.triggerMethod('fetch:complete', true, collection, response);
+                    self.triggerMethod('fetch:success', collection, response);
+                },
+                error: function(collection, response) {
+                    self.triggerMethod('fetch:complete', false, collection, response);
+                    self.triggerMethod('fetch:error', collection, response)
+                }
+            });
 
-            if(this.getOption('sort')) {
-                $(e.target).parent().addClass('sort-'+this.getOption('sort'));
-            }
-
-            this.fetch(true);
+            this.triggerMethod('fetch');
         },
 
         showHeaderView: function(View) {
@@ -369,6 +378,10 @@
                     }
                 });
 
+                this.getRegion('body').currentView.children.each(function(view) {
+                    this.removeChildView(view);
+                }, this.getRegion('body').currentView);
+
                 this.getRegion('body').currentView.addChildView(new ActivityRow({
                     model: this.model
                 }));
@@ -384,48 +397,51 @@
             }
         },
 
-        getRequestData: function() {
-            var data = {}, options = this.getOption('requestDataOptions');
-            var defaultOptions = this.getOption('defaultRequestDataOptions');
+        onFetch: function(collection, response) {
+            this.showActivityIndicator();
+        },
 
-            _.each(([]).concat(defaultOptions, options), function(name) {
-                if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
-                    data[name] = this.getOption(name);
-                }
-            }, this);
+        onRender: function() {
+            this.showHeaderView();
+            this.showBodyView();
 
-            return _.extend(data, this.getOption('requestData'));
+            if(this.getOption('fetchOnRender')) {
+                this.fetch();
+            }
         },
 
         onSortClick: function(e) {
-            var self = this, orderBy = $(e.target).data('id');
+            var defaultSort = 'asc',
+                currentOrder = this.getOption('order'),
+                currentSort = this.getOption('sort'),
+                order = $(e.target).data('id');
 
-            _.each(([]).concat(defaultOptions, options), function(name) {
-                if(!_.isNull(this.getOption(name)) && !_.isUndefined(this.getOption(name))) {
-                    if(this.getOption(name)) {
-                        data[name] = this.getOption(name);
-                    }
+            if(currentOrder == order) {
+                if(!currentSort) {
+                    this.options.sort = defaultSort;
                 }
-                else if(self.getOption('sort') === 'asc') {
-                    self.options.sort = 'desc';
+                else if(this.getOption('sort') === 'asc') {
+                    this.options.sort = 'desc';
                 }
                 else {
-                    self.options.orderBy = false;
-                    self.options.sort = false;
+                    this.options.order = false;
+                    this.options.sort = false;
                 }
-            });
-
-            this.$el.find('.sort').parent().removeClass('sort-asc').removeClass('sort-desc');
-
-            if(self.getOption('sort')) {
-                $(e.target).parent().addClass('sort-'+self.getOption('sort'));
+            }
+            else {
+                this.options.order = order;
+                this.options.sort = defaultSort;
             }
 
-            self.fetch(true);
-        },
+            this.$el.find('.sort').parent()
+                .removeClass('sort-asc')
+                .removeClass('sort-desc');
 
-        onFetch: function(collection, response) {
-            this.showActivityIndicator();
+            if(this.getOption('sort')) {
+                $(e.target).parent().addClass('sort-'+this.getOption('sort'));
+            }
+
+            this.fetch(true);
         },
 
         onFetchSuccess: function(collection, response) {
@@ -444,43 +460,6 @@
 
         onFetchComplete: function(status, collection, response) {
             this.hideActivityIndicator();
-        },
-
-        getCurrentPage: function(response) {
-            return response.current_page || response.currentPage;
-        },
-
-        getLastPage: function(response) {
-            return response.last_page || response.lastPage;
-        },
-
-        fetch: function(reset) {
-            var self = this;
-
-            if(reset) {
-                this.collection.reset();
-            }
-
-            this.collection.fetch({
-                data: this.getRequestData(),
-                beforeSend: function(xhr) {
-                    if(self.getOption('requestHeaders')) {
-                        _.each(self.getOption('requestHeaders'), function(value, name) {
-                            xhr.setRequestHeader(name, value);
-                        });
-                    }
-                },
-                success: function(collection, response) {
-                    self.triggerMethod('fetch:complete', true, collection, response);
-                    self.triggerMethod('fetch:success', collection, response);
-                },
-                error: function(collection, response) {
-                    self.triggerMethod('fetch:complete', false, collection, response);
-                    self.triggerMethod('fetch:error', collection, response)
-                }
-            });
-
-            this.triggerMethod('fetch');
         }
 
     });

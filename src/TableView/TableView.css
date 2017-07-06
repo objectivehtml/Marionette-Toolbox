@@ -2,17 +2,18 @@
 	margin-bottom: 15px;
 }
 
-table .sort-icon { display: none; }
-table .sort-asc .asc { display: inline-block; }
-table .sort-desc .desc { display: inline-block; }
-table + .pagination,
-table + .pagination .pager  { margin-top: 0; width: 100%; }
-table .activity-indicator-row { position: relative; height: 300px; }
-table .page-totals { text-align: center; font-weight: 200; }
-table tr td { position: relative; }
-table .table-action { position: absolute; right: 100%; top: 3px; min-width: 55px; border-radius: 1000px 0 0 1000px; background: gray; font-size: 11px; padding: 3px 3px 3px 6px; color: white; display: none; }
-table tr:hover .table-action { display: block; font-weight: 300; }
-table tr:hover .table-action:hover { background: rgb(113, 113, 113); }
+
+.table-view .sort-icon { display: none; }
+.table-view .sort-asc .asc { display: inline-block; }
+.table-view .sort-desc .desc { display: inline-block; }
+.table-view + .pagination,
+.table-view + .pagination .pager  { margin-top: 0; width: 100%; }
+.table-view .activity-indicator-row { position: relative; height: 300px; }
+.table-view .page-totals { text-align: center; font-weight: 200; }
+.table-view tr td { position: relative; }
+.table-view .table-action { position: absolute; right: 100%; top: 3px; min-width: 55px; border-radius: 1000px 0 0 1000px; background: gray; font-size: 11px; padding: 3px 3px 3px 6px; color: white; display: none; }
+.table-view tr:hover .table-action { display: block; font-weight: 300; }
+.table-view tr:hover .table-action:hover { background: rgb(113, 113, 113); }
 
 .box { border: 1px solid rgb(214, 214, 214); margin: 0; border-top: 1px solid rgb(204, 204, 204); clear: both; }
 .box table { border-collapse: collapse; margin: 0; width: 100%; }
