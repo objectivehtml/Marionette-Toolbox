@@ -87,6 +87,7 @@ gulp.task('scripts', function() {
         './src/UnorderedList/UnorderedList.js',
         './src/DropdownMenu/DropdownMenu.js',
         './src/TreeView/TreeView.js',
+        './src/TreeView/TreeViewNode.js',
         './src/TreeView/DraggableTreeView.js',
         './src/**/*.js'
     ])

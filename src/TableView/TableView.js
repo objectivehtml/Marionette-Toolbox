@@ -12,28 +12,6 @@
 
     'use strict';
 
-    Toolbox.TableNoItemsRow = Toolbox.View.extend({
-
-        tagName: 'tr',
-
-        template: Toolbox.Template('table-no-items'),
-
-        className: 'no-results',
-
-        defaultOptions: {
-            // (array) Array of array of column
-            columns: false,
-
-            // (string) The message to display if there are no table rows
-            message: 'No rows found'
-        },
-
-       templateContext: function() {
-            return this.options;
-        }
-
-    });
-
     Toolbox.TableViewRow = Toolbox.View.extend({
 
         tagName: 'tr',
@@ -116,6 +94,18 @@
 
         childView: Toolbox.TableViewRow,
 
+        emptyView: function() {
+            return Toolbox.EmptyView.extend({
+                template: Toolbox.Template('no-table-items'),
+
+                tagName: 'tr',
+
+                options: {
+                    message: 'No records found'
+                }
+            });
+        },
+
         onChildviewBeforeRender: function(child) {
             child.options.columns = this.getOption('columns');
         }
@@ -157,7 +147,7 @@
             columns: false,
 
             // (bool) Fetch the data when table is shown
-            fetchOnShow: true,
+            fetchOnRender: true,
 
             // (array) An array of headers appended to the request
             requestHeaders: [],
@@ -266,22 +256,11 @@
             return response.last_page || response.lastPage;
         },
 
-        getEmptyView: function() {
-            var View = Toolbox.TableNoItemsRow.extend({
-                options: {
-                    message: this.getOption('emptyMessage'),
-                    columns: this.getOption('columns')
-                }
-            });
-
-            return View;
-        },
-
         onRender: function() {
             this.showHeaderView();
             this.showBodyView();
 
-            if(this.getOption('fetchOnShow')) {
+            if(this.getOption('fetchOnRender')) {
                 this.fetch();
             }
         },

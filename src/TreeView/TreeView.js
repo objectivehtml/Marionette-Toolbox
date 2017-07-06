@@ -26,7 +26,11 @@
             return Toolbox.TreeViewNode;
         },
 
-        emptyView: Toolbox.EmptyView,
+        emptyView: Toolbox.EmptyView.extend({
+            options: {
+                message: 'This tree has no nodes'
+            }
+        }),
 
         initialize: function() {
             Toolbox.CollectionView.prototype.initialize.apply(this, arguments);

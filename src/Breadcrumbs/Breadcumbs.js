@@ -12,16 +12,6 @@
 
 	'use strict';
 
-	Toolbox.NoBreadcrumbs = Toolbox.View.extend({
-
-		template: Toolbox.Template('no-breadcrumbs'),
-
-		tagName: 'li',
-
-		className: 'no-breadcrumbs'
-
-	});
-
 	Toolbox.Breadcrumb = Toolbox.View.extend({
 
 		template: Toolbox.Template('breadcrumb'),
@@ -34,7 +24,7 @@
 
 		childView: Toolbox.Breadcrumb,
 
-		emptyView: Toolbox.NoBreadcrumbs,
+		emptyView: false,
 
 		className: 'breadcrumb',
 

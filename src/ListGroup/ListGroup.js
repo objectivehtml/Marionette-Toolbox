@@ -12,24 +12,6 @@
 
     'use strict';
 
-	Toolbox.NoListGroupItem = Toolbox.View.extend({
-
-		template: Toolbox.Template('no-list-group-item'),
-
-		className: 'list-group-item',
-
-		tagName: 'li',
-
-		defaultOptions: {
-			message: 'There are no items in the list.'
-		},
-
-		templateContext: function() {
-			return this.options;
-		}
-
-	});
-
 	Toolbox.ListGroupItem = Toolbox.View.extend({
 
 		template: Toolbox.Template('list-group-item'),

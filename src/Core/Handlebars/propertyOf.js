@@ -8,9 +8,11 @@
     }
 }(this, function (Handlebars) {
 
-    Handlebars.registerHelper('propertyOf', function(object, prop) {
-        if(object.hasOwnProperty(prop)) {
-            return new Handlebars.SafeString(object[prop]);
+    Handlebars.registerHelper('propertyOf', function(subject, prop) {
+        console.log(subject, prop);
+
+        if(subject.hasOwnProperty(prop)) {
+            return new Handlebars.SafeString(subject[prop]);
         }
 
         return null;
