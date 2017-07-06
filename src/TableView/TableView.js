@@ -228,11 +228,6 @@
         },
 
         events: {
-            'click .sort': function(e) {
-                this.triggerMethod('sort:click', e);
-
-                e.preventDefault();
-            },
             'click .buttons-wrapper a': function(e) {
                 var buttons = this.getOption('buttons');
                 var i = $(e.target).index();
@@ -242,6 +237,10 @@
                     e.preventDefault();
                 }
             }
+        },
+
+        triggers: {
+            'click .sort': 'click:sort'
         },
 
         templateContext: function() {
@@ -264,9 +263,11 @@
                 data[name] = _.result(this.options, name);
             }, this);
 
+            /*
             data = _.filter(data, function(item) {
                 return !(_.isUndefined(item) || _.isNull(item) || item === false)
             });
+            */
 
             return _.extend(data, _.result(this.options, 'requestData'));
         },
@@ -410,11 +411,11 @@
             }
         },
 
-        onSortClick: function(e) {
+        onClickSort: function(child, e) {
             var defaultSort = 'asc',
-                currentOrder = this.getOption('order'),
+                order = $(e.target).data('id'),
                 currentSort = this.getOption('sort'),
-                order = $(e.target).data('id');
+                currentOrder = this.getOption('order');
 
             if(currentOrder == order) {
                 if(!currentSort) {
@@ -424,8 +425,8 @@
                     this.options.sort = 'desc';
                 }
                 else {
-                    this.options.order = false;
-                    this.options.sort = false;
+                    this.options.order = undefined;
+                    this.options.sort = undefined;
                 }
             }
             else {
