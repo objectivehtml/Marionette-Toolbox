@@ -80,7 +80,7 @@
             'mouseup': 'result:mouseup',
             //'touchstart': 'result:touchstart',
             //'touchend': 'result:touchend',
-            'click': 'result:click'
+            'click': 'click:result'
         },
 
         getActiveElement: function() {

@@ -33,14 +33,6 @@
 
 		template: Toolbox.Template('tabs'),
 
-		events: {
-			'click [data-toggle="tab"]': function(e) {
-				this.triggerMethod('tab:click', $(e.target).attr('href'));
-
-				e.preventDefault();
-			}
-		},
-
 		defaultOptions: {
 			contentView: Toolbox.TabContent,
 
@@ -53,9 +45,13 @@
 			content: []
 		},
 
+        triggers: {
+            'click [data-toggle="tab"]': 'click:tab'
+        },
+
 		tabViews: [],
 
-       templateContext: function() {
+        templateContext: function() {
             return this.options;
         },
 
@@ -97,25 +93,6 @@
 			}
         },
 
-        onRender: function() {
-        	_.each(this.getOption('content'), function(obj, i) {
-        		if(obj.cid) {
-        			this.addTab(obj);
-        		}
-        		else {
-        			var contentView = this.getOption('contentView');
-
-					if(_.isObject(obj.view)) {
-						contentView = obj.view;
-
-						delete obj.view;
-					}
-
-	        		this.addTab(new contentView(obj));
-        		}
-        	}, this);
-        },
-
         setActiveTab: function(id) {
         	if(_.isObject(id)) {
         		id = id.getOption('name');
@@ -141,6 +118,25 @@
         	return null;
         },
 
+        onRender: function() {
+        	_.each(this.getOption('content'), function(obj, i) {
+        		if(obj.cid) {
+        			this.addTab(obj);
+        		}
+        		else {
+        			var contentView = this.getOption('contentView');
+
+					if(_.isObject(obj.view)) {
+						contentView = obj.view;
+
+						delete obj.view;
+					}
+
+	        		this.addTab(new contentView(obj));
+        		}
+        	}, this);
+        },
+
         onDomRefresh: function() {
         	if(!this.getOption('activeTab')) {
 	        	this.$el.find('[data-toggle="tab"]:first').click();
@@ -150,8 +146,8 @@
 	        }
         },
 
-        onTabClick: function(id) {
-        	this.setActiveTab(id);
+        onClickTab: function(view, event) {
+            this.setActiveTab($(event.target).attr('href'));
         }
 
 	});

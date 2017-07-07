@@ -72,7 +72,27 @@
             Toolbox.View.prototype.initialize.apply(this, arguments);
 
             this.triggers = _.extend({}, this.getDefaultTriggers(), this.triggers);
-            this.delegateEvents(this.triggers);
+            this.delegateEvents();
+        },
+
+        blur: function() {
+            this.getInputField().blur();
+        },
+
+        focus: function() {
+            this.getInputField().focus();
+        },
+
+        save: function(value) {
+            if(_.isUndefined(value)) {
+                value = this.getInputValue();
+            }
+
+            this.options.value = value;
+
+            if(this.getOption('updateModel') === true && this.model) {
+                this.model.set(this.getOption('name'), value);
+            }
         },
 
         getDefaultTriggers: function() {
@@ -91,36 +111,6 @@
             return defaultTriggers;
         },
 
-        blur: function() {
-            this.getInputField().blur();
-        },
-
-        focus: function() {
-            this.getInputField().focus();
-        },
-
-        onDomRefresh: function() {
-            if(this.getOption('value')) {
-                this.setInputValue(this.getOption('value'));
-            }
-        },
-
-        onBlur: function() {
-            this.save();
-        },
-
-        save: function(value) {
-            if(_.isUndefined(value)) {
-                value = this.getInputValue();
-            }
-
-            this.options.value = value;
-
-            if(this.getOption('updateModel') === true && this.model) {
-                this.model.set(this.getOption('name'), value);
-            }
-        },
-
         setInputValue: function(value) {
             this.getInputField().val(value);
         },
@@ -131,6 +121,16 @@
 
         getInputField: function() {
             return this.$el.find('input');
+        },
+
+        onBlur: function() {
+            this.save();
+        },
+
+        onDomRefresh: function() {
+            if(this.getOption('value')) {
+                this.setInputValue(this.getOption('value'));
+            }
         }
 
     });

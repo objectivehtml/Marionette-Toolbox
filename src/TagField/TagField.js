@@ -323,6 +323,10 @@
             return !!this._tags.findWhere(tag.toJSON());
         },
 
+        getTags: function() {
+            return this._tags;
+        },
+
         addTags: function(tags, options) {
             if(tags instanceof Array) {
                 tags = new Backbone.Collection(tags);
@@ -635,7 +639,7 @@
                 this.deactivate(child);
             });
 
-            view.on('result:click', function(child, e) {
+            view.on('click:result', function(child, e) {
                 var nextView = view.children.findByIndex(child.$el.next().index());
 
                 this.addTag(child.model);

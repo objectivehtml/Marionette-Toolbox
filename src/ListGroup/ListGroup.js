@@ -170,7 +170,7 @@
 		},
 
         childViewTriggers: {
-            'click': 'item:click'
+            'click': 'click:item'
         },
 
         emptyView: function() {

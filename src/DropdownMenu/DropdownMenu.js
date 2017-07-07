@@ -80,12 +80,13 @@
 
 		tagName: 'ul',
 
-		childViewEvents: {
-			'click': function(view, event) {
+        triggers: {
+            'click': 'click'
+        },
 
-				this.triggerMethod('click', view, event);
-			}
-		}
+        childViewTriggers: {
+            'click': 'click:item'
+        }
 
 	});
 
@@ -110,12 +111,12 @@
 					this.hideMenu()
 				}
 
-				this.triggerMethod('item:click', view);
+				this.triggerMethod('click:item', view);
 			}
 		},
 
 		triggers: {
-			'click .dropdown-toggle': 'toggle:click'
+			'click .dropdown-toggle': 'click:toggle'
 		},
 
 		defaultOptions: {
@@ -222,7 +223,7 @@
 			return this.$el.find('.'+this.getOption('toggleClassName')).parent().hasClass(this.getOption('openClassName'));
 		},
 
-		onToggleClick: function() {
+		onClickToggle: function() {
 			if(!this.isMenuVisible()) {
 				this.showMenu();
 			}

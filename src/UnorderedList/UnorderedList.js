@@ -41,7 +41,7 @@
 		tagName: 'ul',
 
 		childViewTriggers: {
-			'click': 'item:click'
+			'click': 'click:item'
 		}
 
 	});

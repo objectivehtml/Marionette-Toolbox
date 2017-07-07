@@ -19,7 +19,8 @@
         options: {
             options: false,
             type: 'checkbox',
-            inputClassName: 'checkbox'
+            inputClassName: 'checkbox',
+            triggerSelector: 'input'
         },
 
         getInputValue: function() {

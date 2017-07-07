@@ -23,7 +23,7 @@
         },
 
         triggers: {
-            'click .modal-close': 'close:click'
+            'click .modal-close': 'click:close'
         },
 
         defaultOptions: {
@@ -78,7 +78,7 @@
                 $('body').off('keyup', keyupHandler);
             });
 
-            view.on('cancel:click', function() {
+            view.on('click:cancel', function() {
                 this.hide();
             }, this);
 
@@ -108,7 +108,7 @@
             }, this.getOption('closeAnimationRate'));
         },
 
-        onCloseClick: function() {
+        onClickClose: function() {
             this.hide();
         }
 

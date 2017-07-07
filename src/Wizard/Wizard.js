@@ -183,36 +183,6 @@
             this.setStep(this.getOption('step') - 1);
         },
 
-        onShowStep: function(step) {
-            this.getRegion('progress').currentView.setActive(step.getOption('step'));
-        },
-
-        onCompleteStep: function(step) {
-            this.getRegion('progress').currentView.setComplete(step.getOption('step'));
-            this.getRegion('progress').currentView.render();
-        },
-
-        onWizardError: function(options, ErrorView) {
-            options = _.extend({
-                wizard: this
-            }, this.getOption('errorViewOptions'), options);
-
-            this.showView(ErrorView || this.getOption('errorView'), options);
-        },
-
-        onWizardSuccess: function(options, SuccessView) {
-            options = _.extend({
-                wizard: this
-            }, this.getOption('successViewOptions'), options);
-
-            this.getRegion('buttons').empty();
-            this.options.step++;
-            this.options.finished = true;
-            this.$el.addClass(this.getOption('finishedClassName'));
-            this.getRegion('progress').currentView.setActive(this.getOption('step'));
-            this.showView(SuccessView || this.getOption('successView'), options);
-        },
-
         finish: function(success, options, View) {
             if(_.isUndefined(success) || success) {
                 this.triggerMethod('complete:step', this.getStepView());
@@ -221,26 +191,6 @@
             else {
                 this.triggerMethod('wizard:error', options, View);
             }
-        },
-
-        onDomRefresh: function() {
-            if(this.getOption('contentHeight')) {
-                this.setContentHeight(this.getOption('contentHeight'));
-            }
-
-            if(this.getOption('showProgress')) {
-                this.showProgress();
-            }
-
-            if(this.getOption('showButtons')) {
-                this.showButtons();
-            }
-
-            if(this.getOption('panel')) {
-                this.$el.addClass(this.getOption('hasPanelClassName'));
-            }
-
-            this.setStep(this.getOption('step'));
         },
 
         disableButtons: function() {
@@ -273,6 +223,56 @@
 
         enableFinishButton: function() {
             this.getRegion('buttons').currentView.enableFinishButton();
+        },
+
+        onShowStep: function(step) {
+            this.getRegion('progress').currentView.setActive(step.getOption('step'));
+        },
+
+        onCompleteStep: function(step) {
+            this.getRegion('progress').currentView.setComplete(step.getOption('step'));
+            this.getRegion('progress').currentView.render();
+        },
+
+        onWizardError: function(options, ErrorView) {
+            options = _.extend({
+                wizard: this
+            }, this.getOption('errorViewOptions'), options);
+
+            this.showView(ErrorView || this.getOption('errorView'), options);
+        },
+
+        onWizardSuccess: function(options, SuccessView) {
+            options = _.extend({
+                wizard: this
+            }, this.getOption('successViewOptions'), options);
+
+            this.getRegion('buttons').empty();
+            this.options.step++;
+            this.options.finished = true;
+            this.$el.addClass(this.getOption('finishedClassName'));
+            this.getRegion('progress').currentView.setActive(this.getOption('step'));
+            this.showView(SuccessView || this.getOption('successView'), options);
+        },
+
+        onDomRefresh: function() {
+            if(this.getOption('contentHeight')) {
+                this.setContentHeight(this.getOption('contentHeight'));
+            }
+
+            if(this.getOption('showProgress')) {
+                this.showProgress();
+            }
+
+            if(this.getOption('showButtons')) {
+                this.showButtons();
+            }
+
+            if(this.getOption('panel')) {
+                this.$el.addClass(this.getOption('hasPanelClassName'));
+            }
+
+            this.setStep(this.getOption('step'));
         }
 
 	});

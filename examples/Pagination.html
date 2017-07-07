@@ -36,13 +36,17 @@
 					paginationClassName: 'pagination-lg'
 				});
 
-				view.on('paginate', function(page, view) {
-					console.log(page, view);
+				view.on('click:next', function(child, event) {
+					console.log('click:next');
 				});
 
-				setTimeout(function() {
-					//view.setPaginationLinks(10, 100);
-				}, 1000);
+				view.on('click:prev', function(child, event) {
+					console.log('click:prev');
+				});
+
+				view.on('paginate', function(child, event) {
+					console.log(child, event);
+				});
 
 				App.showView(view);
 

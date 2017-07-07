@@ -60,7 +60,7 @@
                 Backbone.$('body').off('keyup', keyupHandler);
             });
 
-            view.on('cancel:click', function() {
+            view.on('click:cancel', function() {
                 this.hide();
             }, this);
 

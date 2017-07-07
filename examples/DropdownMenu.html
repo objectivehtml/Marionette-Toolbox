@@ -58,11 +58,11 @@
 					}]
 				});
 
-				view.on('toggle:click', function() {
+				view.on('click:toggle', function() {
 					console.log('toggle click');
 				});
 
-				view.on('item:click', function(view, event) {
+				view.on('click:item', function(view, event) {
 					console.log('item click', view, event);
 				});
 

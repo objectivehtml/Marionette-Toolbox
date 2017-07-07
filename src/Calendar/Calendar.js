@@ -42,17 +42,15 @@
         },
 
         modelEvents:  {
-            'change': 'modelChanged'
-        },
-
-        modelChanged: function() {
-            this.render();
+            'change': function() {
+                this.render();
+            }
         },
 
        templateContext: function() {
             return {
                 hasEvents: this.hasEvents()
-            }
+            };
         },
 
         setCellHeight: function(width) {
@@ -69,30 +67,16 @@
             return date;
         },
 
-        hasEvents: function() {
-            return this.model.get('events') && this.model.get('events').length > 0 ? true : false;
-        },
-
-        onRender: function() {
-            if(this.getDate().isSame(new Date(), 'day')) {
-                this.$el.addClass('calendar-today');
-            }
-
-            if(this.getDate().isSame(this.getOption('currentDate'), 'day')) {
-                this.$el.addClass('calendar-current-day');
-            }
-
-            if(this.getDate().isSame(this.getOption('currentDate'), 'month')) {
-                this.$el.addClass('calendar-month');
-            }
-        },
-
         getEvents: function() {
             return this.model.get('events') || [];
         },
 
         setEvents: function(events) {
             this.model.set('events', events);
+        },
+
+        hasEvents: function() {
+            return this.model.get('events') && this.model.get('events').length > 0 ? true : false;
         },
 
         addEvent: function(event) {
@@ -119,6 +103,20 @@
 
         removeEvents: function() {
             this.setEvents([]);
+        },
+
+        onRender: function() {
+            if(this.getDate().isSame(new Date(), 'day')) {
+                this.$el.addClass('calendar-today');
+            }
+
+            if(this.getDate().isSame(this.getOption('currentDate'), 'day')) {
+                this.$el.addClass('calendar-current-day');
+            }
+
+            if(this.getDate().isSame(this.getOption('currentDate'), 'month')) {
+                this.$el.addClass('calendar-month');
+            }
         }
 
     });
@@ -129,15 +127,17 @@
 
         tagName: 'tr',
 
-        childViewEvents: {
-            click: function(view, event) {
-                this.triggerMethod('day:click', view, this, event);
-            }
-        },
-
         defaultOptions: {
             days: false,
             events: false
+        },
+
+        childViewTriggers: {
+            'click': 'click:day'
+        },
+
+        childViewOptions: function(child, index) {
+            return this.getDay(index);
         },
 
         initialize: function() {
@@ -146,10 +146,6 @@
             if(!this.collection) {
                 this.collection = new Backbone.Collection(this.model.get('days'));
             }
-        },
-
-        childViewOptions: function(child, index) {
-            return this.getDay(index);
         },
 
         getDays: function() {
@@ -187,13 +183,9 @@
             bodyView: Toolbox.CollectionView.extend({
                 tagName: 'tbody',
                 childView: Toolbox.MonthlyCalendarWeek,
-                childViewEvents: {
-                    'click': function(view, event) {
-                        this.triggerMethod('week:click', view, event);
-                    },
-                    'day:click': function(view, week, event) {
-                        this.getOption('calendar').triggerMethod('day:click', view, week, event);
-                    }
+                childViewTriggers: {
+                    'click:day': 'click:day',
+                    'click:week': 'click:week'
                 }
             }),
             indicatorOptions: {
@@ -203,16 +195,21 @@
             }
         },
 
-        triggers: {
-            'click .calendar-navigation-prev': 'prev:click',
-            'click .calendar-navigation-next': 'next:click'
-        },
-
         regions: {
             body: {
                 el: 'tbody',
                 replaceElement: true
             }
+        },
+
+        triggers: {
+            'click .calendar-navigation-next': 'click:next',
+            'click .calendar-navigation-prev': 'click:prev'
+        },
+
+        childViewTriggers: {
+            'click:day': 'click:day',
+            'click:week': 'click:week'
         },
 
         childViewOptions: function(child, index) {
@@ -252,14 +249,6 @@
             }
         },
 
-        onFetch: function() {
-            this.showActivityIndicator();
-        },
-
-        onFetchComplete: function() {
-            this.hideActivityIndicator();
-        },
-
         createEvent: function(model) {
             var event = {
                 start: model.get('start') || null,
@@ -287,19 +276,10 @@
             }, this);
         },
 
-        onDayClick: function(day, week, event) {
-            this.setDate(day.getDate());
-        },
-
-        onRender: function() {
-            this.showBodyView();
-
-            this.$el.find('.calendar-header').html(this.getCalendarHeader());
-            this.$el.find('.calendar-sub-header').html(this.getCalendarSubHeader());
-
-            if(this.getOption('fetchOnRender')) {
-                //this.fetch();
-            }
+        showCollection: function() {
+            _.each(this.getCalendarWeeks(), function(week, i) {
+                this.addChildView(this.buildChildView(this.getWeekModel(), this.childView), i);
+            }, this);
         },
 
         restoreCacheResponse: function(params) {
@@ -484,22 +464,7 @@
             var prevDate = this.getDate();
 
             this.options.date = date;
-            this.triggerMethod('date:set', date, prevDate);
-        },
-
-        onDateSet: function(newDate, prevDate) {
-            if(!newDate.isSame(prevDate, 'month')) {
-                this.render();
-            }
-            else {
-                this.getViewByDate(prevDate).$el.removeClass('calendar-current-day');
-                this.getViewByDate(newDate).$el.addClass('calendar-current-day');
-            }
-
-            var view = this.getViewByDate(newDate);
-            var events = view.model.get('events');
-
-            this.triggerMethod('show:events', view, events);
+            this.triggerMethod('set:date', date, prevDate);
         },
 
         getPrevDate: function() {
@@ -518,18 +483,50 @@
             this.setDate(this.getNextDate());
         },
 
-        onPrevClick: function() {
+        onRender: function() {
+            this.showBodyView();
+
+            this.$el.find('.calendar-header').html(this.getCalendarHeader());
+            this.$el.find('.calendar-sub-header').html(this.getCalendarSubHeader());
+
+            if(this.getOption('fetchOnRender')) {
+                //this.fetch();
+            }
+        },
+
+        onFetch: function() {
+            this.showActivityIndicator();
+        },
+
+        onFetchComplete: function() {
+            this.hideActivityIndicator();
+        },
+
+        onClickPrev: function() {
             this.prev();
         },
 
-        onNextClick: function() {
+        onClickNext: function() {
             this.next();
         },
 
-        showCollection: function() {
-            _.each(this.getCalendarWeeks(), function(week, i) {
-                this.addChildView(this.buildChildView(this.getWeekModel(), this.childView), i);
-            }, this);
+        onSetDate: function(newDate, prevDate) {
+            if(!newDate.isSame(prevDate, 'month')) {
+                this.render();
+            }
+            else {
+                this.getViewByDate(prevDate).$el.removeClass('calendar-current-day');
+                this.getViewByDate(newDate).$el.addClass('calendar-current-day');
+            }
+
+            var view = this.getViewByDate(newDate);
+            var events = view.model.get('events');
+
+            this.triggerMethod('show:events', view, events);
+        },
+
+        onClickDay: function(day, week, event) {
+            this.setDate(day.getDate());
         }
 
     });

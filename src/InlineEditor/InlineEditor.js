@@ -47,7 +47,7 @@
         },
 
         triggers: {
-            'click .inline-editor-label': 'label:click'
+            'click .inline-editor-label': 'click:label'
         },
 
         createFormInputView: function() {
@@ -190,13 +190,13 @@
             }
         },
 
-        onLabelClick: function() {
-            this.focus();
-        },
-
         onRender: function() {
             this.setLabelHtml(this.getModelValue());
             this.showChildView('input', this.createFormInputView());
+        },
+
+        onClickLabel: function() {
+            this.focus();
         }
 
 	});

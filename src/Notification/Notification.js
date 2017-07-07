@@ -55,7 +55,7 @@
 
 		triggers: {
 			'click': 'click',
-			'click .close': 'close:click'
+			'click .close': 'click:close'
 		},
 
        templateContext: function() {
@@ -68,7 +68,7 @@
 			}
 		},
 
-		onCloseClick: function() {
+		onClickClose: function() {
 			this.hide();
 		},
 

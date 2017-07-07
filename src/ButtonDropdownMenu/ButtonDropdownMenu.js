@@ -19,8 +19,8 @@
 		tagName: 'div',
 
 		triggers: {
-			'click .btn:not(.dropdown-toggle)': 'button:click',
-			'click .dropdown-toggle': 'toggle:click'
+			'click .btn:not(.dropdown-toggle)': 'click:button',
+			'click .dropdown-toggle': 'click:toggle'
 		},
 
 		defaultOptions: {

@@ -17,8 +17,8 @@
 		tagName: 'nav',
 
 		triggers: {
-			'click .next-page': 'next:page:click',
-			'click .prev-page': 'prev:page:click'
+			'click .next-page': 'click:next',
+			'click .prev-page': 'click:prev'
 		},
 
 		defaultOptions: {
@@ -56,7 +56,7 @@
 			prevLabel: 'Previous'
 		},
 
-       templateContext: function() {
+        templateContext: function() {
             return this.options;
         },
 
@@ -71,10 +71,6 @@
 			this.setActivePage(page);
 		},
 
-		onNextPageClick: function() {
-			this.nextPage();
-		},
-
 		prevPage: function() {
 			var page = this.getOption('page');
 
@@ -83,6 +79,16 @@
 			}
 
 			this.setActivePage(page);
+		},
+
+		getActivePage: function() {
+			return this.getOption('page');
+		},
+
+		setActivePage: function(page) {
+			this.options.page = page;
+			this.render();
+			this.triggerMethod('paginate', page);
 		},
 
 		onDomRefresh: function() {
@@ -98,18 +104,12 @@
 			}
 		},
 
-		onPrevPageClick: function() {
+		onClickNext: function() {
+			this.nextPage();
+		},
+
+		onClickPrev: function() {
 			this.prevPage();
-		},
-
-		setActivePage: function(page) {
-			this.options.page = page;
-			this.render();
-			this.triggerMethod('paginate', page);
-		},
-
-		getActivePage: function() {
-			return this.getOption('page');
 		}
 
 	});

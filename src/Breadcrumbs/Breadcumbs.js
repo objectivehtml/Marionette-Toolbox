@@ -36,11 +36,7 @@
 
 		collectionEvents: {
 			'change add remove reset': function() {
-				var t = this;
-
-				setTimeout(function() {
-					t.onDomRefresh();
-				});
+                this._hideEmptyContainer();
 			}
 		},
 
@@ -87,6 +83,10 @@
 		},
 
 		onDomRefresh: function() {
+            this._hideEmptyContainer();
+		},
+
+        _hideEmptyContainer: function() {
 			if(!this.$el.find('.no-breadcrumbs').length) {
 				this.$el.parent().show();
 				this.$el.find('.active').removeClass(this.getOption('activeClassName'));
@@ -95,7 +95,7 @@
 			else {
 				this.$el.parent().hide();
 			}
-		}
+        }
 
 	});
 

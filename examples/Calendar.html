@@ -38,8 +38,12 @@
 					date: moment()
 				});
 
-				view.on('day:click', function() {
-					// console.log(arguments);
+				view.on('click:day', function() {
+					console.log('day clicked', arguments);
+				});
+
+				view.on('click:week', function() {
+					console.log('week clicked', arguments);
 				});
 
 				view.on('show:events', function(view, events) {
@@ -56,11 +60,11 @@
 				App.showView(view);
 
 				view.renderCollection(new Backbone.Collection([{
-					start: new Date('2017-05-01 07:00:00'),
-					end: new Date('2017-05-01 09:00:00')
+					start: new Date('2017-07-01 07:00:00'),
+					end: new Date('2017-07-01 09:00:00')
 				}, {
-					start: new Date('2017-05-02 07:00:00'),
-					end: new Date('2017-05-02 09:00:00')
+					start: new Date('2017-07-02 07:00:00'),
+					end: new Date('2017-07-02 09:00:00')
 				}]));
 			});
 
