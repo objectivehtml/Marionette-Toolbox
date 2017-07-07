@@ -34,28 +34,73 @@
 
         defaultOptions: function() {
             return {
+                // (mixed) The wizard's header text. Use `false` for no header.
                 header: false,
+
+                // (string) The wizard header HTML element.
                 headerTagName: 'h2',
+
+                // (string) The wizard header HTML element's class name
                 headerClassName: 'wizard-header',
+
+                // (string) The class name to be appended to the Wizard on completion
                 finishedClassName: 'wizard-finished',
+
+                // (string) The class name to be appended to the Wizard on completion
                 fixedHeightClassName: 'fixed-height',
+
+                // (string) The class name to be appended to the Wizard if it's displayed as panel
                 hasPanelClassName: 'wizard-panel',
+
+                // (string) The class name to be appended to panel
                 panelClassName: 'panel panel-default',
+
+                // (mixed) A view class to override the default ButtonView
                 buttonView: Toolbox.WizardButtons,
+
+                // (object) An object of options to be passed to the ButtonView
                 buttonViewOptions: {},
+
+                // (mixed) A view class to override the default ProgressView
                 progressView: Toolbox.WizardProgress,
+
+                // (object) An object of options to be passed to the ProgressView
                 progressViewOptions: {},
+
+                // (int) The highest step number the user as gone within the wizard
                 highestStep: 1,
+
+                // (int) The current step number of  the wizard
                 step: 1,
+
+                // (array) An array of View instances
                 steps: [],
+
+                // (bool) Has the wizard completed
                 finished: false,
+
+                // (mixed) A view class to override the default SuccessView
                 successView: Toolbox.WizardSuccess,
+
+                // (object) An object of options to be passed to the SuccessView
                 successViewOptions: {},
+
+                // (mixed) A view class to override the default ErrorView
                 errorView: Toolbox.WizardError,
+
+                // (object) An object of options to be passed to the ErrorView
                 errorViewOptions: {},
+
+                // (bool) Should show the button bar?
                 showButtons: true,
+
+                // (bool) Show the wizard as a panel
                 panel: false,
+
+                // (bool) The wizard's content height
                 contentHeight: false,
+
+                // (bool) Provide support to trigger a submit event on the current step's form
                 submitFormOnEnter: false
             };
         },
