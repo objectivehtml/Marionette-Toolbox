@@ -53,70 +53,31 @@
 
 			App.on('start', function() {
 
-				var LayoutView = Toolbox.View.extend({
-					template: function() {
-						return '<div id="field-1"></div><div id="field-2"></div>'
-					},
-					regions: {
-						field1: '#field-1',
-						field2: '#field-2'
-					},
-					onRender: function() {
-						var self = this;
-
-						/*
-						var field1 = new Toolbox.TagField({
-							limit: 100,
-							value: [],
-							name: 'field_name',
-							label: 'Field Name (Asynchronous)',
-							description: 'This is a description.',
-							valueProperty: 'id',
-							labelProperty: 'name',
-							searchProperty: 'name',
-							collection: new UsersCollection,
-							ajaxSearch: true,
-							multiple: true,
-							showResultsOnFocus: true,
-							requestData: function() {
-								return {
-									name: field1.getInputValue()
-								};
-							}
-						});
-						*/
-
-						//this.showChildView('field1', field1);
-
-						var field2 = new Toolbox.TagField({
-							value: [
-								{id: 385, name: "Zula Shanahan"},
-								{id: 264, name: "Zora Donnelly"}
-							],
-							multiple: true,
-							name: 'field_name',
-							label: 'Field Name',
-							valueProperty: 'id',
-							labelProperty: 'name',
-							searchProperty: 'name',
-							collection: new UsersCollection,
-							showResultsOnFocus: true
-						});
-
-						field2.on('render', function() {
-							field2.fetch().progress(function() {
-								this.showActivityIndicator();
-							})
-							.done(function() {
-								this.hideActivityIndicator();
-							});
-						});
-
-						this.showChildView('field2', field2);
-					}
+				var view = new Toolbox.TagField({
+					value: [
+						{id: 385, name: "Zula Shanahan"},
+						{id: 264, name: "Zora Donnelly"}
+					],
+					multiple: true,
+					name: 'field_name',
+					label: 'Field Name',
+					valueProperty: 'id',
+					labelProperty: 'name',
+					searchProperty: 'name',
+					collection: new UsersCollection,
+					showResultsOnFocus: true
 				});
 
-				App.showView(new LayoutView);
+				view.on('render', function() {
+					view.fetch().progress(function() {
+						this.showActivityIndicator();
+					})
+					.done(function() {
+						this.hideActivityIndicator();
+					});
+				});
+
+				App.showView(view);
 
 			});
 

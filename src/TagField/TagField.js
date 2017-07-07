@@ -63,6 +63,9 @@
             // (array) An array of headers appended to the request
             requestHeaders: [],
 
+            // (mixed) The default input value if no tags exist
+            defaultInputValue: null,
+
             // (array) The default options used to generate the query string
             defaultRequestDataOptions: [
                 'page',
@@ -257,13 +260,13 @@
 
             this._globalMousetrap.bind('up', function(e) {
                 if(self.getRegion('predictions').currentView.getActiveText()) {
-                    self.getRegion('predictions').currentView.changePredictionUp(self.getInputValue());
+                    self.getRegion('predictions').currentView.changePredictionUp(self.getCursorValue());
                 }
                 else if(self.getOption('showResultsOnFocus')) {
                     var resultsView = self.getRegion('results').currentView;
 
                     if(resultsView.getActiveText()) {
-                        resultsView.changePredictionUp(self.getInputValue());
+                        resultsView.changePredictionUp(self.getCursorValue());
                     }
                     else {
                         resultsView.activate(resultsView.children.last());
@@ -277,13 +280,13 @@
 
             this._globalMousetrap.bind('down', function(e) {
                 if(self.getRegion('predictions').currentView.getActiveText()) {
-                    self.getRegion('predictions').currentView.changePredictionDown(self.getInputValue());
+                    self.getRegion('predictions').currentView.changePredictionDown(self.getCursorValue());
                 }
                 else if(self.getOption('showResultsOnFocus')) {
                     var resultsView = self.getRegion('results').currentView;
 
                     if(resultsView.getActiveText()) {
-                        resultsView.changePredictionDown(self.getInputValue());
+                        resultsView.changePredictionDown(self.getCursorValue());
                     }
                     else {
                         resultsView.activate(resultsView.children.first());
@@ -444,7 +447,7 @@
         },
 
         getCursorValue: function() {
-            this.$el.find('.tag-field-cursor').html();
+            return this.getInputField().val();
         },
 
         setCursorValue: function(value) {
@@ -461,7 +464,13 @@
         },
 
         getInputValue: function() {
-            return this.getInputField().val();
+            var values = [];
+
+            this.$el.find('[type=hidden]').each(function() {
+                values.push($(this).val());
+            });
+
+            return values.length ? values : this.getOption('defaultInputValue');
         },
 
         getInputField: function() {
@@ -701,7 +710,7 @@
 
         hideTextInPrediction: function(value) {
             if(this.getRegion('predictions')) {
-                this.getRegion('predictions').currentView.hideTextInPrediction(value || this.getInputValue());
+                this.getRegion('predictions').currentView.hideTextInPrediction(value || this.getCursorValue());
             }
         },
 
@@ -775,7 +784,7 @@
         },
 
         onKeydown: function(child, event) {
-            var value = this.getInputValue();
+            var value = this.getCursorValue();
 
             if(event.keyCode === 8) {
                 this.hideTextInPrediction(value.substr(0, value.length - 1));
