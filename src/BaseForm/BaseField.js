@@ -128,8 +128,10 @@
         },
 
         onDomRefresh: function() {
-            if(!_.isUndefined(this.getOption('value'))) {
-                this.setInputValue(this.getOption('value'));
+            var value = this.getOption('value');
+            
+            if(!_.isUndefined(value) && value !== false) {
+                this.setInputValue(value);
             }
         }
 
