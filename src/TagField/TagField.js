@@ -352,13 +352,13 @@
             }
 
             if(!this.doesTagExist(tag)) {
-                this.triggerMethod('before:tag:add', tag);
+                this.triggerMethod('before:add:tag', tag);
                 this.hidePredictionsElement();
                 this.clearInputValue();
                 this._predictions.remove(this._tags.add(tag, options), {
                     sort: false
                 });
-                this.triggerMethod('after:tag:add', tag);
+                this.triggerMethod('after:add:tag', tag);
             }
         },
 
@@ -377,9 +377,9 @@
         },
 
         removeTag: function(tag) {
-            this.triggerMethod('before:tag:remove', tag);
+            this.triggerMethod('before:remove:tag', tag);
             this._tags.remove(tag);
-            this.triggerMethod('after:tag:remove', tag);
+            this.triggerMethod('after:remove:tag', tag);
         },
 
         hideResultsElement: function() {
@@ -733,11 +733,11 @@
             return deferred.promise();
         },
 
-        onBeforeTagAdd: function(tag) {
+        onBeforeAddTag: function(tag) {
             this.cancelHttpRequest();
         },
 
-        onAfterTagAdd: function(tag) {
+        onAfterAddTag: function(tag) {
             this._detection.clearTimer();
             this._detection.clearLastValue();
 
@@ -751,7 +751,7 @@
             }
         },
 
-        onAfterTagRemove: function(tag) {
+        onAfterRemoveTag: function(tag) {
             if(!this.hasReachedMaxLimit()) {
                 this.$el.removeClass('max-limit-reached');
             }
