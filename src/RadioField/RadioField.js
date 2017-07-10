@@ -26,6 +26,8 @@
         },
 
         setInputValue: function(value) {
+            console.log(value);
+            
             return this.$el.find('[value="'+value+'"]').attr('checked', true);
         }
 
