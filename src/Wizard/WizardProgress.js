@@ -21,9 +21,7 @@
 		template: Toolbox.Template('wizard-progress'),
 
         className: 'wizard-progress-wrapper',
-
-        channelName: 'toolbox.wizard',
-
+        
         defaultOptions: {
             wizard: false,
             content: {},

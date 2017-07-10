@@ -18,8 +18,6 @@
 
         className: 'wizard-buttons-wrapper clearfix',
 
-        channelName: 'toolbox.wizard',
-
         defaultOptions: {
             step: false,
             totalSteps: false,

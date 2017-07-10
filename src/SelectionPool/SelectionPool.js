@@ -57,25 +57,8 @@
             }
         },
 
-       templateContext: function() {
+        templateContext: function() {
             return this.options;
-        },
-
-        onDestroy: function() {
-            this.channel.off('detection:typing:started', false, this);
-            this.channel.off('detection:typing:stopped', false, this);
-        },
-
-        initialize: function() {
-            Toolbox.View.prototype.initialize.apply(this, arguments);
-
-            this.channel.on('detection:typing:started', function() {
-                this.triggerMethod('typing:started');
-            }, this);
-
-            this.channel.on('detection:typing:stopped', function(value) {
-                this.triggerMethod('typing:stopped', value);
-            }, this);
         },
 
         showSearchActivity: function(message) {
@@ -185,18 +168,24 @@
         },
 
         search: function(collection, query) {
+            var availableTreeView = this.getRegion('available').currentView;
+
             collection.filter(function(model) {
+
                 if(this.modelContains(model, query)) {
-                    model.set('hidden', false);
+                    availableTreeView.children.findByModel(model).$el.show();
+                    //model.set('hidden', false);
                 }
                 else {
-                    model.set('hidden', true);
+                    availableTreeView.children.findByModel(model).$el.hide();
+                    //model.set('hidden', true);
                 }
 
                 return true;
             }, this);
 
-            this.available.currentView.render();
+
+            //this.getRegion('available').currentView.render();
         },
 
         clearSearch: function() {
@@ -224,7 +213,7 @@
                 this.hideClearSearchButton();
             }
 
-            if(this.available) {
+            if(this.getRegion('available').currentView) {
                 this.search(this.getRegion('available').currentView.collection, value);
             }
         },
@@ -237,9 +226,16 @@
         onDomRefresh: function() {
             var self = this, detection = new Toolbox.TypingDetection(
                 this.$el.find('.selection-pool-search input'),
-                this.getOption('typingStoppedThreshold'),
-                this.channel
+                this.getOption('typingStoppedThreshold')
             );
+
+            detection.on('typing:started', function() {
+                this.triggerMethod('typing:started');
+            }, this);
+
+            detection.on('typing:stopped', function(value) {
+                this.triggerMethod('typing:stopped', value);
+            }, this);
 
             var $availablePool = this.getRegion('available').currentView.$el.parent();
 
@@ -318,6 +314,8 @@
         },
 
         onRender: function() {
+            console.log('render');
+
             this.showAvailablePool();
             this.showSelectedPool();
         }

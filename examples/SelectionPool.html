@@ -74,10 +74,6 @@
 					selectedTree: new Toolbox.Tree(new Backbone.Collection(selected))
 				});
 
-				view.on('show', function() {
-
-				});
-
 				view.on('scroll:bottom', function(scrollTop) {
 					var data = available.slice(0);
 					var total = data.length;
