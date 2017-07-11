@@ -96,6 +96,7 @@
 
         emptyView: function() {
             return Toolbox.EmptyView.extend({
+
                 template: Toolbox.Template('no-table-items'),
 
                 tagName: 'tr',
@@ -103,6 +104,7 @@
                 options: {
                     message: 'No records found'
                 }
+
             });
         },
 
@@ -341,8 +343,8 @@
                     totalPages: this.getOption('totalPages')
                 }, this.getOption('footerViewOptions')));
 
-                view.on('paginate', function(page, view) {
-                    this.options.page = page;
+                view.on('paginate', function(child, event) {
+                    this.options.page = child.model.get('page');
                     this.fetch(true);
                 }, this);
 

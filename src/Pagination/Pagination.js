@@ -89,18 +89,6 @@
             'paginate': 'paginate',
         },
 
-		childViewEvents: {
-			'click:next': function() {
-				this.nextPage();
-			},
-			'click:prev': function() {
-				this.prevPage();
-			},
-			'paginate': function(view) {
-                this.setActivePage(view.model.get('page'));
-			}
-		},
-
         templateContext: function() {
             return this.options;
         },
@@ -113,25 +101,33 @@
             }
 		},
 
-        nextPage: function() {
+        next: function(event) {
+            var total = this.getTotalPages();
 			var page = this.getOption('page');
-			var total = this.getTotalPages();
 
 			if(page < total) {
 				page++;
 			}
 
+            var model = this.collection.findWhere({page: page});
+            var child = this.getRegion('list').currentView.children.findByModel(model);
+
 			this.setActivePage(page);
+            this.triggerMethod('paginate', child, event);
 		},
 
-		prevPage: function() {
+		prev: function(event) {
 			var page = this.getOption('page');
 
 			if(page > 1) {
 				page--;
 			}
 
+            var model = this.collection.findWhere({page: page});
+            var child = this.getRegion('list').currentView.children.findByModel(model);
+
 			this.setActivePage(page);
+            this.triggerMethod('paginate', child, event);
 		},
 
         getTotalPages: function() {
@@ -172,12 +168,6 @@
 			if(this.options.page != page) {
 				this.options.page = page;
 				this.render();
-
-				var query = this.collection.where({page: page});
-
-				if(query.length) {
-                    var child = this.getRegion('list').currentView.children.findByModel(query[0]);
-				}
 			}
 		},
 
@@ -256,13 +246,25 @@
 			}
 		},
 
-		onClickNext: function() {
-			this.nextPage();
+		onClickNext: function(child, event) {
+            if(Backbone.$(event.target).parent().is('.disabled')) {
+                return;
+            }
+
+			this.next(event);
 		},
 
-		onClickPrev: function() {
-			this.prevPage();
-		}
+		onClickPrev: function(child, event) {
+            if(Backbone.$(event.target).parent().is('.disabled')) {
+                return;
+            }
+
+			this.prev(event);
+		},
+
+        onPaginate: function(view) {
+            this.setActivePage(view.model.get('page'));
+        }
 
     });
 
