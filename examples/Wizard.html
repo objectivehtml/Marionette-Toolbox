@@ -43,6 +43,10 @@
 					onWizardClickNext: function() {
 						var wizard = this.getOption('wizard');
 
+						wizard.finish(false);
+
+						return false;
+
 						wizard.showActivityIndicator();
 
 						setTimeout(function() {

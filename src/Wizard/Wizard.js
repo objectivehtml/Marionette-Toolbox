@@ -284,6 +284,7 @@
                 wizard: this
             }, this.getOption('errorViewOptions'), options);
 
+            this.getRegion('buttons').empty();
             this.showView(ErrorView || this.getOption('errorView'), options);
         },
 

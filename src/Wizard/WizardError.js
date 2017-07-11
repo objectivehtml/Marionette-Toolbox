@@ -27,26 +27,20 @@
             showBackButton: true,
             backButtonClassName: 'btn btn-lg btn-primary',
             backButtonLabel: 'Go Back',
-            backButtonIcon: 'fa fa-long-arrow-left',
-            onClickBack: false
+            backButtonIcon: 'fa fa-long-arrow-left'
         },
 
         triggers: {
             'click button': 'click:back'
         },
 
-       templateContext: function() {
+        templateContext: function() {
             return this.options;
         },
 
         onClickBack: function() {
-            if( this.getOption('onClickBack') && _.isFunction(this.getOption('onClickBack'))) {
-                this.getOption('onClickBack').call(this);
-            }
-            else {
-                this.getOption('wizard').showButtons();
-                this.getOption('wizard').setStep(this.getOption('wizard').getOption('step') - 1);
-            }
+            this.getOption('wizard').showButtons();
+            this.getOption('wizard').setStep(this.getOption('wizard').getOption('highestStep'));
         }
 
 	});
