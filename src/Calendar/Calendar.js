@@ -233,7 +233,6 @@
             }
             else {
                 this.triggerMethod('fetch', params);
-                this.collection.reset();
                 this.collection.fetch({
                     data: params,
                     success: function(collection, response) {

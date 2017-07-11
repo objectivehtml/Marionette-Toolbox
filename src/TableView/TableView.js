@@ -283,10 +283,6 @@
         fetch: function(reset) {
             var self = this;
 
-            if(reset) {
-                this.collection.reset();
-            }
-
             this.collection.fetch({
                 data: this.getRequestData(),
                 beforeSend: function(xhr) {
@@ -345,7 +341,7 @@
 
                 view.on('paginate', function(child, event) {
                     this.options.page = child.model.get('page');
-                    this.fetch(true);
+                    this.fetch();
                 }, this);
 
                 this.showChildView('footer', view);
@@ -442,19 +438,16 @@
                 $(e.target).parent().addClass('sort-'+this.getOption('sort'));
             }
 
-            this.fetch(true);
+            this.fetch();
         },
 
         onFetchSuccess: function(collection, response) {
-            var page = this.getCurrentPage(response);
-            var totalPages = this.getLastPage(response);
-
             if(collection.length === 0) {
-                this._showEmptyView();
+                collection.reset();
             }
 
-            this.options.page = page;
-            this.options.totalPages = totalPages;
+            this.options.page = this.getCurrentPage(response);
+            this.options.totalPages = this.getLastPage(response);
 
             this.showFooterView();
         },

@@ -90,7 +90,7 @@
 
             this.options.value = value;
 
-            if(this.getOption('updateModel') === true && this.model) {
+            if(this.model && this.getOption('updateModel') === true) {
                 this.model.set(this.getOption('name'), value);
             }
         },
@@ -129,7 +129,7 @@
 
         onDomRefresh: function() {
             var value = this.getOption('value');
-            
+
             if(!_.isUndefined(value) && value !== false) {
                 this.setInputValue(value);
             }
