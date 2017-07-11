@@ -56,7 +56,7 @@
 
 		events: {
 			'click': function(e) {
-                if(e.target == this.$el.get(0)) {
+                if(Backbone.$(e.target).not('.edit, .delete')) {
     				this.triggerMethod('click', this, e);
                 }
 			},
