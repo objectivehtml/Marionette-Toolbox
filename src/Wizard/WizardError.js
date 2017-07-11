@@ -40,7 +40,7 @@
 
         onClickBack: function() {
             this.getOption('wizard').showButtons();
-            this.getOption('wizard').setStep(this.getOption('wizard').getOption('highestStep'));
+            this.getOption('wizard').setStep(this.getOption('wizard').getOption('step'));
         }
 
 	});
