@@ -9,58 +9,6 @@
        factory(root.Toolbox, root.Handlebars);
    }
 }(this, function (Toolbox, Handlebars) {
-   Toolbox.templates['activity-indicator'] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    return "dimmed";
-},"3":function(container,depth0,helpers,partials,data) {
-    var helper;
-
-  return "position:"
-    + container.escapeExpression(((helper = (helper = helpers.position || (depth0 != null ? depth0.position : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"position","hash":{},"data":data}) : helper)))
-    + ";";
-},"5":function(container,depth0,helpers,partials,data) {
-    var helper;
-
-  return "background-color: "
-    + container.escapeExpression(((helper = (helper = helpers.dimmedBgColor || (depth0 != null ? depth0.dimmedBgColor : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"dimmedBgColor","hash":{},"data":data}) : helper)))
-    + ";";
-},"7":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : {};
-
-  return "<span class=\"activity-indicator-label\" style=\""
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.labelFontSize : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\"><span class=\"activity-indicator-label-text\">"
-    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
-    + "</span></span>";
-},"8":function(container,depth0,helpers,partials,data) {
-    var helper;
-
-  return "font-size:"
-    + container.escapeExpression(((helper = (helper = helpers.labelFontSize || (depth0 != null ? depth0.labelFontSize : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"labelFontSize","hash":{},"data":data}) : helper)));
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=depth0 != null ? depth0 : {};
-
-  return "<div class=\"activity-indicator-dimmer "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.dimmed : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\" style=\""
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.position : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + " "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.dimmedBgColor : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\">\n\n	<span class=\"activity-indicator\">"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.label : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "</span>\n\n</div>\n";
-},"useData":true})
-}));
-(function (root, factory) {
-   if (typeof define === 'function' && define.amd) {
-       define(['handlebars'], function(Handlebars) {
-           return factory(root.Toolbox, Handlebars)
-       });
-   } else if (typeof exports === 'object') {
-       module.exports = factory(root.Toolbox, require('handlebars'));
-   } else {
-       factory(root.Toolbox, root.Handlebars);
-   }
-}(this, function (Toolbox, Handlebars) {
    Toolbox.templates['form-error'] = Handlebars.template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
@@ -76,33 +24,6 @@
 
   return ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.errors : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"useData":true,"useDepths":true})
-}));
-(function (root, factory) {
-   if (typeof define === 'function' && define.amd) {
-       define(['handlebars'], function(Handlebars) {
-           return factory(root.Toolbox, Handlebars)
-       });
-   } else if (typeof exports === 'object') {
-       module.exports = factory(root.Toolbox, require('handlebars'));
-   } else {
-       factory(root.Toolbox, root.Handlebars);
-   }
-}(this, function (Toolbox, Handlebars) {
-   Toolbox.templates['breadcrumb'] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var helper;
-
-  return "<a href=\""
-    + container.escapeExpression(((helper = (helper = helpers.href || (depth0 != null ? depth0.href : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"href","hash":{},"data":data}) : helper)))
-    + "\">";
-},"3":function(container,depth0,helpers,partials,data) {
-    return "</a>";
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : {};
-
-  return ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.href : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.href : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-},"useData":true})
 }));
 (function (root, factory) {
    if (typeof define === 'function' && define.amd) {
@@ -163,6 +84,85 @@
     + "\n	<ul class=\""
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.menuClassName : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\"></ul>\n</div>\n";
+},"useData":true})
+}));
+(function (root, factory) {
+   if (typeof define === 'function' && define.amd) {
+       define(['handlebars'], function(Handlebars) {
+           return factory(root.Toolbox, Handlebars)
+       });
+   } else if (typeof exports === 'object') {
+       module.exports = factory(root.Toolbox, require('handlebars'));
+   } else {
+       factory(root.Toolbox, root.Handlebars);
+   }
+}(this, function (Toolbox, Handlebars) {
+   Toolbox.templates['activity-indicator'] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    return "dimmed";
+},"3":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "position:"
+    + container.escapeExpression(((helper = (helper = helpers.position || (depth0 != null ? depth0.position : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"position","hash":{},"data":data}) : helper)))
+    + ";";
+},"5":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "background-color: "
+    + container.escapeExpression(((helper = (helper = helpers.dimmedBgColor || (depth0 != null ? depth0.dimmedBgColor : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"dimmedBgColor","hash":{},"data":data}) : helper)))
+    + ";";
+},"7":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : {};
+
+  return "<span class=\"activity-indicator-label\" style=\""
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.labelFontSize : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\"><span class=\"activity-indicator-label-text\">"
+    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "</span></span>";
+},"8":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "font-size:"
+    + container.escapeExpression(((helper = (helper = helpers.labelFontSize || (depth0 != null ? depth0.labelFontSize : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"labelFontSize","hash":{},"data":data}) : helper)));
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=depth0 != null ? depth0 : {};
+
+  return "<div class=\"activity-indicator-dimmer "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.dimmed : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\" style=\""
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.position : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + " "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.dimmedBgColor : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\">\n\n	<span class=\"activity-indicator\">"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.label : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "</span>\n\n</div>\n";
+},"useData":true})
+}));
+(function (root, factory) {
+   if (typeof define === 'function' && define.amd) {
+       define(['handlebars'], function(Handlebars) {
+           return factory(root.Toolbox, Handlebars)
+       });
+   } else if (typeof exports === 'object') {
+       module.exports = factory(root.Toolbox, require('handlebars'));
+   } else {
+       factory(root.Toolbox, root.Handlebars);
+   }
+}(this, function (Toolbox, Handlebars) {
+   Toolbox.templates['breadcrumb'] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "<a href=\""
+    + container.escapeExpression(((helper = (helper = helpers.href || (depth0 != null ? depth0.href : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"href","hash":{},"data":data}) : helper)))
+    + "\">";
+},"3":function(container,depth0,helpers,partials,data) {
+    return "</a>";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : {};
+
+  return ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.href : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.href : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"useData":true})
 }));
 (function (root, factory) {
@@ -778,10 +778,8 @@
        factory(root.Toolbox, root.Handlebars);
    }
 }(this, function (Toolbox, Handlebars) {
-   Toolbox.templates['ordered-list-item'] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper;
-
-  return ((stack1 = ((helper = (helper = helpers.content || (depth0 != null ? depth0.content : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"content","hash":{},"data":data}) : helper))) != null ? stack1 : "");
+   Toolbox.templates['overlay'] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<a href=\"#\" class=\"overlay-close\"><i class=\"fa fa-times-circle\"></i></a>\n\n<div class=\"container\">\n    <div class=\"overlay-content\"></div>\n</div>\n";
 },"useData":true})
 }));
 (function (root, factory) {
@@ -795,8 +793,10 @@
        factory(root.Toolbox, root.Handlebars);
    }
 }(this, function (Toolbox, Handlebars) {
-   Toolbox.templates['overlay'] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<a href=\"#\" class=\"overlay-close\"><i class=\"fa fa-times-circle\"></i></a>\n\n<div class=\"container\">\n    <div class=\"overlay-content\"></div>\n</div>\n";
+   Toolbox.templates['ordered-list-item'] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper;
+
+  return ((stack1 = ((helper = (helper = helpers.content || (depth0 != null ? depth0.content : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"content","hash":{},"data":data}) : helper))) != null ? stack1 : "");
 },"useData":true})
 }));
 (function (root, factory) {
@@ -938,6 +938,31 @@
        factory(root.Toolbox, root.Handlebars);
    }
 }(this, function (Toolbox, Handlebars) {
+   Toolbox.templates['progress-bar'] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div class=\""
+    + alias4(((helper = (helper = helpers.progressBarClassName || (depth0 != null ? depth0.progressBarClassName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"progressBarClassName","hash":{},"data":data}) : helper)))
+    + "\" role=\"progressbar\" aria-valuenow=\""
+    + alias4(((helper = (helper = helpers.progress || (depth0 != null ? depth0.progress : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"progress","hash":{},"data":data}) : helper)))
+    + "\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: "
+    + alias4(((helper = (helper = helpers.progress || (depth0 != null ? depth0.progress : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"progress","hash":{},"data":data}) : helper)))
+    + "%;\">\n	<span class=\"sr-only\">"
+    + alias4(((helper = (helper = helpers.progress || (depth0 != null ? depth0.progress : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"progress","hash":{},"data":data}) : helper)))
+    + "% Complete</span>\n</div>\n";
+},"useData":true})
+}));
+(function (root, factory) {
+   if (typeof define === 'function' && define.amd) {
+       define(['handlebars'], function(Handlebars) {
+           return factory(root.Toolbox, Handlebars)
+       });
+   } else if (typeof exports === 'object') {
+       module.exports = factory(root.Toolbox, require('handlebars'));
+   } else {
+       factory(root.Toolbox, root.Handlebars);
+   }
+}(this, function (Toolbox, Handlebars) {
    Toolbox.templates['popover'] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     return "    <a href=\"#\" class=\"popover-close\"><i class=\"fa fa-times-circle\"></i></a>\n";
 },"3":function(container,depth0,helpers,partials,data) {
@@ -959,31 +984,6 @@
     + "\n<div class=\"arrow\"></div>\n\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.header : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n<div class=\"popover-content\"></div>\n";
-},"useData":true})
-}));
-(function (root, factory) {
-   if (typeof define === 'function' && define.amd) {
-       define(['handlebars'], function(Handlebars) {
-           return factory(root.Toolbox, Handlebars)
-       });
-   } else if (typeof exports === 'object') {
-       module.exports = factory(root.Toolbox, require('handlebars'));
-   } else {
-       factory(root.Toolbox, root.Handlebars);
-   }
-}(this, function (Toolbox, Handlebars) {
-   Toolbox.templates['progress-bar'] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return "<div class=\""
-    + alias4(((helper = (helper = helpers.progressBarClassName || (depth0 != null ? depth0.progressBarClassName : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"progressBarClassName","hash":{},"data":data}) : helper)))
-    + "\" role=\"progressbar\" aria-valuenow=\""
-    + alias4(((helper = (helper = helpers.progress || (depth0 != null ? depth0.progress : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"progress","hash":{},"data":data}) : helper)))
-    + "\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: "
-    + alias4(((helper = (helper = helpers.progress || (depth0 != null ? depth0.progress : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"progress","hash":{},"data":data}) : helper)))
-    + "%;\">\n	<span class=\"sr-only\">"
-    + alias4(((helper = (helper = helpers.progress || (depth0 != null ? depth0.progress : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"progress","hash":{},"data":data}) : helper)))
-    + "% Complete</span>\n</div>\n";
 },"useData":true})
 }));
 (function (root, factory) {
@@ -1041,8 +1041,9 @@
     + alias2(alias1((depths[1] != null ? depths[1].type : depths[1]), depth0))
     + "\" name=\""
     + alias2(alias1((depths[1] != null ? depths[1].name : depths[1]), depth0))
-    + "[]\" "
-    + ((stack1 = helpers["if"].call(alias3,(depths[1] != null ? depths[1].id : depths[1]),{"name":"if","hash":{},"fn":container.program(12, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = (helpers.is || (depth0 && depth0.is) || alias4).call(alias3,(depths[1] != null ? depths[1].type : depths[1]),"checkbox",{"name":"is","hash":{},"fn":container.program(12, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\" "
+    + ((stack1 = helpers["if"].call(alias3,(depths[1] != null ? depths[1].id : depths[1]),{"name":"if","hash":{},"fn":container.program(14, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " value=\""
     + alias2(((helper = (helper = helpers.value || (depth0 != null ? depth0.value : depth0)) != null ? helper : alias4),(typeof helper === alias5 ? helper.call(alias3,{"name":"value","hash":{},"data":data}) : helper)))
     + "\"> "
@@ -1058,11 +1059,13 @@
     return "class=\""
     + container.escapeExpression(container.lambda((depths[1] != null ? depths[1].labelClassName : depths[1]), depth0))
     + "\"";
-},"12":function(container,depth0,helpers,partials,data,blockParams,depths) {
+},"12":function(container,depth0,helpers,partials,data) {
+    return "[]";
+},"14":function(container,depth0,helpers,partials,data,blockParams,depths) {
     return "id=\""
     + container.escapeExpression(container.lambda((depths[1] != null ? depths[1].id : depths[1]), depth0))
     + "\"";
-},"14":function(container,depth0,helpers,partials,data) {
+},"16":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "	<div class=\""
@@ -1070,23 +1073,23 @@
     + "\">\n		<label "
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.id : depth0),{"name":"if","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.labelClassName : depth0),{"name":"if","hash":{},"fn":container.program(15, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.labelClassName : depth0),{"name":"if","hash":{},"fn":container.program(17, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ">\n			<input type=\""
     + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
     + "\" name=\""
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + "\" "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.id : depth0),{"name":"if","hash":{},"fn":container.program(17, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.id : depth0),{"name":"if","hash":{},"fn":container.program(19, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " value=\""
     + alias4(((helper = (helper = helpers.value || (depth0 != null ? depth0.value : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data}) : helper)))
     + "\">\n		</label>\n	</div>\n";
-},"15":function(container,depth0,helpers,partials,data) {
+},"17":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "class=\""
     + container.escapeExpression(((helper = (helper = helpers.labelClassName || (depth0 != null ? depth0.labelClassName : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"labelClassName","hash":{},"data":data}) : helper)))
     + "\"";
-},"17":function(container,depth0,helpers,partials,data) {
+},"19":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "id=\""
@@ -1099,8 +1102,23 @@
     + "\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.description : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\n"
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.options : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.program(14, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "");
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.options : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.program(16, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "");
 },"useData":true,"useDepths":true})
+}));
+(function (root, factory) {
+   if (typeof define === 'function' && define.amd) {
+       define(['handlebars'], function(Handlebars) {
+           return factory(root.Toolbox, Handlebars)
+       });
+   } else if (typeof exports === 'object') {
+       module.exports = factory(root.Toolbox, require('handlebars'));
+   } else {
+       factory(root.Toolbox, root.Handlebars);
+   }
+}(this, function (Toolbox, Handlebars) {
+   Toolbox.templates['range-slider'] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"slider\"></div>";
+},"useData":true})
 }));
 (function (root, factory) {
    if (typeof define === 'function' && define.amd) {
@@ -1214,21 +1232,6 @@
   if (stack1 != null) { buffer += stack1; }
   return buffer + "</select>\n";
 },"useData":true,"useDepths":true})
-}));
-(function (root, factory) {
-   if (typeof define === 'function' && define.amd) {
-       define(['handlebars'], function(Handlebars) {
-           return factory(root.Toolbox, Handlebars)
-       });
-   } else if (typeof exports === 'object') {
-       module.exports = factory(root.Toolbox, require('handlebars'));
-   } else {
-       factory(root.Toolbox, root.Handlebars);
-   }
-}(this, function (Toolbox, Handlebars) {
-   Toolbox.templates['range-slider'] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"slider\"></div>";
-},"useData":true})
 }));
 (function (root, factory) {
    if (typeof define === 'function' && define.amd) {

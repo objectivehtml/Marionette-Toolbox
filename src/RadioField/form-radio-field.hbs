@@ -10,7 +10,7 @@
 	{{#options}}
 	<div class="{{../inputClassName}}">
 		<label {{#if id}}for="{{id}}"{{/if}} {{#if ../labelClassName}}class="{{../labelClassName}}"{{/if}}>
-			<input type="{{../type}}" name="{{../name}}[]" {{#if ../id}}id="{{../id}}"{{/if}} value="{{value}}"> {{label}}
+			<input type="{{../type}}" name="{{../name}}{{#is ../type "checkbox"}}[]{{/is}}" {{#if ../id}}id="{{../id}}"{{/if}} value="{{value}}"> {{label}}
 		</label>
 	</div>
 	{{/options}}
