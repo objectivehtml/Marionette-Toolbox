@@ -17,6 +17,7 @@
         template: Toolbox.Template('form-light-switch-field'),
 
         options: {
+            
             value: 0,
 
             activeClassName: 'on',
