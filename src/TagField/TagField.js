@@ -818,7 +818,7 @@
                 this.resetPredictions();
             }
 
-            if(this.getOption('addTagOnBlur')) {
+            if(this.getOption('addTagOnBlur') && event.target.value) {
                 this.addTag(event.target.value)
             }
         },
