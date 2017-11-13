@@ -74,6 +74,10 @@
 					selectedTree: new Toolbox.Tree(new Backbone.Collection(selected))
 				});
 
+				view.on('drop pool:drop', function() {
+					console.log('drop');
+				});
+
 				view.on('scroll:bottom', function(scrollTop) {
 					var data = available.slice(0);
 					var total = data.length;

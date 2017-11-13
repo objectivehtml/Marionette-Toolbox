@@ -26,6 +26,16 @@
             childView: Toolbox.DraggableTreeView
         },
 
+        childViewTriggers: {
+            'drag:move': 'drag:move',
+            'drag:end': 'drag:end',
+            'drag:start': 'drag:start',
+            'drag:enter': 'drag:enter',
+            'drag:leave': 'drag:leave',
+            'drop:deactivate': 'drop:deactivate',
+            'drop:move': 'drop:move'
+        },
+
         childView: function() {
             return Toolbox.DraggableTreeNode;
         },

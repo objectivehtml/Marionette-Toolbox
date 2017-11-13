@@ -123,8 +123,8 @@
                 el: 'tbody',
                 replaceElement: true
             },
-            header: 'thead',
-            footer: 'tfoot td'
+            header: '.table-view-header',
+            footer: '.table-view-footer'
         },
 
         template: Toolbox.Template('table-view-group'),
@@ -179,6 +179,9 @@
 
             // (object) The pagination view options object
             footerViewOptions: false,
+
+            // (string) The table footer class name
+            footerClassName: 'table-header',
 
             // (string) The table header
             header: false,
@@ -443,6 +446,7 @@
 
         onFetchSuccess: function(collection, response) {
             if(collection.length === 0) {
+                //this.getRegion('body').currentView._renderChildren();
                 collection.reset();
             }
 

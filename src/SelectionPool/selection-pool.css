@@ -1,3 +1,7 @@
+.selection-pool.dropping  .empty-view {
+    display: none;
+}
+
 .selection-pool-search {
     position: relative;
 }

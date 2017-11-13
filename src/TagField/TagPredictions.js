@@ -60,9 +60,11 @@
         },
 
         activate: function(view) {
-            var child = this.children.findByModel(view.model);
+            var activeView, child = this.children.findByModel(view.model);
 
-            this.deactivate(this.getActiveView());
+            if(activeView = this.getActiveView()) {
+                this.deactivate(activeView);
+            }
 
             child.activate();
 
@@ -73,7 +75,7 @@
             if(view) {
                 var child = this.children.findByModel(view.model);
 
-                this.children.find(view).deactivate();
+                child.deactivate();
 
                 this.triggerMethod('deactivate', child);
             }

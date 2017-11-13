@@ -24,6 +24,16 @@
 
         className: 'draggable-tree-node',
 
+        childViewTriggers: {
+            'drag:move': 'drag:move',
+            'drag:end': 'drag:end',
+            'drag:start': 'drag:start',
+            'drag:enter': 'drag:enter',
+            'drag:leave': 'drag:leave',
+            'drop:deactivate': 'drop:deactivate',
+            'drop:move': 'drop:move'
+        },
+
         defaultOptions: function() {
             return _.extend({}, Toolbox.TreeViewNode.prototype.defaultOptions, {
                 draggingClassName: 'dragging',
@@ -102,7 +112,7 @@
                 }
             }, this);
 
-            this.root().triggerMethod('drop:move', event, this);
+            //this.root().triggerMethod('drop:move', event, this);
         },
 
         onDragMove: function(event) {
@@ -117,7 +127,7 @@
             target.setAttribute('data-x', x);
             target.setAttribute('data-y', y);
 
-            this.root().triggerMethod('drag:move', event, this);
+            //this.root().triggerMethod('drag:move', event, this);
         },
 
         onDragStart: function(event) {
@@ -134,30 +144,30 @@
             $target.css('opacity', 0);
             $('body').append(this._ghostElement);
 
-            this.root().triggerMethod('drag:start', event, this);
+            //this.root().triggerMethod('drag:start', event, this);
         },
 
         onDragEnd: function(event) {
             $(event.target).css('opacity', 100);
 
             this._ghostElement.remove();
-            this.root().triggerMethod('drag:end', event, this);
+            //this.root().triggerMethod('drag:end', event, this);
         },
 
         onDragEnter: function(event) {
-            this.root().triggerMethod('drag:enter', event, this);
+            //this.root().triggerMethod('drag:enter', event, this);
         },
 
         onDragLeave: function(event) {
             $(event.target).removeClass('drop-before drop-after drop-children');
 
-            this.root().triggerMethod('drag:leave', event, this);
+            //this.root().triggerMethod('drag:leave', event, this);
         },
 
         onDropDeactivate: function(event) {
             $(event.target).removeClass('drop-before drop-after drop-children');
 
-            this.root().triggerMethod('drop:deactivate', event, this);
+            //this.root().triggerMethod('drop:deactivate', event, this);
         },
 
         onDomRefresh: function() {

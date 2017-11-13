@@ -32,7 +32,10 @@
 				var view = new Toolbox.ButtonGroup({
 					buttons: [{
 						icon: 'fa fa-check',
-						label: 'Ok'
+						label: 'Ok',
+						onClick: function() {
+							console.log('onClick');
+						}
 					},{
 						icon: 'fa fa-times-circle',
 						label: 'Cancel',

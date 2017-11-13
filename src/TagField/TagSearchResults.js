@@ -101,13 +101,15 @@
         },
 
         activate: function(view) {
-            var child = this.children.findByModel(view.model);
+            var activeView, child = this.children.findByModel(view.model);
 
-            if(child) {
-                this.deactivate();
-                child.activate();
-                this.triggerMethod('activate', child);
+            if(activeView = this.getActiveView()) {
+                this.deactivate(activeView);
             }
+
+            child.activate();
+
+            this.triggerMethod('activate', child);
         },
 
         deactivate: function(view) {

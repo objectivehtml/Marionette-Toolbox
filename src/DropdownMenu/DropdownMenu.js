@@ -39,7 +39,8 @@
 		template: Toolbox.Template('dropdown-menu-item'),
 
 		defaultOptions: {
-			dividerClassName: 'divider'
+			dividerClassName: 'divider',
+            badgeClassName: 'badge'
 		},
 
 		triggers: {
@@ -49,6 +50,10 @@
 				stopPropagation: false
 		    }
 		},
+
+        modelEvents: {
+            'change': 'render'
+        },
 
         events: {
             'click a': function(event) {
@@ -60,6 +65,10 @@
                     event.preventDefault();
                 }
             }
+        },
+
+        templateContext: function() {
+            return this.options;
         },
 
 		onDomRefresh: function() {
@@ -81,7 +90,11 @@
 		tagName: 'ul',
 
         triggers: {
-            'click': 'click'
+            'click': {
+                event: 'click',
+                preventDefault: false,
+                stopPropagation: false
+            }
         },
 
         childViewTriggers: {
@@ -105,19 +118,13 @@
             }
         },
 
-		childViewEvents: {
-			'click': function(view) {
-				if(this.getOption('closeOnClick') === true) {
-					this.hideMenu()
-				}
-
-				this.triggerMethod('click:item', view);
-			}
-		},
-
 		triggers: {
 			'click .dropdown-toggle': 'click:toggle'
 		},
+
+        childViewTriggers: {
+            'click:item': 'click:item'
+        },
 
 		defaultOptions: {
             // (array) An array of menu items to be converted to a collection.
@@ -150,11 +157,11 @@
 			// (string) Either asc or desc
 			sort: 'asc',
 
-			// (bool) Close the menu after an item has been clicked
-			closeOnClick: true,
+			// (bool) Hide the menu after an item has been clicked
+			hideOnClick: true,
 
-			// (bool) Fetch the collection when the dropdown menu is shown
-			fetchOnShow: false,
+			// (bool) Fetch the collection when the dropdown menu is rendered
+			fetchOnRender: false,
 
 			// (bool) Show an activity indicator when fetching the collection
 			showIndicator: true,
@@ -223,6 +230,12 @@
 			return this.$el.find('.'+this.getOption('toggleClassName')).parent().hasClass(this.getOption('openClassName'));
 		},
 
+        onChildviewClickItem: function() {
+            if(this.getOption('hideOnClick')) {
+                this.hideMenu()
+            }
+        },
+
 		onClickToggle: function() {
 			if(!this.isMenuVisible()) {
 				this.showMenu();
@@ -236,10 +249,11 @@
             var MenuView = this.getOption('menuViewClass') || Toolbox.DropdownMenuList;
 
             this.showChildView('menu', new MenuView({
-                collection: this.collection
+                collection: this.collection,
+                className: this.getOption('menuClassName')
             }));
 
-            if(this.getOption('fetchOnShow')) {
+            if(this.getOption('fetchOnRender')) {
 				this.fetch();
 			}
 		},
@@ -261,9 +275,11 @@
 					}
 
 					self.render();
+                    self.triggerMethod('fetch:complete', true, collection, response);
 					self.triggerMethod('fetch:success', collection, response);
 				},
 				error: function(collection, response) {
+                    self.triggerMethod('fetch:complete', false, collection, response);
 					self.triggerMethod('fetch:error', collection, response);
 				}
 			});

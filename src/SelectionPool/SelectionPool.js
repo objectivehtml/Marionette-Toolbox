@@ -29,6 +29,20 @@
             //activity: '.selection-pool-search-activity'
         },
 
+        childViewTriggers: {
+            'drag:move': 'drag:move',
+            'drag:end': 'drag:end',
+            'drag:start': 'drag:start',
+            'drag:enter': 'drag:enter',
+            'drag:leave': 'drag:leave',
+            'drop:deactivate': 'drop:deactivate',
+            'drop:move': 'drop:move',
+            'drop:before': 'drop:before',
+            'drop:after': 'drop:after',
+            'drop:children': 'drop:children',
+            'drop': 'drop'
+        },
+
         defaultOptions: function() {
             return {
                 nestable: true,
@@ -314,8 +328,6 @@
         },
 
         onRender: function() {
-            console.log('render');
-
             this.showAvailablePool();
             this.showSelectedPool();
         }

@@ -29,6 +29,12 @@
 			disabledClassName: 'disabled'
         },
 
+        onClick: function(child, event) {
+            if(this.model.get('onClick')) {
+                this.model.get('onClick').apply(this, arguments);
+            }
+        },
+
 		onDomRefresh: function() {
 			if(this.model.get(this.getOption('disabledClassName'))) {
 				this.$el.addClass(this.getOption('disabledClassName'));
@@ -37,7 +43,7 @@
             if(this.model.get('className')) {
                 this.$el.addClass(this.model.get('className'));
             }
-            
+
 			if(this.model.get('active')) {
 				this.$el.click();
 			}
@@ -92,10 +98,6 @@
                 this.children.findByIndex(index).$el.click();
             }
         },
-
-		onDomRefresh: function() {
-			this.$el.find('.'+this.getOption('activeClassName')).click();
-		},
 
 		onChildClick: function(child) {
             if(!child.$el.hasClass(this.getOption('disabledClassName'))) {

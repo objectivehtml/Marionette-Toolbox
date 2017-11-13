@@ -40,6 +40,7 @@
 					toggleLabel: 'My Account',
 					items: [{
 						href: '#1',
+						badge: 1,
 						label: 'Dropdown Item #1',
 						onClick: function(event) {
 							console.log('clicked', event);
@@ -62,11 +63,15 @@
 					console.log('toggle click');
 				});
 
-				view.on('click:item', function(view, event) {
+				view.on('childview:click:item', function(view, event) {
 					console.log('item click', view, event);
 				});
 
 				App.showView(view);
+
+				setTimeout(function() {
+					view.collection.find({href: '#1'}).set('badge', 10);
+				}, 3000);
 
 			});
 

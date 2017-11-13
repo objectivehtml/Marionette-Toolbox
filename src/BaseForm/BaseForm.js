@@ -378,11 +378,9 @@
         },
 
         showErrors: function(errors) {
-            var t = this;
-
             _.each(errors, function(error, field) {
-                t.showError(field, error);
-            });
+                this.showError(field, error);
+            }, this);
 
             this.focusOnFirstError();
         },
@@ -465,7 +463,7 @@
         },
 
         onSubmit: function() {
-            var t = this;
+            var self = this;
 
             if(!this.isSubmitting) {
                 this.isSubmitting = true;
@@ -473,12 +471,12 @@
 
                 this.model.save(this.getFormData(), {
                     success: function(model, response) {
-                        t.triggerMethod('submit:complete', true, model, response);
-                        t.triggerMethod('submit:success', model, response);
+                        self.triggerMethod('submit:complete', true, model, response);
+                        self.triggerMethod('submit:success', model, response);
                     },
                     error: function(model, response) {
-                        t.triggerMethod('submit:complete', false, model, response);
-                        t.triggerMethod('submit:error', model, response);
+                        self.triggerMethod('submit:complete', false, model, response);
+                        self.triggerMethod('submit:error', model, response);
                     }
                 });
             }

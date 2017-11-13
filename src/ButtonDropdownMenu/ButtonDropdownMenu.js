@@ -37,7 +37,7 @@
 			buttonToggleClassName: 'dropdown-toggle',
 
 			// (string) The dropdown menu class name
-			menuClassName: 'dropdown-menu',
+			menuClassName: 'dropdown-menu dropdown-menu-right',
 
 			// (int|bool) The collection limit
 			limit: false,
@@ -49,13 +49,13 @@
 			sort: 'asc',
 
 			// (bool) Close the menu after an item has been clicked
-			closeOnClick: true,
+			hideOnClick: true,
 
 			// (bool) Menu appear as a "dropup" instead of a "dropdown"
 			dropUp: false,
 
-			// (bool) Fetch the collection when the dropdown menu is shown
-			fetchOnShow: false,
+			// (bool) Fetch the collection when the dropdown menu is rendered
+			fetchOnRender: false,
 
 			// (bool) Show an activity indicator when fetching the collection
 			showIndicator: true,

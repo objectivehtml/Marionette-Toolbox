@@ -1,5 +1,5 @@
 {{#if divider}}
 
 {{else}}
-	<a href="{{href}}">{{#if icon}}<i class="{{icon}}"></i> {{/if}}{{#if value}}{{value}}{{/if}}{{#if label}}{{label}}{{/if}}</a>
+	<a href="{{href}}">{{#if icon}}<i class="{{icon}}"></i> {{/if}}{{#if value}}{{value}}{{/if}}{{#if label}}{{label}}{{/if}} {{#if badge}}<span class="{{badgeClassName}}">{{badge}}</span>{{/if}}</a>
 {{/if}}

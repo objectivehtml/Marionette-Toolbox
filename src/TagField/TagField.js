@@ -60,9 +60,6 @@
             // (bool) Should the field search for tags using ajax HTTP requests
             ajaxSearch: false,
 
-            // (array) An array of headers appended to the request
-            requestHeaders: [],
-
             // (mixed) The default input value if no tags exist
             defaultInputValue: null,
 
@@ -76,6 +73,9 @@
 
             // (object) An option to pass an object with request data
             requestData: {},
+
+            // (array) An array of headers appended to the request
+            requestHeaders: [],
 
             // (array) Additional options used to generate the query string
             requestDataOptions: [],
@@ -104,7 +104,10 @@
             },
 
             // (bool) Should show search results on focus
-            showResultsOnFocus: false
+            showResultsOnFocus: false,
+
+            // (bool) Should add the text in the field as a tag on blur
+            addTagOnBlur: false
         },
 
         // TODO: Need to create a Mixin for these methods that were taken from TableView
@@ -282,7 +285,7 @@
                 if(self.getRegion('predictions').currentView.getActiveText()) {
                     self.getRegion('predictions').currentView.changePredictionDown(self.getCursorValue());
                 }
-                else if(self.getOption('showResultsOnFocus')) {
+                else if(self.getOption('showResultsOnFocus') && self._predictions.length) {
                     var resultsView = self.getRegion('results').currentView;
 
                     if(resultsView.getActiveText()) {
@@ -344,11 +347,16 @@
             }, this);
         },
 
-        addTag: function(tag, options) {
+        addTag: function(tag, options, triggerEvents) {
             if(!(tag instanceof Backbone.Model)) {
-                var data = {};
-                data[this.getOption('searchProperty')] = tag;
-                tag = new Backbone.Model(data);
+                if(_.isObject(tag)) {
+                    tag = new Backbone.Model(tag);
+                }
+                else {
+                    var data = {};
+                    data[this.getOption('searchProperty')] = tag;
+                    tag = new Backbone.Model(data);
+                }
             }
 
             if(!this.doesTagExist(tag)) {
@@ -383,19 +391,28 @@
         },
 
         hideResultsElement: function() {
-            this.getRegion('results').currentView.$el.addClass('hide');
+            if(this.getRegion('results') && this.getRegion('results').currentView) {
+                this.getRegion('results').currentView.$el.addClass('hide');
+            }
         },
 
         showResultsElement: function() {
-            this.getRegion('results').currentView.$el.removeClass('hide');
+            if(this.getRegion('results') && this.getRegion('results').currentView) {
+                this.getRegion('results').currentView.$el.removeClass('hide');
+            }
         },
 
         hidePredictionsElement: function() {
-            this.getRegion('predictions').currentView.$el.addClass('hide');
+            if(this.getRegion('predictions') && this.getRegion('predictions').currentView) {
+                this.getRegion('predictions').currentView.deactivate();
+                this.getRegion('predictions').currentView.$el.addClass('hide');
+            }
         },
 
         showPredictionsElement: function() {
-            this.getRegion('predictions').currentView.$el.removeClass('hide');
+            if(this.getRegion('predictions') && this.getRegion('predictions').currentView) {
+                this.getRegion('predictions').currentView.$el.removeClass('hide');
+            }
         },
 
         setFocusOnElement: function($el) {
@@ -558,16 +575,24 @@
         resetPredictions: function(collection) {
             collection || (collection = this.collection);
 
-            // this.hideResultsElement();
-
             if(collection.length) {
-                var models = collection.filter(function(model) {
+                var resultView, activeView = false, models = collection.filter(function(model) {
                     return !this.doesTagExist(model.toJSON());
                 }, this);
 
-                this._predictions.set(models, {
-                    sort: false
-                });
+                if(this.getRegion('predictions') && this.getRegion('predictions').currentView) {
+                    activeView = this.getRegion('predictions').currentView.getActiveView();
+                }
+
+                this._predictions.set(models, {sort: false});
+                this._predictions.sort();
+
+                if(activeView && (resultView = this.getRegion('results').currentView.children.findByModel(activeView.model))) {
+                    resultView.activate();
+                }
+            }
+            else {
+                this._predictions.reset();
             }
 
             this._lastVerticalKeyPress = false;
@@ -609,7 +634,14 @@
             }, this);
 
             if(this.getOption('value')) {
-                this._tags.add(this.getOption('value'));
+                if(_.isArray(this.getOption('value'))) {
+                    _.each(this.getOption('value'), function(value) {
+                        this.addTag(value);
+                    }, this);
+                }
+                else {
+                    this.addTag(this.getOption('value'));
+                }
             }
 
             this.showChildView('tags', view);
@@ -659,16 +691,14 @@
             }, this);
 
             view.on('activate', function(child) {
-                if(this.getRegion('predictions').currentView) {
-                    var predictionsView = this.getRegion('predictions').currentView;
-                    var childView = predictionsView.children.findByModel(child.model);
+                var activeView, predictionsView = this.getRegion('predictions').currentView;
 
-                    if(childView) {
-                        this.getRegion('predictions').currentView.deactivate();
-                        childView.activate();
-                        this.hideTextInPrediction();
-                    }
+                if(activeView = predictionsView.getActiveView()) {
+                    activeView.deactivate();
                 }
+
+                predictionsView.children.findByModel(child.model).activate();
+                this.hideTextInPrediction();
             }, this);
 
             this.showChildView('results', view);
@@ -709,7 +739,7 @@
         },
 
         hideTextInPrediction: function(value) {
-            if(this.getRegion('predictions')) {
+            if(this.getRegion('predictions') && this.getRegion('predictions').currentView) {
                 this.getRegion('predictions').currentView.hideTextInPrediction(value || this.getCursorValue());
             }
         },
@@ -721,7 +751,7 @@
                 this.fetch().progress(function(data) {
                     deferred.notifyWith(self, [data]);
                 }).done(function(collection, response) {
-                    deferred.resolveWith(self, [query ? this.findLiteralMatches(collection, query): collection, response]);
+                    deferred.resolveWith(self, [query ? this.findLiteralMatches(collection, query) : collection, response]);
                 }).fail(function(collection, response) {
                     deferred.rejectWith(self, [collection, response]);
                 });
@@ -734,21 +764,21 @@
         },
 
         onBeforeAddTag: function(tag) {
-            this.cancelHttpRequest();
+            //this.cancelHttpRequest();
         },
 
         onAfterAddTag: function(tag) {
-            this._detection.clearTimer();
-            this._detection.clearLastValue();
+            if(this._detection) {
+                this._detection.clearTimer();
+                this._detection.clearLastValue();
+            }
 
             if(this.hasReachedMaxLimit()) {
                 this.$el.addClass('max-limit-reached');
                 this.hideResultsElement();
             }
 
-            if(!this._predictions.length) {
-                this.resetPredictions();
-            }
+            this.resetPredictions();
         },
 
         onAfterRemoveTag: function(tag) {
@@ -766,20 +796,30 @@
             this.$el.addClass('has-focus');
 
             if(this.getOption('showResultsOnFocus')) {
-                this.hidePredictionsElement();
+                if(this.getCursorValue()) {
+                    this.showPredictionsElement();
+                }
+                else {
+                    this.hidePredictionsElement();
+                }
+
                 this.showResultsElement();
                 this.resetPredictions();
                 //this.getRegion('results').currentView.ensureActiveElement();
             }
         },
 
-        onBlur: function() {
+        onBlur: function(child, event) {
             this.$el.removeClass('has-focus');
             this.hidePredictionsElement();
             this.hideResultsElement();
 
             if(!this.getOption('showResultsOnFocus')) {
-                this._predictions.reset();
+                this.resetPredictions();
+            }
+
+            if(this.getOption('addTagOnBlur')) {
+                this.addTag(event.target.value)
             }
         },
 
@@ -799,13 +839,17 @@
         },
 
         onKeyup: function(child, event) {
-            var ignoreKeyCodes = [9, 38, 40];
+            var ignoreKeyCodes = [9, 38, 40, 27];
+
+            if(ignoreKeyCodes.indexOf(event.keyCode) !== -1) {
+                return;
+            }
 
             this.setCursorValue(event.target.value);
             this.setInputFieldWidth();
             this.positionCursorPredictions();
 
-            if(!event.target.value && ignoreKeyCodes.indexOf(event.keyCode) < 0) {
+            if(!event.target.value) {
                 this.hidePredictionsElement();
                 this.resetPredictions();
 
@@ -820,55 +864,46 @@
             }
         },
 
-        onFetchSuccess: function() {
-            if(this.$el.hasClass('has-focus') && this.collection.length) {
-                this.resetPredictions();
-                this.showResultsElement();
-            }
-        },
-
         onTypingStopped: function(value) {
-            var predictionsView = this.getRegion('predictions').currentView;
+            this.search(value).progress(function(requestData) {
+                this.showActivityIndicator();
+            })
+            .fail(function() {
+                this.hideActivityIndicator();
+                this.resetPredictions();
+            })
+            .done(function(matches, response) {
+                var matchingView, resultsView = this.getRegion('results').currentView;
+                var resultsActiveView = resultsView.getActiveView();
+                var predictionsView = this.getRegion('predictions').currentView;
 
-            if(value) {
-                if(this.getOption('ajaxSearch') && this._predictions.length) {
-                    this.showPredictionsElement();
-                    this.getRegion('predictions').currentView.children.first().activate();
-                    this.hideTextInPrediction();
-                }
+                this.hideActivityIndicator();
 
-                this.search(value).progress(function(requestData) {
-                    this.showActivityIndicator();
-                })
-                .fail(function() {
-                    this.hideActivityIndicator();
-                    this._predictions.reset();
-                })
-                .done(function(matches, response) {
-                    this.hideActivityIndicator();
+                if(matches.length) {
+                    if(!this._arraysEqual(
+                        matches.pluck(this.getOption('searchProperty')),
+                        this._predictions.pluck(this.getOption('searchProperty'))
+                    )) {
+                        this._predictions.set(matches.models, {sort: false});
+                        this._predictions.sort();
+                    }
 
-                    if(matches.length) {
-                        if(!this._arraysEqual(
-                            matches.pluck(this.getOption('searchProperty')),
-                            this._predictions.pluck(this.getOption('searchProperty'))
-                        )) {
-                            this._predictions.reset();
-                            this._predictions.add(matches.models, {
-                                sort: false
-                            });
-                        }
-
-                        if(!predictionsView.getActiveView()) {
-                            predictionsView.activate(predictionsView.children.first());
-                        }
-
+                    if(this.$el.hasClass('has-focus')) {
+                        this.showResultsElement();
                         this.hideTextInPrediction();
                     }
-                    else {
-                        this._predictions.reset();
+
+                    if(resultsActiveView && (matchingView = predictionsView.children.findByModel(resultsActiveView.model))) {
+                        predictionsView.activate(matchingView);
                     }
-                });
-            }
+                    else if(!predictionsView.getActiveView()) {
+                        predictionsView.activate(predictionsView.children.findByModel(this._predictions.first()));
+                    }
+                }
+                else {
+                    this.hideResultsElement();
+                }
+            });
         },
 
         onDomRefresh: function() {

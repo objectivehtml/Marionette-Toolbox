@@ -168,7 +168,7 @@
                 collectionView._bufferedChildren.splice(index, 0, childView);
             } else {
                 if(childView instanceof Toolbox.InputField) {
-                    this.appendChildren(this.el, childView.el);
+                    Toolbox.UnorderedList.prototype.attachHtml.apply(this, arguments);
                 }
                 else {
                     this.beforeEl(this.children.first().el, childView.el);

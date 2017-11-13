@@ -54,23 +54,30 @@
 			App.on('start', function() {
 
 				var view = new Toolbox.TagField({
-					value: [
-						{id: 385, name: "Zula Shanahan"},
-						{id: 264, name: "Zora Donnelly"}
-					],
-					multiple: true,
+					multiple: false,
 					name: 'field_name',
 					label: 'Field Name',
 					valueProperty: 'id',
 					labelProperty: 'name',
 					searchProperty: 'name',
 					collection: new UsersCollection,
-					showResultsOnFocus: true
+					showResultsOnFocus: true,
+					addTagOnBlur: true,
+					ajaxSearch: false/*,
+					requestDataOptions: ['q'],
+					limit: 20,
+					q: function() {
+						return view.getCursorValue();
+					}
+					*/
 				});
 
 				view.on('render', function() {
 					view.fetch().progress(function() {
 						this.showActivityIndicator();
+					})
+					.fail(function() {
+						this.hideActivityIndicator();
 					})
 					.done(function() {
 						this.hideActivityIndicator();

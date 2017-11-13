@@ -1,25 +1,26 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['underscore'], function(_) {
-            return factory(root.Toolbox, _);
+        define(['underscore', 'backbone'], function(_, Backbone) {
+            return factory(root.Toolbox, _, Backbone);
         });
     } else if (typeof exports === 'object') {
         module.exports = factory(
             root.Toolbox,
-            require('underscore')
+            require('underscore'),
+            require('backbone')
         );
     } else {
-        root.Toolbox = factory(root.Toolbox, root._);
+        root.Toolbox = factory(root.Toolbox, root._, root.Backbone);
     }
-}(this, function (Toolbox, _) {
+}(this, function (Toolbox, _, Backbone) {
 
     function transferNodeAfter(event, view) {
         var fromWhere = {}, toWhere = {};
         var from = view.getSelectionPoolFromElement(event.relatedTarget);
         var to = view.getSelectionPoolFromElement(event.target);
 
-        fromWhere[view.getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
-        toWhere[view.getIdAttribute($(event.target).data('id'))] = $(event.target).data('id');
+        fromWhere[view.getIdAttribute(Backbone.$(event.relatedTarget).data('id'))] = Backbone.$(event.relatedTarget).data('id');
+        toWhere[view.getIdAttribute(Backbone.$(event.target).data('id'))] = Backbone.$(event.target).data('id');
 
         var fromModel = from.collection.findWhere(fromWhere);
         var toModel = to.collection.findWhere(toWhere);
@@ -34,8 +35,8 @@
         var to = view.getSelectionPoolFromElement(event.target);
 
 
-        fromWhere[view.getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
-        toWhere[view.getIdAttribute($(event.target).data('id'))] = $(event.target).data('id');
+        fromWhere[view.getIdAttribute(Backbone.$(event.relatedTarget).data('id'))] = Backbone.$(event.relatedTarget).data('id');
+        toWhere[view.getIdAttribute(Backbone.$(event.target).data('id'))] = Backbone.$(event.target).data('id');
 
         var fromModel = from.collection.findWhere(fromWhere);
         var toModel = to.collection.findWhere(toWhere);
@@ -49,12 +50,12 @@
         var from = view.getSelectionPoolFromElement(event.relatedTarget);
         var to = view.getSelectionPoolFromElement(event.target);
 
-        if($(event.target).find('.children').length == 0) {
-            $(event.target).append('<div class="children" />');
+        if(Backbone.$(event.target).find('.children').length == 0) {
+            Backbone.$(event.target).append('<div class="children" />');
         }
 
-        fromWhere[view.getIdAttribute($(event.relatedTarget).data('id'))] = $(event.relatedTarget).data('id');
-        toWhere[view.getIdAttribute($(event.target).data('id'))] = $(event.target).data('id');
+        fromWhere[view.getIdAttribute(Backbone.$(event.relatedTarget).data('id'))] = Backbone.$(event.relatedTarget).data('id');
+        toWhere[view.getIdAttribute(Backbone.$(event.target).data('id'))] = Backbone.$(event.target).data('id');
 
         var fromModel = from.collection.findWhere(fromWhere);
         var toModel = to.collection.findWhere(toWhere);
