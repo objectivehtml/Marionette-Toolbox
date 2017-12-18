@@ -107,7 +107,7 @@
             showResultsOnFocus: false,
 
             // (bool) Should add the text in the field as a tag on blur
-            addTagOnBlur: false
+            addTagOnBlur: true
         },
 
         // TODO: Need to create a Mixin for these methods that were taken from TableView
