@@ -72,10 +72,10 @@
         },
 
         events: {
-            'focus input': function() {
+            'focus input': function(event) {
                 Backbone.$(event.target).parent().addClass('has-focus');
             },
-            'blur input': function() {
+            'blur input': function(event) {
                 Backbone.$(event.target).parent().removeClass('has-focus');
             }
         },

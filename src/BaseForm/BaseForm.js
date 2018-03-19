@@ -396,6 +396,10 @@
         },
 
         getRedirect: function() {
+            if(_.isFunction(this.getOption('redirect'))) {
+                return this.getOption('redirect').call(this);
+            }
+
             return this.getOption('redirect');
         },
 

@@ -18,52 +18,54 @@
 
         className: 'wizard-buttons-wrapper clearfix',
 
-        defaultOptions: {
-            step: false,
-            totalSteps: false,
-            wizard: false,
-            buttonSizeClassName: 'btn-md',
-            defaultButtonClassName: 'btn btn-default',
-            primaryButtonClassName: 'btn btn-primary',
-            disabledClassName: 'disabled',
-            leftButtons: [{
-                icon: 'fa fa-long-arrow-left',
-                label: 'Back',
-                className: function() {
-                    return (
-                        this.parent.getCurrentStep() == 1 ? 'disabled ' : ''
-                    ) + this.parent.getDefaultButtonClasses('back');
-                },
-                onClick: function(e) {
-                    this.triggerMethod('click:back');
-                }
-            }],
-            rightButtons: [{
-                label: 'Finish',
-                className: function() {
-                    if(this.parent.getCurrentStep() != this.parent.getTotalSteps()) {
-                        return 'hide';
+        defaultOptions: function() {
+            return {
+                step: false,
+                wizard: false,
+                totalSteps: false,
+                buttonSizeClassName: 'btn-md',
+                defaultButtonClassName: 'btn btn-default',
+                primaryButtonClassName: 'btn btn-primary',
+                disabledClassName: 'disabled',
+                leftButtons: [{
+                    icon: 'fa fa-long-arrow-left',
+                    label: 'Back',
+                    className: function() {
+                        return (
+                            this.parent.getCurrentStep() == 1 ? 'disabled ' : ''
+                        ) + this.parent.getDefaultButtonClasses('back');
+                    },
+                    onClick: function(e) {
+                        this.triggerMethod('click:back');
                     }
+                }],
+                rightButtons: [{
+                    label: 'Finish',
+                    className: function() {
+                        if(this.parent.getCurrentStep() != this.parent.getTotalSteps()) {
+                            return 'hide';
+                        }
 
-                    return this.parent.getPrimaryButtonClasses('finish');
-                },
-                onClick: function(e) {
-                    this.triggerMethod('click:finish');
-                }
-            },{
-                icon: 'fa fa-long-arrow-right',
-                label: 'Next',
-                className: function() {
-                    if(this.parent.getCurrentStep() == this.parent.getTotalSteps()) {
-                        return 'hide';
+                        return this.parent.getPrimaryButtonClasses('finish');
+                    },
+                    onClick: function(e) {
+                        this.triggerMethod('click:finish');
                     }
+                },{
+                    icon: 'fa fa-long-arrow-right',
+                    label: 'Next',
+                    className: function() {
+                        if(this.parent.getCurrentStep() == this.parent.getTotalSteps()) {
+                            return 'hide';
+                        }
 
-                    return this.parent.getDefaultButtonClasses('next');
-                },
-                onClick: function(e) {
-                    this.triggerMethod('click:next');
-                }
-            }]
+                        return this.parent.getDefaultButtonClasses('next');
+                    },
+                    onClick: function(e) {
+                        this.triggerMethod('click:next');
+                    }
+                }]
+            };
         },
 
         events: {
