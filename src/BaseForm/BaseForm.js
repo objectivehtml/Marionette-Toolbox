@@ -386,13 +386,13 @@
         },
 
         hideActivityIndicator: function() {
-            if(this.indicator) {
-                this.indicator.empty();
+            if(this.getRegion('indicator')) {
+                this.getRegion('indicator').empty();
             }
         },
 
         getErrorsFromResponse: function(response) {
-            return response.responseJSON.errors;
+            return _.isObject(response) && response.responseJSON ? response.responseJSON.errors : {};
         },
 
         getRedirect: function() {

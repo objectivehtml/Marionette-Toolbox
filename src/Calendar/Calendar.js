@@ -324,7 +324,7 @@
         },
 
         hideActivityIndicator: function() {
-            this.indicator.empty();
+            this.getRegion('indicator').empty();
             this.triggerMethod('indicator:hide');
         },
 

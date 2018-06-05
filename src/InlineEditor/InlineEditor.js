@@ -64,11 +64,12 @@
 
             var view = new View(options);
 
+            view.render();
             view.on('blur', function() {
                 t.blur();
             });
 
-            view.$el.on('keypress', function(e) {
+            view.$el.find('input').on('keypress', function(e) {
                 if(e.keyCode === t.getOption('saveKeycode')) {
                     if(t.getOption('allowNull') || !t.getOption('allowNull') && !t.isNull()) {
                         t.blur();
@@ -97,7 +98,7 @@
         },
 
         hideActivityIndicator: function() {
-            this.indicator.empty();
+            this.getRegion('indicator').empty();
         },
 
         isNull: function() {
