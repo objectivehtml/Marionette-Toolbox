@@ -385,11 +385,11 @@
             this.focusOnFirstError();
         },
 
-        hideActivityIndicator: function() {
-            if(this.getRegion('indicator')) {
-                this.getRegion('indicator').empty();
-            }
-        },
+    	hideActivityIndicator: function() {
+    		if(this.indicator) {
+    			this.indicator.empty();
+    		}
+    	},
 
         getErrorsFromResponse: function(response) {
             return _.isObject(response) && response.responseJSON ? response.responseJSON.errors : {};
